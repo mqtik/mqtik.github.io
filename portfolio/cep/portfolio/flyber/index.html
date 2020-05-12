@@ -1,0 +1,2691 @@
+
+<!DOCTYPE html><html class=''>
+<head><meta charset='UTF-8'>
+<title>Flyber - An UI Kit by Matikbird</title>
+<link rel='stylesheet prefetch' href='https://cdn.rawgit.com/haggen/2624063/raw/9f0f72e62145538c32f726793b7303c3e820f3c1/proxima-nova.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.2/jquery.fullPage.min.css'>
+<style class="FLYBER">@charset "UTF-8";
+* {
+  box-sizing: border-box;
+  white-space: nowrap;
+  white-space-collapse: discard;
+}
+
+.scale {
+  animation-name: success;
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+html, body {
+  font-size: 16px;
+  font-family: "Proxima Nova", "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.presentation {
+  visibility: hidden;
+  margin: 0 auto;
+  background: white;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.presentation.visible {
+  visibility: visible;
+}
+.presentation > .popup {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  transition: all 0.7s cubic-bezier(0.845, -0.265, 0.19, 1.28);
+  transform: scale(0);
+}
+.presentation > .popup > .close {
+  position: absolute;
+  right: 10px;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  top: 10px;
+  border-radius: 100px;
+  border: 1px solid #CCC;
+  color: #CCC;
+  transition: all 0.5s;
+}
+.presentation > .popup > .close:hover {
+  background: white;
+  border-color: white;
+  color: black;
+}
+.presentation > .popup > .code {
+  text-align: left;
+  display: inline-block;
+  margin: 80px 0;
+  max-width: 1000px;
+  min-height: 200px;
+  padding: 20px;
+  background: white;
+}
+.presentation > .popup:not(.active) {
+  opacity: 0;
+}
+.presentation > .popup.active {
+  transform: scale(1);
+  opacity: 1;
+}
+.presentation > .menu {
+  position: fixed;
+  z-index: 999;
+  top: 80px;
+  height: 100vh;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  margin-top: 1px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  padding-top: 15px;
+  box-shadow: inset 0px -4px 10px #e6e5e5;
+  border-right: 1px solid #f0eeee;
+  width: 150px;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.presentation > .menu > .menu-item {
+  width: 100%;
+  padding: 5px 22px;
+  font-size: 13px;
+  list-style: none;
+  box-sizing: border-box;
+  transition: color 1s;
+  margin: 0;
+}
+.presentation > .menu > .menu-item a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #999;
+}
+.presentation > .menu > .menu-item.active a {
+  color: #3FD59F;
+}
+.presentation > .menu.mini {
+  opacity: 1;
+}
+@media only screen and (max-width: 500px) {
+  .presentation > .menu.mini {
+    opacity: 0;
+    display: none;
+  }
+}
+.presentation > .header.presentation-header {
+  top: 0;
+  z-index: 999;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  line-height: 120px;
+  transition: all 0.5s;
+  position: fixed;
+  background: #fcfcfc;
+  vertical-align: middle;
+}
+.presentation > .header.presentation-header > .content {
+  position: relative;
+}
+.presentation > .header.presentation-header > .content > * {
+  vertical-align: top;
+}
+.presentation > .header.presentation-header > .content > .logo {
+  width: 150px;
+  transition: width 0.5s;
+  text-align: center;
+  display: inline-block;
+}
+.presentation > .header.presentation-header > .content > .logo > img {
+  height: 50px;
+  transition: height 0.5s;
+  display: inline-block;
+  vertical-align: middle;
+}
+.presentation > .header.presentation-header > .content > .text {
+  color: black;
+  display: inline-block;
+  padding: 0px 20px;
+  font-size: 28px;
+  transition: font-size 0.5s;
+}
+.presentation > .header.presentation-header.mini {
+  height: 80px;
+  line-height: 80px;
+}
+.presentation > .header.presentation-header.mini > .content {
+  border-bottom: 1px solid #f0eeee;
+}
+.presentation > .header.presentation-header.mini > .content > .logo {
+  width: 150px;
+  text-align: center;
+}
+.presentation > .header.presentation-header.mini > .content > .logo > img {
+  height: 40px;
+}
+.presentation > .header.presentation-header.mini > .content > .text {
+  font-size: 15px;
+}
+.presentation > .fullpage .welcome > .fp-tableCell {
+  position: relative;
+  height: 300px;
+  line-height: 300px;
+  margin-top: 120px;
+  color: white;
+  text-align: center;
+}
+.presentation > .fullpage .welcome > .fp-tableCell > .body {
+  margin-top: 300px;
+  text-align: center;
+  padding: 100px;
+}
+.presentation > .fullpage .welcome > .fp-tableCell > .cover {
+  width: 100%;
+  height: 300px;
+  padding: 10px;
+  position: absolute;
+  top: 120px;
+  left: 0;
+}
+.presentation > .fullpage .welcome > .fp-tableCell > .cover.v1 {
+  z-index: 1;
+  background-size: cover;
+  background-image: url(https://wallpapercave.com/wp/2u5OrmL.png);
+}
+.presentation > .fullpage .welcome > .fp-tableCell > .cover.v2 {
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.presentation > .fullpage .welcome > .fp-tableCell > .cover.v3 {
+  z-index: 3;
+}
+.presentation > .fullpage .welcome > .fp-tableCell > .cover.v3 .title {
+  z-index: 3;
+  line-height: normal;
+  width: 900px;
+  display: inline-block;
+  text-align: left;
+}
+.presentation > .fullpage .welcome > .fp-tableCell > .cover.v3 .title > * {
+  font-weight: 100;
+  margin: 0;
+}
+.presentation > .fullpage .welcome > .fp-tableCell > .cover.v3 .title > h2 {
+  color: #CCC;
+}
+.presentation > .footer {
+  height: 400px;
+  background: #f9f7f7;
+}
+
+.section {
+  background: white;
+}
+.section .bg {
+  position: absolute;
+  color: #faf8f8;
+  font-size: 150px;
+  font-weight: bold;
+  top: 100px;
+  right: -50px;
+}
+.section.dark {
+  background: #7d7d7d;
+}
+.section.control {
+  padding-left: 150px;
+}
+@media only screen and (max-width: 500px) {
+  .section.control {
+    padding-left: 0;
+  }
+}
+
+.demo {
+  height: 100vh;
+  vertical-align: top;
+  position: relative;
+  min-height: 235px;
+  width: 100%;
+  text-align: center;
+  line-height: 100vh;
+  vertical-align: middle;
+}
+.demo.small {
+  display: inline-block;
+  width: 50%;
+}
+@media only screen and (max-width: 500px) {
+  .demo.small {
+    width: 100%;
+    height: 50vh;
+    line-height: 50vh;
+    display: block;
+  }
+  .demo.small .box {
+    padding-top: 20%;
+  }
+}
+.demo.gray {
+  background: #fafafa;
+}
+.demo > * {
+  line-height: normal;
+}
+.demo > .box {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: left;
+  width: 90%;
+}
+.demo > .box.center {
+  text-align: center;
+}
+.demo > .box.small {
+  width: 200px;
+}
+.demo > .code {
+  position: absolute;
+  right: 7px;
+  cursor: pointer;
+  top: 136px;
+  font-size: 20px;
+  color: #CCC;
+  line-height: 2;
+  font-family: "Material-Design-Iconic-Font";
+  content: "";
+  letter-spacing: 1em;
+  z-index: 1;
+}
+@media only screen and (max-width: 500px) {
+  .demo > .code {
+    top: 86px;
+  }
+}
+.demo > .title {
+  text-transform: uppercase;
+  position: absolute;
+  text-align: left;
+  line-height: normal;
+  margin-top: 100px;
+  color: #CCC;
+  top: 0px;
+  left: 50px;
+  padding: 40px 0;
+  font-size: 17px;
+}
+@media only screen and (max-width: 500px) {
+  .demo > .title {
+    margin-top: 50px;
+    left: 25px;
+  }
+}
+
+.button.default {
+  padding: 0;
+  border-radius: 100px;
+  height: 40px;
+  display: inline-block;
+  line-height: 40px;
+  min-width: 235px;
+  font-size: 1rem;
+  border: 1px solid #3FD59F;
+  color: #3FD59F;
+  background: white;
+  transition: background 0.5s, border-color 0.5s;
+  overflow: hidden;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button.default:hover {
+  background: rgba(63, 213, 159, 0.2);
+}
+.button.accent {
+  padding: 0;
+  border-radius: 100px;
+  height: 40px;
+  display: inline-block;
+  line-height: 40px;
+  min-width: 235px;
+  font-size: 1rem;
+  background: #3FD59F;
+  color: white;
+  border: 1px solid #3FD59F;
+  transition: background 0.5s, border-color 0.5s;
+  overflow: hidden;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button.accent:hover {
+  background: #17ad77;
+  border-color: #17ad77;
+}
+.button:disabled {
+  opacity: 0.5s;
+}
+
+.button-group {
+  padding: 0;
+  border-radius: 100px;
+  height: 40px;
+  display: inline-block;
+  line-height: 40px;
+  min-width: 235px;
+  font-size: 1rem;
+  transition: background 0.5s, border-color 0.5s;
+  min-width: 235px;
+}
+.button-group > .button {
+  vertical-align: top;
+  min-width: 100px;
+}
+.button-group > .button:first-child {
+  border-radius: 100px 0 0 100px;
+}
+.button-group > .button:last-child {
+  border-radius: 0 100px 100px 0;
+  margin-left: -5px;
+}
+.button-group > .button.small {
+  min-width: 50px;
+}
+.button-group > .button.large {
+  min-width: 150px;
+}
+.button-group > .button i {
+  font-size: 20px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.list {
+  display: inline-block;
+  max-width: 235px;
+  width: 235px;
+}
+.list > .header {
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid #ece8e8;
+  margin-bottom: 20px;
+}
+.list > ul {
+  padding: 0;
+  margin: 0;
+}
+.list > ul > li {
+  list-style: none;
+  padding: 5px 0;
+  color: gray;
+  margin: 0;
+  cursor: pointer;
+}
+.list > ul > li:hover {
+  color: #3FD59F;
+}
+.list > ul > li > * {
+  display: inline-block;
+  width: 50%;
+}
+.list > ul > li > *.text {
+  text-align: left;
+}
+.list > ul > li > *.stat {
+  text-align: right;
+  color: #ece8e8;
+}
+
+.tabs {
+  width: 100%;
+  line-height: 40px;
+  height: 40px;
+}
+.tabs > .tab {
+  text-transform: uppercase;
+  color: #b1aeae;
+  display: inline-block;
+  margin-right: 15px;
+  border-bottom: 3px solid transparent;
+  min-width: 150px;
+  vertical-align: middle;
+  position: relative;
+}
+.tabs > .tab:hover {
+  color: gray;
+}
+.tabs > .tab.dropdown:after {
+  position: absolute;
+  content: "▼";
+  right: 5px;
+  font-size: 10px;
+  top: 1px;
+}
+.dark .tabs > .tab {
+  color: white;
+}
+.dark .tabs > .tab:hover {
+  color: #CCC;
+}
+.tabs > .tab.active {
+  border-color: #3FD59F;
+  color: gray;
+}
+.tabs > .tab:not(.active) {
+  cursor: pointer;
+}
+
+.table {
+  display: table;
+  width: 100%;
+  border: 1px solid #ece8e8;
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px #eeecec;
+}
+.dark .table {
+  box-shadow: none;
+}
+.table > .row {
+  display: table-row;
+}
+@media only screen and (max-width: 500px) {
+  .table > .row {
+    display: block;
+  }
+}
+.table > .row:not(.head) {
+  line-height: 75px;
+  height: 75px;
+}
+@media only screen and (max-width: 500px) {
+  .table > .row:not(.head) {
+    height: auto;
+    line-height: normal;
+  }
+}
+.table > .row:not(.head):hover {
+  background: rgba(236, 232, 232, 0.2);
+}
+.table > .row.head, .table > .row.foot {
+  line-height: 50px;
+  height: 50px;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #565353;
+}
+.table > .row.head.head, .table > .row.foot.head {
+  box-shadow: inset 0px -3px 0px #fcf9f9;
+}
+.table > .row > .cell {
+  border-bottom: 1px solid #ece8e8;
+  color: gray;
+  vertical-align: middle;
+  min-width: 150px;
+  display: table-cell;
+  background: white;
+  text-align: center;
+}
+@media only screen and (max-width: 500px) {
+  .table > .row > .cell {
+    display: block;
+    width: 100%;
+    height: 100px;
+    vertical-align: middle;
+    line-height: 100px;
+  }
+}
+.table > .row > .cell.bold {
+  background: #faf9f9;
+}
+.table > .row > .cell > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.table > .row > .cell > .icon {
+  color: #3FD59F;
+  margin-right: 3px;
+}
+.table > .row > .cell > img {
+  max-width: 30px;
+  margin-right: 10px;
+  max-height: 30px;
+  border-radius: 100px;
+}
+
+.users > .user {
+  border: 1px solid #ece8e8;
+  border-radius: 10px;
+  margin: 10px;
+  width: 235px;
+  display: inline-block;
+  text-align: center;
+  box-shadow: 0px 0px 4px #eeecec;
+}
+.dark .users > .user {
+  box-shadow: none;
+}
+.users > .user > .face {
+  height: 150px;
+  line-height: 150px;
+}
+.users > .user > .face img {
+  vertical-align: middle;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+}
+.users > .user > .info {
+  height: 70px;
+}
+.users > .user > .info > .position {
+  color: #CCC;
+  font-size: 13px;
+}
+.users > .user > .buttons > .button {
+  border-top: 1px solid #ece8e8;
+  display: inline-block;
+  height: 35px;
+  line-height: 35px;
+  color: #3FD59F;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: all 0.5s;
+}
+.users > .user > .buttons > .button:first-child {
+  width: 116.5px;
+  border-right: 1px solid #ece8e8;
+}
+.users > .user > .buttons > .button:last-child {
+  width: 117.5px;
+}
+.users > .user > .buttons > .button:hover {
+  background-color: #ece8e8;
+  color: gray;
+}
+
+.products {
+  column-gap: 10px;
+}
+.products > .product {
+  column-break-inside: avoid;
+  background-color: white;
+  margin: 10px;
+  cursor: pointer;
+  border: 1px solid #ece8e8;
+  border-radius: 5px;
+  display: inline-block;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0px 0px 4px #eeecec;
+}
+.dark .products > .product {
+  box-shadow: none;
+}
+.products > .product > .image {
+  overflow: hidden;
+  height: 140px;
+}
+.products > .product > .image > img {
+  height: auto;
+  width: 240px;
+  transition: all 0.2s ease-in-out;
+}
+.products > .product:hover img {
+  transform: scale(1.3);
+}
+.products > .product > .info {
+  padding: 10px;
+  text-align: left;
+  position: relative;
+}
+.products > .product > .info .description {
+  color: #CCC;
+  font-size: 13px;
+}
+.products > .product > .info .price {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #3FD59F;
+}
+
+.form.comp {
+  text-align: center;
+  margin: 0 auto;
+  width: 350px;
+  overflow: hidden;
+  border: 1px solid #ece8e8;
+  padding: 0;
+  border-radius: 3px;
+  padding: 60px 20px;
+  position: relative;
+  background: white;
+}
+.form.comp.wide {
+  width: 550px;
+}
+.form.comp > .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #f0efef;
+  border-bottom: 1px solid #d7d6d6;
+  height: 40px;
+  line-height: 40px;
+  display: inline-block;
+  margin-bottom: 20px;
+  width: 100%;
+  color: gray;
+}
+.form.comp > .input-container {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.form.comp > .input-container > input, .form.comp > .input-container > textarea {
+  border: 0;
+  text-align: center;
+  border-bottom: 1px solid #ece8e8;
+  outline: none;
+  display: block;
+  font-size: 16px;
+  height: 20px;
+  width: 100%;
+}
+.form.comp > .input-container > input:-moz-placeholder, .form.comp > .input-container > textarea:-moz-placeholder {
+  font-weight: 300;
+  color: #CCC;
+}
+.form.comp > .input-container > input::-moz-placeholder, .form.comp > .input-container > textarea::-moz-placeholder {
+  font-weight: 300;
+  color: #CCC;
+}
+.form.comp > .input-container > input:-ms-input-placeholder, .form.comp > .input-container > textarea:-ms-input-placeholder {
+  font-weight: 300;
+  color: #CCC;
+}
+.form.comp > .input-container > input::-webkit-input-placeholder, .form.comp > .input-container > textarea::-webkit-input-placeholder {
+  font-weight: 300;
+  color: #CCC;
+}
+.form.comp > .input-container > textarea {
+  height: 150px;
+  border: 1px solid #ece8e8;
+}
+.form.comp > .input-container > .errors {
+  text-align: left;
+  min-height: 30px;
+}
+
+.dropdown {
+  position: relative;
+  top: 5px;
+  max-width: 235px;
+  margin: 0 auto;
+}
+.dropdown > .dropdown-menu {
+  position: absolute;
+  width: 100%;
+  min-height: 160px;
+  z-index: 9;
+  margin-top: 5px;
+}
+.dropdown > .dropdown-menu:not(.active) {
+  visibility: hidden;
+}
+.dropdown > .dropdown-menu a {
+  cursor: pointer;
+  font-size: 14px;
+  position: relative;
+  display: block;
+  background: white;
+  height: 40px;
+  border-bottom: 1px solid #f1efef;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  color: #000000;
+  color: rgba(0, 0, 0, 0.4);
+  line-height: 40px;
+  box-shadow: 0px 0px 4px #eeecec;
+}
+.dark .dropdown > .dropdown-menu a {
+  box-shadow: none;
+}
+.dropdown > .dropdown-menu a:nth-child(1) {
+  margin-top: 15px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.dropdown > .dropdown-menu a:nth-child(1):before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 48%;
+  top: -9px;
+  margin-left: 0%;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 9px solid white;
+}
+.dropdown > .dropdown-menu a:nth-child(1):hover:before {
+  border-bottom-color: #ece8e8;
+}
+.dropdown > .dropdown-menu a:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.dropdown > .dropdown-menu a:hover {
+  background: #ece8e8;
+}
+.dropdown > .dropdown-menu a.active {
+  background: #3FD59F;
+  color: white;
+}
+.dropdown > .dropdown-menu a.active:nth-child(1):before {
+  border-bottom-color: #3FD59F;
+}
+.dropdown > .dropdown-menu a.active:hover {
+  background: #3FD59F;
+}
+
+.switch {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 10px;
+  margin: 0;
+  outline: none;
+}
+@keyframes switch-on-transform {
+  0% {
+    transform: translate(0) scaleX(1);
+  }
+  25% {
+    transform: translate(0) scaleX(1.33);
+  }
+  100% {
+    transform: translate(100%) scaleX(1);
+  }
+}
+@keyframes switch-off-transform {
+  0% {
+    transform: translate(100%) scaleX(1);
+  }
+  25% {
+    transform: translate(100%) scaleX(1.33);
+  }
+  100% {
+    transform: translate(0) scaleX(1);
+  }
+}
+.switch > input[type="checkbox"] {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  position: relative;
+  display: inline-block;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  height: 2em;
+  width: 4em;
+  font-size: 2em;
+  border-radius: 1.5em;
+  background-color: #ece8e8;
+  border-color: transparent;
+  background-clip: padding-box;
+  color: #ece8e8;
+  vertical-align: middle;
+  transition: all 0.25s linear 0.25s;
+}
+.switch > input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 50%;
+  background-color: white;
+  border-radius: 100%;
+  border: 0.125em solid transparent;
+  background-clip: padding-box;
+  z-index: 2;
+  transform-origin: right center;
+  animation: switch-off-transform 0.25s ease-out forwards;
+}
+.switch > input[type="checkbox"]::after {
+  position: absolute;
+  left: 0.675em;
+  top: 0;
+  line-height: 2;
+  font-family: "Material-Design-Iconic-Font";
+  content: "";
+  letter-spacing: 1em;
+  z-index: 1;
+}
+.switch:focus {
+  color: white;
+  border-color: transparent;
+  background-color: #ece8e8;
+  outline: none;
+}
+.switch > input[type="checkbox"]:checked {
+  color: white;
+  background-color: #3FD59F;
+  border-color: transparent;
+}
+.switch > input[type="checkbox"]:checked::before {
+  transform-origin: left center;
+  animation: switch-on-transform 0.25s ease-out forwards;
+}
+
+.radio input[type="radio"]:not(:checked), .radio input[type="radio"]:checked {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+}
+.radio input[type="radio"]:not(:checked) + label, .radio input[type="radio"]:checked + label {
+  position: relative;
+  padding-left: 45px;
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  font-size: 1rem;
+  -webkit-transition: 0.28s ease;
+  transition: 0.28s ease;
+  -khtml-user-select: none;
+  /* webkit (konqueror) browsers */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.radio input[type="radio"] + label:before, .radio input[type="radio"] + label:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 4px;
+  width: 30px;
+  height: 30px;
+  z-index: 0;
+  -webkit-transition: 0.28s ease;
+  transition: 0.28s ease;
+}
+.radio input[type="radio"]:not(:checked) + label:before, .radio input[type="radio"]:not(:checked) + label:after {
+  border-radius: 50%;
+}
+.radio input[type="radio"]:checked + label:before, .radio input[type="radio"]:checked + label:after {
+  border-radius: 50%;
+}
+.radio input[type="radio"].with-gap:checked + label:before, .radio input[type="radio"].with-gap:checked + label:after {
+  border-radius: 50%;
+}
+.radio input[type="radio"]:not(:checked) + label:before {
+  border: 2px solid #3FD59F;
+}
+.radio input[type="radio"]:not(:checked) + label:after {
+  border: 2px solid #3FD59F;
+  z-index: -1;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+}
+.radio input[type="radio"]:checked + label:before {
+  border: 2px solid transparent;
+}
+.radio input[type="radio"]:checked + label:after {
+  border: 2px solid #3FD59F;
+}
+.radio input[type="radio"]:disabled + label {
+  color: #ece8e8;
+}
+.radio input[type="radio"]:disabled + label:before {
+  border: 2px solid #ece8e8;
+}
+.radio input[type="radio"]:disabled + label:after {
+  border: 2px solid #3FD59F;
+}
+.radio input[type="radio"].with-gap:checked + label:before, .radio input[type="radio"].with-gap:checked + label:after {
+  border: 2px solid #3FD59F;
+}
+.radio input[type="radio"]:checked + label:after, .radio input[type="radio"].with-gap:checked + label:after {
+  background-color: #3FD59F;
+  z-index: 0;
+}
+.radio input[type="radio"]:checked + label:after {
+  -webkit-transform: scale(1.02);
+  -ms-transform: scale(1.02);
+  transform: scale(1.02);
+}
+.radio input[type="radio"].with-gap:checked + label:after {
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+}
+.radio input[type="radio"].with-gap:disabled:checked + label:before {
+  border: 2px solid rgba(0, 0, 0, 0.26);
+}
+.radio input[type="radio"].with-gap:disabled:checked + label:after {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.26);
+}
+
+.chat {
+  width: 100%;
+  display: table;
+  overflow: hidden;
+}
+.chat:before {
+  content: " ";
+  display: block;
+}
+.chat .chat-content {
+  background-color: #fff;
+}
+.chat .chat-image {
+  float: left;
+  border-radius: 50%;
+}
+.chat .chat-image.chat-image-default {
+  width: 60px;
+  height: 60px;
+}
+.chat .chat-message {
+  margin-bottom: 20px;
+  width: 100%;
+  display: table;
+  overflow: hidden;
+}
+.chat .chat-message:before {
+  content: " ";
+  display: block;
+}
+.chat .chat-message:last-of-type {
+  margin-bottom: 0;
+}
+.chat .chat-message .chat-message-wrapper {
+  max-width: 70%;
+  display: table;
+  margin: 0 20px;
+  padding-top: 10px;
+  position: relative;
+}
+.chat .chat-message .chat-message-wrapper:before {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border: 12px solid transparent;
+  top: 20px;
+  position: absolute;
+  z-index: 2;
+}
+.chat .chat-message .chat-message-wrapper p {
+  padding: 10px 20px;
+  color: #fff;
+  border-top: 1px solid;
+  margin: 0;
+}
+.chat .chat-message .chat-message-wrapper p:first-of-type {
+  border-top: 0 !important;
+}
+.chat .chat-message.chat-message-recipient .chat-message-wrapper,
+.chat .chat-message.chat-message-recipient .chat-message-content {
+  float: left;
+}
+.chat .chat-message.chat-message-recipient .chat-message-wrapper:before {
+  left: -20px;
+  border-right-color: #91D98A;
+}
+.chat .chat-message.chat-message-recipient p {
+  background-color: #91D98A;
+  border-top-color: #7dc576;
+}
+.chat .chat-message.chat-message-sender .chat-message-wrapper,
+.chat .chat-message.chat-message-sender .chat-message-content {
+  float: right;
+}
+.chat .chat-message.chat-message-sender .chat-message-wrapper:before {
+  right: -20px;
+  border-left-color: #8AC0D9;
+}
+.chat .chat-message.chat-message-sender p {
+  background: #8AC0D9;
+  border-top-color: #76acc5;
+}
+.chat .chat-message.chat-message-sender img {
+  float: right;
+}
+.chat .chat-message .chat-message-content {
+  display: table;
+  overflow: hidden;
+  border-radius: 4px;
+  border-radius: 5px;
+}
+.chat .chat-message .chat-message-content:before {
+  content: " ";
+  display: block;
+}
+.chat .chat-message .chat-details {
+  clear: both;
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+}
+.chat .chat-message .chat-details span {
+  margin-right: 4px;
+  color: #bbb;
+}
+
+@-moz-keyframes dothabottomcheck {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 20px;
+  }
+}
+@-webkit-keyframes dothabottomcheck {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 20px;
+  }
+}
+@keyframes dothabottomcheck {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 20px;
+  }
+}
+@keyframes dothatopcheck {
+  0% {
+    height: 0;
+  }
+  50% {
+    height: 0;
+  }
+  100% {
+    height: 48px;
+  }
+}
+@-webkit-keyframes dothatopcheck {
+  0% {
+    height: 0;
+  }
+  50% {
+    height: 0;
+  }
+  100% {
+    height: 48px;
+  }
+}
+@-moz-keyframes dothatopcheck {
+  0% {
+    height: 0;
+  }
+  50% {
+    height: 0;
+  }
+  100% {
+    height: 48px;
+  }
+}
+.checkbox input[type=checkbox] {
+  display: none;
+}
+.checkbox label.text {
+  line-height: 40px;
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 16px;
+}
+.checkbox label.graphics {
+  height: 40px;
+  width: 40px;
+  background-color: transparent;
+  border: 4px solid #3FD59F;
+  border-radius: 5px;
+  position: relative;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-transition: border-color ease 0.2s;
+  -o-transition: border-color ease 0.2s;
+  -webkit-transition: border-color ease 0.2s;
+  transition: border-color ease 0.2s;
+  cursor: pointer;
+}
+.checkbox label.graphics::before, .checkbox label.graphics::after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  height: 0;
+  width: 8px;
+  background-color: #3FD59F;
+  display: inline-block;
+  -moz-transform-origin: left top;
+  -ms-transform-origin: left top;
+  -o-transform-origin: left top;
+  -webkit-transform-origin: left top;
+  transform-origin: left top;
+  border-radius: 5px;
+  content: " ";
+  -webkit-transition: opacity ease 0.5;
+  -moz-transition: opacity ease 0.5;
+  transition: opacity ease 0.5;
+}
+.checkbox label.graphics::before {
+  top: 28.8px;
+  left: 16.4px;
+  box-shadow: 0 0 0 2px white;
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+.checkbox label.graphics::after {
+  top: 14.8px;
+  left: 2px;
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.checkbox input[type=checkbox]:checked + .graphics,
+.checkbox .graphics.checked {
+  border-color: #3FD59F;
+}
+.checkbox input[type=checkbox]:checked + .graphics::after,
+.checkbox .graphics.checked::after {
+  height: 20px;
+  -moz-animation: dothabottomcheck 0.2s ease 0s forwards;
+  -o-animation: dothabottomcheck 0.2s ease 0s forwards;
+  -webkit-animation: dothabottomcheck 0.2s ease 0s forwards;
+  animation: dothabottomcheck 0.2s ease 0s forwards;
+}
+.checkbox input[type=checkbox]:checked + .graphics::before,
+.checkbox .graphics.checked::before {
+  height: 48px;
+  -moz-animation: dothatopcheck 0.4s ease 0s forwards;
+  -o-animation: dothatopcheck 0.4s ease 0s forwards;
+  -webkit-animation: dothatopcheck 0.4s ease 0s forwards;
+  animation: dothatopcheck 0.4s ease 0s forwards;
+}
+.checkbox input[type=checkbox]:disabled + .graphics {
+  border-color: #ece8e8;
+}
+.checkbox input[type=checkbox]:disabled + .text {
+  color: #ece8e8;
+}
+
+.loading {
+  display: inline-block;
+}
+.loading > .loading-content {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+.loading > .loading-content > .loading-circle {
+  top: 0;
+  width: 60px;
+  height: 30px;
+  position: absolute;
+  border: 1px solid #3FD59F;
+  border-bottom: 0;
+  transform-origin: 50% 100%;
+  background-color: transparent;
+  border-top-left-radius: 110px;
+  border-top-right-radius: 110px;
+  -ms-transform-origin: 50% 100%;
+  -webkit-transform-origin: 50% 100%;
+  animation: loading 1.5s linear infinite;
+  -webkit-animation: loading 1.5s linear infinite;
+}
+@-webkit-keyframes loading {
+  from {
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes loading {
+  from {
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.search-container .search-box {
+  -webkit-transition: width 0.6s, border-radius 0.6s, background 0.6s, box-shadow 0.6s;
+  transition: width 0.6s, border-radius 0.6s, background 0.6s, box-shadow 0.6s;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background: #ebebeb;
+}
+.search-container .search-box + label .search-icon {
+  color: #959191;
+}
+.search-container .search-box:hover {
+  color: white;
+  background: #c8c8c8;
+  box-shadow: 0 0 0 5px #3FD59F;
+}
+.search-container .search-box:hover + label .search-icon {
+  color: white;
+}
+.search-container .search-box:focus {
+  -webkit-transition: width 0.6s cubic-bezier(0, 1.22, 0.66, 1.39), border-radius 0.6s, background 0.6s;
+  transition: width 0.6s cubic-bezier(0, 1.22, 0.66, 1.39), border-radius 0.6s, background 0.6s;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding-left: 15px;
+  cursor: text;
+  width: 300px;
+  border-radius: auto;
+  background: #ebebeb;
+  color: black;
+}
+.search-container .search-box:focus + label .search-icon {
+  color: #959191;
+}
+.search-container .search-box:not(:focus) {
+  text-indent: -5000px;
+}
+.search-container #search-submit {
+  position: relative;
+  left: -5000px;
+}
+.search-container .search-icon {
+  position: relative;
+  left: -29px;
+  top: 3px;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+@keyframes load {
+  0% {
+    stroke-dashoffset: 0;
+  }
+}
+.progress {
+  position: relative;
+  display: inline-block;
+  padding: 0;
+  text-align: center;
+}
+.progress > li {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  color: #93A2AC;
+  font-weight: 100;
+  margin: 2rem;
+}
+.progress > li:before {
+  content: attr(data-name);
+  position: absolute;
+  width: 100%;
+  bottom: -2rem;
+  font-weight: 400;
+}
+.progress > li:after {
+  content: attr(data-percent);
+  position: absolute;
+  width: 100%;
+  top: 3.7rem;
+  left: 0;
+  font-size: 2rem;
+  text-align: center;
+}
+.progress svg {
+  width: 10rem;
+  height: 10rem;
+}
+.progress svg:nth-child(2) {
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+.progress svg:nth-child(2) path {
+  fill: none;
+  stroke-width: 25;
+  stroke-dasharray: 629;
+  stroke: #fff;
+  opacity: 0.9;
+  -webkit-animation: load 10s;
+  animation: load 10s;
+}
+
+.calendar-container {
+  display: inline-block;
+  /* ---------- CALENDAR ---------- */
+}
+.calendar-container a {
+  text-decoration: none;
+}
+.calendar-container h2 {
+  font-size: 2em;
+  line-height: 1.25em;
+  margin: 0.25em 0;
+}
+.calendar-container h3 {
+  font-size: 1.5em;
+  line-height: 1em;
+  margin: 0.33em 0;
+}
+.calendar-container table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.calendar-container > .calendar {
+  text-align: center;
+}
+.calendar-container > .calendar header {
+  position: relative;
+}
+.calendar-container > .calendar h2 {
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 100;
+}
+.calendar-container > .calendar thead {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.calendar-container > .calendar tbody {
+  color: #7c8a95;
+}
+.calendar-container > .calendar tbody td:hover {
+  border: 2px solid #3FD59F;
+}
+.calendar-container > .calendar td {
+  border: 2px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  width: 40px;
+}
+.calendar-container > .calendar .prev-month, .calendar-container > .calendar .next-month {
+  color: #cbd1d2;
+}
+.calendar-container > .calendar .prev-month:hover, .calendar-container > .calendar .next-month:hover {
+  border: 2px solid #3FD59F;
+}
+.calendar-container .current-day {
+  background: #3FD59F;
+  color: #f9f9f9;
+}
+.calendar-container .event {
+  cursor: pointer;
+  position: relative;
+}
+.calendar-container .event:after {
+  background: #3FD59F;
+  border-radius: 50%;
+  bottom: 4px;
+  display: block;
+  content: "";
+  height: 0.5em;
+  left: 50%;
+  margin: -0.25em 0 0 -0.25em;
+  position: absolute;
+  width: 0.5em;
+}
+.calendar-container .event.current-day:after {
+  background: #f9f9f9;
+}
+.calendar-container .btn-prev, .calendar-container .btn-next {
+  border-radius: 50%;
+  color: #cbd1d2;
+  height: 2em;
+  font-size: 1.5em;
+  line-height: 2em;
+  margin: -1em;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: 2em;
+}
+.calendar-container .btn-prev:hover, .calendar-container .btn-next:hover {
+  background: #cbd1d2;
+  color: #f9f9f9;
+}
+.calendar-container .btn-prev {
+  left: 3em;
+}
+.calendar-container .btn-next {
+  right: 3em;
+}
+
+.grid {
+  margin: 0;
+  padding: 0;
+  display: -webkit-flex;
+  display: flex;
+  list-style: none;
+}
+.grid .grid-cell {
+  margin: 5px;
+  padding: 0px;
+  border-radius: 5px;
+  line-height: 1;
+  color: #fff;
+  background: #3FD59F;
+  flex: 1;
+}
+.grid .grid-cell.twice {
+  flex: 2;
+}
+.grid .grid-cell p {
+  display: block;
+  margin: 0;
+  padding: 20px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.info.comp {
+  display: inline-block;
+}
+.info.comp .title {
+  color: #3FD59F;
+  font-size: 30px;
+}
+
+.questionnaire {
+  width: 600px;
+  margin: 2em auto;
+  overflow: hidden;
+  background: white;
+  border-radius: 5px;
+}
+@media only screen and (max-width: 600px) {
+  .questionnaire {
+    border-radius: 0px;
+    width: 100%;
+  }
+}
+.questionnaire .input-container {
+  display: block;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  clear: both;
+  overflow: hidden;
+}
+.questionnaire header {
+  height: 75px;
+  background: rgba(0, 0, 0, 0.05);
+  line-height: 75px;
+  padding-left: 20px;
+  border-radius: 5px 5px 0 0;
+  margin: 0;
+}
+.questionnaire header h1 {
+  margin: 0;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  color: rgba(51, 51, 51, 0.4);
+}
+.questionnaire input, .questionnaire textarea {
+  height: 50px;
+  resize: off;
+  width: 100%;
+  line-height: 50px;
+  padding: 0 0 0 20px;
+  border-top: 0;
+  border-right: 0;
+  font-size: 14px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.questionnaire input:-moz-placeholder, .questionnaire textarea:-moz-placeholder {
+  font-weight: 300;
+  color: #CCC;
+}
+.questionnaire input::-moz-placeholder, .questionnaire textarea::-moz-placeholder {
+  font-weight: 300;
+  color: #CCC;
+}
+.questionnaire input:-ms-input-placeholder, .questionnaire textarea:-ms-input-placeholder {
+  font-weight: 300;
+  color: #CCC;
+}
+.questionnaire input::-webkit-input-placeholder, .questionnaire textarea::-webkit-input-placeholder {
+  font-weight: 300;
+  color: #CCC;
+}
+.questionnaire input:focus, .questionnaire textarea:focus {
+  outline: none;
+  color: rgba(51, 51, 51, 0.7);
+}
+.questionnaire textarea {
+  height: 200px;
+}
+.questionnaire footer {
+  padding: 10px;
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+  background: rgba(0, 0, 0, 0.05);
+  line-height: 75px;
+  padding-left: 20px;
+  border-radius: 5px 5px 0 0;
+  border-radius: 0 0 5px 5px;
+  padding-left: 0;
+  padding-right: 20px;
+}
+.questionnaire footer > * {
+  line-height: normal;
+}
+
+.list-view {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  margin: 0 auto;
+}
+.list-view .list__item {
+  display: block;
+  border: 1px solid #eee;
+  background-color: #FFFFFF;
+  color: #323438;
+  margin: 0 auto;
+  border-radius: 6px;
+  margin-bottom: 0.485em;
+  overflow: hidden;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+.list-view .media {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.list-view .media__image,
+.list-view .media__bd {
+  display: table-cell;
+  vertical-align: middle;
+}
+.list-view .media__image > img {
+  display: block;
+  max-width: none;
+}
+.list-view .media--user .image__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.list-view .media--user .media__image {
+  position: relative;
+  width: 24px;
+  overflow: hidden;
+}
+.list-view .media--user .media__bd {
+  padding-left: 1em;
+}
+.list-view .img--avatar {
+  margin-left: -75%;
+  width: 64px;
+}
+.list-view .media__bd {
+  width: 100%;
+}
+.list-view .user .actions {
+  transition: transform 280ms cubic-bezier(0.05, 0.15, 0.1, 1);
+  transform: translateX(100%);
+}
+.list-view .user:hover .actions {
+  transform: translateX(0);
+}
+.list-view .user p {
+  margin: 0;
+}
+.list-view .user__name {
+  font-weight: 500;
+}
+.list-view .user__description {
+  color: #59646C;
+  font-size: 0.875em;
+}
+.list-view .user__bd {
+  position: relative;
+  padding-right: 2em;
+}
+.list-view .user__bd .actions {
+  position: absolute;
+  display: flex;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  align-items: center;
+}
+.list-view .user__bd .actions .action__item {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding: 0 16px;
+  text-decoration: none;
+  color: #CCC;
+  font-size: 24px;
+}
+.list-view .user__bd .actions .action__item:hover .icon {
+  fill: #007AFF;
+}
+.list-view .icon {
+  transition: fill 280ms cubic-bezier(0, 0.2, 0.25, 1);
+  fill: #A9B7C7;
+}
+.list-view .icon--32 {
+  width: 32px;
+  height: 32px;
+}
+.list-view .status-indicator {
+  position: absolute;
+  top: calc(1em + 2px);
+  left: calc(-.6em + 2px);
+  width: 8px;
+  height: 8px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background-color: black;
+}
+.list-view .status--online .status-indicator {
+  background-color: #44A0FF;
+}
+.list-view .status--online .image__overlay {
+  background-color: rgba(67, 160, 255, 0.6);
+}
+.list-view .status--offline .status-indicator {
+  background-color: #C3CDD6;
+}
+.list-view .status--offline .image__overlay {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.list-view .status--offline .actions {
+  opacity: 0.25;
+  pointer-events: none;
+}
+.list-view .status--away .status-indicator {
+  background-color: #FFD858;
+}
+.list-view .status--away .image__overlay {
+  background-color: rgba(255, 216, 88, 0.6);
+}
+.list-view .status--busy .status-indicator {
+  background-color: #FF9458;
+}
+.list-view .status--busy .image__overlay {
+  background-color: rgba(255, 147, 88, 0.6);
+}
+.list-view .status--pulse::before {
+  position: absolute;
+  top: -0.875em;
+  left: -0.875em;
+  border-radius: 50%;
+  content: "";
+  width: 32px;
+  height: 32px;
+  opacity: 1;
+  transform: scale(0);
+  animation: pulse 2s linear forwards infinite;
+  background: #43a0ff;
+}
+@keyframes pulse {
+  50%, 100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+input[type="range"] {
+  display: inline-block;
+  -webkit-appearance: none;
+  background-color: #bdc3c7;
+  width: 300px;
+  height: 5px;
+  border-radius: 5px;
+  margin: 0 auto;
+  outline: 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: #3FD59F;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid white;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  background-color: white;
+  border: 2px solid #3FD59F;
+}
+input[type="range"]::-webkit-slider-thumb:active {
+  transform: scale(1.6);
+}
+input[type="range"] .description {
+  font-size: 15px;
+  text-transform: uppercase;
+  color: #CCC;
+}
+</style></head><body>
+
+<div class="presentation" ng:app="app" ng:controller="presentation" ng:class="{visible: true}">
+  <div class="header presentation-header">
+    <div class="content">
+      <div class="logo"><img src="https://res.cloudinary.com/nixar-work/image/upload/co_rgb:080101,e_colorize:100/v1471744849/flyber.png"/></div>
+      <div class="text">Flyber UI Kit</div>
+    </div>
+  </div>
+  <ul class="menu"></ul>
+  <div class="popup" ng:class="{active: $root.popupShow == true}">
+    <div class="close" ng:click="$root.popupShow = false"><i class="zmdi zmdi-close"></i></div>
+    <div class="code" hljs="hljs" hljs-source="$root.popup"> </div>
+  </div>
+  <div class="fullpage">
+    <div class="section welcome" data-anchor="Welcome">
+      <div class="cover v1"></div>
+      <div class="cover v2"></div>
+      <div class="cover v3">
+        <div class="title">
+          <h1>Pure CSS UI Components</h1>
+          <h2>buttons, inputs, tables, cards and more</h2>
+        </div>
+      </div>
+      <div class="body">
+        <div class="button default">Get Started</div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Button">
+      <div class="demo small">
+        <div class="title">Button Default</div>
+        <div class="box center">
+          <div class="button default">Default</div>
+        </div>
+      </div>
+      <div class="demo small">
+        <div class="title">Button Accent</div>
+        <div class="box center">
+          <div class="button accent">Accent</div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Button Group">
+      <div class="demo small">
+        <div class="title">Button Group</div>
+        <div class="box center">
+          <div class="button-group">
+            <div class="button default">Default</div>
+            <div class="button accent">Accent</div>
+          </div>
+        </div>
+      </div>
+      <div class="demo small">
+        <div class="title">Button Group (with Icons)</div>
+        <div class="box center">
+          <div class="button-group">
+            <div class="button default small"> <i class="zmdi zmdi-close"></i></div>
+            <div class="button accent large">Publish</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Switch">
+      <div class="demo small">
+        <div class="title">Switch (font-size: 10px)</div>
+        <div class="box center">
+          <div class="switch">
+            <input type="checkbox" checked=""/>
+          </div>
+        </div>
+      </div>
+      <div class="demo small">
+        <div class="title">Switch (font-size: 14px)</div>
+        <div class="box center">
+          <div class="switch" style="font-size: 14px">
+            <input type="checkbox"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Radio">
+      <div class="demo small">
+        <div class="title">Radio</div>
+        <div class="box small">
+          <div class="radio">
+            <input class="with-gap" id="test3" name="group1" type="radio" checked=""/>
+            <label for="test3">Checked</label>
+          </div>
+          <div class="radio">
+            <input class="with-gap" id="test5" name="group1" type="radio"/>
+            <label for="test5">Unchecked</label>
+          </div>
+          <div class="radio">
+            <input class="with-gap" id="test5" name="group1" type="radio" disabled=""/>
+            <label for="test5">Disabled</label>
+          </div>
+        </div>
+      </div>
+      <div class="demo small" data-anchor="Checkbox">
+        <div class="title">Checkbox</div>
+        <div class="box small">
+          <div class="checkbox">
+            <input id="checkbox1" type="checkbox" checked=""/>
+            <label class="graphics" for="checkbox1"></label>
+            <label class="text" for="checkbox1">Checked</label>
+          </div>
+          <div class="checkbox">
+            <input id="checkbox2" type="checkbox"/>
+            <label class="graphics" for="checkbox2"></label>
+            <label class="text" for="checkbox2">Unchecked</label>
+          </div>
+          <div class="checkbox">
+            <input id="checkbox3" type="checkbox" disabled=""/>
+            <label class="graphics" for="checkbox3"></label>
+            <label class="text" for="checkbox3">Disabled</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Range">
+      <div class="demo">
+        <div class="title">Range</div>
+        <div class="box center">
+          <input type="range" min="0" max="10" step="1" value="0"/>
+        </div>
+      </div>
+    </div>
+    <div class="section control dark" data-anchor="Dropdown">
+      <div class="demo">
+        <div class="title">Dropdown</div>
+        <div class="box center">
+          <div class="dropdown">
+            <div class="button accent">Admin Settings</div>
+            <!--i.zmdi.cog.zmdi-settings-->
+            <div class="dropdown-menu active"><a href="#">Edit Users </a><a class="active" href="#">Web Statistics </a><a href="#">Upload Settings </a><a href="#">Edit Slider </a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Info">
+      <div class="demo small">
+        <div class="title">Info</div>
+        <div class="box center">
+          <div class="info comp">
+            <div class="title">Selling</div>
+            <div class="description">status</div>
+          </div>
+        </div>
+      </div>
+      <div class="demo small">
+        <div class="title">Info (Number)</div>
+        <div class="box center">
+          <div class="info comp"> 
+            <div class="title">$200</div>
+            <div class="description">price  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control center" data-anchor="Loading">
+      <div class="demo">
+        <div class="title">Loading</div>
+        <div class="box center">
+          <div class="loading">
+            <div class="loading-content">
+              <div class="loading-circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Search">
+      <div class="demo">
+        <div class="title">Search</div>
+        <div class="box center">
+          <div class="search-container">
+            <input class="search-box demo-click" id="search-box" type="text" name="q"/>
+            <label for="search-box"><i class="zmdi zmdi-search search-icon"></i></label>
+            <input id="search-submit" type="submit"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control dark" data-anchor="Form Panel">
+      <div class="demo">
+        <div class="title">Form Panel</div>
+        <div class="box center">
+          <div class="form comp">
+            <div class="header">Form Window </div>
+            <div class="input-container">
+              <input type="text" placeholder="Email"/>
+              <div class="errors"></div>
+            </div>
+            <div class="input-container">
+              <input type="text" placeholder="First Name"/>
+              <div class="errors"></div>
+            </div>
+            <div class="input-container">
+              <input type="text" placeholder="Password"/>
+              <div class="errors"></div>
+            </div>
+            <div class="button default">Next</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="List">
+      <div class="demo small">
+        <div class="title">List</div>
+        <div class="box center">
+          <div class="list">
+            <div class="header">Header List</div>
+            <ul>
+              <li> 
+                <div class="text">List Item</div>
+                <div class="stat">121</div>
+              </li>
+              <li> 
+                <div class="text">List Item 2</div>
+                <div class="stat">122</div>
+              </li>
+              <li> 
+                <div class="text">List Item 3</div>
+                <div class="stat">1233</div>
+              </li>
+              <li> 
+                <div class="text">List Item 3</div>
+                <div class="stat">123</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="demo small">
+        <div class="title">List (with icons)</div>
+        <div class="box center">
+          <div class="list">
+            <div class="header">Icon List</div>
+            <ul>
+              <li> 
+                <div class="text">View</div>
+                <div class="stat"> <i class="zmdi zmdi-eye"></i></div>
+              </li>
+              <li> 
+                <div class="text">Coffee</div>
+                <div class="stat"> <i class="zmdi zmdi-coffee"></i></div>
+              </li>
+              <li> 
+                <div class="text">Chart</div>
+                <div class="stat"> <i class="zmdi zmdi-chart"></i></div>
+              </li>
+              <li> 
+                <div class="text">Edit</div>
+                <div class="stat"> <i class="zmdi zmdi-edit"></i></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control dark" data-anchor="Questionnaire">
+      <div class="demo">
+        <div class="title">Questionnaire</div>
+        <div class="box center">
+          <div class="questionnaire">
+            <header>
+              <h1>Send us a suggestion!</h1>
+            </header>
+            <div class="input-container">
+              <input class="first" placeholder="First Name" type="text"/>
+              <input class="last" placeholder="Last Name" type="text"/>
+            </div>
+            <div class="input-container">
+              <input class="email" placeholder="E-mail Address" type="text"/>
+            </div>
+            <div class="input-container">
+              <textarea placeholder="Your Suggestions Here!"></textarea>
+            </div>
+            <footer>
+              <button class="button accent">Send Suggestion</button>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Tab">
+      <div class="demo">
+        <div class="title">Tab</div>
+        <div class="box center">
+          <div class="tabs">
+            <div class="tab active">Home</div>
+            <div class="tab">About us</div>
+            <div class="tab">Portfolio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control dark" data-anchor="Tab 2">
+      <div class="demo">
+        <div class="title">Tab (with Dropdown)</div>
+        <div class="box center">
+          <div class="tabs">
+            <div class="tab">Home</div>
+            <div class="tab dropdown active">
+               About us
+              <div class="dropdown-menu active"><a class="active" href="#">Edit Users </a><a href="#">Web Statistics </a><a href="#">Upload Settings </a><a href="#">Edit Slider </a></div>
+            </div>
+            <div class="tab">Portfolio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="List View">
+      <div class="demo">
+        <div class="title">List View</div>
+        <div class="box center">
+          <div class="list-view">
+            <div class="list__item user status--online">
+              <div class="media media--user">
+                <div class="media__image">
+                  <div class="image__overlay"></div><img class="img--avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" alt="user"/>
+                </div>
+                <div class="media__bd user__bd"><i class="status-indicator status--pulse"></i>
+                  <div class="user-info">
+                    <p class="user__name">Fabio Basile</p>
+                    <p class="user__description">Co-founder, Brotherhood</p>
+                  </div>
+                  <div class="actions"><a class="action__item" href="#"><i class="zmdi zmdi-phone"></i></a></div>
+                </div>
+              </div>
+            </div>
+            <div class="list__item user status--away">
+              <div class="media media--user">
+                <div class="media__image">
+                  <div class="image__overlay"></div><img class="img--avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/csswizardry/128.jpg" alt="user"/>
+                </div>
+                <div class="media__bd user__bd"><i class="status-indicator"></i>
+                  <div class="user-info">
+                    <p class="user__name">Harry Roberts</p>
+                    <p class="user__description">Consultant Front-end Architect</p>
+                  </div>
+                  <div class="actions"><a class="action__item" href="#"><i class="zmdi zmdi-phone"></i></a></div>
+                </div>
+              </div>
+            </div>
+            <div class="list__item user status--busy">
+              <div class="media media--user">
+                <div class="media__image">
+                  <div class="image__overlay"></div><img class="img--avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/128.jpg" alt="user"/>
+                </div>
+                <div class="media__bd user__bd"><i class="status-indicator"></i>
+                  <div class="user-info">
+                    <p class="user__name">Eric Hoffmann</p>
+                    <p class="user__description">Founder, JellyJar Co</p>
+                  </div>
+                  <div class="actions"><a class="action__item" href="#"><i class="zmdi zmdi-phone"></i></a></div>
+                </div>
+              </div>
+            </div>
+            <div class="list__item user status--offline">
+              <div class="media media--user">
+                <div class="media__image">
+                  <div class="image__overlay"></div><img class="img--avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/sdw/128.jpg" alt="user"/>
+                </div>
+                <div class="media__bd user__bd"><i class="status-indicator"></i>
+                  <div class="user-info">
+                    <p class="user__name">Sebastiaan de With</p>
+                    <p class="user__description">Co-founder, Pictogram</p>
+                  </div>
+                  <div class="actions"><a class="action__item" href="#"><i class="zmdi zmdi-phone"></i></a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Table">
+      <div class="demo">
+        <div class="title">Table</div>
+        <div class="box center">
+          <div class="table">
+            <div class="row head">
+              <div class="cell">Client</div>
+              <div class="cell">Ranking </div>
+              <div class="cell">Time</div>
+              <div class="cell">Price</div>
+              <div class="cell">Taxes</div>
+              <div class="cell">Paid</div>
+            </div>
+            <div class="row" ng:repeat="row in rows(5)">
+              <div class="cell"> <img ng:src="https://randomuser.me/api/portraits/men/{{$index}}.jpg"/>
+                <div class="text">Mike</div>
+              </div>
+              <div class="cell"> <i class="icon zmdi zmdi-star"></i>
+                <div class="text">8/10</div>
+              </div>
+              <div class="cell"> <i class="icon zmdi zmdi-time"></i>
+                <div class="text">3:50</div>
+              </div>
+              <div class="cell bold">$20</div>
+              <div class="cell">$2</div>
+              <div class="cell bold">$22</div>
+            </div>
+            <div class="row foot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Users">
+      <div class="demo">
+        <div class="title">Users</div>
+        <div class="box center">
+          <div class="users">
+            <div class="user" ng:repeat="row in rows(8)">
+              <div class="face"><img ng:src="https://randomuser.me/api/portraits/men/{{$index}}.jpg"/></div>
+              <div class="info">
+                <div class="name">Andrey</div>
+                <div class="position">Developer</div>
+              </div>
+              <div class="buttons">
+                <div class="button">Info</div>
+                <div class="button">Chat</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Products"> 
+      <div class="demo">
+        <div class="title">Products</div>
+        <div class="box center">
+          <div class="products">
+            <div class="product" ng:repeat="row in rows(8)">
+              <div class="image"><img ng:src="https://lorempixel.com/400/200?random={{$index}}"/></div>
+              <div class="info">
+                <div class="title">Product</div>
+                <div class="description">Description</div>
+                <div class="price">$25</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Calendar"> 
+      <div class="demo">
+        <div class="title">Calendar</div>
+        <div class="box center">
+          <div class="calendar-container">
+            <div class="calendar">
+              <header>
+                <h2>September</h2><i class="btn-prev zmdi zmdi-chevron-left" href="#"></i><i class="btn-next zmdi zmdi-chevron-right" href="#"></i>
+              </header>
+              <table>
+                <thead>
+                  <tr>
+                    <td>Mo</td>
+                    <td>Tu</td>
+                    <td>We</td>
+                    <td>Th</td>
+                    <td>Fr</td>
+                    <td>Sa</td>
+                    <td>Su</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="prev-month">26</td>
+                    <td class="prev-month">27</td>
+                    <td class="prev-month">28</td>
+                    <td class="prev-month">29</td>
+                    <td class="prev-month">30</td>
+                    <td class="prev-month">31</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td class="event">10</td>
+                    <td>11</td>
+                    <td>12</td>
+                    <td>13</td>
+                    <td>14</td>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <td>16</td>
+                    <td>17</td>
+                    <td>18</td>
+                    <td>19</td>
+                    <td>20</td>
+                    <td class="event">21</td>
+                    <td>22</td>
+                  </tr>
+                  <tr>
+                    <td class="current-day event">23</td>
+                    <td>24</td>
+                    <td>25</td>
+                    <td>26</td>
+                    <td>27</td>
+                    <td>28</td>
+                    <td>29</td>
+                  </tr>
+                  <tr>
+                    <td>30</td>
+                    <td class="next-month">1</td>
+                    <td class="next-month">2</td>
+                    <td class="next-month">3</td>
+                    <td class="next-month">4</td>
+                    <td class="next-month">5</td>
+                    <td class="next-month">6</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Charts"> 
+      <div class="demo">
+        <div class="title">Charts</div>
+        <!-- Container-->
+        <div class="box center">
+          <svg width="0" height="0">
+            <defs>
+              <lineargradient id="cl1" gradientunits="objectBoundingBox" x1="0" y1="0" x2="1" y2="1">
+                <stop stop-color="#618099"></stop>
+                <stop offset="100%" stop-color="#8e6677"></stop>
+              </lineargradient>
+              <lineargradient id="cl2" gradientunits="objectBoundingBox" x1="0" y1="0" x2="0" y2="1">
+                <stop stop-color="#8e6677"></stop>
+                <stop offset="100%" stop-color="#9b5e67"></stop>
+              </lineargradient>
+              <lineargradient id="cl3" gradientunits="objectBoundingBox" x1="1" y1="0" x2="0" y2="1">
+                <stop stop-color="#9b5e67"></stop>
+                <stop offset="100%" stop-color="#9c787a"></stop>
+              </lineargradient>
+              <lineargradient id="cl4" gradientunits="objectBoundingBox" x1="1" y1="1" x2="0" y2="0">
+                <stop stop-color="#9c787a"></stop>
+                <stop offset="100%" stop-color="#817a94"></stop>
+              </lineargradient>
+              <lineargradient id="cl5" gradientunits="objectBoundingBox" x1="0" y1="1" x2="0" y2="0">
+                <stop stop-color="#817a94"></stop>
+                <stop offset="100%" stop-color="#498a98"></stop>
+              </lineargradient>
+              <lineargradient id="cl6" gradientunits="objectBoundingBox" x1="0" y1="1" x2="1" y2="0">
+                <stop stop-color="#498a98"></stop>
+                <stop offset="100%" stop-color="#618099"></stop>
+              </lineargradient>
+            </defs>
+          </svg>
+          <ul class="progress">
+            <!-- Item-->
+            <li data-name="SVG Skill" data-percent="13%">
+              <svg viewbox="-10 -10 220 220">
+                <g fill="none" stroke-width="3" transform="translate(100,100)">
+                  <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"></path>
+                  <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"></path>
+                  <path d="M 86.6,50 A 100,100 0 0,1 0,100" stroke="url(#cl3)"></path>
+                  <path d="M 0,100 A 100,100 0 0,1 -86.6,50" stroke="url(#cl4)"></path>
+                  <path d="M -86.6,50 A 100,100 0 0,1 -86.6,-50" stroke="url(#cl5)"></path>
+                  <path d="M -86.6,-50 A 100,100 0 0,1 0,-100" stroke="url(#cl6)"></path>
+                </g>
+              </svg>
+              <svg viewbox="-10 -10 220 220">
+                <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" stroke-dashoffset="81"></path>
+              </svg>
+            </li>
+            <!-- Item-->
+            <li data-name="HTML5 Skill" data-percent="87%">
+              <svg viewbox="-10 -10 220 220">
+                <g fill="none" stroke-width="2" transform="translate(100,100)">
+                  <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"></path>
+                  <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"></path>
+                  <path d="M 86.6,50 A 100,100 0 0,1 0,100" stroke="url(#cl3)"></path>
+                  <path d="M 0,100 A 100,100 0 0,1 -86.6,50" stroke="url(#cl4)"></path>
+                  <path d="M -86.6,50 A 100,100 0 0,1 -86.6,-50" stroke="url(#cl5)"></path>
+                  <path d="M -86.6,-50 A 100,100 0 0,1 0,-100" stroke="url(#cl6)"></path>
+                </g>
+              </svg>
+              <svg viewbox="-10 -10 220 220">
+                <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" stroke-dashoffset="547"></path>
+              </svg>
+            </li>
+            <!-- Item-->
+            <li data-name="jQuery Skill" data-percent="13%">
+              <svg viewbox="-10 -10 220 220">
+                <g fill="none" stroke-width="12" transform="translate(100,100)">
+                  <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"></path>
+                  <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"></path>
+                  <path d="M 86.6,50 A 100,100 0 0,1 0,100" stroke="url(#cl3)"></path>
+                  <path d="M 0,100 A 100,100 0 0,1 -86.6,50" stroke="url(#cl4)"></path>
+                  <path d="M -86.6,50 A 100,100 0 0,1 -86.6,-50" stroke="url(#cl5)"></path>
+                  <path d="M -86.6,-50 A 100,100 0 0,1 0,-100" stroke="url(#cl6)"></path>
+                </g>
+              </svg>
+              <svg viewbox="-10 -10 220 220">
+                <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" stroke-dashoffset="81"></path>
+              </svg>
+            </li>
+            <!-- Item-->
+            <li data-name="UI Skill" data-percent="97%">
+              <svg viewbox="-10 -10 220 220">
+                <g fill="none" stroke-width="9" transform="translate(100,100)">
+                  <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"></path>
+                  <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"></path>
+                  <path d="M 86.6,50 A 100,100 0 0,1 0,100" stroke="url(#cl3)"></path>
+                  <path d="M 0,100 A 100,100 0 0,1 -86.6,50" stroke="url(#cl4)"></path>
+                  <path d="M -86.6,50 A 100,100 0 0,1 -86.6,-50" stroke="url(#cl5)"></path>
+                  <path d="M -86.6,-50 A 100,100 0 0,1 0,-100" stroke="url(#cl6)"></path>
+                </g>
+              </svg>
+              <svg viewbox="-10 -10 220 220">
+                <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" stroke-dashoffset="610"></path>
+              </svg>
+            </li>
+            <!-- Item-->
+            <li data-name="PHP Skill" data-percent="58%">
+              <svg viewbox="-10 -10 220 220">
+                <g fill="none" stroke-width="6" transform="translate(100,100)">
+                  <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"></path>
+                  <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"></path>
+                  <path d="M 86.6,50 A 100,100 0 0,1 0,100" stroke="url(#cl3)"></path>
+                  <path d="M 0,100 A 100,100 0 0,1 -86.6,50" stroke="url(#cl4)"></path>
+                  <path d="M -86.6,50 A 100,100 0 0,1 -86.6,-50" stroke="url(#cl5)"></path>
+                  <path d="M -86.6,-50 A 100,100 0 0,1 0,-100" stroke="url(#cl6)"></path>
+                </g>
+              </svg>
+              <svg viewbox="-10 -10 220 220">
+                <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" stroke-dashoffset="364"></path>
+              </svg>
+            </li>
+            <!-- Item-->
+            <li data-name="CSS Skill" data-percent="100%">
+              <svg viewbox="-10 -10 220 220">
+                <g fill="none" stroke-width="6" transform="translate(100,100)">
+                  <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"></path>
+                  <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"></path>
+                  <path d="M 86.6,50 A 100,100 0 0,1 0,100" stroke="url(#cl3)"></path>
+                  <path d="M 0,100 A 100,100 0 0,1 -86.6,50" stroke="url(#cl4)"></path>
+                  <path d="M -86.6,50 A 100,100 0 0,1 -86.6,-50" stroke="url(#cl5)"></path>
+                  <path d="M -86.6,-50 A 100,100 0 0,1 0,-100" stroke="url(#cl6)"></path>
+                </g>
+              </svg>
+              <svg viewbox="-10 -10 220 220">
+                <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" stroke-dashoffset="629"></path>
+              </svg>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Chat"> 
+      <div class="demo">
+        <div class="title">Chat</div>
+        <div class="box center">
+          <div class="chat">
+            <div class="chat-message padding">
+              <div class="chat-message chat-message-recipient"><img class="chat-image chat-image-default" src="https://www.michaelmammoliti.com/_projects/chat/_media/img/user1.jpg"/>
+                <div class="chat-message-wrapper">
+                  <div class="chat-message-content">
+                    <p>Sushi tonight?</p>
+                  </div>
+                  <div class="chat-details"><span class="chat-message-localization font-size-small">My Address</span><span class="chat-message-read-status font-size-small">- Read</span></div>
+                </div>
+              </div>
+              <div class="chat-message chat-message-sender"><img class="chat-image chat-image-default" src="https://www.michaelmammoliti.com/_projects/chat/_media/img/user2.jpg"/>
+                <div class="chat-message-wrapper">
+                  <div class="chat-message-content">
+                    <p>Pizza?</p>
+                    <p>We had sushi last time!</p>
+                    <p>For me one Vegetariana! Plus some chili oil on it!</p>
+                  </div>
+                  <div class="chat-details"><span class="chat-message-localisation font-size-small">My Address</span><span class="chat-message-read-status font-size-small">- Read</span></div>
+                </div>
+              </div>
+              <div class="chat-message chat-message-recipient"><img class="chat-image chat-image-default" src="https://www.michaelmammoliti.com/_projects/chat/_media/img/user1.jpg"/>
+                <div class="chat-message-wrapper">
+                  <div class="chat-message-content">
+                    <p>Done. Delivery takes 5 minutes!</p>
+                  </div>
+                  <div class="chat-details"><span class="chat-message-localisation font-size-small">My Address</span><span class="chat-message-read-status font-size-small">- Read</span></div>
+                </div>
+              </div>
+              <div class="chat-message chat-message-sender"><img class="chat-image chat-image-default" src="https://www.matikbird.com/_projects/chat/_media/img/user2.jpg"/>
+                <div class="chat-message-wrapper">
+                  <div class="chat-message-content">
+                    <p>Awesome! See you later! : )</p>
+                  </div>
+                  <div class="chat-details"><span class="chat-message-localization font-size-small">My Address</span><span class="chat-message-read-status font-size-small">- Read</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section control" data-anchor="Flex Grid">  
+      <div class="demo center">
+        <div class="title">Flex Grid</div>
+        <div class="box">
+          <div class="grid">
+            <div class="grid-cell">
+              <p>1/2</p>
+            </div>
+            <div class="grid-cell">
+              <p>1/2</p>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="grid-cell">
+              <p>1/3</p>
+            </div>
+            <div class="grid-cell">
+              <p>1/3</p>
+            </div>
+            <div class="grid-cell">
+              <p>1/3</p>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="grid-cell">
+              <p>1/4</p>
+            </div>
+            <div class="grid-cell twice">
+              <p>1/2</p>
+            </div>
+            <div class="grid-cell">
+              <p>1/4</p>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="grid-cell">
+              <p>Some Text</p>
+            </div>
+            <div class="grid-cell">
+              <p>Another Text</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"></div>
+</div>
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js'></script><script src='https://pc035860.github.io/angular-highlightjs/angular-highlightjs.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.8/beautify.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.8/beautify-html.js'></script><script src='https://cdn.jsdelivr.net/jquery.fullpage/2.9.2/jquery.fullpage.min.js'></script><script src='https://cdn.jsdelivr.net/jquery.fullpage/2.9.2/jquery.fullpage.extensions.min.js'></script>
+<script>// Generated by LiveScript 1.5.0
+(function(){
+  var formatXml;
+  formatXml = function(xml){
+    var formatted, reg, pad;
+    formatted = '';
+    reg = /(>)(<)(\/*)/g;
+    xml = xml.replace(reg, '$1\u000d\n$2$3');
+    pad = 0;
+    jQuery.each(xml.split('\u000d\n'), function(index, node){
+      var indent, padding, i;
+      indent = 0;
+      if (node.match(/.+<\/\w[^>]*>$/)) {
+        indent = 0;
+      } else if (node.match(/^<\/\w/)) {
+        if (pad !== 0) {
+          pad -= 1;
+        }
+      } else if (node.match(/^<\w([^>]*[^\/])?>.*$/)) {
+        indent = 1;
+      } else {
+        indent = 0;
+      }
+      padding = '';
+      i = 0;
+      while (i < pad) {
+        padding += '  ';
+        i++;
+      }
+
+      formatted += padding + node + '\u000d\n';
+      pad += indent;
+    });
+    return formatted;
+  };
+  angular.module('app', ['hljs']).directive('fullpage', function($timeout){
+    return {
+      restrict: 'C',
+      link: function($scope, $element){
+        var sections, names, menu, append;
+        sections = $(".section");
+        names = sections.toArray().map(function(it){
+          return it.attributes["data-anchor"].nodeValue;
+        });
+        menu = $('.menu');
+        append = function(item){
+          var a;
+          a = $("<li class='menu-item' data-menuanchor='" + item + "'><a href='#" + item + "'> " + item + " </a></li>");
+          return menu.append(a);
+        };
+        names.forEach(append);
+        return $element.fullpage({
+          fadingEffect: true,
+          anchors: names,
+          menu: '.menu',
+          onLeave: function(index, nextIndex, direction){
+            if (nextIndex === 1) {
+              $(".presentation-header").removeClass('mini');
+              $(".menu").removeClass('mini');
+            } else {
+              $(".presentation-header").addClass('mini');
+              $(".menu").addClass('mini');
+            }
+            return $(".section.active").find(".demo-click").click();
+          }
+        });
+      }
+    };
+  }).directive('demo', function($rootScope){
+    return {
+      restrict: 'C',
+      link: function($scope, $element){
+        var code;
+        code = $("<div class='code'><i class='zmdi zmdi-code'></div>");
+        code.click(function(){
+          var item;
+          item = $element.clone();
+          item.children(".title").remove();
+          item.children(".code").remove();
+          return $rootScope.$apply(function(){
+            $rootScope.popup = formatXml(window.html_beautify(item.find('.box').html()));
+            return $rootScope.popupShow = true;
+          });
+        });
+        return $element.append(code);
+      }
+    };
+  }).controller('presentation', function($scope){
+    return $scope.rows = function(it){
+      var i$, results$ = [];
+      for (i$ = 1; i$ <= it; ++i$) {
+        results$.push(i$);
+      }
+
+
+      return results$;
+    };
+  });
+}).call(this);
+
+//# sourceURL=pen.js
+</script>
+</body></html>

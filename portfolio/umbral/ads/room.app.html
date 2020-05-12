@@ -1,0 +1,623 @@
+
+<!DOCTYPE html><html class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/EZzVdV" />
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script><link rel='stylesheet prefetch' href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'><link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:500,100,300,700,400'>
+<style class="cp-pen-styles">body {
+  font: 400 14px/18px 'Roboto', sans-serif;
+  background: #111;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box
+}
+
+a {
+  color: #454545;
+}
+
+a,
+a:hover,
+a:focus,
+a:visited {
+  text-decoration: none;
+}
+
+.clearfix:after,
+.clearfix:before {
+  content: '';
+  display: table
+}
+
+.clearfix:after {
+  clear: both;
+  display: block
+}
+
+.container {
+  width: 310px;
+  height: 483px;
+  margin: 5em auto;
+  background: #e3e3e3;
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+}
+/*Header*/
+
+.header {
+  min-height: 40px;
+  background: #fff;
+  padding: 10px;
+  position: relative;
+  box-shadow: 0px 0px 5px #888;
+  z-index: 2;
+}
+
+.header a {
+  float: left;
+  color: #888;
+  font-size: 21px
+}
+
+.header a.toggle-btn {
+  font-size: 24px;
+  margin-right: 38%;
+}
+
+.header a.all {
+  font-size: 16px;
+  margin-right: 25%;
+  color: #555;
+  position: relative;
+}
+
+.header a.all span {
+  position: absolute;
+  bottom: -12px;
+  left: 5px;
+  font-size: 11px;
+  color: #999;
+}
+
+.header a.suggestion {
+  margin-right: 10%;
+}
+
+.header-All {
+  top: -274px;
+  transition: all .4s ease-in-out;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.header-All.down {
+  top: 37px;
+}
+
+.header-All a {
+  display: block;
+  padding: 13px 10px;
+  border-bottom: 1px solid #ddd;
+  background-color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+  color: #666;
+  border-left: 3px solid transparent;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.header-All a.active,
+.header-All a:hover {
+  border-left: 3px solid #186CEC;
+  position: relative;
+  background: #e1e1e1;
+}
+
+.header-All a.active:after {
+  content: "\f3fd";
+  display: inline-block;
+  font-family: "Ionicons";
+  position: absolute;
+  font-size: 36px;
+  line-height: normal;
+  right: 20px;
+  color: #186CEC;
+  top: 4px;
+}
+/*Left*/
+
+.left {
+  width: 270px;
+  position: absolute;
+  height: 545px;
+  left: -270px;
+  top: 0;
+  background: #fff;
+  z-index: 3;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.wrap.open .left {
+  left: 0;
+}
+
+.left-head {
+  background: url(https://raw.githubusercontent.com/arjunamgain/googleplusappmneu/master/images/back.jpg)no-repeat top /cover;
+  position: relative;
+  color: #fff;
+  z-index: 2;
+  padding: 10px;
+  min-height: 112px;
+}
+
+.wrap.open .toggle-overlay,
+.wrap.note-open .toggle-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 310px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.top-bar {
+  text-align: right;
+}
+
+.top-bar a.search,
+a.setting {
+  font-size: 20px;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.user-bar {
+  display: table;
+  width: 100%;
+  position: relative;
+  padding-top: 30px;
+}
+
+.user-bar img,
+.user-bar .name,
+.user-bar .email {
+  float: left;
+}
+
+.user-bar>img {
+  height: 38px;
+  width: 38px;
+  border-radius: 2px;
+  margin-right: 10px;
+}
+
+.user-bar .name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.user-bar .email {
+  font-size: 12px;
+}
+
+.menu-list a {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  background-color: #fefefe;
+  padding: 12px 40px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.menu-list a.home:after,
+.menu-list a.people:after,
+.menu-list a.photos:after,
+.menu-list a.communities:after,
+.menu-list a.locations:after,
+.menu-list a.event:after,
+.menu-list a.hangouts:after {
+  background: url(https://raw.githubusercontent.com/arjunamgain/googleplusappmneu/master/images/google.png);
+  background-repeat: no-repeat;
+  height: 25px;
+  width: 32px;
+  content: '';
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+.menu-list a.home:after {
+  background-position: 10px 5px;
+}
+
+.menu-list a.people:after {
+  background-position: -58px 0px;
+  height: 20px;
+  width: 23px;
+  left: 8px;
+  top: 12px;
+}
+
+.menu-list a.photos:after {
+  background-position: -123px -40px;
+  width: 26px;
+  left: 5px;
+  top: 10px;
+}
+
+.menu-list a.communities:after {
+  background-position: -144px -19px;
+  width: 26px;
+  left: 5px;
+  top: 11px;
+  height: 22px;
+}
+
+.menu-list a.locations:after {
+  background-position: -111px -20px;
+  width: 13px;
+  left: 15px;
+  top: 14px;
+  height: 18px;
+}
+
+.menu-list a.event:after {
+  background-position: -148px -40px;
+  height: 27px;
+  width: 26px;
+  left: 11px;
+  top: 13px;
+}
+
+.menu-list a.hangouts:after {
+  background-position: -104px -40px;
+  height: 27px;
+  width: 19px;
+  left: 11px;
+  top: 13px;
+}
+/*notification*/
+
+.note {
+  position: absolute;
+  right: -250px;
+  width: 250px;
+  background-color: #fff;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.wrap.note-open .note {
+  right: 0;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.note .note-head {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 15px;
+  color: #888;
+  font-size: 13px;
+}
+
+.note-head span {
+  float: right;
+  font-size: 18px;
+}
+
+.note-body {
+  padding: 15px;
+  text-align: center;
+  padding-top: 60%;
+}
+
+.note-body>span {
+  font-size: 55px;
+  color: #888;
+  padding: 0px 19px;
+  background-color: #ddd;
+  border-radius: 51px 51px 4px 3px;
+}
+
+.note-body p {
+  margin: 15px;
+  color: #555;
+}
+/*content*/
+
+.post-header>img {
+  height: 43px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.note-footer {
+  position: absolute;
+  bottom: 0;
+  min-height: 30px;
+  padding: 6px 15px;
+  border-top: 1px solid #ddd;
+  width: 100%;
+  right: 0;
+}
+
+.note-footer>a {
+  font-size: 13px;
+}
+
+.note-footer>span {
+  float: right;
+}
+
+.content {
+  margin: 6px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 11px;
+}
+
+.post-header img,
+.post-header .p-name,
+.post-header .time {
+  float: left;
+}
+
+.post-header .p-name {
+  font-weight: bold;
+  margin-right: 25px;
+}
+
+.post-header .time {
+  font-size: 11px;
+  color: #888;
+  line-height: 18px;
+}
+
+.post-caption {
+  padding: 10px 0px;
+  color: #000;
+  border-bottom: 1px solid #ddd;
+  margin: 11px 0px;
+  font-size: 13px;
+}
+
+.post-details>img {
+  float: left;
+  margin-right: 10px;
+  height: 70px;
+}
+
+.post-details a.post-details-title {
+  font-size: 17px;
+  color: #0266C8;
+  font-weight: lighter !important;
+}
+
+.post-details .web-link {
+  color: #888;
+  font-size: 12px;
+  display: block;
+  margin: 5px 0px;
+}
+
+.post-share {
+  clear: both;
+  padding: 13px 0px;
+}
+
+.post-share span.plus-one,
+.post-share span.ion-android-share,
+.post-share span.ion-ios-chatbubble {
+  padding: 2px 10px;
+  background: #fefefe;
+  border: 1px solid #ccc;
+  color: #777;
+  font-weight: bold;
+  border-radius: 2px;
+  margin-right: 16px;
+}
+
+.post-share span.ion-ios-chatbubble {
+  float: right;
+}
+
+.post-footer {
+  padding: 15px;
+  background-color: #f1f1f1;
+  margin: -11px;
+  margin-top: 0px;
+}
+
+.post-footer>input {
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  width: 100%;
+  border-radius: 2px;
+}
+/*Footer*/
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  padding: 15px;
+  background-color: #333;
+  width: 100%;
+  padding: 2px 15px;
+}
+
+.footer a {
+  float: left;
+  text-align: center;
+  padding: 0px 20px 9px 20px;
+  font-size: 11px;
+  line-height: 6px;
+}
+
+.footer a span {
+  display: block;
+  font-size: 22px;
+  text-align: center;
+}
+
+.footer a.photo {
+  color: #3F85F4;
+}
+
+.footer a.Location {
+  color: #DD4B39;
+}
+
+.footer a.link {
+  color: #F2B50F;
+}
+
+.footer a.link span {
+  transform: rotate(45deg);
+}
+
+.footer a.write {
+  color: #00933B;
+}</style></head><body>
+<div class="container">
+	
+	 <div class="wrap">
+	 <div class="toggle-overlay"></div>
+	 	<div class="note">
+				<div class="note-head">
+					Notifications <span class="ion-ios-settings-strong"></span>
+				</div>
+				<div class="note-body">
+					<span class="ion-android-notifications-off"></span>
+						<p>All caught up !</p>
+				</div>
+				<div class="note-footer">
+					<a href="#">Previously read</a>
+					<span class="ion-ios-clock-outline"></span>
+				</div>
+				
+			</div><!--notification//-->	
+			<div class="left">
+				<div class="left-head">
+					<div class="top-bar">
+					<div class="overlay"></div>
+						<a class="search" href="#"><span class="ion-search"></span></a>
+						<a class="setting" href="#"><span class="ion-gear-b"></span></a>
+					</div>
+					<div class="user-bar">
+						<img src="https://raw.githubusercontent.com/arjunamgain/googleplusappmneu/master/images/arjun.jpg">
+						<h2 class="name">Arjun Amgain</h2>
+						<p class="email">mr.arjunamgain@gmail.com</p>
+					</div>
+				</div>
+				<div class="menu-list">
+					<a class="home" href="#" title="home">Home</a>
+					<a class="people" href="#" title="People">People</a>
+					<a class="photos" href="#" title="Photos">Photos</a>
+					<a class="communities" href="#" title="Communities">Communities</a>
+					<a class="locations" href="#" title="Locations">Locations</a>
+					<a class="event" href="#" title="Event">Event</a>
+					<a class="hangouts" href="#" title="Hangouts">Hangouts</a>
+					
+				</div>
+				 
+					</div><!--Left//-->
+
+
+					
+					
+			
+			<div class="header">
+				<a href="#" class="toggle-btn"><span class="ion-navicon-round"></span></a>
+				<a href="#" class="all">All<span class="ion-arrow-down-b"></span></a>
+				<a href="#" class="suggestion"><span class="ion-android-contacts"></span></a>
+				<a href="#" class="notification"><span class="ion-android-notifications-none"></span></a>
+			</div><!--header//-->
+			<div class="header-All">
+				<a class="active" href="#">All</a>
+				<a href="#">What's Hot</a>
+				<a href="#">Nearby</a>
+				<a href="#">Following</a>
+				<a href="#">Family</a>
+				<a href="#">Friends</a>
+				<a href="#">Acquaintances</a>
+				
+			</div>
+			<div class="clearfix"></div>
+			
+			<div class="content">
+				<div class="post">
+					<div class="post-header">
+						<img src="https://raw.githubusercontent.com/arjunamgain/googleplusappmneu/master/images/arjun.jpg">
+						<h2 class="p-name">Arjun Amgain</h2>
+						<span class="time">Public - 34 minutes ago</span>
+					</div>
+					<div class="clearfix"></div>
+					<div class="post-caption">Maney faces of Jhon Malkovich.</div>
+					<div class="post-details">
+						<img src="https://raw.githubusercontent.com/arjunamgain/googleplusappmneu/master/images/p.jpg">
+						<a href="http://moarthemes.com/best-90-wordpress-magneto-open-cart-and-others-e-commerce-themes/" class="post-details-title" target="_blank" >Best 90+ WordPress, Magneto, Open Cart e-Commerce Themes</a>
+						<a  class="web-link" target="_blank" href="http://moarthemes.com/best-90-wordpress-magneto-open-cart-and-others-e-commerce-themes/"> moarthemes.com</a>
+					</div>
+					<div class="post-share">
+						<a href="#"><span class="plus-one">+1</span></a>
+						<a href="#"><span class="ion-android-share"></span></a>
+						<a href="#"><span class="ion-ios-chatbubble"></span></a>
+						
+					</div>
+					<div class="post-footer">
+						<input type="text" placeholder="Add a comment...">
+					</div>
+				</div>
+			
+			</div><!--Content//-->
+			<div class="footer">
+				<a class="photo" href="#"><span class="ion-camera"></span>Photo</a>
+				<a class="Location" href="#"><span class="ion-ios-location"></span>Location</a>
+				<a class="link" href="#"><span class="ion-link"></span>Link</a>
+				<a class="write" href="#"><span class="ion-edit"></span>Write</a>
+			</div>
+	
+	
+	</div><!--wrap//-->
+
+	</div><!--Container//-->
+
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script>
+	 
+	
+$(function () {
+ 
+ $('.toggle-btn').click(function(){
+	$('.wrap').toggleClass('open');
+	
+ });
+ $('.toggle-overlay, .menu-list a, .note').click(function(){
+	$('.wrap').removeClass('open note-open');
+	
+ });
+ 
+$('.notification').click(function(){
+	$('.wrap').toggleClass('note-open');
+	
+ });
+ $('.all').click(function(){
+	$('.header-All').toggleClass('down');
+	
+ });
+ 
+});
+
+ 
+//# sourceURL=pen.js
+</script>
+</body></html>

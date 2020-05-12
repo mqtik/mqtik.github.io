@@ -1,0 +1,458 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/hk95/pen/Kyrvrj" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300, 400, 500" rel="stylesheet">
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+<style class="cp-pen-styles">/* General variables */
+/* General configurations */
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  line-height: 1em;
+}
+
+button {
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+}
+
+input {
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+input[type="submit"] {
+  cursor: pointer;
+}
+input::-webkit-input-placeholder {
+  font-size: 0.85rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.1rem;
+  color: #ccc;
+}
+input:-ms-input-placeholder {
+  font-size: 0.85rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.1rem;
+  color: #ccc;
+}
+input::-ms-input-placeholder {
+  font-size: 0.85rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.1rem;
+  color: #ccc;
+}
+input::placeholder {
+  font-size: 0.85rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.1rem;
+  color: #ccc;
+}
+
+/* Animations */
+@-webkit-keyframes bounceLeft {
+  0% {
+    -webkit-transform: translate3d(100%, -50%, 0);
+            transform: translate3d(100%, -50%, 0);
+  }
+  50% {
+    -webkit-transform: translate3d(-30px, -50%, 0);
+            transform: translate3d(-30px, -50%, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, -50%, 0);
+            transform: translate3d(0, -50%, 0);
+  }
+}
+@keyframes bounceLeft {
+  0% {
+    -webkit-transform: translate3d(100%, -50%, 0);
+            transform: translate3d(100%, -50%, 0);
+  }
+  50% {
+    -webkit-transform: translate3d(-30px, -50%, 0);
+            transform: translate3d(-30px, -50%, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, -50%, 0);
+            transform: translate3d(0, -50%, 0);
+  }
+}
+@-webkit-keyframes bounceRight {
+  0% {
+    -webkit-transform: translate3d(0, -50%, 0);
+            transform: translate3d(0, -50%, 0);
+  }
+  50% {
+    -webkit-transform: translate3d(calc(100% + 30px), -50%, 0);
+            transform: translate3d(calc(100% + 30px), -50%, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(100%, -50%, 0);
+            transform: translate3d(100%, -50%, 0);
+  }
+}
+@keyframes bounceRight {
+  0% {
+    -webkit-transform: translate3d(0, -50%, 0);
+            transform: translate3d(0, -50%, 0);
+  }
+  50% {
+    -webkit-transform: translate3d(calc(100% + 30px), -50%, 0);
+            transform: translate3d(calc(100% + 30px), -50%, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(100%, -50%, 0);
+            transform: translate3d(100%, -50%, 0);
+  }
+}
+/* Page background */
+.user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 100vh;
+  background: url("https://goo.gl/YRxqs1") no-repeat center;
+  background-size: cover;
+}
+.user_options-container {
+  position: relative;
+  width: 80%;
+}
+.user_options-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  background-color: rgba(34, 34, 34, 0.85);
+  border-radius: 3px;
+}
+
+/* Registered and Unregistered user box and text */
+.user_options-registered,
+.user_options-unregistered {
+  width: 50%;
+  padding: 75px 45px;
+  color: #fff;
+  font-weight: 300;
+}
+
+.user_registered-title,
+.user_unregistered-title {
+  margin-bottom: 15px;
+  font-size: 1.66rem;
+  line-height: 1em;
+}
+
+.user_unregistered-text,
+.user_registered-text {
+  font-size: 0.83rem;
+  line-height: 1.4em;
+}
+
+.user_registered-login,
+.user_unregistered-signup {
+  margin-top: 30px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 10px 30px;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1em;
+  letter-spacing: 0.2rem;
+  -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+.user_registered-login:hover,
+.user_unregistered-signup:hover {
+  color: rgba(34, 34, 34, 0.85);
+  background-color: #ccc;
+}
+
+/* Login and signup forms */
+.user_options-forms {
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  width: calc(50% - 30px);
+  min-height: 420px;
+  background-color: #fff;
+  border-radius: 3px;
+  -webkit-box-shadow: 2px 0 15px rgba(0, 0, 0, 0.25);
+          box-shadow: 2px 0 15px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  -webkit-transition: -webkit-transform 0.4s ease-in-out;
+  transition: -webkit-transform 0.4s ease-in-out;
+  transition: transform 0.4s ease-in-out;
+  transition: transform 0.4s ease-in-out, -webkit-transform 0.4s ease-in-out;
+  -webkit-transform: translate3d(100%, -50%, 0);
+          transform: translate3d(100%, -50%, 0);
+}
+.user_options-forms .user_forms-login {
+  -webkit-transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+}
+.user_options-forms .forms_title {
+  margin-bottom: 45px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1em;
+  text-transform: uppercase;
+  color: #e8716d;
+  letter-spacing: 0.1rem;
+}
+.user_options-forms .forms_field:not(:last-of-type) {
+  margin-bottom: 20px;
+}
+.user_options-forms .forms_field-input {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding: 6px 20px 6px 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: gray;
+  letter-spacing: 0.1rem;
+  -webkit-transition: border-color 0.2s ease-in-out;
+  transition: border-color 0.2s ease-in-out;
+}
+.user_options-forms .forms_field-input:focus {
+  border-color: gray;
+}
+.user_options-forms .forms_buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 35px;
+}
+.user_options-forms .forms_buttons-forgot {
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.1rem;
+  color: #ccc;
+  text-decoration: underline;
+  -webkit-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
+}
+.user_options-forms .forms_buttons-forgot:hover {
+  color: #b3b3b3;
+}
+.user_options-forms .forms_buttons-action {
+  background-color: #e8716d;
+  border-radius: 3px;
+  padding: 10px 35px;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  -webkit-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+}
+.user_options-forms .forms_buttons-action:hover {
+  background-color: #e14641;
+}
+.user_options-forms .user_forms-signup,
+.user_options-forms .user_forms-login {
+  position: absolute;
+  top: 70px;
+  left: 40px;
+  width: calc(100% - 80px);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out, -webkit-transform 0.5s ease-in-out;
+  transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out, -webkit-transform 0.5s ease-in-out;
+  transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out, transform 0.5s ease-in-out;
+  transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out, transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
+}
+.user_options-forms .user_forms-signup {
+  -webkit-transform: translate3d(120px, 0, 0);
+          transform: translate3d(120px, 0, 0);
+}
+.user_options-forms .user_forms-signup .forms_buttons {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+.user_options-forms .user_forms-login {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Triggers */
+.user_options-forms.signup-click {
+  -webkit-animation: bounceLeft 1s forwards;
+          animation: bounceLeft 1s forwards;
+}
+.user_options-forms.signup-click .user_forms-signup {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.user_options-forms.signup-click .user_forms-login {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translate3d(-120px, 0, 0);
+          transform: translate3d(-120px, 0, 0);
+}
+.user_options-forms.login-click {
+  -webkit-animation: bounceRight 1s forwards;
+          animation: bounceRight 1s forwards;
+}
+.user_options-forms.login-click .user_forms-signup {
+  opacity: 0;
+  visibility: hidden;
+}
+.user_options-forms.login-click .user_forms-login {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+
+/* Responsive */
+@media screen and (max-width: 990px) {
+  .user_options-forms {
+    min-height: 380px;
+  }
+  .user_options-forms .forms_buttons {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .user_options-forms .user_forms-login .forms_buttons-action {
+    margin-top: 30px;
+  }
+  .user_options-forms .user_forms-signup,
+  .user_options-forms .user_forms-login {
+    top: 50px;
+  }
+
+  .user_options-registered,
+  .user_options-unregistered {
+    padding: 50px 45px;
+  }
+}
+</style></head><body>
+<!--
+  This was created based on the Dribble shot by Deepak Yadav that you can find at https://goo.gl/XRALsw
+  I am @hurickkrugner on Twitter or @hk95 on GitHub. Feel free to message me anytime.
+
+  To-do (07/12/2017):
+  - Add icons (.svg) to the form fileds (email, password, etc);
+
+  Did (07/12/2017)
+  - I added some responsive code (not much of a deal, but it's something to start) :)
+-->
+
+<section class="user">
+  <div class="user_options-container">
+    <div class="user_options-text">
+      <div class="user_options-unregistered">
+        <h2 class="user_unregistered-title">Don't have an account?</h2>
+        <p class="user_unregistered-text">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art fap.</p>
+        <button class="user_unregistered-signup" id="signup-button">Sign up</button>
+      </div>
+
+      <div class="user_options-registered">
+        <h2 class="user_registered-title">Have an account?</h2>
+        <p class="user_registered-text">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art fap.</p>
+        <button class="user_registered-login" id="login-button">Login</button>
+      </div>
+    </div>
+    
+    <div class="user_options-forms" id="user_options-forms">
+      <div class="user_forms-login">
+        <h2 class="forms_title">Login</h2>
+        <form class="forms_form">
+          <fieldset class="forms_fieldset">
+            <div class="forms_field">
+              <input type="email" placeholder="Email" class="forms_field-input" required  />
+            </div>
+            <div class="forms_field">
+              <input type="password" placeholder="Password" class="forms_field-input" required />
+            </div>
+          </fieldset>
+          <div class="forms_buttons">
+            <button type="button" class="forms_buttons-forgot">Forgot password?</button>
+            <input type="submit" value="Log In" class="forms_buttons-action">
+          </div>
+        </form>
+      </div>
+      <div class="user_forms-signup">
+        <h2 class="forms_title">Sign Up</h2>
+        <form class="forms_form">
+          <fieldset class="forms_fieldset">
+            <div class="forms_field">
+              <input type="text" placeholder="Full Name" class="forms_field-input" required />
+            </div>
+            <div class="forms_field">
+              <input type="email" placeholder="Email" class="forms_field-input" required />
+            </div>
+            <div class="forms_field">
+              <input type="password" placeholder="Password" class="forms_field-input" required />
+            </div>
+          </fieldset>
+          <div class="forms_buttons">
+            <input type="submit" value="Sign up" class="forms_buttons-action">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script >// Variables
+var signupButton = document.getElementById('signup-button'),
+    loginButton = document.getElementById('login-button'),
+    userForms = document.getElementById('user_options-forms')
+
+
+// Add event listener to the "Sign Up" button
+signupButton.addEventListener('click', () => {
+  userForms.classList.remove('login-click')
+  userForms.classList.add('signup-click')
+}, false)
+
+
+// Add event listener to the "Login" button
+loginButton.addEventListener('click', () => {
+  userForms.classList.remove('signup-click')
+  userForms.classList.add('login-click')
+}, false)
+//# sourceURL=pen.js
+</script>
+</body></html>

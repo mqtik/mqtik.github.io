@@ -1,0 +1,123 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/ZyyReX" />
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+<style class="cp-pen-styles">@import url(https://fonts.googleapis.com/css?family=Roboto:400,900);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Roboto';
+}
+
+html {
+  background: #222;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  margin: .75rem;
+}
+
+.fl-right {
+  float: right;
+}
+
+.fl-left {
+  float: left;
+}
+
+body {
+  font-size: 1.5em;
+  color: #222;
+  background: #fff;
+  height: .25rem;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  width: 0%;
+}
+
+h1 {
+  font-weight: 900;
+  margin: .5rem 0 1.5rem;
+  padding-bottom: .5rem;
+  font-size: 3em;
+  border-bottom: .25rem solid #222;
+}
+
+.wrap {
+  max-width: 60%;
+  min-width: 61.25rem;
+  margin: 2rem auto 0;
+  opacity: 0;
+}
+
+@media (max-width: 63rem) {
+  html {
+    font-size: 13px;
+  }
+
+  .wrap {
+    max-width: none;
+    min-width: 100%;
+    width: 100%;
+    padding: 0 1rem;
+  }
+}
+@media (max-width: 45rem) {
+  img {
+    width: 100%;
+    margin: .5rem 0;
+  }
+
+  .fl-left,
+  .fl-right {
+    display: block;
+    float: none;
+  }
+}
+</style></head><body>
+<div class="wrap">
+  <h1>This is a title</h1>
+  <img class="fl-left" src="http://fillmurray.com/290/290" alt="" />
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum vel, voluptates veritatis cumque quia omnis quas provident labore error deserunt, esse, voluptatum hic dolorum accusamus illum dolores, expedita tempora nisi. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum saepe, animi dolores qui praesentium excepturi neque reiciendis vero. Quam possimus harum ab porro odio ratione perspiciatis dolor, dolores delectus ad!</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus quod ea, porro delectus ratione maiores officia, suscipit modi. Tempore! Temporibus praesentium deserunt, repellat quidem esse provident. Aut voluptas repudiandae labore, reprehenderit excepturi error ex, veniam odit pariatur commodi cumque.</p>
+  <img class="fl-right" src="http://fillmurray.com/305/305" alt="" />
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut consequatur eaque velit incidunt ex vero debitis. Possimus molestiae inventore, unde sit in praesentium autem. Pariatur maiores odit omnis cumque quod.Nobis officia ipsum inventore culpa, accusantium, quisquam, sed voluptatem perspiciatis placeat quibusdam laudantium maxime? Culpa, a sint obcaecati fugiat saepe, tempora doloribus et voluptatem vitae magnam eos illum sunt cum.</p>
+  <p>Numquam cumque inventore doloribus molestias maiores laboriosam nisi architecto laborum ipsa cum. Voluptate perspiciatis officiis deleniti iusto, dignissimos dolore vero nam quos dolores quas deserunt incidunt, consectetur aliquam consequatur inventore?</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita ad dolor pariatur, iure porro asperiores dolorum. Aspernatur labore non corporis ipsa perspiciatis praesentium, sunt id explicabo dolor, voluptatum esse laboriosam.Repudiandae nesciunt fuga vero iure dolorum repellendus ab error obcaecati. Molestias nesciunt nostrum ratione vero quia ut ipsam mollitia tempore blanditiis doloremque accusamus, eius ea quas necessitatibus odit, autem repellat!</p>
+</div>
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/velocity/1.1.0/velocity.min.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/velocity/1.1.0/velocity.ui.js'></script>
+<script >// click "Run" to replay
+
+var $body = $('body');
+
+var loading = [
+    { elements: $body, properties: { width: '20%' } },
+    { elements: $body, properties: { width: '30%' } },
+    { elements: $body, properties: { width: '50%' } },
+    { elements: $body, properties: { width: '100%' } },
+    { elements: $body, properties: { height: '100%' }, options: { 
+      complete: function () { 
+        $('.wrap').velocity( 'transition.slideUpIn' );
+        $('img').velocity( 'transition.flipYIn' );
+        $('html').css({ background: '#fff' });
+      }
+    }
+  }
+]; 
+
+$.Velocity.RunSequence(loading);
+//# sourceURL=pen.js
+</script>
+</body></html>

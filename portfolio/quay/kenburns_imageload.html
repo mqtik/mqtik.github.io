@@ -1,0 +1,138 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/dimaZubkov/pen/rLxrXZ" />
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100,700,900&subset=latin,cyrillic'>
+
+<style class="cp-pen-styles">* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+:root {
+  font-size: calc(0.5vw + 1vh + 0.5vmin);
+}
+body {
+  font: 100 50%/1.5 'Roboto', sans-serif;
+}
+.intro {
+  position: relative;
+  margin: 2em;
+  padding: 0.2em 0.6em;
+  cursor: pointer;
+  color: #fff;
+  font-size: 2em;
+  max-width: 26em;
+}
+.intro h1 {
+  margin-bottom: 0.5em;
+  line-height: 1;
+  font-weight: 100;
+}
+#CrossFade {
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+#CrossFade img {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  height: auto;
+  background: #000;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  opacity: 0;
+  -webkit-transform: scale(1.4) rotate(12deg);
+          transform: scale(1.4) rotate(12deg);
+  -webkit-animation: CrossFade 24s infinite;
+          animation: CrossFade 24s infinite;
+}
+#CrossFade img:nth-child(3) {
+  -webkit-animation-delay: 6s;
+          animation-delay: 6s;
+}
+#CrossFade img:nth-child(2) {
+  -webkit-animation-delay: 12s;
+          animation-delay: 12s;
+}
+#CrossFade img:nth-child(1) {
+  -webkit-animation-delay: 18s;
+          animation-delay: 18s;
+}
+/* 
+
+$duration = 12
+$slides = 4
+$step = $duration/$slides
+setDelayRevers($duration, $slides)
+  
+  for index in (2..$slides)
+    &:nth-child({index -1}) 
+      animation-delay ($step*index)s
+
+#CrossFade
+  height 100vh
+  overflow hidden
+  position relative
+  
+  display flex
+  img
+    align-self center
+    position absolute
+    
+    min-width 100%
+    min-height 100%
+    height auto
+    
+    backface-visibility hidden
+    opacity 0
+  
+    transform scale(1.4) rotate(12deg)
+    animation CrossFade ($duration)s infinite 
+    setDelayRevers($duration, $slides)   
+@keyframes CrossFade
+  25%
+    opacity 1
+    transform scale(1) rotate(0)
+  40%
+    opacity 0
+    
+*/
+@-webkit-keyframes CrossFade {
+  25% {
+    opacity: 1;
+    -webkit-transform: scale(1) rotate(0);
+            transform: scale(1) rotate(0);
+  }
+  40% {
+    opacity: 0;
+  }
+}
+@keyframes CrossFade {
+  25% {
+    opacity: 1;
+    -webkit-transform: scale(1) rotate(0);
+            transform: scale(1) rotate(0);
+  }
+  40% {
+    opacity: 0;
+  }
+}
+</style></head><body>
+
+<div id="CrossFade"><img src="//unsplash.it/1600/900?image=1043" alt="img"/><img src="//unsplash.it/1600/900?image=1039" alt="img"/><img src="//unsplash.it/1600/900?image=1017" alt="img"/><img src="//unsplash.it/1600/900?image=929" alt="img"/>
+  <div class="intro">
+    <h1>Lorem ipsum dolor sit amet</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis impedit facilis nesciunt quam vitae voluptatibus ullam vero.</p>
+  </div>
+</div>
+
+</body></html>

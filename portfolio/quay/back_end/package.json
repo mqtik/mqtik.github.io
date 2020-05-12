@@ -1,0 +1,22 @@
+{
+  "name": "Cabotaje",
+  "version": "0.0.1",
+  "description": "Into deep waters",
+  "main": "sindicato-auth.js",
+  "scripts": {
+    "test": "node sindicato-auth.js"
+  },
+  "keywords": [
+    "sindicato",
+    "centro",
+    "patrones"
+  ],
+  "author": "Matikbird",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "nano": "^6.2.0",
+    "utf8": "^2.1.1"
+  }
+}

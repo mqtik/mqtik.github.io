@@ -1,0 +1,917 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/erOyaW" />
+
+
+<style class="cp-pen-styles">@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
+
+/* Media Queries */
+
+
+
+*,*::after,*::before{
+  margin:0;
+  padding:0;
+  -webkit-box-sizing:border-box;
+          box-sizing:border-box;
+}
+
+body{
+  background:#153D52;
+  font-family:'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x:hidden;
+}
+
+.author{
+  position:absolute;
+  width:200px;
+  height:100px;
+  z-index:10;
+  left:70px;
+
+}
+
+@media (max-width: 759px){
+
+.author{
+    position:relative;
+    left:0;
+    margin:18px auto
+
+}
+  }
+
+.author .name{
+    color:#fff;
+    text-transform:uppercase;
+    text-align:center;
+    font-weight:700;
+  }
+
+.author .name span{
+      display:block;
+      font-size:.70em;
+      font-weight:400;
+    }
+
+.author .sociales{
+    list-style:none;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-pack:center;
+        -ms-flex-pack:center;
+            justify-content:center;
+    margin-top:5px;
+  }
+
+.author .sociales li{
+      margin:5px;
+
+    }
+
+.author .sociales li a{
+        display:inline-block;
+        width:30px;
+        height:30px;
+        background:red;
+        color:#fff;
+        text-decoration:none;
+        display:-webkit-box;
+        display:-ms-flexbox;
+        display:flex;
+        -webkit-box-pack:center;
+            -ms-flex-pack:center;
+                justify-content:center;
+        -webkit-box-align:center;
+            -ms-flex-align:center;
+                align-items:center;
+        border-radius:50%;
+      }
+
+.author .sociales li .twitter{background:#1da1f2;}
+
+.author .sociales li .instagram{background:#c32aa3;}
+
+.author .sociales li .github{background:#282D32;}
+
+.author .sociales li .codepen{background:#14171a;}
+
+
+
+.toggle{
+  width:200px;
+  height:50px;
+  margin:30px auto;
+  border:1px solid #e97d68;
+  border-radius:60px;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-box-pack:justify;
+      -ms-flex-pack:justify;
+          justify-content:space-between;
+  -webkit-box-align:center;
+      -ms-flex-align:center;
+          align-items:center;
+  padding:.60em;
+  color:#fff;
+  position:relative;
+
+
+}
+
+
+
+.toggle label{
+    display:block;
+    text-align:center;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-align:center;
+        -ms-flex-align:center;
+            align-items:center;
+    -webkit-box-pack:center;
+        -ms-flex-pack:center;
+            justify-content:center;
+    width:100%;
+    height:50px;
+    z-index:2;
+  }
+
+
+
+.toggle label:hover{
+      cursor:pointer;
+    }
+
+
+
+.toggle input{
+    display:none;
+  }
+
+
+
+.toggle .switch{
+    position:absolute;
+    width:50%;
+    height:42px;
+    top:3px;
+    left:2px;
+    background:red;
+    border-radius:60px;
+    background:#142731;
+    -webkit-box-shadow:0 0 3px rgba(0, 0, 0, .1);
+            box-shadow:0 0 3px rgba(0, 0, 0, .1);
+    pointer-events:none;
+    -webkit-transition:.4s all;
+    transition:.4s all;
+  }
+
+
+
+.toggle #monthly:checked + .switch{
+      left:2px;
+    }
+
+
+
+.toggle #yearly:checked + .switch{
+      left:95px;
+    }
+
+.container{
+  max-width:1190px;
+  width:90%;
+  margin:50px auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-gap:15px;
+  position:relative;
+
+}
+
+@media (max-width: 759px){
+
+.container{
+    grid-template-columns:1fr
+
+}
+
+  }
+
+.tablePricing-item{
+  width:100%;
+  height:500px;
+  position:relative;
+
+}
+
+@media (max-width: 759px){
+
+.tablePricing-item{
+    height:250px;
+    margin-top:20px
+
+}
+  }
+
+
+.table-wrapper{
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  -webkit-transform-style:preserve-3d;
+          transform-style:preserve-3d;
+  -webkit-transition:-webkit-transform .7s;
+  transition:-webkit-transform .7s;
+  transition:transform .7s;
+  transition:transform .7s, -webkit-transform .7s;
+}
+
+
+.tablePricing-monthly, .tablePricing-yearly{
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+}
+
+.visible{
+  z-index:5;
+}
+
+
+.tablePricing-yearly{
+  -webkit-backface-visibility:hidden;
+          backface-visibility:hidden;
+  -webkit-transform:rotateY(-180deg);
+          transform:rotateY(-180deg);
+}
+
+
+.tablePricing-Pink__head__title{
+      color:red;
+    }
+
+.tablePricing-yearly .tablePricing__head__price::after{
+          content:"/yr";
+        }
+
+
+
+.third{
+  -webkit-animation:third 1.5s ease-out;
+          animation:third 1.5s ease-out;
+  -webkit-animation-fill-mode:forwards;
+          animation-fill-mode:forwards;
+}
+
+.second{
+  -webkit-animation:first 1.3s ease-out;
+          animation:first 1.3s ease-out;
+  -webkit-animation-fill-mode:forwards;
+          animation-fill-mode:forwards;
+}
+
+.first{
+  -webkit-animation:first 1s ease-out;
+          animation:first 1s ease-out;
+  -webkit-animation-fill-mode:forwards;
+          animation-fill-mode:forwards;
+}
+
+
+@-webkit-keyframes first{
+  from{
+    -webkit-transform:translate3d(400%,0,0) rotate(-20deg);
+            transform:translate3d(400%,0,0) rotate(-20deg);
+  }
+  to{
+    -webkit-transform:translate3d(0,0,0);
+            transform:translate3d(0,0,0);
+  }
+}
+
+
+@keyframes first{
+  from{
+    -webkit-transform:translate3d(400%,0,0) rotate(-20deg);
+            transform:translate3d(400%,0,0) rotate(-20deg);
+  }
+  to{
+    -webkit-transform:translate3d(0,0,0);
+            transform:translate3d(0,0,0);
+  }
+}
+
+@-webkit-keyframes second{
+  from{
+    -webkit-transform:translate3d(300%,0,0) rotate(-10deg);
+            transform:translate3d(300%,0,0) rotate(-10deg);
+  }
+  to{
+    -webkit-transform:translate3d(0,0,0);
+            transform:translate3d(0,0,0);
+  }
+}
+
+@keyframes second{
+  from{
+    -webkit-transform:translate3d(300%,0,0) rotate(-10deg);
+            transform:translate3d(300%,0,0) rotate(-10deg);
+  }
+  to{
+    -webkit-transform:translate3d(0,0,0);
+            transform:translate3d(0,0,0);
+  }
+}
+
+@-webkit-keyframes third{
+  from{
+    -webkit-transform:translate3d(300%,0,0) rotate(-10deg);
+            transform:translate3d(300%,0,0) rotate(-10deg);
+  }
+  to{
+    -webkit-transform:translate3d(0,0,0);
+            transform:translate3d(0,0,0);
+  }
+}
+
+@keyframes third{
+  from{
+    -webkit-transform:translate3d(300%,0,0) rotate(-10deg);
+            transform:translate3d(300%,0,0) rotate(-10deg);
+  }
+  to{
+    -webkit-transform:translate3d(0,0,0);
+            transform:translate3d(0,0,0);
+  }
+}
+
+
+
+
+
+
+.tablePricing{
+  background:#F9F9F9;
+  text-align:center;
+  color:#173D50;
+  border-radius:4px;
+  -webkit-box-shadow:0 0 4px rgba(0, 0, 0, .3);
+          box-shadow:0 0 4px rgba(0, 0, 0, .3);
+
+}
+
+
+
+
+
+
+.tablePricing__head{
+        padding:1.3em;
+
+
+    }
+
+
+
+
+
+
+@media (max-width: 759px){
+
+
+
+
+
+
+.tablePricing__head{
+          background:rgb(57, 151, 198);
+          padding:.90em;
+          text-align:left;
+          color:#fff
+
+
+    }
+        }
+
+
+
+
+
+
+.tablePricing__head__title{
+          text-transform:uppercase;
+          color:rgb(23, 76, 102);
+        }
+
+
+
+
+
+
+@media (max-width: 759px){
+
+
+
+
+
+
+.tablePricing__head__title{
+            color:#fff
+        }
+          }
+
+
+
+
+
+
+.tablePricing__head__price{
+          font-weight:300;
+          display:inline-block;
+          font-size:5em;
+          margin-top:-10px;
+          position:relative;
+
+
+        }
+
+
+
+
+
+
+@media (max-width: 759px){
+
+
+
+
+
+
+.tablePricing__head__price{
+            font-size:2.5em;
+            margin-top:-5px;
+            margin-left:20px
+
+
+        }
+          }
+
+
+
+
+
+
+.tablePricing__head__price::before, .tablePricing__head__price::after{
+               position:absolute;
+              font-size:.3em;
+              font-weight:700;
+              color:rgba(23, 61, 80, 0.28);
+            }
+
+
+
+
+
+
+@media (max-width: 759px){
+
+
+
+
+
+
+.tablePricing__head__price::before, .tablePricing__head__price::after{
+                color:#fff
+            }
+              }
+
+
+
+
+
+
+.tablePricing__head__price::before{
+              content:"$";
+              left:-15px;
+              top:20px;
+            }
+
+
+
+
+
+
+@media (max-width: 759px){
+
+
+
+
+
+
+.tablePricing__head__price::before{
+                font-size:1em;
+                top:0;
+                left:-25px;
+                font-weight:300
+            }
+              }
+
+
+
+
+
+
+.tablePricing__head__price::after{
+              content:"/mo";
+              bottom:15px;
+              font-size:.2em;
+              text-transform:uppercase;
+            }
+
+
+
+
+
+
+.tablePricing .title-pink{
+      color:#e97d68;
+    }
+
+
+
+
+
+
+@media (max-width: 759px){
+
+
+
+
+
+
+.tablePricing .title-pink{
+        background:#e97d68;
+        color:#fff
+    }
+      }
+
+
+
+
+
+
+.tablePricing .title-pink h3{
+        color:#e97d68;
+      }
+
+
+
+
+
+
+@media (max-width: 759px){
+
+
+
+
+
+
+.tablePricing .title-pink h3{
+          color:#fff
+      }
+        }
+
+
+
+
+
+
+.tablePricing .button-pink a{
+        background:#e97d68;}
+
+
+
+
+
+
+.tablePricing__features{
+        color:rgb(23, 76, 102);
+
+    }
+
+
+
+
+
+
+.tablePricing__features__menu{
+          list-style:none;
+
+        }
+
+
+
+
+
+
+@media (max-width: 759px){
+
+
+
+
+
+
+.tablePricing__features__menu{
+            display:-webkit-box;
+            display:-ms-flexbox;
+            display:flex;
+            max-width:100%;
+            overflow-x:auto
+
+        }
+          }
+
+
+
+
+
+
+.tablePricing__features__menu li{
+            line-height:2em;
+            padding:.50em;
+            font-weight:400;
+          }
+
+
+
+
+
+
+.tablePricing__features__menu li span{
+              color:;
+              font-weight:700;
+            }
+
+
+
+
+
+
+.tablePricing__features__menu li:nth-child(odd){
+              background:rgba(0, 0, 0, .1);
+            }
+
+
+
+
+
+
+@media (max-width: 759px){
+
+
+
+
+
+
+.tablePricing__features__menu li{
+              background:#F9F9F9
+          }
+            }
+
+
+
+
+
+
+.tablePricing__button a{
+        display:inline-block;
+        width:100%;
+        text-align:center;
+        line-height:1.8em;
+        padding:1.2em;
+        background:#142731;
+        text-transform:uppercase;
+        color:#fff;
+        text-decoration:none;
+        letter-spacing:2px;
+        border-radius:0 0 4px 4px;
+      }
+
+
+.flipTable{
+  -webkit-transform:rotateY(180deg);
+          transform:rotateY(180deg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style></head><body>
+
+<div class="author">
+  <p class="name">Pricing Tables<span>by pedro Muñoz</span></p>
+  <ul class="sociales">
+    <li><a class="twitter" href="https://twitter.com/ordepFrontend" target="_blank"><span class="fa fa-twitter"></span></a></li>
+    <li><a class="instagram" href="https://instagram.com/ordep96" target="_blank"><span class="fa fa-instagram"></span></a></li>
+    <li><a class="github" href="https://github.com/ordep96/Pricing-Tables" target="_blank"><span class="fa fa-github"></span></a></li>
+    <li><a class="codepen" href="https://codepen.io/ordep96" target="_blank"><span class="fa fa-codepen"></span></a></li>
+  </ul>
+</div>
+<div class="toggle">
+  <label for="monthly">Monthly</label>
+  <input class="monthly btncheck" type="checkbox" id="monthly"/>
+  <label for="yearly">Yearly</label>
+  <input class="yearly btncheck" type="checkbox" id="yearly"/><span class="switch"></span>
+</div>
+<div class="container">
+  <div class="tablePricing-item">
+    <div class="table-wrapper">
+      <div class="tablePricing tablePricing-monthly visible first">
+        <div class="tablePricing__head">
+          <h3 class="tablePricing__head__title">Basic</h3><span class="tablePricing__head__price">30</span>
+        </div>
+        <div class="tablePricing__featuress">
+          <ul class="tablePricing__features__menu">
+            <li><span>256MB</span> Memory</li>
+            <li><span>1</span> User</li>
+            <li><span>1</span> Website</li>
+            <li><span>1</span> Domain</li>
+            <li><span>Unlimited</span> Bandwidth</li>
+            <li><span>24/7</span> Support</li>
+          </ul>
+        </div>
+        <div class="tablePricing__button"><a href="#">select</a></div>
+      </div>
+      <div class="tablePricing tablePricing-yearly">
+        <div class="tablePricing__head">
+          <h3 class="tablePricing__head__title">Basic</h3><span class="tablePricing__head__price">320</span>
+        </div>
+        <div class="tablePricing__featuress">
+          <ul class="tablePricing__features__menu">
+            <li><span>512MB</span> Memory</li>
+            <li><span>1</span> User</li>
+            <li><span>1</span> Website</li>
+            <li><span>1</span> Domain</li>
+            <li><span>Unlimited</span> Bandwidth</li>
+            <li><span>24/7</span> Support</li>
+          </ul>
+        </div>
+        <div class="tablePricing__button"><a href="#">select</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="tablePricing-item">
+    <div class="table-wrapper">
+      <div class="tablePricing tablePricing-monthly visible second">
+        <div class="tablePricing__head title-pink">
+          <h3 class="tablePricing__head__title">popular</h3><span class="tablePricing__head__price">60</span>
+        </div>
+        <div class="tablePricing__featuress">
+          <ul class="tablePricing__features__menu">
+            <li><span>512MB</span> Memory</li>
+            <li><span>3</span> Users</li>
+            <li><span>5</span> Websites</li>
+            <li><span>7</span> Domains</li>
+            <li><span>Unlimited</span> Bandwidth</li>
+            <li><span>24/7</span> Support</li>
+          </ul>
+        </div>
+        <div class="tablePricing__button button-pink"><a href="#">select</a></div>
+      </div>
+      <div class="tablePricing tablePricing-yearly">
+        <div class="tablePricing__head title-pink">
+          <h3 class="tablePricing__head__title">popular</h3><span class="tablePricing__head__price">630</span>
+        </div>
+        <div class="tablePricing__featuress">
+          <ul class="tablePricing__features__menu">
+            <li><span>512MB</span> Memory</li>
+            <li><span>3</span> Users</li>
+            <li><span>5</span> Websites</li>
+            <li><span>7</span> Domains</li>
+            <li><span>Unlimited</span> Bandwidth</li>
+            <li><span>24/7</span> Support</li>
+          </ul>
+        </div>
+        <div class="tablePricing__button button-pink"><a href="#">select</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="tablePricing-item">
+    <div class="table-wrapper">
+      <div class="tablePricing tablePricing-monthly visible third">
+        <div class="tablePricing__head">
+          <h3 class="tablePricing__head__title">premier</h3><span class="tablePricing__head__price">90</span>
+        </div>
+        <div class="tablePricing__featuress">
+          <ul class="tablePricing__features__menu">
+            <li><span>1024MB</span> Memory</li>
+            <li><span>5</span> Users</li>
+            <li><span>10</span> Websites</li>
+            <li><span>10</span> Domains</li>
+            <li><span>Unlimited</span> Bandwidth</li>
+            <li><span>24/7</span> Support</li>
+          </ul>
+        </div>
+        <div class="tablePricing__button"><a href="#">select</a></div>
+      </div>
+      <div class="tablePricing tablePricing-yearly">
+        <div class="tablePricing__head">
+          <h3 class="tablePricing__head__title">premier</h3><span class="tablePricing__head__price">950</span>
+        </div>
+        <div class="tablePricing__featuress">
+          <ul class="tablePricing__features__menu">
+            <li><span>1024MB</span> Memory</li>
+            <li><span>5</span> Users</li>
+            <li><span>10</span> Websites</li>
+            <li><span>10</span> Domains</li>
+            <li><span>Unlimited</span> Bandwidth</li>
+            <li><span>24/7</span> Support</li>
+          </ul>
+        </div>
+        <div class="tablePricing__button"><a href="#">select</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://use.fontawesome.com/d1ed67737b.js'></script>
+<script >function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {if (window.CP.shouldStopExecution(1)){break;} arr2[i] = arr[i]; }
+window.CP.exitedLoop(1);
+ return arr2; } else { return Array.from(arr); } }
+
+var toggle = document.querySelector('.toggle'),
+    wrapperTable = [].concat(_toConsumableArray(document.querySelectorAll('.table-wrapper'))),
+    switchToggle = document.querySelector('.switch'),
+    btnCheck = [].concat(_toConsumableArray(document.querySelectorAll('.btncheck'))),
+    tableMonthly = [].concat(_toConsumableArray(document.querySelectorAll('.tablePricing-monthly'))),
+    tableYearly = [].concat(_toConsumableArray(document.querySelectorAll('.tablePricing-yearly')));
+
+var flipTable = function flipTable(e) {
+
+    if (e.target.checked && e.target.getAttribute("id") === "yearly") {
+        tableMonthly.map(function (monthly) {
+            return monthly.classList.remove("visible");
+        });
+        wrapperTable.map(function (wrap) {
+            return wrap.classList.add('flipTable');
+        });
+        tableYearly.map(function (yearly) {
+            return yearly.classList.add('visible');
+        });
+    }
+
+    if (e.target.checked && e.target.getAttribute("id") === "monthly") {
+        tableYearly.map(function (yearly) {
+            return yearly.classList.remove('visible');
+        });
+        btnCheck.map(function (check) {
+            return check.checked = false;
+        });
+        wrapperTable.map(function (wrap) {
+            return wrap.classList.remove('flipTable');
+        });
+        tableMonthly.map(function (monthly) {
+            return monthly.classList.add("visible");
+        });
+    }
+};
+
+toggle.addEventListener('click', flipTable);
+//# sourceURL=pen.js
+</script>
+</body></html>

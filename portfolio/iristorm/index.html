@@ -1,0 +1,180 @@
+
+<!DOCTYPE html><html class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/brettmitchell/pen/oexpXp" />
+
+
+<style class="cp-pen-styles">body {padding: 0; margin: 0; overflow :hidden;}
+</style></head><body>
+<!--Raindrops of the Ranbow and Lightening - click the mouse for various effects-->
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/439415/p5.min.js'></script>
+<script>var drops = [];
+var raindropSize = 1;
+var droplets = 1250;
+var maxDrops = 1250;
+var thue;
+var flig = 0;
+var thickness = 9;
+var tx;
+var ty = 10;
+var loc = 0;
+var direct = -1;
+var trail = .1;
+var fade = 1;
+var ms;
+var distancy;
+var mob = 0;
+var xp = 1;
+var yp = 1;
+
+
+
+function setup() {
+  smooth();
+  noStroke();
+  colorMode(HSB, 360, 100, 50, 1);
+  createCanvas(window.innerWidth, window.innerHeight);
+  if (window.innerWidth < 801) mob = 1;
+  if(mob == 1) droplets = droplets / 2;
+    tx = random(-3, 3);
+  
+  for (var i = 0; i < droplets; i++) {if (window.CP.shouldStopExecution(1)){break;}
+    var x = round((random(width / raindropSize)) * raindropSize);
+    var y = round(random(height / raindropSize)) * raindropSize - window.innerHeight;
+    var r = raindropSize;
+    var h = map(x, 0, width, 0, 360); //(0, 360);
+    var s = random(1, 19);
+    trail = random(0.16, .5);
+    thue = h;
+    
+    distancey = random(100, window.innerHeight);
+    tswell = ((distancey / window.innerHeight) * 25) * s / 2;
+    drops[i] = new RainDrop(x, y, r, h, s, tswell, distancey);
+  }
+window.CP.exitedLoop(1);
+
+}
+
+
+
+function draw() {
+ //text(trail, 100, 100);
+  var spot = 0;
+  var lig = random(0, 5);
+  if (lig > 4.9) {flig = 100; thickness = round(random(1, 19)); lightening();}
+   background(200, 100, flig, trail);
+    if (flig == 100) flig = 0;
+  for (var i =0; i < droplets; i++) {if (window.CP.shouldStopExecution(2)){break;}
+    drops[i].move();
+    drops[i].display();
+    
+  }
+window.CP.exitedLoop(2);
+
+}
+
+function RainDrop(tempX, tempY, tempDiameter, tempHue, tempSpeed, tswell, tdistance) {
+  colorMode(HSB, 360, 100, 50, 1);
+  this.x = tempX;
+  this.loc = tempX;
+  this.y = tempY;
+  this.spot = 0;
+  this.diameter = tempDiameter;
+  this.h = tempHue;
+  this.s = tempSpeed;
+  this.swell = tswell;
+  this.distancey = tdistance;
+  this.move = function() {
+   
+    //var ty = this.s;
+    this.x += (tx * raindropSize);;
+    if (this.y < tdistance) this.y += tempSpeed;
+    if (this.x > width) {this.loc = this.x; this.x = this.x - window.innerWidth;}
+    if (this.x < - 20) this.x = width;    
+    
+   // fill(255);
+   // text(this.y, 100, 100);
+   // noFill();}
+    if (this.y > tdistance) { this.y = tdistance - raindropSize; this.spot = 1; this.x -= (tx * raindropSize);
+      
+      var fd = this.swell / tswell;
+      //var puddle = map(tswell, 0, tdistance, 1, 20);
+      strokeWeight(raindropSize/3); stroke(this.h, 100, 50, fd); noFill();
+                             
+      ellipse(this.x + 1, tdistance, this.swell / 3, this.swell / 15);
+      //console.log(this.h);                                  
+      this.swell -= 5;}
+      if (this.swell < 4) {this.swell = tswell; this.y = random(-window.innerHeight, 0); this.spot = 0; this.distancey = tdistance;}
+     // this.f += 2;
+     //this.y -= (tempSpeed);
+  //if (this.f > 9) {this.y = 0; this.f = 0;  }
+  //direct = direct * -1;                                           }
+
+ //round(random(height / raindropSize)) * (raindropSize - height);
+                      
+
+  
+  this.display = function() {
+    if (this.spot == 0) {
+    noStroke();
+  fill(tempHue, 100, 50, fd);
+    rect(this.x, this.y, this.diameter, this.diameter);
+  }}
+    
+    
+  }}
+
+
+
+function mousePressed() {
+  colorMode(HSB, 360, 100, 50, .8);
+  raindropSize = random(.25, 2.5);
+  droplets = round(random(10, 1050));
+  if (mob == 1) droplets = droplets / 4;
+  tx *= -1;
+  for(var i = droplets; i < maxDrops; i++) {if (window.CP.shouldStopExecution(3)){break;} drops[i] = 0;
+  i++;
+}
+window.CP.exitedLoop(3);
+
+  
+  for (var i = 0; i < droplets; i++) {if (window.CP.shouldStopExecution(4)){break;}
+       var x = random(-30, window.innerWidth);
+    var y = random(-window.innerHeight, -30);// - height;
+    var r = raindropSize;
+    var h = map(x, 0, width, 0, 360);
+    var s = random(4,30);
+    trail = random(0.2, .5);
+    thue = h;
+    distancey = random(100, window.innerHeight);
+    tswell = ((distancey / window.innerHeight) * 15) * s / 2;
+   drops[i] = new RainDrop(x, y, r, h, s, tswell, distancey);
+   
+  }
+window.CP.exitedLoop(4);
+
+  start(); 
+}
+function lightening() {
+  var starts = 0;
+  var xpos = random(0, width);
+  while (thickness > 0) {if (window.CP.shouldStopExecution(5)){break;}
+  var abolt = random(0, 100);
+  var bbolt = random(-20, 20);
+    strokeWeight(thickness);
+    stroke(200, 100, 50, 1);
+    line (xpos, starts, xpos+bbolt, starts+abolt);
+    xpos += bbolt;
+    starts += abolt;
+  thickness--;
+
+  }
+window.CP.exitedLoop(5);
+}
+
+
+
+
+
+//# sourceURL=pen.js
+</script>
+</body></html>

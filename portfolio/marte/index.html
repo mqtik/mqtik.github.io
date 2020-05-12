@@ -1,0 +1,126 @@
+
+<!DOCTYPE html><html class=''>
+<head><meta charset='UTF-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style class="cp-pen-styles">@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i|Oxygen:300");
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: black;
+  margin: 0;
+  min-height: 100vh;
+  font-family: Oxygen, sans-serif;
+  color: #fff;
+}
+
+#marsloc {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+#marsinfo {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 2rem;
+}
+
+#marsinfo h1 {
+  font-size: 8vw;
+  margin-top: 0;
+  font-weight: 100;
+  line-height: 1;
+  position: absolute;
+}
+
+#marsinfo div {
+  width: 40%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  right: 0;
+  padding: 1.3rem;
+  line-height: 1.6;
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+@media all and (max-width: 540px) {
+  #marsinfo div {
+    width: 100%;
+    left: 0;
+    top: 40vw;
+  }
+}
+</style></head><body>
+<div id="marsloc"></div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.js'></script><script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/orbitcontrols.js'></script>
+<script>var container, controls, camera, renderer, scene, light, marsMesh,
+clock = new THREE.Clock();
+
+const imgLoc = "http://matikbird.com/portfolio/marte/";
+camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
+camera.position.set(1380, -17, 200);
+                
+scene = new THREE.Scene();
+camera.lookAt(scene.position);
+light = new THREE.SpotLight(0xFFFFFF, 1, 0, Math.PI / 2, 1);
+light.position.set(2000, 2000, 1500);
+light.target.position.set (0, 0, 0);
+scene.add(light);
+
+var marsGeo = new THREE.SphereGeometry (500, 32, 32),
+marsMaterial = new THREE.MeshPhongMaterial();
+marsMesh = new THREE.Mesh(marsGeo, marsMaterial);
+marsMesh.position.set(0, 0, 0);
+scene.add(marsMesh);   
+
+var loader = new THREE.TextureLoader();
+marsMaterial.map = loader.load(imgLoc+'mars-map.jpg');
+marsMaterial.bumpMap = loader.load(imgLoc+'mars-bump.jpg');
+marsMaterial.bumpScale = 8;
+marsMaterial.specular = new THREE.Color('#000000');
+renderer = new THREE.WebGLRenderer({antialiasing : true});
+renderer.setSize(window.innerWidth - 40, window.innerHeight -40)       
+marsloc.appendChild(renderer.domElement);
+
+controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.addEventListener('change', render);
+
+function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+  render();       
+}
+            
+function render(){
+   var delta = clock.getDelta();
+   marsMesh.rotation.y += 0.1 * delta;
+   renderer.clear();
+   renderer.render(scene, camera); 
+}
+
+animate();
+
+marsloc.addEventListener('mousedown', function() { 
+  marsloc.style.cursor = "-moz-grabbing";
+  marsloc.style.cursor = "-webkit-grabbing";
+  marsloc.style.cursor = "grabbing";
+})
+
+marsloc.addEventListener('mouseup', function() { 
+  marsloc.style.cursor = "-moz-grab";
+  marsloc.style.cursor = "-webkit-grab";
+  marsloc.style.cursor = "grab";
+})
+
+window.addEventListener( 'resize', onWindowResize, false );
+
+function onWindowResize(){
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth - 40, window.innerHeight - 40);
+}
+</script>
+</body></html>

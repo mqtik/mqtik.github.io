@@ -1,0 +1,359 @@
+
+<!DOCTYPE html><html class=''>
+<head>
+<title>Memorias de una transición</title>
+<link rel="stylesheet" href="assets/core.css">
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css'>
+</head><body>
+<div class="popups-cont">
+  <div class="popups-cont__overlay"></div>
+  <div class="popup">
+    <div class="popup__pieces"></div>
+    <div class="popup__content">
+      <div class="popup__close"></div>
+      <h3 class="popup__heading">Publicado por <cite class="author"></cite></h3>  
+      <p class="popup__text">
+        <div id="one"></div>
+      
+      
+      <div class="bottom">
+      <div class="compartir">
+  <a href="#"><span>Facebook</span></a>
+  <a href="#"><span>Twitter</span></a>
+  <a href="#"><span>Google+</span></a>
+</div>
+        <input type="hidden" value="gusta" class="input"/>
+
+
+      </div>
+      </p>
+      </div>
+  </div>
+</div>
+<div class="colorbars">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<div class="loader">
+  <span>&#8220;</span><span>&#8221;</span>
+</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js'></script><script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/448917/orbit-controls.js'></script>
+<script src='assets/jquery.min.js'></script>
+<script>
+
+
+var scene, camera, renderer, INTERSECTED;
+var geometry, material, mesh;
+var spheres = [];
+var timer;
+var raycaster = new THREE.Raycaster();
+var mouse = {
+	x: 0,
+	y: 0
+};
+window.addEventListener("mousemove", function (event) {
+	// Normalize mouse coordinates
+	mouse.x = event.clientX / window.innerWidth * 2 - 1;
+	mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+});
+init();
+animate();
+
+function init() {
+
+    scene = new THREE.Scene();
+
+    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+    camera.position.z = 500;
+
+    controls = new THREE.OrbitControls( camera );
+
+    addLights();
+
+    var colors = [
+        "#e609ff",
+        "#20e066",
+        "#ef92a3",
+        "#4e9de2",
+        "#A73F34",
+    ];
+
+    for (var i = 0; i < 1000; i++) {
+        var color = colors[Math.floor((Math.random() * 5))]
+        var radius = Math.random() * 20;
+        var geometry = new THREE.DodecahedronGeometry( radius, 0 );
+        var material = new THREE.MeshPhongMaterial( { color: color, shading: THREE.FlatShading, vertexColors: THREE.VertexColors, shininess: 0 } );
+        var sphere = new THREE.Mesh( geometry, material );
+        sphere.position.x = ( Math.random() - 0.5 ) * 1500;
+        sphere.position.y = ( Math.random() - 0.5 ) * 1500;
+        sphere.position.z = ( Math.random() - 0.5 ) * 1500;
+        sphere.velocity = {x: 0.01, y: 0.01, z: 0.01};
+        sphere.radius = radius;
+        sphere.quote = "hola"+Math.random().toString(36).substr(2, 5);
+        spheres.push(sphere)
+  
+        scene.add( sphere );    
+
+    }
+  
+    renderer = new THREE.WebGLRenderer();
+    renderer.setClearColor( 0x330033 );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setPixelRatio( window.devicePixelRatio );
+
+
+    document.body.appendChild( renderer.domElement );
+    timer = 0;
+
+}
+
+function addLights() {
+    var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+    directionalLight.position.set( 0, 1, 0 );
+    scene.add( directionalLight );
+
+    var leftLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+    leftLight.position.set( 1, 0, 0 );
+    scene.add( leftLight );
+
+    var rightLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+    rightLight.position.set( 1, 0, 0 );
+    scene.add( rightLight );
+
+    var frontLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+    frontLight.position.set( 0, 0, 1 );
+    scene.add( frontLight );
+
+    var backLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+    backLight.position.set( 0, 0, -1 );
+    scene.add( backLight );
+
+    var bottomLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+    bottomLight.position.set( 0, -1, 0 );
+    scene.add( bottomLight );
+}
+function rotationgalaxy() {
+    scene.rotation.y -= .0006;
+  };
+function animate() {
+    requestAnimationFrame( animate );
+        raycaster.setFromCamera(mouse, camera);
+         var intersects = raycaster.intersectObjects(scene.children);
+        if ( intersects.length > 0 )
+{
+    // if the closest object intersected is not the currently stored intersection object
+    if ( intersects[ 0 ].object != INTERSECTED )
+    {
+        // restore previous intersection object (if it exists) to its original color
+        if ( INTERSECTED )
+            INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
+        // store reference to closest object as current intersection object
+        INTERSECTED = intersects[ 0 ].object;
+        // store color of closest object (for later restoration)
+        INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
+        // set a new color for closest object
+        INTERSECTED.material.color.setHex( 0xCC66CC );
+    }
+}
+else // there are no intersections
+{
+    // restore previous intersection object (if it exists) to its original color
+    if ( INTERSECTED )
+        INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
+    // remove previous intersection object reference
+    //     by setting current intersection object to "nothing"
+    INTERSECTED = null;
+}
+        rotationgalaxy();
+            renderer.render( scene, camera );
+            $(".loader").remove();
+
+}
+
+ document.addEventListener('mousedown', onMouseDown, false);
+function onMouseDown(event) {
+   var intersects = raycaster.intersectObjects(scene.children);
+
+    // Only run if we're intersecting objects
+    if (intersects.length > 0) {
+        // intersects[0].object.scale.x += 0.2;
+        console.log(intersects[0].object);
+        openquote();
+        
+    } 
+}
+window.addEventListener("resize", function() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  render();
+});
+
+var numOfPieces = 6 * 6;
+var frag = document.createDocumentFragment();
+var $popupsCont = document.querySelector('.popups-cont');
+var $popup = document.querySelector('.popup');
+var popupAT = 900;
+$.fn.animateText = function(delay, klass) {
+  var text = this.text();
+  var letters = text.split('');
+
+  return this.each(function(){
+    var $this = $(this);
+    $this.html(text.replace(/./g, '<span class="letter">$&</span>'));
+    $this.find('span.letter').each(function(i, el){
+      setTimeout(function(){ $(el).addClass(klass); }, delay * i);
+    });
+  }); 
+};
+
+
+function openquote(){// http://api.forismatic.com/api/1.0/?jsonp=jsonp&method=getQuote&key=457653&format=jsonp&lang=en 
+  NProgress.start();
+        $.ajax({
+            url: 'http://api.forismatic.com/api/1.0/?jsonp=?',
+            dataType: 'jsonp',
+            data: {
+                method: 'getQuote',
+                key: '457653',
+                format: 'jsonp',
+                lang: 'en'
+            },
+            success: function (data) {
+                  $popupsCont.classList.add('s--popup-active');
+    $popup.classList.add('s--active');
+                $('#one').text(data.quoteText).animateText(15, 'opacity');
+
+                if (data.quoteAuthor === '') {
+                    data.quoteAuthor = 'Desconocido';
+                } else {
+                    $('.author').text(data.quoteAuthor);
+                }
+                NProgress.done();
+            },
+            error: function(error){ console.log("aca"); console.log(error);}
+        });
+    }
+function insertInnerPieces($el, innerPieces) {
+    for (var i = 0; i < innerPieces; i++) {
+         var $inner = document.createElement('div');
+        $inner.classList.add('popup__piece-inner');
+        $el.appendChild($inner);
+    }
+}
+;
+for (var i = 1; i <= numOfPieces; i++) {
+
+    var $piece = document.createElement('div');
+    $piece.classList.add('popup__piece');
+    insertInnerPieces($piece, 3);
+    frag.appendChild($piece);
+}
+document.querySelector('.popup__pieces').appendChild(frag);
+
+function closeHandler() {
+    $popupsCont.classList.remove('s--popup-active');
+    $popup.classList.remove('s--active');
+    $popup.classList.add('s--closed');
+    setTimeout(function () {
+        $popup.classList.remove('s--closed');
+    }, popupAT);
+}
+document.querySelector('.popup__close').addEventListener('click', closeHandler);
+document.querySelector('.popups-cont__overlay').addEventListener('click', closeHandler);
+
+
+
+$.fn.extend({faceMocion: function(opciones) {
+  
+  var faceMocion=this;
+  var NombreSelector="Selector";    
+  var DescripcionFace="--";
+  defaults = { emociones:[
+    {"emocion":"amo","TextoEmocion":"Lo amo"},
+    {"emocion":"molesto","TextoEmocion":"Me molesta"},
+    {"emocion":"asusta","TextoEmocion":"Me asusta"},
+    {"emocion":"divierte","TextoEmocion":"Me divierte"},
+    {"emocion":"gusta","TextoEmocion":"Me gusta"},
+    {"emocion":"triste","TextoEmocion":"Me entristece"},
+    {"emocion":"asombro","TextoEmocion":"Me asombra"},
+    {"emocion":"alegre","TextoEmocion":"Me alegra"}
+    ]};
+  var opciones = $.extend({}, defaults, opciones);
+    
+       $(faceMocion).each(function( index ) {
+           var UnicoID = Date.now();
+           $(this).attr("class",$(faceMocion).attr("class")+" "+UnicoID);
+           var EstadoInicial="alegre";
+           if($(this).val()!=""){
+               EstadoInicial=$(this).val(); 
+           }else{
+               $(this).val('alegre');
+           }
+           DescripcionFace=EstadoInicial;
+           ElementoIniciar='';
+           ElementoIniciar=ElementoIniciar+'<div dato-descripcion="'+DescripcionFace+'" ';
+           ElementoIniciar=ElementoIniciar+'id-referencia="'+UnicoID;
+           ElementoIniciar=ElementoIniciar+'"  class="'+NombreSelector;
+           ElementoIniciar=ElementoIniciar+' selectorFace '+EstadoInicial+'"></div>';
+           $(this).before(ElementoIniciar);
+    });
+    
+    
+    $(document).ready(function() {
+        BarraEmociones='<div class="faceMocion">';
+        $.each(opciones.emociones, function(index,emo ){
+           BarraEmociones=BarraEmociones+'<div dato-descripcion="'+emo.TextoEmocion;    
+           BarraEmociones=BarraEmociones+'" class="'+emo.emocion+'"></div>';
+        });
+          BarraEmociones=BarraEmociones+'</div>';
+        $(document.body).append(BarraEmociones);
+        $('.faceMocion div').hover(function(){
+            var title = $(this).attr('dato-descripcion');
+            $(this).data('tipText', title).removeAttr('dato-descripcion');
+            $('<p class="MensajeTexto"></p>').text(title).appendTo('body').fadeIn('slow');
+      },function() {
+            $(this).attr('dato-descripcion', $(this).data('tipText'));
+            $('.MensajeTexto').remove();
+        });
+  });
+    $( '.'+NombreSelector ).hover(function(e) {
+      SelectorEmocion= $(this);
+            var RatonX = e.pageX;var RatonY = e.pageY;
+             $( ".faceMocion" ).show();           
+            $( ".faceMocion div" ).click(function() { 
+                
+      SelectorEmocion.attr("class",NombreSelector+" selectorFace  "+$(this).attr('class'));
+                      
+      });
+  });
+    $(document).mouseup(function (e){  $( ".faceMocion" ).hide();});
+      $(faceMocion).hide();
+    
+}
+});
+
+$(".input").faceMocion({emociones:[
+    {"emocion":"amo","TextoEmocion":"I love"},
+    {"emocion":"molesto","TextoEmocion":"It bothers me"},
+    {"emocion":"asusta","TextoEmocion":"it scares"},
+    {"emocion":"divierte","TextoEmocion":"I enjoy"},
+    {"emocion":"gusta","TextoEmocion":"I like"},
+    {"emocion":"triste","TextoEmocion":"It saddens"},
+    {"emocion":"asombro","TextoEmocion":"It amazes me"},
+    {"emocion":"alegre","TextoEmocion":"I am glad"}
+    ]});
+
+</script>
+</body></html>

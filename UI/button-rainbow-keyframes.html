@@ -1,0 +1,60 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/LbmLvY" />
+
+
+<style class="cp-pen-styles">body {
+  padding: 60px;
+  background: #f3f3f3;
+  min-height: 100vh;
+}
+
+@-webkit-keyframes sparkle {
+  from {
+    background-position: 0% 100%;
+  }
+  to {
+    background-position: 200% 100%;
+  }
+}
+
+@keyframes sparkle {
+  from {
+    background-position: 0% 100%;
+  }
+  to {
+    background-position: 200% 100%;
+  }
+}
+.test {
+  background: white;
+  display: inline-block;
+  padding: 1em;
+  font-family: Helvetica Neue;
+  border-radius: 4px;
+  position: relative;
+}
+.test:before {
+  -webkit-animation: sparkle 4s infinite linear;
+          animation: sparkle 4s infinite linear;
+  background: linear-gradient(90deg, #7FEFBD 0%, #FFF689 11%, #EC0B43 22%, #7FEFBD 33%, #FFF689 44%, #EC0B43 55%, #7FEFBD 66%, #FFF689 77%, #EC0B43 88%, #7FEFBD 100%);
+  background-size: 300% 100%;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  -webkit-filter: blur(3px);
+          filter: blur(3px);
+  z-index: -1;
+  -webkit-transform: scale(0.99) translateY(3px);
+          transform: scale(0.99) translateY(3px);
+}
+</style></head><body>
+<div class="test">
+  Button
+</div>
+
+</body></html>

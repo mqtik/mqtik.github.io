@@ -1,0 +1,203 @@
+
+<!DOCTYPE html><html class=''>
+<head><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="canonical" href="http://codepen.io/matikbird/pen/XjpxpA" />
+
+
+<style class="cp-pen-styles"></style>
+<link rel="stylesheet" href="assets/core.css">
+
+</head><body>
+<div class="popups-cont">
+  <div class="popups-cont__overlay"></div>
+  <div class="popup">
+    <div class="popup__pieces"></div>
+    <div class="popup__content">
+      <div class="popup__close"></div>
+      <h3 class="popup__heading">Publicado por <cite class="author"></cite></h3>  
+      <p class="popup__text">
+        <div id="one"></div>
+      
+      
+      <div class="bottom">
+        <input type="hidden" value="gusta" class="input"/>
+      </div>
+      </p>
+      </div>
+  </div>
+</div>
+
+<button type="button" class="popup-btn">Show quote</button>
+<script src='assets/jquery.min.js'></script>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');
+
+var numOfPieces = 6 * 6;
+var frag = document.createDocumentFragment();
+var $popupsCont = document.querySelector('.popups-cont');
+var $popup = document.querySelector('.popup');
+var popupAT = 900;
+$.fn.animateText = function(delay, klass) {
+	var text = this.text();
+	var letters = text.split('');
+
+	return this.each(function(){
+		var $this = $(this);
+		$this.html(text.replace(/./g, '<span class="letter">$&</span>'));
+		$this.find('span.letter').each(function(i, el){
+			setTimeout(function(){ $(el).addClass(klass); }, delay * i);
+		});
+	}); 
+};
+
+
+$(document).ready(function () {
+    $('.popup-btn').on('click', function () {
+
+      // http://api.forismatic.com/api/1.0/?jsonp=jsonp&method=getQuote&key=457653&format=jsonp&lang=en 
+        $.ajax({
+            url: 'http://api.forismatic.com/api/1.0/?jsonp=?',
+            dataType: 'jsonp',
+            data: {
+                method: 'getQuote',
+                key: '457653',
+                format: 'jsonp',
+                lang: 'en'
+            },
+            success: function (data) {
+                $('#one').text(data.quoteText).animateText(15, 'opacity');
+                if (data.quoteAuthor === '') {
+                    data.quoteAuthor = 'Unknown';
+                } else {
+                    $('.author').text(data.quoteAuthor);
+                }
+            },
+            error: console.log('error')
+        });
+    });
+});
+
+function insertInnerPieces($el, innerPieces) {
+    for (var i = 0; i < innerPieces; i++) {
+         var $inner = document.createElement('div');
+        $inner.classList.add('popup__piece-inner');
+        $el.appendChild($inner);
+    }
+}
+;
+for (var i = 1; i <= numOfPieces; i++) {
+
+    var $piece = document.createElement('div');
+    $piece.classList.add('popup__piece');
+    insertInnerPieces($piece, 3);
+    frag.appendChild($piece);
+}
+document.querySelector('.popup__pieces').appendChild(frag);
+
+document.querySelector('.popup-btn').addEventListener('click', function () {
+    $popupsCont.classList.add('s--popup-active');
+    $popup.classList.add('s--active');
+});
+function closeHandler() {
+    $popupsCont.classList.remove('s--popup-active');
+    $popup.classList.remove('s--active');
+    $popup.classList.add('s--closed');
+    setTimeout(function () {
+        $popup.classList.remove('s--closed');
+    }, popupAT);
+}
+document.querySelector('.popup__close').addEventListener('click', closeHandler);
+document.querySelector('.popups-cont__overlay').addEven Listener('click', closeHandler);
+
+
+
+$.fn.extend({faceMocion: function(opciones) {
+  
+  var faceMocion=this;
+  var NombreSelector="Selector";    
+  var DescripcionFace="--";
+  defaults = { emociones:[
+    {"emocion":"amo","TextoEmocion":"Lo amo"},
+    {"emocion":"molesto","TextoEmocion":"Me molesta"},
+    {"emocion":"asusta","TextoEmocion":"Me asusta"},
+    {"emocion":"divierte","TextoEmocion":"Me divierte"},
+    {"emocion":"gusta","TextoEmocion":"Me gusta"},
+    {"emocion":"triste","TextoEmocion":"Me entristece"},
+    {"emocion":"asombro","TextoEmocion":"Me asombra"},
+    {"emocion":"alegre","TextoEmocion":"Me alegra"}
+    ]};
+  var opciones = $.extend({}, defaults, opciones);
+    
+       $(faceMocion).each(function( index ) {
+           var UnicoID = Date.now();
+           $(this).attr("class",$(faceMocion).attr("class")+" "+UnicoID);
+           var EstadoInicial="alegre";
+           if($(this).val()!=""){
+               EstadoInicial=$(this).val(); 
+           }else{
+               $(this).val('alegre');
+           }
+           DescripcionFace=EstadoInicial;
+           ElementoIniciar='';
+           ElementoIniciar=ElementoIniciar+'<div dato-descripcion="'+DescripcionFace+'" ';
+           ElementoIniciar=ElementoIniciar+'id-referencia="'+UnicoID;
+           ElementoIniciar=ElementoIniciar+'"  class="'+NombreSelector;
+           ElementoIniciar=ElementoIniciar+' selectorFace '+EstadoInicial+'"></div>';
+           $(this).before(ElementoIniciar);
+    });
+    
+    
+    $(document).ready(function() {
+        BarraEmociones='<div class="faceMocion">';
+        $.each(opciones.emociones, function(index,emo ){
+           BarraEmociones=BarraEmociones+'<div dato-descripcion="'+emo.TextoEmocion;    
+           BarraEmociones=BarraEmociones+'" class="'+emo.emocion+'"></div>';
+        });
+          BarraEmociones=BarraEmociones+'</div>';
+        $(document.body).append(BarraEmociones);
+        $('.faceMocion div').hover(function(){
+            var title = $(this).attr('dato-descripcion');
+            $(this).data('tipText', title).removeAttr('dato-descripcion');
+            $('<p class="MensajeTexto"></p>').text(title).appendTo('body').fadeIn('slow');
+      },function() {
+            $(this).attr('dato-descripcion', $(this).data('tipText'));
+            $('.MensajeTexto').remove();
+        });
+  });
+    $( '.'+NombreSelector ).hover(function(e) {
+      SelectorEmocion= $(this);
+            var RatonX = e.pageX;var RatonY = e.pageY;
+             $( ".faceMocion" ).show();           
+            $( ".faceMocion div" ).click(function() { 
+                
+      SelectorEmocion.attr("class",NombreSelector+" selectorFace  "+$(this).attr('class'));
+                      
+      });
+  });
+    $(document).mouseup(function (e){  $( ".faceMocion" ).hide();});
+      $(faceMocion).hide();
+    
+}
+});
+
+$(".input").faceMocion({emociones:[
+    {"emocion":"amo","TextoEmocion":"I love"},
+    {"emocion":"molesto","TextoEmocion":"It bothers me"},
+    {"emocion":"asusta","TextoEmocion":"it scares"},
+    {"emocion":"divierte","TextoEmocion":"I enjoy"},
+    {"emocion":"gusta","TextoEmocion":"I like"},
+    {"emocion":"triste","TextoEmocion":"It saddens"},
+    {"emocion":"asombro","TextoEmocion":"It amazes me"},
+    {"emocion":"alegre","TextoEmocion":"I am glad"}
+    ]});
+
+
+
+</script>
+</body></html>

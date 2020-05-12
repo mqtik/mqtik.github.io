@@ -1,0 +1,312 @@
+
+<!DOCTYPE html><html class=''>
+<head><meta charset='UTF-8'><meta name="robots" content="noindex">
+<title>Solar system - Work in progress - Matikbird</title>
+
+<style class="cp-pen-styles">canvas{
+  position:absolute;
+  top:-20px;
+  left:-20px;
+  bottom:0px;
+  right:0px;
+
+}
+body
+{
+  position:absolute;
+  top:-20px;
+  left:-20px;
+  bottom:-20px;
+  right:-20px;
+  background-color:black;
+  overflow:hidden;
+}</style></head><body>
+<script src="http://threejs.org/build/three.js"></script>
+<script src="http://threejs.org/examples/js/renderers/CanvasRenderer.js"></script>
+<script src="http://threejs.org/examples/js/renderers/Projector.js"></script>
+<script src="http://threejs.org/examples/js/libs/dat.gui.min.js"></script>
+<script src="http://threejs.org/examples/js/Detector.js"></script>
+<script src="http://threejs.org/examples/js/controls/OrbitControls.js"></script>
+<script src="http://threejs.org/examples/js/controls/TrackballControls.js"></script>
+<div class='container'>
+  <canvas id="starField"></canvas>
+</div><script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script>jQuery.fn.extend({
+  getImage: function () {
+
+    var me = $(this)[0];
+
+    if (me.tagName.toLowerCase() == 'img') {
+      return me;
+    }
+    else {
+      console.warn('Element is not an image', me);
+    }
+  },
+  getCanvas: function () {
+
+    var me = $(this)[0];
+
+    if (me.tagName.toLowerCase() == 'canvas') {
+      return me;
+    }
+    else
+    {
+      console.warn('Element is not a canvas', me);
+    }
+  },
+  getContext: function (type) {
+    if (type == null || type == undefined) {
+      type = '2d';
+    }
+
+    var ctx = $(this).getCanvas().getContext(type);
+    return ctx;
+  },
+  asBackground: function () {
+    return 'url(' + $(this).getDataUrl() + ")";
+  },
+  getDataUrl: function () {
+    return $(this).getCanvas().toDataURL();
+  }
+});
+function starfield() {
+  $('#starField').hide();
+  var ctx = $('#starField').getContext();
+  $('#starField')
+    .attr('height', $('body').innerHeight())
+    .attr('width', $('body').innerWidth());
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, $('body').innerWidth(), $('body').innerHeight());
+
+  var height = $('#starField').outerHeight();
+  var half = height / 2;
+  var width = $('#starField').outerWidth();
+
+  stars(1000, width, height, height - 10, 10, 0, ctx);
+  $('body').css({ 'background': $('#starField').asBackground() + 'center top no-repeat' });
+}
+
+function stars(count, width, start, upper, lower, yPlus, ctx) {
+  for (var i = 0; i < count; i++) {
+    var x = $.rangedRandom(width, width - 10, 10, true);
+    var y = $.rangedRandom(start, upper, lower, true);
+
+    var star = $.rangedRandom(3, 3, 1, true);
+    var r = $.rangedRandom(255, 255, 200, true);
+    var g = $.rangedRandom(255, 255, 200, true);
+    var b = $.rangedRandom(255, 255, 200, true);
+
+    ctx.beginPath();
+    ctx.arc(x, (y + yPlus), star, 0, 2 * Math.PI);
+
+    ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',.1)';
+    ctx.shadowColor = 'rgba(' + r + ',' + g + ',' + b + ',.2)';
+    ctx.shadowBlur = star * 2;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ',.1)'
+    ctx.stroke();
+
+  }
+
+}
+
+
+$.rangedRandom = function (seed, ceiling, floor, isWhole) {
+  var result;
+  if (isWhole) {
+    result = Math.floor(Math.max(Math.min((Math.random() * seed), ceiling), floor));
+  } else {
+    result = Math.max(Math.min((Math.random() * seed), ceiling), floor);
+  }
+
+
+  return result;
+}
+
+
+$(document).ready(function () {
+  starfield();
+   var renderer = new THREE.WebGLRenderer({ alpha: true });
+        var scene = new THREE.Scene();
+        var camera;
+        var controls;
+        var WIDTH = $('#starField').outerWidth(),
+          HEIGHT = $('#starField').outerHeight();
+
+        // set some camera attributes
+        var VIEW_ANGLE = 45,
+          ASPECT = WIDTH / HEIGHT,
+          NEAR = 0.1,
+          FAR = 10000, controls;
+
+        // get the DOM element to attach to
+        // - assume we've got jQuery to hand
+        var $container = $('#container');
+
+        // create a WebGL renderer, camera
+        // and a scene
+        camera =
+          new THREE.PerspectiveCamera(
+            VIEW_ANGLE,
+            ASPECT,
+            NEAR,
+            FAR);
+
+        run();
+
+        animate();
+
+        
+
+    function render() {
+
+        renderer.render(scene, camera);
+        //   stats.update();
+
+    }
+
+    function run() { // set the scene size
+
+
+        // add the camera to the scene
+        scene.add(camera);
+
+        // the camera starts at 0,0,0
+        // so pull it back
+        camera.position.z = 1000;
+        /*
+        0
+35.98
+67.24
+92.96
+141.6
+483.8
+888.2
+1787
+2795
+
+        */
+
+        //controls = new THREE.TrackballControls(camera);
+        controls = new THREE.OrbitControls(camera);
+
+        controls.rotateSpeed = 1.0;
+        controls.zoomSpeed = 1.2;
+        controls.panSpeed = 0.8;
+
+        controls.enableZoom = true;
+        controls.enablePan = true;
+
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.3;
+
+        controls.keys = [65, 83, 68];
+
+        controls.addEventListener('change', render);
+
+        var sunPos = 2500;
+        var sunadjuster = 1291.98;//1091.98
+        var sun = celestial(1091.98, 'yellow', scene, sunPos, 0);
+        var mercury = celestial(3.83, 'grey', scene, (sunPos - (sunadjuster + 35.98)), 0);
+        var venus = celestial(9.49, 'orange', scene, (sunPos - (sunadjuster + 67.24)), 0);
+        var earth = celestial(10, 'green', scene, (sunPos - (sunadjuster + 92.96)), 0);
+        var mars = celestial(5.32, 'red', scene, (sunPos - (sunadjuster + 141.6)), 0);
+        var jupiter = celestial(109.73, '#ffcc99', scene, (sunPos - (sunadjuster + 483.8)), 0);
+        var saturn = celestial(91.40, 'sandybrown', scene, (sunPos - (sunadjuster + 888.2)), 0);
+        var uranus = celestial(39.80, '#71EEB8', scene, (sunPos - (sunadjuster + 1787)), 0);
+        var neptune = celestial(38.64, 'blue', scene, (sunPos - (sunadjuster + 2795)), 0);
+
+        var pointLight =
+          new THREE.PointLight(0xFFFFFF);
+
+        pointLight.position.x = 25000;
+        pointLight.position.y = 0;
+        pointLight.position.z = -2000;
+
+        // add to the scene
+        scene.add(pointLight);
+        var ambLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambLight);
+
+        // start the renderer
+        renderer.setSize(WIDTH, HEIGHT);
+        // draw!
+        renderer.render(scene, camera);
+
+        render();
+        // attach the render-supplied DOM element
+        $('.container').append(renderer.domElement);
+        $('canvas').each(function (i, elem) {
+            if ($(elem).attr('id') == undefined) {
+
+                $(elem).attr('height', HEIGHT).attr('width', WIDTH);
+                $(elem).removeAttr('style');
+            }
+        });
+    }
+    var i = 0;
+    function animate() {
+        try{
+            requestAnimationFrame(animate);
+            controls.update();
+        }catch(e)
+        {
+            if(i == 0)
+            {
+                console.warn(e);
+                i++;
+            }
+
+        }
+    }
+
+    function celestial(number, clr, scene, x, y) {
+        var sphere;
+        //var loader = new THREE.TextureLoader();
+        //// URL of texture
+        //loader.load("/lib/Space/sun.jpg", function (texture) {
+        //    console.log(texture);
+            //var material = new THREE.MeshLambertMaterial({ map: texture });
+            //mesh = new THREE.Mesh(geometry, material);
+            //scene.add(mesh);
+
+
+            var sphereMaterial = new THREE.MeshPhongMaterial(
+                    {
+                        //emissiveMap: texture,
+                        color: clr,
+                        overdraw:0.5
+                    });
+            // set up the sphere vars
+            var radius = 1.1 * number,
+                segments = 16,
+                rings = 16;
+            sphere = new THREE.Mesh(
+
+              new THREE.SphereGeometry(
+                radius,
+                segments,
+                rings), sphereMaterial);
+
+            sphere.position.x = x * 1.1;
+            sphere.position.y = y;
+            sphere.position.z = -2000;
+            sphere.rotation.x += 0.01; // Rotate the sphere by a small amount about the x- and y-axes.
+            sphere.rotation.y += 0.01
+
+            //var mesh = new THREE.Mesh(sphere, sphereMaterial);
+
+            scene.add(sphere);
+        //});
+        return sphere;
+    }
+
+  $(window).resize(function(){
+    starfield();
+  });
+});
+</script>
+</body></html>

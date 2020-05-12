@@ -1,0 +1,80 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/GeorgePark/pen/vRoapJ" />
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+<style class="cp-pen-styles">@import url(https://fonts.googleapis.com/css?family=Audiowide);
+
+:root {
+  font-size: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #eee;
+  padding: 1.5em;
+  perspective: 100rem;
+  transition: background-color 200ms;
+}
+
+.dark-bg {
+  background-color: #050505;
+}
+
+.glow-btn { 
+  font-family: 'Audiowide', Arial, sans-serif;
+  font-size: calc(5rem + 2vw);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  width: 6em;
+  height: 3em;
+  color: #222;
+  background-color: #bdbdbd;  
+  outline: none;
+  border: none;
+  border-bottom: 0.12em solid #999;
+  border-radius: 0.5em;     
+  cursor: pointer;  
+  transform: rotateX(20deg);
+  transition: border-bottom-width 500ms,
+        transform 500ms,
+        color 700ms 100ms,
+        background-color 700ms 100ms,
+        border-bottom-color 700ms 100ms,
+        box-shadow 700ms 100ms;
+}
+
+.dark-bg .glow-btn {
+  color: #121212;
+  background-color: #3efa3e;  
+  border-bottom: 0.05em solid #2aa82a;
+  box-shadow: 0 0 1.4em rgba(50, 205, 50, 0.35);
+  transform: rotateX(20deg) translateY(0.05em) scale(0.99);
+}
+</style></head><body>
+<body class="dark-bg">
+
+  <button class="glow-btn">glow</button>
+
+</body>
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script >//Get reference to glow button
+var glowBtn = document.querySelector(".glow-btn");
+
+//Add click event listener to glow button
+glowBtn.addEventListener("click", function () {
+
+  //Toggle dark background class on body
+  document.body.classList.toggle("dark-bg");
+});
+//# sourceURL=pen.js
+</script>
+</body></html>

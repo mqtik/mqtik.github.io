@@ -1,0 +1,131 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/lianliu/pen/LpaewB" />
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+<style class="cp-pen-styles">@import url(https://fonts.googleapis.com/css?family=Sniglet);
+html {
+    background: #222;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Sniglet', cursive;;
+    text-align: center;
+    letter-spacing: 3px;
+}
+
+.container {
+    margin: 50px;
+    font-size: 1em;
+}
+
+.text {
+    line-height: 2em;    
+}
+
+.container .underscore {
+    display: inline;
+    color: #fff;
+}
+
+.hidden {
+    opacity: 0;
+}</style></head><body>
+ <div class="container">
+<span class="text"></span>
+<div class="underscore">_</div>
+</div>
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script >$(function() {
+    print(database);
+    blink();
+});
+
+var backgroundColor = [17, 17, 17];
+var visible = true;
+var count = 1;
+var database = "Welcome to my Codepen. I'm Lian Liu, Front-End Developer at Atypon Systems. I find my passion in Front End development. If you're interested in any of my works, feel free to leave me comments.";
+
+function print(data) {
+    window.setInterval(function() {
+        var color = randomColor();
+        console.log(color);
+        if (count < data.length + 1) {
+            if (data.substring(count - 1, count) === ".") {
+                var txt = data.substring(count - 1, count);
+                $(".text").append("<a>" + txt + "</a>");
+                $(".text a:last-child").css("color", "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")");
+                $(".text").append("<br />");
+                count++;
+            } else {
+                var txt = data.substring(count - 1, count);
+                $(".text").append("<a>" + txt + "</a>");
+                count++;
+            }
+            $(".text a:last-child").css("color", "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")");
+        }
+    }, 100);
+}
+
+function blink() {
+    window.setInterval(function() {
+        if (visible === true) {
+            visible = false;
+            $(".underscore").addClass("hidden");
+        } else if (visible === false) {
+            visible = true;
+            $(".underscore").removeClass("hidden");
+        }
+    }, 300);
+}
+
+//based on http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
+function randomColor() {
+    var golden_ratio_conjugate = (1 + Math.sqrt(5)) / 2;
+    var h = Math.random();
+
+    h += golden_ratio_conjugate;
+    h %= 1;
+
+    var RGB = HSVtoRGB(h*360, 0.5, 0.95);
+    var red = Math.round(RGB[0]+50);
+    var green = Math.round(RGB[1]+50);
+    var blue = Math.round(RGB[2]+50);
+    return [red, green, blue];
+}
+
+function HSVtoRGB(h, s, v) {
+	var i;
+	var f, p, q, t;
+	if( s == 0 ) {
+		// achromatic (grey)
+		return [v,v,v];
+	}
+    
+    // sector 0 to 5
+	h /= 60;
+	i = Math.floor( h );
+    // factorial part of h
+	f = h - i;
+	p = v * ( 1 - s )*256;
+	q = v * ( 1 - s * f )*256;
+	t = v * ( 1 - s * ( 1 - f ) )*256;
+    
+	switch( i ) {
+		case 0:
+            return [v,t,p];
+		case 1:
+            return [q,v,p];
+		case 2:
+            return [p,v,t];
+		case 3:
+            return [p,q,v];
+		case 4:
+            return [t,p,v];
+        // case 5:
+		default:
+			return [v,p,q];
+	}
+}
+//# sourceURL=pen.js
+</script>
+</body></html>

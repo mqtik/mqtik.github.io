@@ -1,0 +1,233 @@
+
+<!DOCTYPE html><html class=''>
+<head><script src='http://production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='http://production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='http://production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/bWjoOX" />
+
+
+<style class="cp-pen-styles">@import url("https://fonts.googleapis.com/css?family=Montserrat:200,300,400,600");
+.more-pens {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 10;
+  font-family: "Montserrat";
+  font-size: 12px;
+}
+
+a.white-mode, a.white-mode:link, a.white-mode:visited, a.white-mode:active {
+  font-family: "Montserrat";
+  font-size: 12px;
+  text-decoration: none;
+  background: #212121;
+  padding: 4px 8px;
+  color: #f7f7f7;
+}
+a.white-mode:hover, a.white-mode:link:hover, a.white-mode:visited:hover, a.white-mode:active:hover {
+  background: #edf3f8;
+  color: #212121;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+}
+
+.title {
+  z-index: 10;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  font-family: "Montserrat";
+  text-align: center;
+  width: 100%;
+}
+.title h1 {
+  position: relative;
+  color: #EEEEEE;
+  font-weight: 600;
+  font-size: 60px;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  text-shadow: 0 0 30px #000155;
+}
+.title h1 span {
+  font-weight: 600;
+  padding: 0;
+  margin: 0;
+  color: #BBB;
+}
+.title h3 {
+  font-weight: 200;
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  color: #EEEEEE;
+  letter-spacing: 2px;
+  text-shadow: 0 0 30px #000155;
+}
+</style></head><body>
+<div class="title">
+    <h3>umbralcapacitacion.com</h3>
+    <h1>METALMECANICA</h1>
+    <h3>Cursos presenciales<br><br>Inscripciones en<br>Av. Ignacio Crespo 1112 — Recreo. 
+<br>4961109 -  155503902<br>contacto@umbralcapacitacion.com</h3>
+  </div>
+
+<script src='http://production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script>'use strict';
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var max_particles = 2500;
+var particles = [];
+var frequency = 10;
+var init_num = max_particles;
+var max_time = frequency * max_particles;
+var time_to_recreate = false;
+
+// Enable repopolate
+setTimeout(function () {
+  time_to_recreate = true;
+}.bind(undefined), max_time);
+
+// Popolate particles
+popolate(max_particles);
+
+var tela = document.createElement('canvas');
+tela.width = $(window).width();
+tela.height = $(window).height();
+$("body").append(tela);
+
+var canvas = tela.getContext('2d');
+
+var Particle = function () {
+  function Particle(canvas) {
+    _classCallCheck(this, Particle);
+
+    var random = Math.random();
+    this.progress = 0;
+    this.canvas = canvas;
+    this.center = {
+      x: $(window).width() / 2,
+      y: $(window).height() / 2
+    };
+    this.point_of_attraction = {
+      x: $(window).width() / 2,
+      y: $(window).height() / 2
+    };
+
+    if (Math.random() > 0.5) {
+      this.x = $(window).width() * Math.random();
+      this.y = Math.random() > 0.5 ? -Math.random() - 100 : $(window).height() + Math.random() + 100;
+    } else {
+      this.x = Math.random() > 0.5 ? -Math.random() - 100 : $(window).width() + Math.random() + 100;
+      this.y = $(window).height() * Math.random();
+    }
+
+    this.s = Math.random() * 2;
+    this.a = 0;
+    this.w = $(window).width();
+    this.h = $(window).height();
+    this.radius = random > .2 ? Math.random() * 1 : Math.random() * 3;
+    this.color = random > .2 ? "#694FB9" : "#9B0127";
+    this.radius = random > .8 ? Math.random() * 2.2 : this.radius;
+    this.color = random > .8 ? "#3CFBFF" : this.color;
+  }
+
+  Particle.prototype.calculateDistance = function calculateDistance(v1, v2) {
+    var x = Math.abs(v1.x - v2.x);
+    var y = Math.abs(v1.y - v2.y);
+    return Math.sqrt(x * x + y * y);
+  };
+
+  Particle.prototype.render = function render() {
+    this.canvas.beginPath();
+    this.canvas.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+    this.canvas.lineWidth = 2;
+    this.canvas.fillStyle = this.color;
+    this.canvas.fill();
+    this.canvas.closePath();
+  };
+
+  Particle.prototype.move = function move() {
+
+    var p1 = {
+      x: this.x,
+      y: this.y
+    };
+
+    var distance = this.calculateDistance(p1, this.point_of_attraction);
+    var force = Math.max(100, 1 + distance);
+
+    var attr_x = (this.point_of_attraction.x - this.x) / force;
+    var attr_y = (this.point_of_attraction.y - this.y) / force;
+
+    this.x += Math.cos(this.a) * this.s + attr_x;
+    this.y += Math.sin(this.a) * this.s + attr_y;
+    this.a += Math.random() > 0.5 ? Math.random() * 0.9 - 0.45 : Math.random() * 0.4 - 0.2;
+
+    if (distance < 30 + Math.random() * 100) {
+      return false;
+    }
+
+    this.render();
+    this.progress++;
+    return true;
+  };
+
+  return Particle;
+}();
+
+function popolate(num) {
+  for (var i = 0; i < num; i++) {
+    setTimeout(function (x) {
+      return function () {
+        // Add particle
+        particles.push(new Particle(canvas));
+      };
+    }(i), frequency * i);
+  }
+  return particles.length;
+}
+
+function createSphera() {
+  var radius = 180;
+  var center = {
+    x: $(window).width() / 2,
+    y: $(window).height() / 2
+  };
+}
+
+function clear() {
+  canvas.globalAlpha = 0.08;
+  canvas.fillStyle = '#110031';
+  canvas.fillRect(0, 0, tela.width, tela.height);
+  canvas.globalAlpha = 1;
+}
+
+/*
+ * Function to update particles in canvas
+ */
+function update() {
+  particles = particles.filter(function (p) {
+    return p.move();
+  });
+  // Recreate particles
+  if (time_to_recreate) {
+    if (particles.length < init_num) {
+      popolate(1);console.log("Ricreo");
+    }
+  }
+  clear();
+  requestAnimationFrame(update.bind(this));
+}
+update();
+//# sourceURL=pen.js
+</script>
+</body></html>

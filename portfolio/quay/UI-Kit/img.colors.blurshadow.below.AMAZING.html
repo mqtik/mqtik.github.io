@@ -1,0 +1,64 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/yjBNLb" />
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css'>
+<style class="cp-pen-styles">@import url("https://fonts.googleapis.com/css?family=Poor+Story");
+body {
+  background: #f89ea0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Poor Story';
+  color: #3565c9;
+  text-shadow: 0 2px 4px #f00;
+}
+h1 {
+  font-size: 58px;
+}
+.blur-shadow__wrapper {
+  position: relative;
+}
+.blur-shadow__wrapper img {
+  width: 100%;
+}
+.blur-shadow__wrapper img:first-child {
+  opacity: 1;
+}
+.blur-shadow__wrapper img:last-child {
+  position: absolute;
+  left: 0;
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+  z-index: -1;
+}
+</style></head><body>
+
+<div class="wrapper">
+  <div class="container">
+    <h1 class="text-center mb-4">Blur shadow effect</h1><img class="blur-shadow img-fluid" src="https://cdn.pbrd.co/images/Hfl43FQ.png"/>
+  </div>
+</div>
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2010.07.06dev/modernizr.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js'></script>
+<script >console.clear();
+
+jQuery.fn.extend({
+  blurShadow: function blurShadow(settings) {
+    var blur = settings || 16;
+
+    return this.each(function (i, e) {
+
+      $(this).wrap('<div class="blur-shadow__wrapper" style="padding-bottom: ' + blur + '%"></div>').clone().css({
+        '-webkit-filter': 'blur(' + blur + 'px)',
+        'filter': 'blur(' + blur + 'px)',
+        'top': blur * .6 + '%'
+      }).appendTo(this.parentNode);
+    });
+  }
+});
+
+$('.blur-shadow').blurShadow(14);
+//# sourceURL=pen.js
+</script>
+</body></html>

@@ -1,0 +1,51 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/qRvYMQ" />
+
+
+<style class="cp-pen-styles">body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #f0f0f4;
+  background-image: url(http://davealger.info/i/squares.png);
+  background-position: bottom;
+  animation: 12s linear 0s infinite bp;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes bp {
+  0% {
+    background-color: ivory;
+    background-position:  200px 0;
+  }
+  25% {
+    background-color: white;
+    background-position:  150px 50px;
+  }
+  50% {
+    background-color: ivory;
+    background-position:  100px 100px;
+  }
+  75% {
+    background-color: white;
+    background-position:  50px 150px;
+  }
+  100% {
+    background-color: ivory;
+    background-position:  0 200px;
+  }
+}</style></head><body>
+<!--
+mtkbrd
+-->
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script >(()=>{let h=42;let d=(n)=>Math.floor(Math.random()*n);let k=(c)=>{let s=document.createElement('style');if(!!(window.attachEvent && !window.opera)){s.styleSheet.cssText=c;}else{s.appendChild(document.createTextNode(c));}document.getElementsByTagName('head')[0].appendChild(s);};k('@keyframes u{0%{transform:rotate(0deg);}25%{transform:rotate(10deg);}50%{transform:rotate(0deg);}75%{transform:rotate(-10deg);}100%{transform:rotate(0deg);}};');k('@keyframes m{0%{margin-top:2vh;opacity:0;}20%{opacity:1.0;margin-top:0vh;margin-left:0vw;transform:rotate('+d(90)+'deg);}100%{opacity:0.4;margin-top:100vh;margin-left:'+d(4)+'vw;transform:rotate(1080deg);}};');let w=document.createElement('div');w.id='daWorld';w.style='animation:u 60s ease-in infinite;position:fixed;top:0;right:0;bottom:0;left:0;pointer-events:none;';document.body.appendChild(w);while(h--){if (window.CP.shouldStopExecution(1)){break;}let o=document.createElement('div');o.style=`pointer-events:none;opacity:0;animation:m ${d(14)+6}s ease-in ${d(4000)}ms infinite;z-index:1000;position:fixed;top:${d(40)}vh;left:${d(100)}vw;font-size:${d(40)+20}px;color:${['#d00','#e66','#fcc'][d(3)]};`;o.innerHTML=['♡','♥'][d(2)];w.appendChild(o);}
+window.CP.exitedLoop(1);
+})()
+
+//# sourceURL=pen.js
+</script>
+</body></html>

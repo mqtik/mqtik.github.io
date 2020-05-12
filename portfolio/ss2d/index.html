@@ -1,0 +1,239 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/YQygmV" />
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+<style class="cp-pen-styles">html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-size: 32px;
+}
+
+.scene {
+  height: 100%;
+  background: #10151a;
+  -webkit-perspective: 350px;
+          perspective: 350px;
+  /* orbit of the top-most thing */
+}
+.scene ul, .scene ol {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-size: .25em;
+  border-radius: 100%;
+}
+.scene li {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border: 1px solid rgba(127, 255, 255, 0.1);
+  box-shadow: 0 0 75em rgba(0, 255, 255, 0.05);
+  border-radius: 100%;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+.scene li:nth-child(0) {
+  width: 0em;
+  height: 0em;
+  -webkit-animation: orbit 0s linear infinite;
+          animation: orbit 0s linear infinite;
+}
+.scene li:nth-child(0) h1, .scene li:nth-child(0) h2, .scene li:nth-child(0) h3, .scene li:nth-child(0) h4, .scene li:nth-child(0) h5, .scene li:nth-child(0) h6 {
+  -webkit-animation: counter-rotation 0s linear infinite;
+          animation: counter-rotation 0s linear infinite;
+}
+.scene li:nth-child(1) {
+  width: 35em;
+  height: 35em;
+  -webkit-animation: orbit 2.4s linear infinite;
+          animation: orbit 2.4s linear infinite;
+}
+.scene li:nth-child(1) h1, .scene li:nth-child(1) h2, .scene li:nth-child(1) h3, .scene li:nth-child(1) h4, .scene li:nth-child(1) h5, .scene li:nth-child(1) h6 {
+  -webkit-animation: counter-rotation 2.4s linear infinite;
+          animation: counter-rotation 2.4s linear infinite;
+}
+.scene li:nth-child(2) {
+  width: 70em;
+  height: 70em;
+  -webkit-animation: orbit 9.6s linear infinite;
+          animation: orbit 9.6s linear infinite;
+}
+.scene li:nth-child(2) h1, .scene li:nth-child(2) h2, .scene li:nth-child(2) h3, .scene li:nth-child(2) h4, .scene li:nth-child(2) h5, .scene li:nth-child(2) h6 {
+  -webkit-animation: counter-rotation 9.6s linear infinite;
+          animation: counter-rotation 9.6s linear infinite;
+}
+.scene li:nth-child(3) {
+  width: 105em;
+  height: 105em;
+  -webkit-animation: orbit 21.6s linear infinite;
+          animation: orbit 21.6s linear infinite;
+}
+.scene li:nth-child(3) h1, .scene li:nth-child(3) h2, .scene li:nth-child(3) h3, .scene li:nth-child(3) h4, .scene li:nth-child(3) h5, .scene li:nth-child(3) h6 {
+  -webkit-animation: counter-rotation 21.6s linear infinite;
+          animation: counter-rotation 21.6s linear infinite;
+}
+.scene li:nth-child(4) {
+  width: 140em;
+  height: 140em;
+  -webkit-animation: orbit 38.4s linear infinite;
+          animation: orbit 38.4s linear infinite;
+}
+.scene li:nth-child(4) h1, .scene li:nth-child(4) h2, .scene li:nth-child(4) h3, .scene li:nth-child(4) h4, .scene li:nth-child(4) h5, .scene li:nth-child(4) h6 {
+  -webkit-animation: counter-rotation 38.4s linear infinite;
+          animation: counter-rotation 38.4s linear infinite;
+}
+.scene li:nth-child(5) {
+  width: 175em;
+  height: 175em;
+  -webkit-animation: orbit 60s linear infinite;
+          animation: orbit 60s linear infinite;
+}
+.scene li:nth-child(5) h1, .scene li:nth-child(5) h2, .scene li:nth-child(5) h3, .scene li:nth-child(5) h4, .scene li:nth-child(5) h5, .scene li:nth-child(5) h6 {
+  -webkit-animation: counter-rotation 60s linear infinite;
+          animation: counter-rotation 60s linear infinite;
+}
+.scene li:nth-child(6) {
+  width: 210em;
+  height: 210em;
+  -webkit-animation: orbit 86.4s linear infinite;
+          animation: orbit 86.4s linear infinite;
+}
+.scene li:nth-child(6) h1, .scene li:nth-child(6) h2, .scene li:nth-child(6) h3, .scene li:nth-child(6) h4, .scene li:nth-child(6) h5, .scene li:nth-child(6) h6 {
+  -webkit-animation: counter-rotation 86.4s linear infinite;
+          animation: counter-rotation 86.4s linear infinite;
+}
+.scene li:nth-child(7) {
+  width: 245em;
+  height: 245em;
+  -webkit-animation: orbit 117.6s linear infinite;
+          animation: orbit 117.6s linear infinite;
+}
+.scene li:nth-child(7) h1, .scene li:nth-child(7) h2, .scene li:nth-child(7) h3, .scene li:nth-child(7) h4, .scene li:nth-child(7) h5, .scene li:nth-child(7) h6 {
+  -webkit-animation: counter-rotation 117.6s linear infinite;
+          animation: counter-rotation 117.6s linear infinite;
+}
+.scene li:nth-child(8) {
+  width: 280em;
+  height: 280em;
+  -webkit-animation: orbit 153.6s linear infinite;
+          animation: orbit 153.6s linear infinite;
+}
+.scene li:nth-child(8) h1, .scene li:nth-child(8) h2, .scene li:nth-child(8) h3, .scene li:nth-child(8) h4, .scene li:nth-child(8) h5, .scene li:nth-child(8) h6 {
+  -webkit-animation: counter-rotation 153.6s linear infinite;
+          animation: counter-rotation 153.6s linear infinite;
+}
+.scene li:nth-child(9) {
+  width: 315em;
+  height: 315em;
+  -webkit-animation: orbit 194.4s linear infinite;
+          animation: orbit 194.4s linear infinite;
+}
+.scene li:nth-child(9) h1, .scene li:nth-child(9) h2, .scene li:nth-child(9) h3, .scene li:nth-child(9) h4, .scene li:nth-child(9) h5, .scene li:nth-child(9) h6 {
+  -webkit-animation: counter-rotation 194.4s linear infinite;
+          animation: counter-rotation 194.4s linear infinite;
+}
+.scene li:nth-child(10) {
+  width: 350em;
+  height: 350em;
+  -webkit-animation: orbit 240s linear infinite;
+          animation: orbit 240s linear infinite;
+}
+.scene li:nth-child(10) h1, .scene li:nth-child(10) h2, .scene li:nth-child(10) h3, .scene li:nth-child(10) h4, .scene li:nth-child(10) h5, .scene li:nth-child(10) h6 {
+  -webkit-animation: counter-rotation 240s linear infinite;
+          animation: counter-rotation 240s linear infinite;
+}
+.scene li ul li, .scene li ol li {
+  left: 0;
+}
+.scene h1, .scene h2, .scene h3, .scene h4, .scene h5, .scene h6 {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 3em;
+  height: 3em;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background: currentColor;
+  border-radius: 100%;
+  text-indent: -99999px;
+}
+.scene > ul > li, .scene > ol > li {
+  width: 0 !important;
+  height: 0 !important;
+  -webkit-animation: none !important;
+          animation: none !important;
+}
+.scene > ul > li > h1, .scene > ul > li > h2, .scene > ul > li > h3, .scene > ul > li > h4, .scene > ul > li > h5, .scene > ul > li > h6, .scene > ol > li > h1, .scene > ol > li > h2, .scene > ol > li > h3, .scene > ol > li > h4, .scene > ol > li > h5, .scene > ol > li > h6 {
+  -webkit-animation: none !important;
+          animation: none !important;
+}
+
+@-webkit-keyframes orbit {
+  from {
+    -webkit-transform: translate(-50%, -50%) rotate(0deg) rotateX(0deg);
+            transform: translate(-50%, -50%) rotate(0deg) rotateX(0deg);
+  }
+  to {
+    -webkit-transform: translate(-50%, -50%) rotate(1440deg) rotateX(360deg);
+            transform: translate(-50%, -50%) rotate(1440deg) rotateX(360deg);
+  }
+}
+
+@keyframes orbit {
+  from {
+    -webkit-transform: translate(-50%, -50%) rotate(0deg) rotateX(0deg);
+            transform: translate(-50%, -50%) rotate(0deg) rotateX(0deg);
+  }
+  to {
+    -webkit-transform: translate(-50%, -50%) rotate(1440deg) rotateX(360deg);
+            transform: translate(-50%, -50%) rotate(1440deg) rotateX(360deg);
+  }
+}
+@-webkit-keyframes counter-rotation {
+  from {
+    -webkit-transform: translate(-50%, -50%) rotateX(0deg);
+            transform: translate(-50%, -50%) rotateX(0deg);
+  }
+  to {
+    -webkit-transform: translate(-50%, -50%) rotateX(-360deg);
+            transform: translate(-50%, -50%) rotateX(-360deg);
+  }
+}
+@keyframes counter-rotation {
+  from {
+    -webkit-transform: translate(-50%, -50%) rotateX(0deg);
+            transform: translate(-50%, -50%) rotateX(0deg);
+  }
+  to {
+    -webkit-transform: translate(-50%, -50%) rotateX(-360deg);
+            transform: translate(-50%, -50%) rotateX(-360deg);
+  }
+}
+</style></head><body>
+<div class="scene"></div>
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script >function planetTemplate(object) {
+  var depth = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+
+  var heading = 'h' + depth;
+  var list = depth % 2 ? 'ul' : 'ol';
+  var style = 'style="color: ' + (object[0].color || '#BDC5C7') + '"';
+  return '\n    <' + heading + ' ' + style + '>' + object[0].name + '</' + heading + '>\n    ' + (object[1] ? '\n      <' + list + '>\n        ' + object[1].reduce(function (a, child) {
+    return a + ('\n          <li>' + planetTemplate(child, depth + 1) + '</li>\n        ');
+  }, '') + '\n      </' + list + '>\n    ' : '') + '\n  ';
+}
+
+function solarSystemData() {
+  return [{ name: 'Sun', color: '#FDE528' }, [[{ name: 'Mercury', color: '#C1B4AC' }], [{ name: 'Venus', color: '#F2D299' }], [{ name: 'Earth', color: '#05f' }, [[{ name: 'Moon', color: '' }]]], [{ name: 'Mars', color: '#E67E5A' }, [[{ name: 'Phobos', color: '' }], [{ name: 'Deimos', color: '' }]]], [{ name: 'Jupiter', color: '#C5AA96' }, [[{ name: 'Io', color: '' }], [{ name: 'Europa', color: '' }], [{ name: 'Ganymede', color: '' }], [{ name: 'Callisto', color: '' }]]], [{ name: 'Saturn', color: '#AF9D8E' }, [[{ name: 'Mimas', color: '' }], [{ name: 'Enceladus', color: '' }], [{ name: 'Tethys', color: '' }], [{ name: 'Dione', color: '' }], [{ name: 'Rhea', color: '' }], [{ name: 'Titan', color: '' }], [{ name: 'Iapetus', color: '' }]]], [{ name: 'Uranus', color: '#C2E8EA' }, [[{ name: 'Miranda', color: '' }], [{ name: 'Ariel', color: '' }], [{ name: 'Umbriel', color: '' }], [{ name: 'Titania', color: '' }], [{ name: 'Oberon', color: '' }]]], [{ name: 'Neptune', color: '#5C92F0' }, [[{ name: 'Triton', color: '' }]]]]];
+}
+
+document.querySelector('.scene').innerHTML = '\n    <ul>\n      <li>\n        ' + planetTemplate(solarSystemData()) + '\n      </li>\n    </ul>\n  ';
+//# sourceURL=pen.js
+</script>
+</body></html>

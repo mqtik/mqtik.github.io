@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0" name="viewport">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>CEP » Centro de Educación Personalizada</title>
+	<meta name="author" content="Matikbird.com" />
+	<meta name="description" content="Aprende .... bla bla" />
+	<meta name="theme-color" content="#2e6d2e"><meta name="msapplication-navbutton-color" content="#2e6d2e"><meta name="apple-mobile-web-app-status-bar-style" content="#2e6d2e">
+	<meta name="keywords"  content="cep, educacion, libros, aprender, universidad, ingreso a universidad, facultad" />
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
+	<link rel="stylesheet" type="text/css" href="assets/jquery.fullPage.css" />
+	<link href="https://fonts.googleapis.com/css?family=Carter+One|Changa+One|Courgette|Happy+Monkey|Italianno|Merienda|Passion+One|Quintessential|Tangerine" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="assets/cep.css" />
+	<!--[if IE]>
+		<script type="text/javascript">
+			 var console = { log: function() {} };
+		</script>
+	<![endif]-->
+
+
+<style>
+.backgroundbeforeallisloaded {
+  width:100%;
+  height:100%;
+  height: 100vh;
+  background-color: #6baf77;
+  position:fixed;
+  z-index:9999;
+  overflow:hidden;
+}
+
+
+#atomcep {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  perspective: 800px;
+}
+#atomcep span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border-left: 5px #fff solid;
+  border-top: 10px transparent solid;
+  border-right: 5px #fff solid;
+}
+#atomcep span:nth-of-type(1) {
+  animation: quark-1 1s linear infinite;
+}
+#atomcep span:nth-of-type(2) {
+  animation: quark-2 1s linear infinite;
+}
+#atomcep span:nth-of-type(3) {
+  animation: quark-3 1s linear infinite;
+}
+
+@keyframes quark-1 {
+  from {
+    transform: rotateZ(120deg) rotateX(70deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(120deg) rotateX(70deg) rotateZ(360deg);
+  }
+}
+@keyframes quark-2 {
+  from {
+    transform: rotateZ(240deg) rotateX(70deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(240deg) rotateX(70deg) rotateZ(360deg);
+  }
+}
+@keyframes quark-3 {
+  from {
+    transform: rotateZ(360deg) rotateX(70deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg) rotateX(70deg) rotateZ(360deg);
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="backgroundbeforeallisloaded">
+<div id="atomcep">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+
+
+
+<header role="banner">
+<nav class="navbar">
+<div class="container">
+<button id="navToggle">&#9776;</button>
+   <ul id="mainNav" class="nav">
+     <li><a href="#">CEP</a></li>
+     <li><a href="#">MAPA</a></li>
+     <li><a href="#">INGRESO</a></li>
+     <li><a href="#">MATERIAS</a></li>
+     <li><a href="#">CIENCIA</a></li>
+   </ul>
+   <div id="ceplogo">CEP</div>
+ <a href="#" class="sitename"><img src="assets/logo_small.png" class="logocep"></a>
+  
+
+</div><!-- /.container -->
+			</nav><!-- /.navbar -->
+</header>
+
+
+<div id="fullpage" class="col-lg-12 col-xs-12 col-sm-12 col-md-12">
+<div class="section col-lg-12 col-xs-12 col-sm-12 col-md-12" id="section0">
+
+<div class="overflow">
+  <section class="panels">
+    <article class="panels__side panels__side--left">
+      <div class="panels__side panels__side--inner-left">
+        <p>"Changes and progress very rarely are gifts from above. They come out of struggles from below."</p>
+      </div>
+      <div class="panels__side panels__side--inner">
+       <div class="cep_panels_side"> <h1 class="panels__headline">Alumnos</h1> 
+      <blockquote class="text">El cerebro no es un vaso por llenar, sino una lámpara por encender</blockquote>
+       </div>     
+        <svg onclick="verquotes()" class="arrow arrow--left" width="40" height="40" viewBox="0 0 24 24"><path d="M0 0h24v24h-24z" fill="none"/><path d="M20 11h-12.17l5.59-5.59-1.42-1.41-8 8 8 8 1.41-1.41-5.58-5.59h12.17v-2z"/></svg>
+      </div>
+    </article>
+    <article class="panels__side panels__side--right">
+      <div class="panels__side panels__side--inner">
+      	<div class="cep_panels_side">
+        <h1 class="panels__headline">Profesores</h1>
+          <blockquote class="text">
+   Buenos profesores enseñan. Grandes profesores transforman.
+  </blockquote>
+        </div>
+        <svg onclick="addquote()" class="arrow arrow--right" width="40" height="40" viewBox="0 0 24 24"><path d="M0 0h24v24h-24z" fill="none"/><path d="M12 4l-1.41 1.41 5.58 5.59h-12.17v2h12.17l-5.58 5.59 1.41 1.41 8-8z"/></svg>
+      </div>
+      <div class="panels__side panels__side--inner-right">
+        
+          <div class="contactform">
+        <form action="javascript:void(0);">
+          <label for="Tu nick">
+            <i class="cntfrmicn fa fa-user"></i>
+            <input name="nick" class="form-fields" type="text" id="nick">
+          </label>
+          <label for="Canal">
+            <i class="cntfrmicn fa fa-user"></i>
+            <input name="canal" class="form-fields" type="text" id="channel">
+          </label>
+          <label for="quote">
+            <i class="cntfrmicn fa fa-comment"></i>
+            <textarea id="quote" class="form-fields" name="quote" id="" cols="30" rows="10"></textarea>
+          </label>
+          <button class="form-fields button" value="AGREGAR" type="button" onclick="quotesadd()">Agregar <i class="fa fa-paper-plane"></i></button>
+        </form>
+      </div>
+
+
+
+      </div>
+    </article>
+  </section>
+</div>
+
+
+	 <div id="universe"/></div> 
+	</div>
+
+
+		<div class="section" id="section1">
+	    <div class="slide" id="slide1">
+			<div class="intro graph" style="background-color: #561111;">
+				<div id='browser'>
+
+  <div id='content' style="padding-top: 60px;">
+
+  	  <div id='left'>
+   	
+      <div style="padding: 0 17px 0 10px; text-align:center;"><h1 class="ceptitle">Cómo llegar a nosotros.</h1>
+ 		 <p class="cepsubtitle">La ciencia nos dió ojos para ver lo que no veíamos;<br> cuestiona, y el universo es tuyo.<br>
+Y... siendo un universo tan extenso, ¡estamos muy cerca!</p></div>
+		<div id="dondeestamos"> <div id="google-container"></div>
+		<div id="cd-zoom-in"></div>
+		<div id="cd-zoom-out"></div>
+		</div>
+		<div id="detalles"><span><i class="fa fa-map-marker"></i> San Jeronimo</span><span><i class="fa fa-phone"></i> 342 123 456</span></div>
+   		 </div>
+   		 <div id='right'>
+
+   		  <div id="mensajeus">
+  			<span>m</span><span>e</span><span>n</span><span>s</span><span>a</span><span>j</span><span>e</span><span>s</span><span>!</span>
+			</div>
+    		<div class="cep-contact">
+    		<div class="thanks-text"> <span>Gracias!</span>   <button class="button reset-button">Enviar otro</button></div>
+  			<div class="envelope">
+   			 <div class="paper">
+     		 <form class="sign-up-form">
+       			 <input type="text" placeholder="Nombre completo" class="text-input"/>
+       				 <input type="text" placeholder="Email" class="text-input"/>
+       			 <textarea placeholder="Mensaje (indicar número de teléfono si es posible)" class="text-input" rows="3"/></textarea>
+      			  <button type="submit" class="button">Enviar</button>
+    		  </form>
+  			  </div>
+  		  <div class="bottom-flap"></div>
+ 			 </div>
+  
+
+			</div>
+
+
+
+ 			   </div>
+
+			  </div>
+
+		</div>
+
+		<div style="width:100%; text-align:center;">
+			<div class="or-spacer">
+  <div class="mask"></div>
+  <span><i>o</i></span>
+</div>	
+
+	<button id="twitter"></button>
+  <button id="facebook"></button>
+  <button id="googleplus"></button>
+  <button id="instagram"></button>
+  <button id="linkedin"></button>
+
+
+			</div>
+
+		
+
+			</div>
+		</div>
+
+	</div>
+	<div class="section " id="section1">
+		<div class="intro">
+
+
+			<p>function submit(e) {
+	$('.cep-contact').addClass('submitted');
+	e.preventDefault();
+	setTimeout(
+  function() 
+  {
+    $('.thanks-text').fadeIn('slow');
+  }, 2000);
+	
+}
+
+function reset() {
+	$('.thanks-text').fadeOut('fast');
+	setTimeout( function() 
+  {
+   $('.cep-contact').removeClass('submitted');
+	$('.sign-up-form')[0].reset();
+  }, 1000);
+	
+	
+}
+
+
+		  </p>
+
+		</div>
+
+
+
+	</div>
+	
+	<div class="section" id="section2">
+	    <div class="slide" id="slide1">
+			<div class="intro">
+				<h1>test</h1>
+
+			</div>
+		</div>
+
+	    <div class="slide" id="slide2"><h1>debugging</h1></div>
+		<div class="slide" id="slide3"><
+			<div class="intro">
+		
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<script src="assets/jquery.min.js"></script>
+<script src="assets/jquery-ui.min.js"></script>
+<script type="text/javascript" src="assets//scrolloverflow.min.js"></script>
+<script type="text/javascript" src="assets//jquery.fullPage.min.js"></script>
+<script src='assets/three.min.js'></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCV0CrENf8pLe_Z1_cdXLsktKg9rf0a15g&callback=initMap"></script>
+<script src='assets/cep.js'></script>
+</body>
+</html>

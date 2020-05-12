@@ -1,0 +1,315 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/xdesro/pen/POaPax" />
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+<style class="cp-pen-styles">body {
+  background: radial-gradient(circle at center, #6a0071, #1a1546 80%);
+  height: 100vh;
+  width: 100vw;
+}
+
+.planet {
+  border-radius: 100%;
+  background-image: radial-gradient(circle at center, #31104b, #1a1546);
+  position: absolute;
+}
+
+.main {
+  top: 50%;
+  margin: -25vmin auto 0;
+  height: 50vmin;
+  width: 50vmin;
+  left: 0;
+  right: 0;
+  background: linear-gradient(-45deg, #6a0071, #a6009f, #6a0071);
+}
+.main:before {
+  content: "";
+  background-image: radial-gradient(circle at center, #31104b, #1a1546);
+  position: absolute;
+  top: 3px;
+  right: 1px;
+  height: 102%;
+  width: 102%;
+  z-index: 1;
+  -webkit-filter: blur(1px);
+          filter: blur(1px);
+  border-radius: 100%;
+}
+
+.mid {
+  height: 15vmin;
+  width: 15vmin;
+  top: 70%;
+  left: 15vmin;
+  background: linear-gradient(-45deg, #6a0071, #a6009f, #6a0071);
+}
+.mid:before {
+  background: -webkit-gradient(linear, left top, left bottom, from(#31104b), to(#1a1546));
+  background: linear-gradient(to bottom, #31104b, #1a1546);
+  content: "";
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  height: 102%;
+  width: 102%;
+  border-radius: 100%;
+}
+
+.small {
+  height: 3.5vmin;
+  width: 3.5vmin;
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(30%, #31104b), to(#ff006c));
+  background: linear-gradient(to bottom right, #31104b 30%, #ff006c);
+  left: 10%;
+  z-index: -2;
+  top: 30%;
+}
+
+.splash {
+  width: 35px;
+  position: absolute;
+  z-index: -2;
+}
+.splash .one,
+.splash .two,
+.splash .three {
+  width: 35px;
+  height: 6px;
+  border-radius: 6px;
+  position: absolute;
+}
+.splash .one {
+  z-index: -2;
+  top: -5px;
+  right: -6px;
+  background: -webkit-gradient(linear, left top, right top, from(#ff7f00), to(#ffcf00));
+  background: linear-gradient(to right, #ff7f00, #ffcf00);
+}
+.splash .two {
+  background: -webkit-gradient(linear, left top, right top, from(#ff006c), to(#ff7f00));
+  background: linear-gradient(to right, #ff006c, #ff7f00);
+}
+.splash .three {
+  background: #ff006c;
+  top: 5px;
+  right: 6px;
+}
+.splash.left {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  right: 50%;
+}
+.splash.right {
+  left: 50%;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.splash.right .one {
+  background: -webkit-gradient(linear, right top, left top, from(#ff7f00), to(#ffcf00));
+  background: linear-gradient(to left, #ff7f00, #ffcf00);
+  right: 6px;
+}
+.splash.right .two {
+  background: -webkit-gradient(linear, right top, left top, from(#ff006c), to(#ff7f00));
+  background: linear-gradient(to left, #ff006c, #ff7f00);
+}
+.splash.right .three {
+  right: 2px;
+}
+.splash .drip {
+  border-radius: 100%;
+  height: 6px;
+  width: 6px;
+  position: absolute;
+  background: #ff006c;
+  right: -7px;
+}
+
+.stem {
+  width: 9.6px;
+  height: 80px;
+  background: #ff006c;
+  background: radial-gradient(circle at bottom center, #ffcf00, #ff006c, #9f00cb);
+  position: absolute;
+  left: 50%;
+  margin-left: -4.8px;
+  top: -75px;
+  z-index: -1;
+}
+.stem:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: radial-gradient(circle at bottom center, #ffcf00, #ff006c, #9f00cb);
+  -webkit-filter: blur(4px);
+          filter: blur(4px);
+}
+
+.mushroom {
+  border-radius: 100%;
+  width: 52px;
+  height: 42px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff006c), color-stop(20%, #6a0071), color-stop(25%, #7800ef), color-stop(30%, rgba(120, 0, 239, 0)));
+  background: linear-gradient(to bottom, #ff006c, #6a0071 20%, #7800ef 25%, rgba(120, 0, 239, 0) 30%);
+  position: absolute;
+}
+.mushroom:nth-last-child(1) {
+  top: -40px;
+  left: 50%;
+  margin-left: -26px;
+}
+.mushroom:nth-last-child(1):before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  border-radius: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff006c), color-stop(20%, #6a0071), color-stop(25%, #7800ef), color-stop(30%, rgba(120, 0, 239, 0)));
+  background: linear-gradient(to bottom, #ff006c, #6a0071 20%, #7800ef 25%, rgba(120, 0, 239, 0) 30%);
+  -webkit-filter: blur(4px);
+          filter: blur(4px);
+}
+.mushroom:nth-last-child(2) {
+  top: -80px;
+  left: 50%;
+  width: 80px;
+  height: 70px;
+  margin-left: -40px;
+}
+.mushroom:nth-last-child(2):before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  border-radius: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff006c), color-stop(20%, #6a0071), color-stop(25%, #7800ef), color-stop(30%, rgba(120, 0, 239, 0)));
+  background: linear-gradient(to bottom, #ff006c, #6a0071 20%, #7800ef 25%, rgba(120, 0, 239, 0) 30%);
+  -webkit-filter: blur(4px);
+          filter: blur(4px);
+}
+
+.ring {
+  height: 30px;
+  width: 100px;
+  border-radius: 100%;
+  border-top: 5px solid;
+  border-color: #ff006c;
+  position: absolute;
+  top: -100px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  -webkit-transform: rotateX(50deg);
+          transform: rotateX(50deg);
+}
+.ring:before {
+  z-index: -3;
+  position: absolute;
+  content: "";
+  top: -5px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 100%;
+  border: 5px solid;
+  border-color: #6a0071;
+  border-top: none;
+  -webkit-filter: blur(2px);
+          filter: blur(2px);
+}
+</style></head><body>
+ <div class="planet main">
+    <div class="bomb">
+      <div class="splash left">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+      </div>
+      <div class="splash right">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <div class="drip"></div>
+      </div>
+      <div class="stem"></div>
+      <div class="ring"></div>
+      <div class="mushroom"></div>
+      <div class="mushroom"></div>
+    </div>
+  </div>
+  <div class="planet small"></div>
+  <div class="planet mid"></div>
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js'></script>
+<script >anime({
+  targets: ".planet.small",
+  left: ["1", "20%"],
+  translateY: "-5vmin",
+  rotate: "10deg",
+  duration: 6000,
+  easing: "easeInOutCubic"
+});
+anime({
+  targets: ".planet.mid",
+  translateX: "-10vmin",
+  translateY: "-5vmin",
+  rotate: "15deg",
+  easing: "easeInOutCubic",
+  duration: 6000
+});
+const bomb = anime.timeline({
+  duration: 3000
+});
+bomb
+  .add({
+    targets: ".left .one, .left .two, .left .three",
+    translateY: ["10px", "0px"],
+    translateX: ["10px", "0px"],
+    duration: 1000,
+    delay: (el, i, l) => i * 100,
+    offset: 0
+  })
+  .add({
+    targets: ".right .one, .right .two, .right .three",
+    translateY: ["10px", "0px"],
+    translateX: ["-10px", "0px"],
+    duration: 1000,
+    delay: (el, i, l) => i * 100,
+    offset: 0
+  })
+  .add({
+    targets: ".stem",
+    scale: [0.7, 1],
+    offset: 0,
+    translateY: ["10px", "0"],
+    easing: "easeOutCubic"
+  })
+  .add({
+    targets: ".mushroom",
+    scaleX: [0.5, 1],
+    scaleY: [0.5, 1],
+    easing: "easeOutCubic",
+    offset: 0
+  })
+  .add({
+    targets: ".ring",
+    scaleX: [1, 4],
+    translateY: ["10px", "-10px"],
+    easing: "easeOutCubic",
+    offset: 0
+  });
+
+//# sourceURL=pen.js
+</script>
+</body></html>

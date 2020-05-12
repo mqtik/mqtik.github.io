@@ -1,0 +1,360 @@
+
+<!DOCTYPE html><html class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/PWeYKb" />
+<script src="https://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
+
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href ="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.6/css/normalize.min.css">
+<link rel="stylesheet" type="text/css" href ="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.6/css/foundation.min.css">
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+<style class="cp-pen-styles">@import url(https://fonts.googleapis.com/css?family=Roboto:900,400);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+html, body {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+body {
+  background: #f0f0f0;
+  color: #212121;
+  font-family: "Roboto", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+}
+
+#topbar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  /*background-color: $topbar-bg;*/
+  background: #b33a57;
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, #b33a57), color-stop(50%, #db5757), color-stop(100%, #b33a57));
+  background: -webkit-linear-gradient(left, #b33a57 0%, #db5757 50%, #b33a57 100%);
+  background: linear-gradient(to right, #b33a57 0%, #db5757 50%, #b33a57 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$colorDark, endColorstr=$colorDark,GradientType=1 );
+  /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$colorDark', endColorstr='$colorDark',GradientType=1 ); */
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+  height: 3em;
+  line-height: 3em;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+}
+#topbar a {
+  display: block;
+  color: #fff;
+}
+
+.active-nav {
+  position: relative;
+}
+.active-nav__bar {
+  background-color: #FF7B7C;
+  top: 2.5em;
+  position: absolute;
+  width: 33.33333%;
+  height: 0.5em;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+.show-0 .active-nav__bar {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.show-1 .active-nav__bar {
+  -webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
+}
+.show-2 .active-nav__bar {
+  -webkit-transform: translate3d(200%, 0, 0);
+          transform: translate3d(200%, 0, 0);
+}
+
+#carousel {
+  min-height: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  -webkit-transform-style: preserve-3d;
+  margin: 3em auto 0;
+  overflow: hidden;
+}
+#carousel > ul {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  height: 100%;
+  list-style: none outside;
+  margin: 0;
+  overflow: hidden;
+}
+#carousel > ul.animate {
+  -webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+          transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+#carousel > ul > li {
+  height: 100%;
+  float: left;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+
+.page {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.page.centery {
+  background-image: url(http://i.ytimg.com/vi/CVX9Z3ZSj7g/maxresdefault.jpg);
+}
+.page.lefty {
+  background-image: url(http://kandyperaherabookings.com/images/02/04.jpg);
+  left: -100%;
+}
+.page.righty {
+  background-image: url(http://buddhistinternational.org/wp-content/uploads/2015/04/Adams-Peak-Sri-Pada-Sri-Lanka.-Misty-landscape-and-Buddhist-flags-Central-Highlands-of-Sri-Lanka-Asia-travel-photography-by-travel-photographer-Matthew-Williams-Ellis2.jpg);
+  left: 100%;
+}
+.page header {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 1em;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+.page header h1 {
+  font-size: 3em;
+}
+</style></head><body>
+<body>
+  <!-- main nav -->
+  <nav id="topbar" role="navigation" class="valign-center">
+    <div class="row collapse text-center">
+      <div class="column small-4"><a href="#" data-nav="" data-show="0"><i class="fa fa-home fa-2x fa-fw"></i></a></div>
+      <div class="column small-4"><a href="#" data-nav="" data-show="1"><i class="fa fa-globe fa-2x fa-fw"></i></a></div>
+      <div class="column small-4"><a href="#" data-nav="" data-show="2"><i class="fa fa-navicon fa-2x fa-fw"></i></a></div>
+      <div class="active-nav"><div class="active-nav__bar"></div></div>
+    </div>
+  </nav>
+      
+  <!-- show active page -->
+  <main id="carousel" role="main" class="">
+    <ul>
+      <li class="page lefty">
+        <header>
+          <div class="row text-center">
+            <h1>Left Page</h1>
+            <p>
+              swipe to change 
+              <i class="fa fa-angle-right"></i>
+            </p>
+          </div>
+        </header>
+      </li>
+      <li class="page centery">
+        <header>
+          <div class="row text-center">
+            <h1>Center Page</h1>
+            <p>
+              <i class="fa fa-angle-left"></i>
+              swipe to change 
+              <i class="fa fa-angle-right"></i>
+            </p>
+          </div>
+        </header>
+      </li>
+      <li class="page righty">
+        <header>
+          <div class="row text-center">
+            <h1>Right Page</h1>
+            <p>
+              <i class="fa fa-angle-left"></i>
+              swipe to change 
+            </p>
+          </div>
+        </header>
+      </li>
+    </ul>
+  </main>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/hammerjs/2.0.4/hammer.js"></script>
+</body>
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script>// requestAnimationFrame and cancel polyfill
+(function() {
+  var lastTime = 0;
+  var vendors = ['ms', 'moz', 'webkit', 'o'];
+  for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+    window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+    window.cancelAnimationFrame =
+      window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+  }
+  
+  if (!window.requestAnimationFrame)
+    window.requestAnimationFrame = function(callback, element) {
+      var currTime = new Date().getTime();
+      var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+      var id = window.setTimeout(function() { callback(currTime + timeToCall); },
+                                 timeToCall);
+      lastTime = currTime + timeToCall;
+      return id;
+    };
+  
+  if (!window.cancelAnimationFrame)
+    window.cancelAnimationFrame = function(id) {
+      clearTimeout(id);
+    };
+}());
+
+// carousel class
+function Carousel(el) {
+  var self = this;
+  var $el = $(el);
+  
+  var $container = $("> ul", $el);
+  var $panes = $("> ul > li", $el);
+  
+  var paneWidth = 0;
+  var paneCount = $panes.length;
+  var paneActiveIdx = 1;
+  var paneActiveOffset = 0;
+  
+  // setup
+  self.init = function() {
+    $(window).on("load resize orientationchange", function () {
+      setPaneDimensions();
+      self.showPane(paneActiveIdx);
+    });
+  };
+  
+  // set pane index if valid
+  self.showPane = function (idx, animated) {
+    var index = Math.max(0, Math.min(idx, paneCount-1));
+    paneActiveIdx = index;
+    
+    var $wrapper = $("body");
+    var newCls = "show-" + index;
+    $wrapper.removeClass(function (idx, cls) {
+      return (cls.match(/(^|\s)show-\S+/g) || []).join(' ');
+    });
+    $wrapper.addClass(newCls);
+    
+    //var offset = ;
+    paneActiveOffset = -(100 / paneCount) * paneActiveIdx;
+    setContainerOffset(paneActiveOffset, animated);
+  };
+  
+  self.throttledShowPane = _.debounce(function (idx, animated) {
+    self.showPane(idx, animated);
+  }, 100);
+  
+  // next pane
+  self.next = function () {
+    self.throttledShowPane(paneActiveIdx + 1, true);
+  };
+  
+  // prev pane
+  self.prev = function () {
+    self.throttledShowPane(paneActiveIdx - 1, true);
+  };  
+  
+  // set pane and container sizes
+  function setPaneDimensions() {
+    paneWidth = $el.width();
+    _.map($panes, function (pane) {
+      $(pane).width(paneWidth);
+    });
+    $container.width(paneWidth*paneCount);
+  }
+  
+  // adjust container to active pane
+  function setContainerOffset(percent, animated) {
+    $container.removeClass("animate");
+    if(animated) {
+      $container.addClass("animate");
+    }
+    
+    if (Modernizr.csstransforms3d) {
+      $container.css("transform", "translate3d("+percent+"%,0,0) scale3d(1,1,1)");
+    } else if (Modernizr.csstransforms) {
+      $container.css("transform", "translate("+percent+"%,0)");
+    } else {
+      var px = ((paneWidth * paneCount) / 100) * percent;
+      $container.css("left", px+"px");
+    }
+  }
+  
+  function updateContainerOffsetX(deltaX, direction) {
+    var dragOffset = ((100/paneWidth) * deltaX) / paneCount;
+    
+    var slowRight = paneActiveIdx == 0  && direction == Hammer.DIRECTION_RIGHT;
+    var slowLeft = paneActiveIdx == paneCount-1 && direction == Hammer.DIRECTION_LEFT;
+    if (slowLeft || slowRight) {
+        dragOffset *= .4;
+    }
+
+    setContainerOffset(dragOffset + paneActiveOffset);
+  }
+  
+  function onPressRelease(deltaX, direction) {
+    if(Math.abs(deltaX) > paneWidth / 2) {
+      if(deltaX > 0) {
+        self.prev();
+      } else {
+        self.next();
+      }
+    } else {
+      self.throttledShowPane(paneActiveIdx, true);
+    }
+  }
+  
+  function hammerTime(ev) {
+    switch(ev.type) {
+      case 'panmove': 
+        updateContainerOffsetX(ev.deltaX, ev.direction);
+        break;
+      case 'swipeleft':
+        self.next();
+        break;
+      case 'swiperight':
+        self.prev();
+        break;
+    }
+  }
+  
+  var mc = new Hammer.Manager(el, {
+    dragLockToAxis: true,
+    dragBlockHorizontal: true
+  });
+  mc.add(new Hammer.Pan({ threshold: 10, pointers: 0 }));
+  mc.add(new Hammer.Swipe().recognizeWith(mc.get('pan')));
+  mc.on("swipeleft swiperight panstart panmove", hammerTime);
+  mc.on("hammer.input", function (ev) {
+    if (ev.isFinal) {
+      onPressRelease(ev.deltaX, ev.direction);
+    }
+  });
+};
+
+var container = document.getElementById("carousel");
+var c = new Carousel(container);
+c.init();
+
+// Nav click event
+$('[data-nav=""]').on("click", function () { 
+  var $self = $(this);
+  c.throttledShowPane($self.data("show"), true);
+});
+//# sourceURL=pen.js
+</script>
+</body></html>

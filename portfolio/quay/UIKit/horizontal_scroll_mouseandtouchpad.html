@@ -1,0 +1,994 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/RichieAHB/pen/OVRMpE?depth=everything&order=popularity&page=5&q=footer+bottom&show_forks=false" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Megrim' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+<style class="cp-pen-styles">*, :before, :after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Roboto Slab';
+  font-weight: 300;
+  height: 100%;
+  line-height: 1.25;
+  width: 100%;
+}
+
+body {
+  padding: 3rem 0 3rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Megrim';
+  font-style: normal;
+}
+
+h1 {
+  color: #d80480;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+a {
+  color: #d80480;
+  display: inline-block;
+  background-color: #fff;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 1.5rem 0;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+}
+
+.darkness {
+  color: #777;
+}
+
+.light {
+  color: #f2d58c;
+}
+
+.header {
+  background: #fff;
+  height: 3rem;
+  left: 0;
+  line-height: 1rem;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navigation {
+  height: 100%;
+  width: 100%;
+}
+
+.navigation__link {
+  display: block;
+  float: left;
+  font-size: 1.5rem;
+  font-weight: 300;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  width: 12.5%;
+}
+
+.footer {
+  bottom: 0;
+  height: 3rem;
+  left: 0;
+  line-height: 1rem;
+  padding: 1rem;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.me {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.me__static {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.me__scroller {
+  height: 100%;
+  font-size: 0;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.me__scroller--town {
+  width: 400%;
+}
+
+.me__scroller--clouds-front {
+  width: 500%;
+}
+
+.me__scroller--clouds-back {
+  width: 400%;
+}
+
+.me__scroller--hills {
+  width: 200%;
+}
+
+.section {
+  display: inline-block;
+  font-size: 1rem;
+  height: 100%;
+  position: relative;
+  vertical-align: top;
+  width: 100%;
+}
+
+.section__content {
+  color: #fff;
+  padding: 6rem 1rem 0;
+  text-align: center;
+}
+
+/*
+ * Objects
+ */
+.timeline {
+  background-color: #f2d58c;
+  bottom: 0;
+  height: 0.5rem;
+  position: absolute;
+  width: 8%;
+}
+
+.building {
+  background-color: #562826;
+  bottom: 0;
+  color: #fff;
+  height: 150px;
+  left: 25%;
+  padding: 1rem;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  width: 200px;
+  z-index: 50;
+}
+
+.building__roof {
+  border-style: solid;
+  border-width: 0 100px 100px 100px;
+  border-color: transparent transparent #562926 transparent;
+  content: '';
+  display: block;
+  height: 0;
+  left: 0;
+  position: absolute;
+  bottom: 100%;
+  width: 0;
+}
+
+.hill {
+  border-style: solid;
+  border-width: 0 100px 50px 100px;
+  border-color: transparent transparent #d80480 transparent;
+  content: '';
+  display: block;
+  height: 0;
+  left: 0;
+  position: absolute;
+  bottom: 0;
+  width: 0;
+}
+
+.sky {
+  background-color: #2B2A4D;
+}
+
+.halo {
+  /* FF3.6+ */
+  /* Chrome,Safari4+ */
+  /* Chrome10+,Safari5.1+ */
+  /* Opera 12+ */
+  /* IE10+ */
+  background: radial-gradient(ellipse at center, #82e2d6 0%, rgba(77, 117, 151, 0.2) 60%, rgba(77, 117, 151, 0) 80%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2b130', endColorstr='#00edda80',GradientType=1 );
+  /* IE6-9 fallback on horizontal gradient */
+  height: 200%;
+  left: -50%;
+  opacity: 0;
+  width: 200%;
+}
+
+.star {
+  background-color: #fff;
+  border-radius: 5px;
+  height: 5px;
+  position: absolute;
+  width: 5px;
+}
+
+.celestial-bodies {
+  top: 0;
+  height: 250%;
+  position: absolute;
+  width: 100%;
+  z-index: 50;
+}
+
+.sun, .moon {
+  border-radius: 50%;
+  display: block;
+  height: 100px;
+  left: 50%;
+  margin-left: -50px;
+  position: absolute;
+  width: 100px;
+}
+
+.cloud {
+  width: 350px;
+  height: 120px;
+  background: #82e2d6;
+  border-radius: 100px;
+  position: absolute;
+  margin: 120px auto 20px;
+  z-index: 0;
+}
+
+.cloud:after, .cloud:before {
+  content: '';
+  position: absolute;
+  background: #82e2d6;
+  z-index: -1;
+}
+
+.cloud:after {
+  width: 100px;
+  height: 100px;
+  top: -50px;
+  left: 50px;
+  border-radius: 100px;
+}
+
+.cloud:before {
+  width: 180px;
+  height: 180px;
+  top: -90px;
+  right: 50px;
+  border-radius: 200px;
+}
+
+.me__scroller--clouds-back .cloud {
+  opacity: 0.9;
+}
+
+.sun {
+  background-color: #f2d58c;
+  bottom: 1rem;
+}
+
+.moon {
+  background-color: white;
+  top: 1rem;
+}
+
+.video-container {
+  left: 50%;
+  position: absolute;
+  bottom: 3rem;
+}
+
+.video-container:before {
+  background-color: #333;
+  top: 100%;
+  content: '';
+  height: 4rem;
+  left: 3rem;
+  position: absolute;
+  width: 0.25rem;
+}
+
+.video-container:after {
+  background-color: #333;
+  top: 100%;
+  content: '';
+  height: 4rem;
+  position: absolute;
+  right: 3rem;
+  width: 0.25rem;
+}
+
+.balloon {
+  border: 3px solid #234;
+  background-color: #fff;
+  bottom: 37px;
+  border-radius: 50%;
+  height: 100px;
+  left: 0;
+  position: absolute;
+  width: 100px;
+}
+
+.balloon:before {
+  background-color: transparent;
+  border-left: 3px solid #234;
+  border-right: 3px solid #234;
+  content: '';
+  height: 20px;
+  left: 50%;
+  margin-left: -10px;
+  position: absolute;
+  top: 100%;
+  width: 20px;
+}
+
+.balloon:after {
+  background-color: #234;
+  content: '';
+  height: 20px;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: 20px;
+  position: absolute;
+  top: 100%;
+  width: 20px;
+}
+
+.logos {
+  text-align: center;
+}
+
+.logo {
+  margin: 0 0.5rem;
+  top: 100%;
+  position: relative;
+}
+
+.me-photo {
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+}
+</style></head><body>
+<header class="header">
+		RichieAHB
+	</header>
+	<div id="me" class="me">
+		<div class="me__static sky">
+			<div class="me__static stars"></div>
+			<div class="me__static halo"></div>
+			<div class="celestial-bodies">
+				<div class="sun"></div>
+				<div class="moon"></div>
+			</div>
+		</div>
+		<div class="me__scroller me__scroller--sub me__scroller--clouds-front"></div>
+		<div class="me__scroller me__scroller--sub me__scroller--clouds-back"></div>
+		<div class="me__scroller me__scroller--sub me__scroller--hills"></div>
+		<div class="me__static logos">
+			<img src="https://www.sywebspace.co.uk/me/img/HTML5_Logo.png" class="logo logo--first html" alt="">
+			<img src="https://www.sywebspace.co.uk/me/img/CSS3_Logo.png" class="logo logo--first css" alt="">
+			<img src="https://www.sywebspace.co.uk/me/img/JavaScript-logo.png" class="logo logo--first js" alt="">
+			<img src="https://www.sywebspace.co.uk/me/img/PHP_Logo.png" class="logo logo--first php" alt="">
+		</div>
+		<div class="me__static logos">
+			<img src="https://www.sywebspace.co.uk/me/img/Wordpress_Logo.png" class="logo logo--second wordpress" alt="">
+			<img src="https://www.sywebspace.co.uk/me/img/jQuery_Logo.png" class="logo logo--second jquery" alt="">
+		</div>
+		<div class="me__static logos">
+			<img src="https://www.sywebspace.co.uk/me/img/ROR_Logo.png" class="logo logo--three ror" alt="">
+			<img src="https://www.sywebspace.co.uk/me/img/NodeJS_Logo.png" class="logo logo--three node" alt="">
+			<img src="https://www.sywebspace.co.uk/me/img/MongoDB_Logo.png" class="logo logo--three mongo" alt="">
+		</div>
+		<!-- <div class="me__scroller me__scroller--sub me__scroller--town"></div> -->
+		<div id="me__scroller" class="me__scroller">
+			<div class="section">
+				<div class="section__content">
+					<h1>Richard Beddington</h1>
+					<h2>From the <span class="darkness">darkness</span> to the <span class="light">light</span> &hellip;</h2>
+					<p>I am a web developer with 5 years experience</p>
+					<p>Scroll or click the years to see what I've done in that time</p>
+				</div>
+			</div>
+			<div class="section">
+				<div class="section__content">
+					<h1>2010</h1>
+					<p>After having graduated from University with a 1st in Music I decided I want to become a developer.</p>
+					<p>I got my hands dirty with some HTML, CSS JavaScript and PHP and started spending every evening and weekend coding.</p>
+				</div>
+			</div>
+			<div class="section">
+				<div class="section__content">
+					<h1>2011</h1>
+					<p>I soon started to find frameworks and look to ways to improve my workflow.</p>
+					<p>It was in 2011 I first picked up Wordpress and jQuery and began developing sites for a few small clients.</p>
+					<p>I got a job working as a junior on the front end of <a  target="_blank" href="https://www.gardenbuildingsdirect.co.uk">Garden Buildings Direct</a></p>
+				</div>
+			</div>
+			<div class="section">
+				<div class="section__content">
+					<h1>2012</h1>
+					<p>In 2012 I began working for <a target="_blank" href="https://www.e4education.co.uk/">e4education</a> in a freelance position, building sites such as:</p>
+					<ul>
+						<li><a target="_blank" href="http://www.theferrers.northants.sch.uk/">The Ferrers School</a></li>
+						<li><a target="_blank" href="https://www.parkhallschool.org.uk/">Park Hall School</a></li>
+						<li><a target="_blank" href="http://www.heathland.hounslow.sch.uk/">Heathland School</a></li>
+						<li><a target="_blank" href="http://www.bcs.hants.sch.uk/">Bishop Challoner School</a></li>
+						<li><a target="_blank" href="https://www.thechaffordschool.org.uk/">The Chafford School</a></li>
+					</ul>
+					<p>Here I began to work with CSS preprocessors and build systems like Sass and Gulp.js respectively (I still use these two to this day).</p>
+				</div>
+			</div>
+			<div class="section">
+				<div class="section__content">
+					<h1>2013</h1>
+					<p>After a most of the year living in Paris and working for e4education I began working at <a target="_blank"  href="https://www.netmatter.co.uk/">Netmatter</a>, where my role was mainly backend.</p>
+					<p>Initially I began working with Opencart on sites such as <a target="_blank" href="https://www.kover-it.co.uk/">Kover-it</a>.</p>
+					<p>Eventually however, we moved on to building a PHP framework for Brightpearl (an Inventory management platform) on sites like <a target="_blank"  href="https://www.westenddj.co.uk/">West End DJ</a></p>
+				</div>
+			</div>
+			<div class="section">
+				<div class="section__content">
+					<h1>2014</h1>
+					<p>At the beginning of this year I started working for Sutton Young where I worked with larger sites as well a complex canvas / 3D projects:</p>
+					<ul>
+						<li>I built the whole of the <a target="_blank" href="http://www.canarywharf.com/">Canary Wharf</a> site</li>
+						<li>As part of this I also made a <a target="_blank" href="http://group.canarywharf.com/wp-content/themes/canary-wharf-group/estate_map/index.html">3D model of the Canary Wharf estate</a> usin Three.js and Blendr</li>
+						<li>I have made many canvas animations for pitches such as <a target="_blank" href="https://sywebspace.co.uk/hex/">this</a>, <a target="_blank" href="https://codepen.io/RichieAHB/full/vEVBRQ/">this</a> and <a target="_blank" href="https://sywebspace.co.uk/eastbourne/">this</a></li>
+						<li>An example of one of the earlier builds that <em>isn't</em> protected is <a target="_blank"  href="http://southbanktower.com/">South Bank Tower</a></li>
+					</ul>
+					<p>However most of the work is behind password protected sites as they contain sensitive information about building layouts.</p>
+					<p>Oh and I also made <a target="_blank" href="http://www.richardandgeorgina.com/">this</a> quick thing for my wedding last May!</p>
+				</div>
+				<div class="balloon"></div>	
+			</div>
+			<div class="section">
+				<div class="section__content">
+					<h1>2015</h1>
+					<p>This year I began my first major project in Rails (having played with it a lot for a few years).</p>
+					<p>I have also developed a locally hosted piece of presentation software that works on a MEAN stack.</p>
+					<p>This also relies on WebSockets to allow a tablet to quickly control a web based presentation on a big screen.</p>
+				</div>
+			</div>
+			<div class="section">
+				<div class="section__content">
+					<h1>Me</h1>
+					<p>So that is what I have to offer, as well as enthusiasm, creativity and biting wit ...</p>
+					<p>Most of my best work is blocked by passwords, hence I took a (little) time out to make this! All hand-coded by me.</p>
+					<img src="https://www.sywebspace.co.uk/me/img/me.jpg" class="me-photo" alt="">
+					<p>Please <a href="mailto:richard.beddington@gmail.com">email me</a> if you have any questions!</p>
+				</div>
+			</div>
+		</div>
+		<div class="me_static">
+			<div class="timeline"></div>
+		</div>
+	</div>
+	<footer class="footer">
+		<nav class="navigation">
+			<a href="#" class="navigation__link">Hello</a>
+			<a href="#" class="navigation__link">2010</a>
+			<a href="#" class="navigation__link">2011</a>
+			<a href="#" class="navigation__link">2012</a>
+			<a href="#" class="navigation__link">2013</a>
+			<a href="#" class="navigation__link">2014</a>
+			<a href="#" class="navigation__link">2015</a>
+			<a href="#" class="navigation__link">Me</a>
+		</nav>
+	</footer>
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script >;(function ( $, window, document, undefined ) {
+		var pluginName = "me";
+		var defaults = {
+			scroller: '#me__scroller',
+			scrollRatio: 0.25,
+			scrollerSections: '.section',
+			syncedScrollers: '.me__scroller--sub',
+			syncedElements: false
+		};
+
+		var settings;
+		var self;
+		var $w = $(window);
+		var $container;
+		var $scroller;
+		var $scrollerSections;
+		var maxScroll;
+		var currentScrollPos = 0;
+		var xPc = 0;
+		var lastPageY = 0;
+
+		function Plugin( element, options ) {
+			self = this;
+
+			$container = $(element);
+			settings = $.extend( {}, defaults, options);
+
+			$scroller = $container.find(settings.scroller);
+			$scrollerSections = $scroller.find(settings.scrollerSections);
+			$syncedScrollers = $container.find(settings.syncedScrollers);
+			$navItems = $(settings.navItemSelector);
+
+			self._defaults = defaults;
+			self._name = pluginName;
+
+			self.init();
+		}
+
+		Plugin.prototype = {
+
+			init: function() {
+				self.setMaxScroll();
+				self.addScrollerHandler();
+				self.addClickHandler();
+				self.addTouchHandler();
+			},
+
+			addTouchHandler: function() {
+				$container.on('touchstart', function(e){
+					lastPageY = e.originalEvent.touches[0].screenY;
+				});
+			},
+
+			setMaxScroll: function() {
+				maxScroll = -($scrollerSections.length - 1) * $container.width();
+			},
+
+			addScrollerHandler: function(e) {
+				$container.on('DOMMouseScroll mousewheel touchmove', function(e){
+					e.preventDefault();
+					requestAnimationFrame(function(){
+						self.updatePositions(e);
+						self.animate();
+					});
+				});
+			},
+
+			animate: function() {
+				self.updatePositions();
+				self.translateScrollers();
+				self.updateSyncedElements();
+				self.runTriggers();
+			},
+
+			addClickHandler: function() {
+				$navItems.click(function(e){
+					e.preventDefault();
+					var index = $(this).index();
+					self.scrollToSection(index);
+				});
+			},
+
+			scrollToSection: function(index) {
+				var startPos = currentScrollPos;
+				var endPos = -$container.width() * index;
+				var delta = endPos - startPos;
+				var startTime = Date.now();
+				var easing = settings.scrollEasing || 'easeInOutQuad';
+				var timer = setInterval(function(){
+					var t = Date.now() - startTime;
+					if (t > settings.scrollDuration) {
+						clearInterval(timer);
+					} else {
+						currentScrollPos = self.easings[easing](t, startPos, delta, settings.scrollDuration);
+						self.animate();
+					}
+				});
+			},
+
+			easings: {
+				linear: function(t, b, c, d) {
+					return c*t/d + b;
+				},
+				easeInOutQuad: function (t, b, c, d) {
+					t /= d/2;
+					if (t < 1) return c/2*t*t + b;
+					t--;
+					return -c/2 * (t*(t-2) - 1) + b;
+				}
+			},
+
+			translateScrollers: function() {
+				$scroller.css({
+					transform: 'translate3d(' + currentScrollPos + 'px,0,0)'
+				});
+
+				$syncedScrollers.each(function(){
+					$el = $(this);
+					var ratio = ($el.width() - $container.width()) / -maxScroll;
+					var translateAmount = currentScrollPos * ratio;
+					$el.css({
+						transform: 'translate3d(' + translateAmount + 'px,0,0)'
+					});
+				});
+			},
+
+			updatePositions: function(e) {
+				var scrollDelta = e ? self.getScrollDelta(e) : 0;
+				currentScrollPos = Math.min(0, Math.max(maxScroll, scrollDelta + currentScrollPos));
+				xPc = currentScrollPos / maxScroll;
+			},
+
+			updateSyncedElements: function() {
+				for (var i = settings.syncedElements.length - 1; i >= 0; i--) {if (window.CP.shouldStopExecution(2)){break;}
+					var syncEl = settings.syncedElements[i];
+					var css = {};
+					var transform = '';
+					var x = 0;
+					var y = 0;
+					var $element = $container.find(syncEl.selector);
+
+					// Run through animations array and check for animation types
+					for (var j = syncEl.animations.length - 1; j >= 0; j--) {if (window.CP.shouldStopExecution(1)){break;}
+						var a = syncEl.animations[j];
+
+						if (a.type == 'rotate') {
+							var deg = self.getAnimationValue($element, a);
+							transform += 'rotate(' + deg + 'deg) ';
+						} else if (a.type == 'opacity') {
+							var value = self.getAnimationValue($element, a);
+							css.opacity = value;
+						} else if (a.type == 'background-color') {
+							css.backgroundColor = self.getAnimationValue($element, a);
+						} else if (a.type == 'color') {
+							css.color = self.getAnimationValue($element, a);
+							console.log(css);
+						} else if ((a.type == 'right' || a.type == 'left') && !syncEl.xFunction) {
+							x = (a.type == 'left' ? '-' : '') + self.getAnimationValue($element, a) + (a.percent ? '%' : 'px');
+						} else if ((a.type == 'down' || a.type == 'up') && !syncEl.yFunction) {
+							y = (a.type == 'up' ? '-' : '') + self.getAnimationValue($element, a) + (a.percent ? '%' : 'px');
+						} else if (a.type == 'width') {
+							css.width = self.getAnimationValue($element, a) + (a.percent ? '%' : 'px');;
+						}
+					}
+window.CP.exitedLoop(1);
+
+
+					// Check for custom functions on x or y translate position
+					if (syncEl.xFunction || syncEl.yFunction) {
+						var startTranslate = syncEl.startSection ? -((syncEl.startSection - 1) * $scrollerSections.width()) : 0;
+
+						if (syncEl.xFunction && currentScrollPos < startTranslate) {
+							x = syncEl.xFunction(xPc);
+						}
+
+						if (syncEl.yFunction && currentScrollPos < startTranslate) {
+							y = syncEl.yFunction(xPc);
+						}
+					}
+
+					transform += 'translate3d(' + x + ',' + y + ',0) ';
+					css.transform = transform;
+					$container.find(syncEl.selector).css(css);
+				}
+window.CP.exitedLoop(2);
+
+			},
+
+			getAnimationValue: function($el, a) {
+				var k = a.keyframes;
+				var closestKs = self.getClosestValues(k, xPc);
+				var k1 = closestKs[0] || closestKs[1];
+				var k2 = closestKs[1] || closestKs[0];
+				var duration = k2 - k1 || 1; // Don't return NaN / Infinity
+
+				var easing = k[k1].easing || 'linear';
+				var startValue = typeof k[k1].value !== 'undefined' ? k[k1].value : k[k1];
+				if (startValue === 'out') {
+					startValue = self.getOutDistance($el, a.type);
+				}
+
+				var endValue = typeof k[k2].value !== 'undefined' ? k[k2].value : k[k2];
+				if (endValue === 'out') {
+					endValue = self.getOutDistance($el, a.type);
+				}
+
+				var newPc = Math.min(Math.max(xPc - k1, 0), 1);
+				if (['color', 'background-color'].indexOf(a.type) >= 0) {
+					return self.getIntermediaryColor(newPc, startValue, endValue, duration);
+				} else {
+					endValue = endValue - startValue;
+					return self.easings[easing](newPc, startValue, endValue, duration);
+				}
+			},
+
+			getClosestValues: function(a, x) {
+			    var lo, hi;
+			    for (key in a) {if (window.CP.shouldStopExecution(3)){break;}
+			        if (key <= x && (lo === undefined || lo < key)) lo = key;
+			        if (key >= x && (hi === undefined || hi > key)) hi = key;
+			    }
+window.CP.exitedLoop(3);
+
+			    return [lo, hi];
+			},
+
+			runTriggers: function() {
+				if (settings.syncedTriggers) {
+					var len = settings.syncedTriggers.length;
+					while (len--) {if (window.CP.shouldStopExecution(4)){break;}
+						var trigger = settings.syncedTriggers[len];
+						if (trigger.percentage < xPc) {
+							trigger.trigger();
+							settings.syncedTriggers.splice(len, 1);
+						}
+					}
+window.CP.exitedLoop(4);
+
+				}
+			},
+
+			getScrollDelta: function(e) {
+				if (e.originalEvent.touches) {
+					scrollDelta = e.originalEvent.touches[0].pageY - lastPageY;
+	        		lastPageY = e.originalEvent.touches[0].pageY;
+	        		return scrollDelta;
+				} else {
+					scrollDelta = parseInt(e.originalEvent.wheelDelta || -e.originalEvent.detail * 10);
+					return scrollDelta * settings.scrollRatio;
+				}
+			},
+
+			getOutDistance: function($el, dir) {
+				if ($el.attr('data-out-distance-' + dir)) {
+					return parseInt($el.attr('data-out-distance-' + dir), 10);
+				} else {
+					var dist;
+					if (dir == 'left') {
+						dist = -($el.offset().left + $el.outerWidth());
+					} else if (dir == 'right') {
+						dist = $container.outerWidth() - $el.offset().left;
+					} else if (dir == 'up') {
+						dist = -($el.offset().top + $el.outerHeight());
+					} else if (dir == 'down') {
+						dist = $container.outerHeight() - $el.offset().top;
+					}
+					dist = Math.abs(dist);
+					$el.attr('data-out-distance-' + dir, dist);
+					return dist;
+				}
+			},
+
+			// Color functions
+
+			componentToHex: function(c) {
+				var hex = c.toString(16);
+				return hex.length == 1 ? "0" + hex : hex;
+			},
+
+			rgbToHex: function(r, g, b) {
+				return "#" + self.componentToHex(r) + self.componentToHex(g) + self.componentToHex(b);
+			},
+
+			hexToRgb: function(hex) {
+				var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+				return result ? {
+					r: parseInt(result[1], 16),
+					g: parseInt(result[2], 16),
+					b: parseInt(result[3], 16)
+				} : null;
+			},
+
+			getIntermediaryColor: function(percentage, color1, color2, duration) {
+				c1 = self.hexToRgb(color1);
+				c2 = self.hexToRgb(color2);
+				r = Math.round(c1.r + (c2.r-c1.r) * (percentage / duration));
+				g = Math.round(c1.g + (c2.g-c1.g) * (percentage / duration));
+				b = Math.round(c1.b + (c2.b-c1.b) * (percentage / duration));
+				return self.rgbToHex(r, g, b);
+			}
+		};
+
+		$.fn[pluginName] = function ( options ) {
+			return this.each(function () {
+				if (!$.data(this, "plugin_" + pluginName)) {
+					$.data(this, "plugin_" + pluginName,
+					new Plugin( this, options ));
+				}
+			});
+		};
+
+	})( jQuery, window, document );
+
+	function generateStars(count) {
+		while (count--) {if (window.CP.shouldStopExecution(5)){break;}
+			var size = Math.random() * 10;
+			$('<div class="star">').appendTo($('.stars')).css({
+				left: Math.random() * 100 + '%',
+				opacity: Math.random(),
+				height: size + 'px',
+				top: Math.random() * 100 + '%',
+				width: size + 'px',
+			});
+		}
+window.CP.exitedLoop(5);
+
+	}
+
+	function generateBuildings(count) {
+		while (count--) {if (window.CP.shouldStopExecution(6)){break;}
+			var size = (Math.random() * 100) + 150;
+			var red = ((Math.round(Math.random()) * 2) + 3) + '' + (Math.round(Math.random()) * 9);
+			var $roof = $('<div class="building__roof">').css({
+				'border-color': 'transparent transparent #' + red + '1204 transparent',
+				'border-width': '0 ' + (size / 2) + 'px ' + (size / 2) + 'px ' + (size / 2) + 'px'
+			});
+			$('<div class="building">').appendTo($('.me__scroller--town')).css({
+				backgroundColor: '#' + red + '1204',
+				bottom: 0,
+				left: Math.random() * 100 + '%',
+				height: size * Math.random() + 'px',
+				width: size + 'px'
+			}).append($roof);
+		}
+window.CP.exitedLoop(6);
+
+	}
+
+	function generateClouds(count) {
+		while (count--) {if (window.CP.shouldStopExecution(7)){break;}
+			var size = (Math.random() * 100) + 150;
+			$('<div class="cloud">').appendTo($('.me__scroller--clouds-front')).css({
+				bottom: ((Math.random() * 50) + 50) + '%',
+				right: (Math.random() * 50) + '%',
+				transform: 'scale(' + ((Math.random() * 0.5) + 0.5) + ')'
+			});
+			$('<div class="cloud">').appendTo($('.me__scroller--clouds-back')).css({
+				bottom: ((Math.random() * 50) + 50) + '%',
+				right: (Math.random() * 50) + '%',
+				transform: 'scale(' + ((Math.random() * 0.25) + 0.25) + ')'
+			});
+		}
+window.CP.exitedLoop(7);
+
+	}
+
+	function generateHills(count) {
+		while (count--) {if (window.CP.shouldStopExecution(8)){break;}
+			var size = (Math.random() * ($(window).height() / 8)) + ($(window).height() / 4);
+			$('<div class="hill">').appendTo($('.me__scroller--hills')).css({
+				'border-width': '0 ' + size + 'px ' + (size / 2) + 'px ' + size + 'px',
+				left: ((Math.random() * 150) - 25) + '%',
+				height: size * Math.random() + 'px',
+				opacity: Math.random() * 0.5 + 0.5,
+				width: size + 'px'
+			});
+		}
+window.CP.exitedLoop(8);
+
+	}
+
+	generateStars(100);
+	// generateBuildings(30);
+	generateHills(30);
+	generateClouds(7);
+
+	$('#me').me({
+		syncedElements: [
+			{
+				selector: '.celestial-bodies',
+				animations: [{
+					type: 'rotate',
+					keyframes: {
+						0: 0,
+						1: -180
+					}
+				}]
+			},{
+				selector: '.sky',
+				animations: [{
+					type: 'background-color',
+					keyframes: {
+						0: '#2B2A4D',
+						1: '#B7B6D7'
+					}
+				}]
+			},{
+				selector: '.halo',
+				animations: [{
+					type: 'opacity',
+					keyframes: {
+						0.2: 0,
+						0.5: 1,
+						0.8: 0
+					}
+				}]
+			},{
+				selector: '.timeline',
+				animations: [{
+					type: 'width',
+					percent: true,
+					keyframes: {
+						0: 8,
+						1: 92
+					}
+				}]
+			},{
+				selector: '.balloon',
+				animations: [{
+					type: 'up',
+					keyframes: {
+						0.6: 0,
+						0.8: 'out'
+					}
+				}]
+			},{
+				selector: '.stars',
+				animations: [{
+					type: 'opacity',
+					keyframes: {
+						0: 1,
+						0.4: 0
+					}
+				}]
+			},{
+				selector: '.logo--first',
+				animations: [{
+					type: 'up',
+					percent: true,
+					keyframes: {
+						0.05: 0,
+						0.1: 120,
+						0.2: 120,
+						0.25: 0
+					}
+				}]
+			},{
+				selector: '.logo--second',
+				animations: [{
+					type: 'up',
+					percent: true,
+					keyframes: {
+						0.2: 0,
+						0.25: 120,
+						0.3: 120,
+						0.35: 0
+					}
+				}]
+			},{
+				selector: '.logo--three',
+				animations: [{
+					type: 'up',
+					percent: true,
+					keyframes: {
+						0.77: 0,
+						0.82: 120,
+						0.87: 120,
+						0.92: 0
+					}
+				}]
+			}
+		],
+		navItemSelector: '.navigation a',
+		scrollDuration: 1500
+	});
+//# sourceURL=pen.js
+</script>
+</body></html>

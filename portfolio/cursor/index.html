@@ -1,0 +1,425 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/KmLaOB" />
+<title>Mutant Cursor</title>
+<meta name="description" content="Mutant Cursor, a SVG+JS experiment by RGG">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style class="cp-pen-styles">@import "https://fonts.googleapis.com/css?family=Open+Sans:300,700";
+@import "https://fonts.googleapis.com/css?family=Bitter:400,700";
+@import "https://fonts.googleapis.com/css?family=Anonymous+Pro:400";
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+html,
+body,
+main {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin: 2em 0 .5em;
+  font-family: 'Bitter', serif;
+  font-weight: 400;
+}
+
+em,
+strong {
+  font-weight: 700;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 2em;
+  color: #444;
+  background-color: #d0d0d0;
+  text-align: center;
+}
+
+*,
+*:hover {
+  cursor: none;
+}
+
+a:hover {
+  color: red;
+}
+a svg {
+  pointer-events: none;
+}
+
+.space {
+  margin-bottom: 1em;
+}
+
+.actions {
+  margin-top: 2em;
+  display: flex;
+}
+.actions__item {
+  text-align: center;
+}
+.actions__item a {
+  display: inline-block;
+  width: 9em;
+  padding: 1em 0;
+  color: #444;
+  text-decoration: none;
+}
+.actions__item:last-child {
+  margin: 0 1em;
+  background-color: #fafafa;
+}
+
+.svg-cursor {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1000;
+  font-size: 1.5em;
+}
+.svg-cursor__lines {
+  -webkit-transform: scale(0.8) rotate(0);
+          transform: scale(0.8) rotate(0);
+  -webkit-transform-origin: .5em .5em;
+          transform-origin: .5em .5em;
+  transition: all 0.6s cubic-bezier(0.76, -0.53, 0.32, 1.4);
+}
+.svg-cursor__lines line {
+  transition: all 0.6s cubic-bezier(0.76, -0.53, 0.32, 1.4);
+  -webkit-transform-origin: .5em .5em;
+          transform-origin: .5em .5em;
+}
+.svg-cursor__lines line:nth-of-type(1) {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+.svg-cursor__lines line:nth-of-type(2) {
+  -webkit-transform: scaleX(0.65) translateY(-0.35em);
+          transform: scaleX(0.65) translateY(-0.35em);
+}
+.svg-cursor__lines line:nth-of-type(3) {
+  -webkit-transform: scaleY(0.65) rotate(90deg) translateY(0.35em);
+          transform: scaleY(0.65) rotate(90deg) translateY(0.35em);
+}
+.svg-cursor__action {
+  -webkit-animation: bounce 1s linear infinite;
+          animation: bounce 1s linear infinite;
+}
+.svg-cursor__close .svg-cursor__lines {
+  -webkit-transform: scale(0.8) rotate(360deg);
+          transform: scale(0.8) rotate(360deg);
+}
+.svg-cursor__close .svg-cursor__lines line {
+  -webkit-transform-origin: .5em .5em;
+          transform-origin: .5em .5em;
+}
+.svg-cursor__close .svg-cursor__lines line:nth-child(1) {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+.svg-cursor__close .svg-cursor__lines line:nth-child(2) {
+  -webkit-transform: scaleX(0) translateY(0);
+          transform: scaleX(0) translateY(0);
+}
+.svg-cursor__close .svg-cursor__lines line:nth-child(3) {
+  -webkit-transform: scaleY(1) rotate(-45deg) translateY(0);
+          transform: scaleY(1) rotate(-45deg) translateY(0);
+}
+
+@-webkit-keyframes bounce {
+  30% {
+    -webkit-transform: translate(0.5em, 0.5em);
+            transform: translate(0.5em, 0.5em);
+  }
+  40% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+  50% {
+    -webkit-transform: translate(0.25em, 0.25em);
+            transform: translate(0.25em, 0.25em);
+  }
+  60%,
+    100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+}
+
+@keyframes bounce {
+  30% {
+    -webkit-transform: translate(0.5em, 0.5em);
+            transform: translate(0.5em, 0.5em);
+  }
+  40% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+  50% {
+    -webkit-transform: translate(0.25em, 0.25em);
+            transform: translate(0.25em, 0.25em);
+  }
+  60%,
+    100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+}
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+}
+.modal__header {
+  font-weight: 700;
+  font-size: 2em;
+  margin-bottom: .5em;
+  font-family: 'Bitter', serif;
+}
+.modal__content {
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  padding: 2em 2.4em 2.4em;
+  background-color: #fafafa;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.modal__background {
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transition: opacity 0.6s linear;
+  transition-delay: 0s;
+}
+.modal__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  -webkit-transform: translate(50%, -50%);
+          transform: translate(50%, -50%);
+  height: 2em;
+}
+.modal__close a {
+  display: inline-block;
+}
+.modal:target {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+.modal:target .modal__background {
+  opacity: 1;
+  transition-delay: 0.6s;
+}
+
+.code {
+  width: 100%;
+  max-height: 15em;
+  padding: .8em 1em 1em;
+  box-sizing: border-box;
+  font-family: 'Anonymous Pro';
+  background-color: #f0f0f0;
+  overflow: auto;
+  box-shadow: inset 0 -1em 2em -1em rgba(0, 0, 0, 0.2);
+}
+.code__line {
+  font-size: .8em;
+  line-height: 1.75em;
+  text-align: left;
+}
+.code__push1 {
+  padding-left: 1em;
+}
+.code__push2 {
+  padding-left: 2em;
+}
+.code__push3 {
+  padding-left: 3em;
+}
+.code__push4 {
+  padding-left: 4em;
+}
+.code__push5 {
+  padding-left: 5em;
+}
+.code__push6 {
+  padding-left: 6em;
+}
+.code__push7 {
+  padding-left: 7em;
+}
+.code__push8 {
+  padding-left: 8em;
+}
+.code__comment {
+  color: gray;
+}
+</style></head><body>
+
+<main class="main">
+  <header>
+    <h1><strong>Mutant</strong>Cursor</h1>
+    <p>SVG + JS + MicroInteractions</p>
+  </header>
+  <svg class="svg-cursor" id="svg-cursor" width="1em" height="1em">
+    <g class="svg-cursor__lines" stroke-width="2px" stroke="black">
+      <line x1="0" y1=".5em" x2="1em" y2=".5em"></line>
+      <line x1="0" y1=".5em" x2="1em" y2=".5em"></line>
+      <line x1="0" y1=".5em" x2="1em" y2=".5em"></line>
+    </g>
+  </svg>
+  <ul class="actions">
+    <li class="actions__item"><a class="custom-cursor custom-cursor--action" href="javascript:void(0)" title="Fire action cursor">Action cursor</a></li>
+    <li class="actions__item"><a class="custom-cursor custom-cursor--close" href="javascript:void(0)" title="Fire close cursor">Close cursor</a></li>
+    <li class="actions__item"><a class="custom-cursor custom-cursor--action" href="#modal" title="Help">Help</a></li>
+  </ul>
+  <article class="modal" id="modal">
+    <div class="modal__content">
+      <header class="modal__header">
+        <h2>How the hell it works?</h2>
+      </header>
+      <p class="space">It's simple, jus drop this JavaScript in your HTML:</p>
+      <ul class="code space">
+        <li class="code__line">document.body.addEventListener("mousemove", function(event) {</li>
+        <li class="code__line code__push1">moveCursor(event);</li>
+        <li class="code__line space">});</li>
+        <li class="code__line space">var svgCursor = document.getElementById('svg-cursor');</li>
+        <li class="code__line">function moveCursor(e) {</li>
+        <li class="code__line code__push1">var x = e.clientX - 5,</li>
+        <li class="code__line code__push3 space">y = e.clientY - 5;</li>
+        <li class="code__line code__push1 space">svgCursor.setAttribute('style', 'left: ' + x + 'px; top: ' + y + 'px');</li>
+        <li class="code__line code__push1">if (e.target.className.indexOf('custom-cursor') > -1) {</li>
+        <li class="code__line code__push3">switch (e.target.className) {</li>
+        <li class="code__line code__push5">case 'custom-cursor custom-cursor--action':</li>
+        <li class="code__line code__push8">svgCursor.setAttribute('class', 'svg-cursor svg-cursor__action')</li>
+        <li class="code__line code__push8">break;</li>
+        <li class="code__line code__push5">case 'custom-cursor custom-cursor--close':</li>
+        <li class="code__line code__push8">svgCursor.setAttribute('class', 'svg-cursor svg-cursor__close')</li>
+        <li class="code__line code__push8">break;</li>
+        <li class="code__line code__push3">}</li>
+        <li class="code__line code__push1">} else {</li>
+        <li class="code__line code__push3">svgCursor.setAttribute('class', 'svg-cursor');</li>
+        <li class="code__line code__push1">}</li>
+        <li class="code__line">}</li>
+      </ul>
+      <p class="space">Now add these classes to some DOM elements and check it out!</p>
+      <ul class="code space">
+        <li class="code__line">custom-cursor custom-cursor--hover</li>
+        <li class="code__line code__comment">// or</li>
+        <li class="code__line">custom-cursor custom-cursor--close</li>
+      </ul>
+      <p>Remember... <strong>IE Sucks!</strong></p>
+      <div class="modal__close"><a class="custom-cursor custom-cursor--close" href="#" title="Close modal">
+          <svg width="2em" height="2em">
+            <circle cx="1em" cy="1em" r=".8em" fill="#ff6a6a"></circle>
+          </svg></a></div>
+    </div>
+    <div class="modal__background"></div>
+  </article>
+</main>
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script >document.body.addEventListener("mousemove", function(event) {
+    moveCursor(event);
+});
+var svgCursor = document.getElementById('svg-cursor');
+function moveCursor(e) {
+    var x = e.clientX - 5,
+        y = e.clientY - 5;
+    svgCursor.setAttribute('style', 'left: ' + x + 'px; top: ' + y + 'px');
+    if (e.target.className.indexOf('custom-cursor') > -1) {
+        switch (e.target.className) {
+            case 'custom-cursor custom-cursor--action':
+                svgCursor.setAttribute('class', 'svg-cursor svg-cursor__action')
+                break;
+            case 'custom-cursor custom-cursor--close':
+                svgCursor.setAttribute('class', 'svg-cursor svg-cursor__close')
+                break;
+        }
+    } else {
+        svgCursor.setAttribute('class', 'svg-cursor');
+    }
+}
+//# sourceURL=pen.js
+</script>
+</body></html>

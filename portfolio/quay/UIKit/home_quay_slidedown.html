@@ -1,0 +1,2636 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/Em-An/pen/jVjbLM?depth=everything&order=popularity&page=4&q=footer+bottom&show_forks=false" />
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'><link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+<style class="cp-pen-styles">/* rgba(255, 201, 56, 0.75) - rgba(255, 80, 82, 0.75) */
+/* #333 - #c92b2b - #f26b6b - #6ddbc5 - #fff968 - #fff */
+/* ====================================== Start General ====================================== */
+@import url('https://fonts.googleapis.com/css?family=Bungee|Kaushan+Script|Roboto|Montserrat');
+* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box; box-sizing: border-box; font-family: 'Roboto', sans-serif; margin: 0; padding: 0; text-align: center }
+body { overflow-x: hidden;}
+ul, ol { list-style: none }
+li { display: inline-block }
+h1, h2, h3, h4, h5, h6, ul, ol {margin: 0; padding: 0; font-family: 'Montserrat', sans-serif;}
+h3 {
+    font-family: 'Kaushan Script', cursive;
+}
+h2 {
+    margin-top: 20px; margin-bottom: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+}
+::-webkit-input-placeholder { color: #dbdbdb }
+::-moz-placeholder { color: #dbdbdb }
+:-moz-placeholder { color: #dbdbdb }
+:-ms-input-placeholder { color: #dbdbdb }
+::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-button {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6ddbc5;
+  border: 71px none #ffffff;
+  border-radius: 31px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #69ddc9;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #9ecec6;
+}
+
+::-webkit-scrollbar-track {
+  background: #eee;
+  border: 65px none #ffffff;
+  border-radius: 34px;
+}
+
+::-webkit-scrollbar-track:hover {
+  background: #fff;
+}
+
+::-webkit-scrollbar-track:active {
+  background: #fff;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}ea5151
+::-moz-selection {color: #fff; background: #f26b6b}
+::selection {color: #fff; background: #f26b6b}
+.test {
+  width: 500px;
+  height: 200px;
+  overflow-Y: scroll
+}
+.scroll {
+  height: 500px;
+}
+/* ====================================== End General ====================================== */
+/* ====================================== Start Form Search ================================ */
+.form-search {
+    margin: auto;
+    background-image: linear-gradient(to top, rgba(255, 80, 82, 0.75), rgba(255, 80, 82, 0.75)), url("https://lh3.googleusercontent.com/-VyePWjRQOv0/WFD0JEYnyWI/AAAAAAACF_o/Xem5CZC4gVAibc15jR-HYccjIiYXB56LACL0B/w968-h572-no/header.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    display: none
+}
+.form-search input {
+    width: 100%;
+    display: block;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    letter-spacing: 1.5px;
+    font-size: 18px;
+    outline: none;
+    border: 0
+}
+/* ====================================== End Form Search =================================== */
+/* ====================================== Start Header ====================================== */
+.header {
+    width: 100%; height: 100vh;
+    background-image: linear-gradient(to top, rgba(255, 201, 56, 0.75), rgba(255, 80, 82, 0.75)), url("https://lh3.googleusercontent.com/-VyePWjRQOv0/WFD0JEYnyWI/AAAAAAACF_o/Xem5CZC4gVAibc15jR-HYccjIiYXB56LACL0B/w968-h572-no/header.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    color: #fff;
+    text-shadow: 0 0 5px #666;
+}
+.header .container { position: relative }
+.header a { color: #fff; text-decoration: none; text-shadow: 0 0 5px #666; }
+.header .header-flex {
+    width: 100%; height: 100vh;
+    display: flex; align-items: center; justify-content: center; flex-flow: column wrap;
+    position: absolute; top: 0; left: 0; z-index: 999
+}
+.header .header-flex > div {
+    width: 100%;
+}
+/* -------------------------------------------------------------- */
+.header .header-flex > div:first-of-type { /*-- 01 --*/
+    position: absolute; top: 10px;
+}
+.header .header-flex > div:first-of-type h2 {
+    position: absolute; left: 0;
+    font-weight: bold;
+    margin-left: 1%;
+    font-family: 'Montserrat', sans-serif;
+}
+.header .header-flex > div:first-of-type h2:hover a {
+    color: #fff968;
+}
+.header .header-flex > div:first-of-type > div {
+    position: absolute; right: 0;
+    margin-right: 1%;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+.header .header-flex > div:first-of-type div a {
+    margin: 5px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer
+}
+.header .header-flex > div:first-of-type div a:before {
+    content: "";
+    position: absolute; bottom: -5px; left: 0;
+    height: 2px;
+    width: 0%;
+    background: #fff968;
+    transition: all .5s ease
+}
+.header .header-flex > div:first-of-type div a:hover:before, .header .header-flex > div:first-of-type div .active:before {
+    width: 100%;
+}
+.header .header-flex > div:first-of-type div a:hover, .header .header-flex > div:first-of-type div .active {
+    color: #fff968;
+}
+/* -------------------------------------------------------------- */
+.header .header-flex > div:nth-of-type(2) h2 { /*-- 02 --*/ 
+    font-family: 'Kaushan Script', cursive;
+    font-size: 4vw;
+    margin-bottom: 15px
+}
+/* -------------------------------------------------------------- */
+.header .header-flex > div:nth-of-type(3) { /*-- 03 --*/
+}
+.header .header-flex > div:nth-of-type(3) h1 {
+    font-size: 9vw;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+/* -------------------------------------------------------------- */
+.header .header-flex > div:nth-of-type(4) { /*-- 04 --*/
+    width: 100px;
+    margin-top: 15px;
+    margin-bottom: 35px;
+    border-top: 3px solid #fff
+}
+/* -------------------------------------------------------------- */
+.header .header-flex > div:nth-of-type(5) a { /*-- 05 --*/
+    padding: 5px 10px;
+    border: 3px solid #fff;
+    box-shadow: 0 0 5px #777;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all .3s ease-in-out
+}
+.header .header-flex > div:nth-of-type(5) a:hover {
+    background: #fff;
+    color: #333;
+    text-shadow: none;
+    font-weight: bold
+}
+/* -------------------------------------------------------------- */
+.header .header-flex > div:last-of-type { /*-- 06 --*/
+    position: absolute; bottom: 0;
+}
+.header .header-flex > div:last-of-type div {
+    display: flex; align-items: center
+}
+.header .header-flex > div:last-of-type div a {
+    margin: 1%; padding: 1%;
+    flex-grow: 1;
+    text-align: left;
+    border-top: 3px solid #fff;
+    position: relative;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1.5px
+}
+.header .header-flex > div:last-of-type div a:before {
+    content: "";
+    position: absolute; top: -3px; left: 0;
+    width: 0; height: 3px;
+    background: #c92b2b;
+    transition: all .5s ease
+}
+.header .header-flex > div:last-of-type div .active:before, .header .header-flex > div:last-of-type div a:hover:before {
+    width: 85px
+}
+.header .header-flex > div:last-of-type div a:hover , .header .header-flex > div:last-of-type div .active{
+    color: #333;
+    text-shadow: none;
+    font-weight: bold;
+}
+/* ====================================== End Header ====================================== */
+/* ====================================== Start About ====================================== */
+.about {
+    margin-top: 100px;
+}
+.about p {
+    color: #777;
+}
+.about ul {
+    margin-top: 50px;
+    width: 100%;
+}
+.about ul li {
+    width: 30%;
+    margin: 2% 1%;
+    height: 20vw;
+    background-size: cover;
+    position: relative;
+    transition: all .5s ease-in-out;
+    overflow: hidden
+}
+.about ul li:first-of-type {background-image: url("http://www.redinnova.com/wp-content/uploads/2015/09/working-from-home-health-ftr.jpg")}
+.about ul li:nth-of-type(2) {background-image: url("http://www.publicdomainpictures.net/pictures/160000/velka/ordinateur-de-bureau-pc-1456070535WEH.jpg");}
+.about ul li:last-of-type {background-image: url("http://retail-innovation.com/sites/default/files/wp-content/uploads/2013/05/leapmotion-interactwithcomputer.jpg")}
+.about ul li .about-li-div {
+    width: 100%; height: 100%;
+    position: absolute;
+    background-image: linear-gradient(to top, rgba(255, 201, 56, 0.75), rgba(255, 80, 82, 0.75));
+    transition: all .5s ease-in-out;
+    opacity: 0
+}
+.about ul li .fa, .about ul li h4 {
+    position: absolute;
+    color: #fff;
+    z-index: 999;
+    transition: all .5s ease-in-out;
+    text-shadow: 0 0 5px #666;
+    text-transform: uppercase
+}
+.about ul li .fa { top: -35px; left: calc(50% - 15px);}
+.about ul li h4 {bottom: -50px; font-weight: bold; left: calc(50% - 50px)}
+.about ul li:hover {
+    box-shadow: 7px 7px 0 #6ddbc5;
+}
+.about ul li:hover .about-li-div {
+    opacity: 1
+}
+.about ul li:hover .fa {
+    top: 39%;
+}
+.about ul li:hover h4 {
+    bottom: 39%;
+}
+.about ul li .fa:hover {
+    cursor: pointer;
+    transform: rotate(360deg)scale(1.3);
+    color: #fff968
+}
+/* ====================================== End About ====================================== */
+/* ====================================== Start Progress ====================================== */
+.progress-pure {
+    margin-top: 100px;
+    width: 100%;
+    background: #6ddbc5 
+}
+.progress-pure .progress-flex {
+    width: 100%;
+    display: flex; align-items: center; justify-content: center;
+}
+.progress-pure .progress-flex > div {
+    margin: 25px auto; padding: 10px;
+    border-right: 1px solid #c1efe7;
+    flex-grow: 1;
+}
+.progress-pure .progress-flex > div:first-of-type {
+    border-left: 1px solid #c1efe7
+}
+.progress-pure .progress-flex > div a {
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 5px #666;
+    text-transform: uppercase
+}
+.progress-pure .progress-flex > div a span {
+    min-width: 150px;
+    text-align: center;
+    margin: auto;
+    display: block;
+    font-size: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+/* ====================================== End Progress ====================================== */
+/* ====================================== Strart Service ====================================== */
+.service {
+    margin-top: 100px; margin-bottom: 100px;
+}
+.service .row > div {
+    border-bottom: 1px solid #eee
+}
+.service .service-flex {
+    display: flex; align-items: flex-start;
+    padding: 15px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    max-width: 400px; min-height: 130px;
+    margin: 15px auto 0;
+}
+.service .service-flex:hover {
+    background: #f7f7f7
+}
+.service .service-flex .fa {
+    color: #6ddbc5;
+    text-shadow: 0 0 1px #666;
+}
+.service .service-flex article {
+    margin-left: 15px;
+}
+.service .service-flex article h4 {
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: bold;
+    text-transform: uppercase
+}
+.service .service-flex article p {
+    text-align: left
+}
+/* ====================================== End Service ====================================== */
+/* ====================================== Start Unique ====================================== */
+.unique {
+    width: 100%;
+    padding-top: 100px;
+    margin-bottom: 100px;
+    background-image: linear-gradient(to top, rgba(255, 255, 255, .75), rgba(255, 255, 255, .75)), url("http://www3.0zz0.com/2011/09/26/06/607552934.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+.unique .small-border {
+    margin-bottom: 50px;
+}
+.unique-screen {
+    margin: auto;
+    width: 475px;
+    height: 575px;
+    position: relative;
+}
+.unique-screen .computer {
+    width: 100%;
+    height: 100%;
+    padding: 55px 20px 0 20px;
+    top: 0;
+    border-radius: 25px 25px 0 0;
+    border-top: 3px solid #ccc;
+    border-bottom: 0;
+    border-left: 3px solid #ccc;
+    border-right: 3px solid #ccc;
+}
+.unique-screen .mobile {
+    width: 200px;
+    height: 435px;
+    bottom: -50px;
+    right: -100px;
+    padding: 45px 15px;
+    border-radius: 25px;
+    border: 2px solid #ccc;
+    transition: all .3s ease-in-out;
+}
+.unique-screen .computer > div {
+    border-top: 3px solid #555;
+    border-bottom: 0;
+    border-left: 3px solid #555;
+    border-right: 3px solid #555;
+}
+.unique-screen .mobile > div {
+    border: 2px solid #555;
+    position: relative
+}
+.unique-screen .computer, .unique-screen .mobile {
+    background: #fff;
+    position: absolute;
+}
+.unique-screen .computer > div, .unique-screen .mobile > div {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    transition: all 10s ease-in-out;
+    background-image: url("http://www.webtechelp.net/wp-content/uploads/2014/09/Hope-Center.jpg");
+}
+.unique-screen .computer div:hover, .unique-screen .mobile div:hover {
+    background-position: bottom
+}
+.unique-screen .computer:hover {
+   z-index: 3;
+}
+.computer:hover ~ .mobile {
+    bottom: 15px
+}
+.unique-screen .computer:after, .unique-screen .computer:before {
+    content: "";
+    position: absolute;
+    background: #ddd;
+    border-radius: 50%;
+}
+.unique-screen .computer:after {
+    width: 7px;
+    height: 7px;
+    left: 46%;
+    top: 27px
+}
+.unique-screen .computer:before {
+    width: 12px;
+    height: 12px;
+    right: 46%;
+    top: 25px
+}
+.unique-screen .mobile:after, .unique-screen .mobile:before {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+.unique-screen .mobile:after {
+    top: 15px;
+    width: 7px;
+    height: 7px;
+    background: #aaa
+}
+.unique-screen .mobile:before {
+    bottom: -5px;
+    width: 27px;
+    height: 27px;
+    border: 1px solid #aaa
+}
+.unique-screen .mobile > div:after, .unique-screen .mobile > div:before {
+    content: "";
+    position: absolute;
+}
+.unique-screen .mobile > div:after {
+    width: 30px;
+    height: 3px;
+    background: #777;
+    left: 45%;
+    top: -17px;
+    border-radius: 2px
+}
+.unique-screen .mobile > div:before {
+    width: 5px;
+    height: 5px;
+    left: 37%;
+    top: -19px;
+    background: #777;
+    border-radius: 50%
+}
+/* ====================================== End Unique ====================================== */
+/* ====================================== Start Service Other ====================================== */
+.service-other {
+    margin-top: 100px; margin-bottom: 100px;
+}
+.service-other p {
+    color: #777;
+}
+.service-other-content {
+    width: 100%;
+    margin-top: 75px;
+    display: flex;
+}
+.service-other-content > div {
+    width: 100%
+}
+.service-other-content > div:first-of-type {
+    background-image: url("https://www.arkadin.co.uk/sites/default/files/arkadin_casestudy-business_adviser_analyzing_financial_figures.jpg");
+    background-size: cover;
+    transition: background .5s ease-in-out;
+    margin-right: 2%;
+    position: relative;
+    overflow: hidden;
+}
+.service-other-content > div:first-of-type span {
+    position: absolute;
+    color: #fff;
+    text-shadow: 0 0 1px #666;
+    transition: all .5s ease-in-out;
+    text-transform: uppercase;
+    font-weight: bold
+}
+.service-other-content > div:first-of-type span .fa {
+    transition: all .5s ease-in-out;
+}
+.service-other-content > div:first-of-type span .fa:hover {
+    color: #fff968;
+    cursor: pointer;
+    transform: rotate(360deg)scale(.8);
+}
+.service-other-content > div:first-of-type span:first-of-type {top: 25px; right: -50%}
+.service-other-content > div:first-of-type span:last-of-type {bottom: 25px; left: -100%}
+.service-other-content > div:first-of-type:hover span:first-of-type {top: 25px; right: 5px}
+.service-other-content > div:first-of-type:hover span:last-of-type {bottom: 25px; left: 25px}
+.service-other-content > div:first-of-type > div {
+    width: 100%; height: 100%;
+    position: absolute;
+    background-image: linear-gradient(to top, rgba(255, 201, 56, 0.75), rgba(255, 80, 82, 0.75));
+    transition: all .5s ease-in-out;
+    opacity: 0
+}
+.service-other-content > div:first-of-type:hover div {
+    opacity: 1;
+}
+.service-other-content > div:first-of-type:hover {
+    background-position: right;
+    box-shadow: 7px 7px 0 #6ddbc5;
+}
+.service-other-content dl {
+    width: 100%;
+    margin-bottom: 0
+}
+.service-other-content dl dt {
+    text-align: left;
+    margin-top: 7px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    background: #fafafa;
+    cursor: pointer
+}
+.service-other-content dl dt:first-of-type {margin-top: 0}
+.service-other-content dl dt h5 {
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #555;
+    letter-spacing: 1.5px;
+    position: relative;
+    top: -4px
+}
+.service-other-content dl dt .fa {
+    color: #6ddbc5;
+    text-shadow: 0 0 1px #999;
+    padding: 5px 5px 0
+}
+.service-other-content dl dd {
+    border: 1px solid #ddd;
+    color: #777;
+    height: 250px;
+}
+.service-other-content dl dd p {
+    overflow-y: scroll;
+    padding: 10px;
+    height: 100%;
+    text-align: justify
+}
+.service-other-content .accordion-hide {display: none}
+.service-other-content span{
+  float: right;
+  margin-right: 25px;
+  color:#777;
+  font-size:24px;
+}
+/* ====================================== End Service Other ====================================== */
+/* ====================================== Start Slider Text ====================================== */
+.slidertext {
+    margin-bottom: 75px;
+    background: #f6f6f6;
+}
+.slideroneimg {
+    background: #f6f6f6;
+}
+.slidertext-parent, .slideroneimg-parent {
+    background: #f6f6f6;
+    position: relative;
+    overflow: hidden;
+}
+.slidertext-ul, .slideroneimg-ul {
+    position: absolute;
+    top: 0; left: 0;
+    display: flex
+}
+.slidertext-parent .fa, .slideroneimg-parent .fa {
+    text-shadow: 0 0 1px #666
+}
+.slidertext-parent > .fa, .slideroneimg-parent > .fa {
+    position: absolute;
+    top: calc(50% - 15px);
+    color: #777;
+    z-index: 999;
+    cursor: pointer;
+    transition: all .5s
+}
+.slidertext-parent > .fa:hover, .slideroneimg-parent > .fa:hover {
+    transform: scale(1.7);
+    color: #6ddbc5;
+}
+.slidertext-parent > .fa:first-of-type, .slideroneimg-parent > .fa:first-of-type {left: 5px}
+.slidertext-parent > .fa:last-of-type, .slideroneimg-parent > .fa:last-of-type {right: 5px}
+.slidertext-ul-li, .slideroneimg-ul-li {
+    display: block
+}
+/* ------------------ Text ------------------------ */
+.slidertext-flex, .slideroneimg-flex {
+    display: flex;
+    padding: 25px
+}
+.slideroneimg-flex {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.slideroneimg-flex {
+    align-items: center;
+}
+.slidertext-flex > .fa {
+    color: #6ddbc5;
+    display: block;
+    border: 3px solid #6ddbc5;
+    padding: 25px;
+    margin: 5px
+}
+.slideroneimg-flex img {
+    border: 2px solid #ccc;
+    padding: 5px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: .75;
+    transition: all .5s ease-in-out
+}
+.slideroneimg-flex:hover img {
+    opacity: 1
+}
+.slidertext-flex blockquote p, .slideroneimg-flex blockquote p {
+    text-align: left;
+    color: #666
+}
+.slidertext-flex blockquote h3, .slideroneimg-flex blockquote h3 {
+    text-align: left;
+    color: #444
+}
+.slidertext-flex blockquote h3:before, .slideroneimg-flex blockquote h3:before {
+    content: "";
+    width: 50px;
+    height: 3px;
+    display: inline-block;
+    background: #f26b6b;
+    margin-right: 10px
+}
+/* ====================================== End Slider Text ====================================== */
+/* ====================================== Start Meet ====================================== */
+.meet .meet-content {
+    display: flex
+}
+.meet p {color: #777; margin-bottom: 50px}
+.meet .meet-content figure {
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin: auto;
+    padding: 15px;
+}
+.meet .meet-content figure div {
+    width: 100%;
+    margin-bottom: 15px;
+    background-size: cover;
+}
+.meet .meet-content figure.one > div {background-image: url("http://menshaircutstyle.com/wp-content/uploads/mens-long-hairstyle.jpg"); background-position: center;}
+.meet .meet-content figure.two > div {background-image: url("https://s-media-cache-ak0.pinimg.com/originals/25/03/83/2503830a177561f5287f162e3bdbd2c3.jpg")}
+.meet .meet-content figure.three > div {background-image: url("https://static.pexels.com/photos/26939/pexels-photo-26939.jpg")}
+.meet .meet-content figure figcaption h5 {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #444;
+    font-family: 'Montserrat', sans-serif;
+}
+.meet .meet-content figure figcaption span {
+    color: #888
+}
+.meet .meet-content figure div ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 1s ease-in-out;
+    background-image: linear-gradient(to top, rgba(255, 201, 56, 0.75), rgba(255, 80, 82, 0.75));
+    opacity: 0;
+    margin: auto
+}
+.meet .meet-content figure div ul li .fa {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    color: #fff;
+    transition: all 1s ease-in-out, background .3s ease-in-out, color .3s ease-in-out;
+    margin-left: 1px;
+    position: relative;
+    background: #f26b6b;
+}
+.meet .meet-content figure div ul li:first-of-type .fa {left: -250px}
+.meet .meet-content figure div ul li:nth-of-type(2) .fa {bottom: -250px}
+.meet .meet-content figure div ul li:nth-of-type(3) .fa {top: -250px}
+.meet .meet-content figure div ul li:last-of-type .fa {right: -250px}
+.meet .meet-content figure div ul li .fa:hover {background: #fff968; color: #f26b6b}
+.meet .meet-content figure div ul:hover li:first-of-type .fa {left: 0}
+.meet .meet-content figure div ul:hover li:nth-of-type(2) .fa {bottom: 0}
+.meet .meet-content figure div ul:hover li:nth-of-type(3) .fa {top: 0}
+.meet .meet-content figure div ul:hover li:last-of-type .fa {right: 0}
+.meet .meet-content figure div ul:hover {
+    box-shadow: 7px 7px 0 #6ddbc5;
+    opacity: 1;
+    transition: all .5s ease-in-out;
+}
+/* ====================================== End Meet ====================================== */
+/* ====================================== Start filter ====================================== */
+/* #333 - #c92b2b - #f26b6b - #6ddbc5 - #fff968 - #fff */
+.filter {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+.filter input[type="radio"] {
+    display:none;
+}
+.filter label {
+    width:23%;
+    float:left;
+    text-align:center;
+    background:#ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    color:#333;
+    padding:1%;
+    margin:0.5%;
+    margin-bottom:30px;
+    cursor:pointer;
+}
+.filter input[type="radio"][id="blue"]:checked + label {
+    background:#6ddbc5;
+}
+.filter input[type="radio"][id="blue"]:checked ~ .red, input[type="radio"][id="blue"]:checked ~ .green {
+    width:0;
+    height:0;
+    padding:0;
+    margin:0;
+    opacity:0;
+}
+.filter input[type="radio"][id="red"]:checked + label {
+    background:#f26b6b;
+}
+.filter input[type="radio"][id="red"]:checked ~ .blue, input[type="radio"][id="red"]:checked ~ .green {
+    width:0;
+    height:0;
+    padding:0;
+    margin:0;
+    opacity:0;
+}
+.filter input[type="radio"][id="green"]:checked + label {
+    background:#fff968;
+}
+.filter input[type="radio"][id="green"]:checked ~ .blue, input[type="radio"][id="green"]:checked ~ .red {
+    width:0;
+    height:0;
+    padding:0;
+    margin:0;
+    opacity:0;
+}
+.filter .tile {
+    width:23%;
+    float:left;
+    transition:all 1s;
+    margin:0.5%;
+    padding: 3px;
+    position: relative;
+    overflow: hidden
+}
+.filter .tile:before {
+    content: attr(data-title);
+    color: #fff;
+    font-weight: bold;
+    color: #222;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    z-index: 999;
+    padding: 0 10px;
+    transform: translate(-50%, 0);
+    transition: all .5s
+}
+.filter .tile > img {
+    border-radius: 90% 0 0 0;
+    transition: all .5s;
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+    opacity: .5;
+}
+.filter .tile:hover:before {
+    bottom: -50px;
+}
+.filter .tile:hover > img {
+    opacity: 1;
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    border-radius: 0 0 25% 0;
+    cursor: url("https://lh5.googleusercontent.com/-bqXUI_5l9oI/WGDwLzdTWsI/AAAAAAACGJ0/ySrFL2mGwa45SqifvceFjHgEh3ErfDlpgCL0B/w63-h43-no/eye.png.png"), default
+}
+.filter .green, .filter .green:before {
+    background:#fff968;
+}
+.filter .blue, .filter .blue:before {
+    background:#6ddbc5;
+}
+.filter .red, .filter .red:before {
+    background:#f26b6b;
+}
+/* --------- Start title-fixed -------- */
+.filter .tile-fixed {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to top, rgba(255, 201, 56, 0.75), rgba(255, 80, 82, 0.75));
+    position: fixed;
+    z-index: 999;
+    top: 0; left: 0;
+    display: none;
+    z-index: 99999;
+}
+.filter .tile-fixed img {
+    height: 100vh;
+    max-height: 100vh;
+    cursor: pointer
+}
+/* --------- End title-fixed -------- */
+/* ====================================== End filter ====================================== */
+/* ====================================== Start Images ====================================== */
+.images {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 75px;
+    margin-bottom: 75px;
+    background: #f6f6f6;
+}
+.images ul {
+    display: flex;
+    justify-content: space-around
+}
+.images ul li img {
+    opacity: .45;
+    transition: all .5s ease-in-out
+}
+.images ul li img:hover {
+    transform: rotate(360deg) scale(1.2);
+    opacity: .9;
+    
+}
+/* ====================================== End Images ====================================== */
+/* ====================================== Start Some ====================================== */
+.some p {
+    color: #777;
+    margin-bottom: 50px
+}
+.some .da-thumbs {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    padding-top: 15px;
+    margin-bottom: 200px
+}
+.some .da-thumbs > div {
+    width: 25%;
+    background-color: #eee;
+    position: relative;
+    float: left
+}
+.some .da-thumbs > div a {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+}
+.some .da-thumbs > div a img {
+    width: 100%;
+    height: 100%;
+}
+.some .da-thumbs > div a div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to top, rgba(255, 201, 56, 0.75), rgba(255, 80, 82, 0.75));
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+}
+.some .da-thumbs > div a div h5 {
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 7px;
+    letter-spacing: 10px;
+    transition: all 1s ease
+}
+.some .da-thumbs > div a div:hover h5, .da-thumbs > div:hover h5 {
+    letter-spacing: 1.5px;
+    font-weight: bold
+}
+.some .da-thumbs > div a div i:hover {
+    font-style: normal;
+    color: #fff968
+}
+.some .da-thumbs > div a div .fa {
+    margin: 5px;
+    transition: all .5s ease
+}
+.some .da-thumbs > div a div .fa:hover {
+    transform: scale(.9) rotate(-15deg);
+    color: #fff968
+}
+/* ====================================== End Some ====================================== */
+/* ====================================== Start Client ====================================== */
+.unique .unique-client {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 450px;
+    display: flex
+}
+.unique .row {
+    margin-bottom: 50px
+}
+.unique .unique-client .img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    transition: all .5s ease-in-out;
+    border: 3px solid transparent;
+    background-clip: content-box
+}
+.unique .unique-client:hover .img {
+    border: 3px solid #6ddbc5;
+    transform: rotate(-10deg);
+}
+.unique .unique-client .img.one {background-image: url("https://static1.squarespace.com/static/53cc31dae4b06d1cfa9e2c10/5547f409e4b0c6477c8e3d30/5547f409e4b04971ef9f92b0/1430778890192/kiss925.jpg?format=1000w"); background-position: 80%}
+.unique .unique-client .img.two {background-image: url("https://i.ytimg.com/vi/SY9kaIuXjJ4/maxresdefault.jpg")}
+.unique .unique-client .img.three {background-image: url("https://cdn.pixabay.com/photo/2015/02/08/20/57/man-629062_960_720.jpg")}
+.unique .unique-client .img.four {background-image: url("http://combiboilersleeds.com/images/man/man-1.jpg")}
+.unique .unique-client .text {
+    width: calc(100% - 100px);
+    margin-left: 15px;
+}
+.unique .unique-client .text, .unique .unique-client .text h4, .unique .unique-client .text p {
+    text-align: left
+}
+.unique .unique-client .text h4 {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #444;
+    margin-bottom: 5px;
+}
+.unique-client .text p {
+    color: #666;
+}
+.unique-client .text p:before {
+    content: "";
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 100px;
+    border-top: 3px solid #f26b6b;
+}
+/* ====================================== End Client ====================================== */
+/* ====================================== Start Stories ====================================== */
+.stories {
+    margin-bottom: 100px
+}
+.stories .stories-content {
+    display: flex
+}
+.stories p {color: #777; margin-bottom: 50px}
+.stories .stories-content figure {
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin: auto;
+    padding: 15px;
+}
+.stories .stories-content figure div {
+    width: 100%;
+    margin-bottom: 15px;
+    background-size: cover;
+    opacity: .8;
+    position: relative;
+    transition: all .3s ease-in-out
+}
+.stories .stories-content figure div p {
+    position: absolute; left: -10px; bottom: 10px;
+    background: #6ddbc5;
+    padding: 0 13px 3px 13px;
+    margin: 0;
+    transition: all .3s ease-in-out;
+    cursor: pointer
+}
+.stories .stories-content figure div p span {
+    font-family: 'Montserrat', sans-serif;
+    display: block;
+    margin: 0;
+    color: #fff
+}
+.stories .stories-content figure div p span:first-of-type {
+    font-size: 25px;
+    font-weight: bold;
+}
+.stories .stories-content figure div:hover {
+    opacity: 1
+}
+.stories .stories-content figure div:hover p {
+    bottom: 30px
+}
+.stories .stories-content figure.one > div {background-image: url("http://www.rsc.org/careers/future/sites/futureinchemistry/files/uploads/study%20options_shutterstock_148640279.jpg"); background-position: center;}
+.stories .stories-content figure.two > div {background-image: url("http://static.communitytable.parade.com/wp-content/uploads/2014/02/working-from-home-health-ftr.jpg")}
+.stories .stories-content figure.three > div {background-image: url("https://www.insightstudy.co.uk/images/study_work/insight-greenwich-school-study+work.jpg")}
+.stories .stories-content figure figcaption {
+    margin-top: 25px;
+    text-align: left
+}
+.stories .stories-content figure figcaption h5 {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #444;
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
+    margin-bottom: 10px
+}
+.stories .stories-content figure figcaption span {
+    color: #888
+}
+.stories .stories-content figure figcaption .fa {
+    color: #6ddbc5;
+    margin-left: 5px;
+    cursor: pointer
+}
+.stories .stories-content figure figcaption hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/* ====================================== End Stories ====================================== */
+/* ====================================== Start Map ====================================== */
+.map {
+    width: 100%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-image: linear-gradient(to top, rgba(255, 255, 255, .75), rgba(255, 255, 255, .75)), url("http://www3.0zz0.com/2011/09/26/06/607552934.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f26b6b
+}
+.map .map-content {
+    display: inline-block;
+    cursor: pointer
+}
+.map .map-content .fa {
+    font-size: 25px
+}
+.map .map-content h4 {
+    margin-top: 10px;
+    font-weight: bold;
+    text-transform: uppercase
+}
+.map .map-content h4:after {
+    content: "";
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+    width: 50px;
+    border-top: 3px solid #f26b6b;
+}
+.map .map-content .overlay-map {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to top, rgba(255, 201, 56, 0.75), rgba(255, 80, 82, 0.75));
+    position: fixed;
+    z-index: 999;
+    top: 0; left: 0;
+    display: none;
+}
+.overlay-map > div {
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%)
+}
+/* ====================================== End Map ====================================== */
+/* ====================================== Start Footer ====================================== */
+footer {
+    padding-top: 50px;
+    background: #F8F8F8
+}
+footer .img, footer .footer-three ul li {
+    position: relative;
+    overflow: hidden;
+    opacity: .8;
+    transition: all .2s ease-in-out
+}
+footer .img:hover, footer .footer-three ul li:hover {
+    opacity: 1
+}
+footer .img:hover div, footer .footer-three ul li:hover div {
+    top: 0;
+    left: 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 0 50% 50% 50%;
+    transform: rotate(0);
+    background-image: linear-gradient(to top, rgba(255, 201, 56, 1), rgba(255, 80, 82, 1));
+}
+footer .img > div, footer .footer-three ul li div {
+    width: 120%;
+    height: 120%;
+    position: absolute;
+    top: 61%;
+    left: 9%;
+    transform: rotate(70deg);
+    background-image: linear-gradient(to top, rgba(255, 201, 56, 0.7), rgba(255, 80, 82, 0.7));
+    transition: all .5s ease-in-out;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+footer .img > div a, footer .footer-three ul li div a {
+    color: #fff;
+    text-shadow: 0 0 1px #666;
+    position: relative;
+    bottom: -2px
+}
+footer .img > div a:hover, footer .footer-three ul li div a:hover {
+    color: #fff968
+}
+footer .footer-content h2, footer .footer-content h5, footer .footer-content p, footer .footer-two-flex .text, footer .footer-one, .footer-one form, footer .footer-one ul, footer .footer-three {
+    text-align: left
+}
+footer .footer-content h2 {
+    color: #555;
+    margin-top: 0
+}
+footer h5 {
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #555;
+}
+footer .footer-content p {
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 12px
+}
+footer .container {
+    display: flex
+}
+footer .container .footer-content {
+    width: 100%;
+    max-width: 500px;
+    margin: 1%;
+}
+footer .footer-two .footer-two-flex {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+footer .footer-two .footer-two-flex .img {
+    width: 100px;
+    height: 100px;
+    background-size: cover
+}
+footer .footer-two .footer-two-flex:first-of-type .img {background-image: url("http://naturalfactors.com/wp-content/uploads/2015/01/7Z9A0021-200x200.jpg")}
+footer .footer-two .footer-two-flex:nth-of-type(2) .img {background-image: url("http://r3.ilikewallpaper.net/ipad-wallpapers/download/31994/Natural-Scenery-Road-ipad-wallpaper-ilikewallpaper_com_200.jpg")}
+footer .footer-two .footer-two-flex:last-of-type .img {background-image: url("http://teamne.net/wp-content/uploads/enchanting-front-garden-design-ideas-showcasing-natural-stone-path-way-feat-green-grass-with-concrete-edge-and-natural-ornamental-tree-at-beautiful-landscapes-for-houses-beautiful-landscapes-for-house-200x200.jpg")}
+footer .footer-two .footer-two-flex .text {
+    width: calc(100% - 100px)
+}
+footer .footer-two .footer-two-flex .text {
+    padding-left: 15px
+}
+footer .footer-three ul {
+    width: 100%;
+    margin-top: 15px;
+    padding: 0
+}
+footer .footer-one label {
+    color: #555
+}
+footer .footer-one form {
+    padding-top: 25px;
+    display: flex
+}
+footer .footer-one form input {
+    padding: 7px;
+    text-align: left;
+    outline: 0;
+    border: 0;
+    border: 1px solid #ddd
+}
+footer .footer-one form input[type="email"] {
+    width: 100%;
+    background: #fff
+}
+footer .footer-one form input[type="submit"] {
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 7px 15px;
+    background: #6ddbc5;
+    color: #fff;
+    transition: all .2s ease-in-out;
+}
+footer .footer-one form input[type="submit"]:hover {
+    background: #f26b6b
+}
+
+footer .footer-one ul li, footer .footer-one ul i {
+    margin-right: 7px
+}
+footer .footer-one ul i, footer span {
+    color: #aaa
+}
+footer .footer-one ul li .fa {
+    color: #6ddbc5
+}
+footer .footer-one ul li:hover .fa {
+    color: #f26b6b
+}
+footer .footer-three ul li {
+    display: inline-block;
+    width: 32%;
+    height: 32%;
+    background-size: cover
+}
+footer .footer-three ul li:first-of-type {background-image: url("http://www.northeasthorticultural.com/images/photogallery/natural-screen/natural-5a.jpg")}
+footer .footer-three ul li:nth-of-type(2) {background-image: url("http://loyfa-natural-resort.com/files/three.jpg")}
+footer .footer-three ul li:nth-of-type(3) {background-image: url("http://loyfa-natural-resort.com/files/two.jpg")}
+footer .footer-three ul li:nth-of-type(4) {background-image: url("http://teamne.net/wp-content/uploads/alluring-tropical-garden-plans-showcasing-natural-stepping-stone-with-green-herbaceous-border-and-green-lawn-also-natural-ornamental-tree-at-beautiful-landscapes-for-houses-beautiful-landscapes-for-ho-200x200.jpg")}
+footer .footer-three ul li:nth-of-type(5) {background-image: url("http://www.joshta.com/i/2016/05/alluring-stainless-steel-pool-ladder_mosaic-sapphire-ceramic-pool-base-floor_brown-varnished-wooden-frame-pool-chaise_grey-natural-concrete-pool-step_grey-natural-concrete-pool-side-200x200.jpg")}
+footer .footer-three ul li:nth-of-type(6) {background-image: url("https://s-media-cache-ak0.pinimg.com/236x/e0/76/03/e076030a08f5029dd04c3e6bcc8673f5.jpg")}
+footer .footer-three ul li:nth-of-type(7) {background-image: url("http://teamne.net/wp-content/uploads/terrific-archaic-home-architecture-showcasing-natural-brick-stone-house-wall-with-minimalist-ornamental-plants-and-green-lawn-at-beautiful-landscapes-for-houses-beautiful-landscapes-for-houses-garden-200x200.jpg")}
+footer .footer-three ul li:nth-of-type(8) {background-image: url("http://www.naturalheritage.com/Image_Galleries/Natural_Areas/Hall%20Creek%20Barrens%20Natural%20Area/Barrens3.jpg?Action=thumbnail&Width=200&Height=200&Algorithm=fill_proportional&USM=1")}
+footer .footer-three ul li:last-of-type {background-image: url("https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTckquf7Yyn87tTdHzU_dWYYrOzPKMnq39nBgdShNhKQSa2gzGv")}
+.footer-footer {
+    padding-bottom: 25px;
+}
+/* ====================================== End Footer ====================================== */
+/* ====================================== Start Section Loading ====================================== */
+.loading {
+    width: 100%;
+    height: 100vh;
+    background: #16171d;
+    opacity: 0.9;
+    z-index: 9999999999;
+    position: fixed;
+}
+/* ====================================== End Section Loading ====================================== */
+/* ====================================== Start Scroll To Top ====================================== */
+#scroll-top {
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    color: #DDD;
+    background: #272727;
+    position: fixed;
+    right: 15px;
+    bottom: 10px;
+    z-index: 99999;
+    cursor: pointer;
+    display: none
+}
+#scroll-top:hover {background: #444}
+/* ====================================== End Scroll To Top ====================================== */
+/* ====================================== Start Framework ====================================== */
+.small-border {width: 100px; border-top: 3px solid #f26b6b; margin: 50px auto}
+/* ====================================== End Framework ====================================== */
+/* ====================================== Start Mediaquery ====================================== */
+@media(min-width: 100px) and (max-width: 499px) { /* Custom */
+    .header .header-flex > div:first-of-type h2, .header .header-flex > div:first-of-type ul {position: static; margin: 25px}
+    .about ul li {width: 80%; height: 70vw}
+    .progress-pure .progress-flex, footer .container {display: block; margin: auto}
+    .progress-pure .progress-flex > div:first-of-type {border: 0; border-bottom: 1px solid #c1efe7}
+    .progress-pure .progress-flex > div {display: inline-block; width: 250px; border: 0; margin: 25px; border-bottom: 1px solid #c1efe7;}
+    .unique-screen {width: 275px; height: 375px}
+    .unique-screen .mobile {width: 150px; height: 335px; padding: 40px 7px; right: 0}
+    .service-other-content, .meet .meet-content, .stories .stories-content, footer .flex {display: block}
+    .service-other-content > div {max-width: 400px; min-height: 250px; margin: 25px auto}
+    .service-other-content > div:first-of-type {margin: auto}
+    .some .da-thumbs {max-width: 250px; margin: auto}
+    .some .da-thumbs > div {width: 100%; margin-bottom: 15px}
+}
+@media(min-width: 500px) and (max-width: 767px) { /* X Small Screen */
+    .about ul li:first-of-type {width: 95%; height: 50vw; display: block; margin: 1% auto}
+    .about ul li:not(:first-child) {width: 47%; height: 50vw}
+    .progress-pure .progress-flex, footer .container {display: block; margin: auto}
+    .progress-pure .progress-flex > div:first-of-type {border: 0; border-bottom: 1px solid #c1efe7}
+    .progress-pure .progress-flex > div {display: inline-block; width: 250px; border: 0; border-bottom: 1px solid #c1efe7;}
+    .unique-screen {margin-left: 25px; width: 375px; height: 475px}
+    .unique-screen .mobile {width: 180px; height: 335px; padding: 40px 10px;}
+    .service-other-content, .meet .meet-content, .stories .stories-content, footer .flex {display: block}
+    .service-other-content > div {max-width: 500px; min-height: 300px; margin: 25px auto}
+    .service-other-content > div:first-of-type {margin: auto}
+    .some .da-thumbs > div {width: 50%}
+}
+@media(min-width: 768px) and (max-width: 991px) { /* Small Screen */
+    .about ul li {width: 75%; height: 50vw; display: block; margin: 3% auto}
+    .progress-pure .progress-flex {display: block; height: auto}
+    .progress-pure .progress-flex > div:first-of-type {border: 0; border-bottom: 1px solid #c1efe7}
+    .progress-pure .progress-flex > div {display: inline-block; width: 250px; border: 0; border-bottom: 1px solid #c1efe7;}
+    .some .da-thumbs > div {width: 33.33333%}
+}
+@media(min-width: 992px) and (max-width: 1199px) { /* Medium Screen */
+    .about ul li {height: 30vw;}
+}
+@media(min-width: 1200px) { /* Larg Screen */
+}
+/* ====================================== End Mediaquery ====================================== */</style></head><body>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="shortcut icon" type="image/png" href="images/logo.JPG"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- Compatibility Meta IE -->
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- First Mobile Meta -->
+        <title>MOGO</title>
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/hover.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="HandheldFriendly" content="true">
+    </head>
+    <body>
+        <!-- ---------------------------- Start Header -------------------------------- -->
+        <form class="form-search" method="GET" action="https://www.google.com/search" target="_blank">
+            <input type="text" name="q" placeholder="search in google ..." onEnter="send()" autocomplete="off" />
+        </form>
+        <header class="header">
+            <div class="container">
+                <div class="header-flex">
+                    <div><!-- 01 -->
+                        <h2><a href="#">MOGO</a></h2>
+                        <div data-active="active">
+                            <a class="active" href="#">about</a>
+                            <a href="#">service</a>
+                            <a href="#">work</a>
+                            <a href="#">blog</a>
+                            <a href="#">contact</a>
+                            <a><i class="fa fa-cart-plus"></i></a>
+                            <a><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div><!-- 02 -->
+                        <h2>Creative Template</h2>
+                    </div>
+                    <div><!-- 03 -->
+                        <h1>Welcome<br>to MoGo</h1>
+                    </div>
+                    <div><!-- 04 -->
+                    </div>
+                    <div><!-- 05 -->
+                        <a href="#">Learn more</a>
+                    </div>
+                    <div><!-- 06 -->
+                        <div data-active="active">
+                            <a class="active" href="#">01 Intro</a>
+                            <a href="#">02 Work</a>
+                            <a href="#">03 About</a>
+                            <a href="#">04 Contact</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- ---------------------------- End Header ---------------------------------- -->
+        <!-- ---------------------------- Start About ---------------------------------- -->
+        <section class="about">
+            <div class="container">
+                <h3>What We Do</h3>
+                <h2>Story About Us</h2>
+                <div class="small-border"></div>
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                <ul>
+                    <li>
+                        <i class="fa fa-users fa-2x"></i>
+                        <div class="about-li-div"></div>
+                        <h4>Super Team</h4>
+                    </li>
+                    <li>
+                        <i class="fa fa-coffee fa-2x"></i>
+                        <div class="about-li-div"></div>
+                        <h4>Super Team</h4>
+                    </li>
+                    <li>
+                        <i class="fa fa-heartbeat fa-2x"></i>
+                        <div class="about-li-div"></div>
+                        <h4>Super Team</h4>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <!-- ---------------------------- End About ---------------------------------- -->
+        <!-- ---------------------------- Start Progress ---------------------------------- -->
+        <div class="progress-pure">
+            <div class="container">
+                <div class="progress-flex">
+                    <div>
+                        <a href="#"><span class="progress-number" data-percentage="41">00</span> Web Design Projects</a>
+                    </div>
+                    <div>
+                        <a href="#"><span class="progress-number" data-percentage="23">00</span> Happy Client</a>
+                    </div>
+                    <div>
+                        <a href="#"><span class="progress-number" data-percentage="65">00</span> Award Winner</a>
+                    </div>
+                    <div>
+                        <a href="#"><span class="progress-number" data-percentage="99">00</span> Cup Of Coffee</a>
+                    </div>
+                    <div>
+                        <a href="#"><span class="progress-number" data-percentage="74">00</span> Members</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ---------------------------- End Progress ---------------------------------- -->
+        <!-- ---------------------------- Start Service ---------------------------------- -->
+        <div class="container">
+            <section class="service">
+                <h3>We work with</h3>
+                <h2>Amazing Services</h2>
+                <div class="small-border"></div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="service-flex">
+                            <i class="fa fa-camera-retro fa-5x"></i>
+                            <article>
+                                <h4>Photography</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="service-flex">
+                            <i class="fa fa-pencil fa-5x"></i>
+                            <article>
+                                <h4>Web Design</h4>
+                                <p>Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="service-flex">
+                            <i class="fa fa-hourglass-half fa-5x"></i>
+                            <article>
+                                <h4>Creativity</h4>
+                                <p>Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="service-flex">
+                            <i class="fa fa-language fa-5x"></i>
+                            <article>
+                                <h4>Seo</h4>
+                                <p>Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="service-flex">
+                            <i class="fa fa-shopping-bag fa-5x"></i>
+                            <article>
+                                <h4>Css/Html</h4>
+                                <p>Lorem dolor sit amet, consectetur adipiscing elit, sed do tempor.</p>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="service-flex">
+                            <i class="fa fa-map fa-5x"></i>
+                            <article>
+                                <h4>digital</h4>
+                                <p>Sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+                
+            </section>
+        </div>
+        <!-- ---------------------------- End Service ---------------------------------- -->
+        <!-- ---------------------------- Start Unique ---------------------------------- -->
+        <section class="unique">
+            <div class="container">
+                <h3>For all devices</h3>
+                <h2>Unique design</h2>
+                <div class="small-border"></div>
+                <div class="unique-screen">
+                   <div class="computer"><div></div></div>
+                   <div class="mobile"><div></div></div>
+                </div>
+            </div>
+        </section>
+        <!-- ---------------------------- End Unique ---------------------------------- -->
+        <!-- ---------------------------- Start Service Other ---------------------------------- -->
+        <section class="service-other">
+            <div class="container">
+                <h3>Service</h3>
+                <h2>What We Do</h2>
+                <div class="small-border"></div>
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                <div class="service-other-content">
+                    <div>
+                        <div></div>
+                        <span><i class="fa fa-coffee fa-2x"></i></span>
+                        <span>pleasure of the moment</span>
+                    </div>
+                    <div>
+                        <dl>
+                            <dt class="add"><i class="fa fa-picture-o fa-2x"></i> <h5>photography</h5><span></span></dt>
+                            <dd>
+                                <p>pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best
+                                <br><br>pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best
+                                <br><br>pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best</p>
+                            </dd>
+                            <dt><i class="fa fa-sliders fa-2x"></i> <h5>Creativity</h5><span></span></dt>
+                            <dd>
+                                <p>pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best
+                                <br><br>pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best
+                                <br><br>pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best</p>
+                            </dd>
+                            <dt><i class="fa fa-dot-circle-o fa-2x"></i> <h5>Web Desigen</h5><span></span></dt>
+                            <dd>
+                                <p>pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best
+                                <br><br>pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best
+                                <br><br>pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best</p>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ---------------------------- End Service Other ---------------------------------- -->
+        <!-- ---------------------------- Start Slider Text ---------------------------------- -->
+        <div class="slidertext">
+            <div class="container">
+                <div class="slidertext-parent">
+                    <ul class="slidertext-ul">
+                        <li class="slidertext-ul-li slidertext-active" data-slidertext="0">
+                            <div class="slidertext-flex">
+                                <i class="fa fa-briefcase fa-5x"></i>
+                                <blockquote>
+                                    <p><q>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing </q></p>
+                                    <h3>Jon Doe</h3>
+                                </blockquote>
+                            </div>
+                        </li>
+                        <li class="slidertext-ul-li" data-slidertext="1">
+                            <div class="slidertext-flex">
+                                <i class="fa fa-comments fa-5x"></i>
+                                <blockquote>
+                                    <p><q>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing </q></p>
+                                    <h3>Dena Eslam</h3>
+                                </blockquote>
+                            </div>
+                        </li>
+                        <li class="slidertext-ul-li" data-slidertext="2">
+                            <div class="slidertext-flex">
+                                <i class="fa fa-camera fa-5x"></i>
+                                <blockquote>
+                                    <p><q>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing </q></p>
+                                    <h3>Any Name</h3>
+                                </blockquote>
+                            </div>
+                        </li>
+                        <li class="slidertext-ul-li">
+                            <div class="slidertext-flex">
+                                <i class="fa fa-briefcase fa-5x"></i>
+                                <blockquote>
+                                    <p><q>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing </q></p>
+                                    <h3>Jon Doe</h3>
+                                </blockquote>
+                            </div>
+                        </li>
+                    </ul>
+                    <i class="fa fa-angle-left fa-2x"></i>
+                    <i class="fa fa-angle-right fa-2x"></i>
+                </div>
+            </div>
+        </div>
+        <!-- ---------------------------- End Slider Text ---------------------------------- -->
+        <!-- ---------------------------- Start Meet ---------------------------------- -->
+        <div class="container">
+            <section class="meet">
+                <h3>Who We Are</h3>
+                <h2>Meet Our Team</h2>
+                <div class="small-border"></div>
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                <div class="meet-content">
+                    <figure class="one">
+                        <div>
+                            <ul><!--
+                                --><li><a href="#"><i class="fa fa-facebook fa-2x"></i></a></li><!--
+                                --><li><a href="#"><i class="fa fa-twitter fa-2x"></i></a></li><!--
+                                --><li><a href="#"><i class="fa fa-pinterest-p fa-2x"></i></a></li><!--
+                                --><li><a href="#"><i class="fa fa-instagram fa-2x"></i></a></li><!--
+                            --></ul>
+                        </div>
+                        <figcaption>
+                            <h5>Matthew Dix</h5>
+                            <span>Graphic Design</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="two">
+                        <div>
+                            <ul><!--
+                                --><li><a href="#"><i class="fa fa-facebook fa-2x"></i></a></li><!--
+                                --><li><a href="#"><i class="fa fa-twitter fa-2x"></i></a></li><!--
+                                --><li><a href="#"><i class="fa fa-pinterest-p fa-2x"></i></a></li><!--
+                                --><li><a href="#"><i class="fa fa-instagram fa-2x"></i></a></li><!--
+                            --></ul>
+                        </div>	
+                        <figcaption>
+                            <h5>Christopher Campbell</h5>
+                            <span>Branding/ux design</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="three">
+                        <div>
+                            <ul><!--
+                                --><li><a href="#"><i class="fa fa-facebook fa-2x"></i></a></li><!--
+                                --><li><a href="#"><i class="fa fa-twitter fa-2x"></i></a></li><!--
+                                --><li><a href="#"><i class="fa fa-pinterest-p fa-2x"></i></a></li><!--
+                                --><li><a href="#"><i class="fa fa-instagram fa-2x"></i></a></li><!--
+                            --></ul>
+                        </div>
+                        <figcaption>
+                            <h5>Michael Fertic</h5>
+                            <span>Developer</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
+        </div>
+        <!-- ---------------------------- End Meet ---------------------------------- -->
+        <!-- ---------------------------- Start Filter ---------------------------------- -->
+        <section class="filter">
+            <div class="container">
+                <h3>Our Work</h3>
+                <h2>UI Developer</h2>
+                <div class="small-border"></div>
+                <div class="filter-content">
+                    <input type="radio" id="blue" name="color" />
+                    <label for="blue">html, css, js</label>
+                    <input type="radio" id="red" name="color"/>
+                    <label for="red">Wordpress</label>
+                    <input type="radio" id="green" name="color"/>
+                    <label for="green">Laravel</label>
+                    <input type="radio" id="reset" name="color"/>
+                    <label for="reset">All Work</label>
+
+                    <div class="tile blue" data-title="html-css-js">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="https://media.licdn.com/mpr/mpr/p/7/005/092/146/1b9fed5.jpg" width="100%" />
+                    </div>
+                    <div class="tile red" data-title="wordpress">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="https://s3-media3.fl.yelpcdn.com/bphoto/hpy6HrTiV4TvNS-1C4f22Q/ls.jpg" width="100%" />
+                    </div>
+                    <div class="tile blue" data-title="html-css-js">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="http://www.sawa.om/wp-content/uploads/2015/07/IT-Project-Management-250x250.jpg" width="100%" />
+                    </div>
+                    <div class="tile green" data-title="laravel">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="http://www.businessschooledge.com/wp-content/uploads/2013/09/project-management-training-250x250.jpg" width="100%" />
+                    </div>
+                    <div class="tile blue" data-title="html-css-js">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="https://www.activia.co.uk/imageFiles/courses1/project-management-teams.jpg" width="100%" />
+                    </div>
+                    <div class="tile red" data-title="wordpress">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="https://s3-media1.fl.yelpcdn.com/bphoto/BdAj09mL7v-BL8tzJmkZIw/ls.jpg" width="100%" />
+                    </div>
+                    <div class="tile red" data-title="wordpress">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="https://2.imimg.com/data2/RS/UE/MY-3247426/project-management-250x250.jpg" width="100%" />
+                    </div>
+                    <div class="tile green" data-title="laravel">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="https://s3-media1.fl.yelpcdn.com/bphoto/yNg50g_-bzGhjL5Xrz1_HA/ls.jpg" width="100%" />
+                    </div>
+                    <div class="tile blue" data-title="html-css-js">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="https://d1raip7zazff6e.cloudfront.net/data2/PN/BP/MY-3627344/project-management-consultant-interior-design-project-250x250.jpg" width="100%" />
+                    </div>
+                    <div class="tile green" data-title="laravel">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="https://s3-media2.fl.yelpcdn.com/bphoto/2B9dQMfRU7yt7WwjxcV3Lg/ls.jpg" width="100%" />
+                    </div>
+                    <div class="tile red" data-title="wordpress">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="https://www.durhamengineering.co.uk/content/proj-management.jpg" width="100%" />
+                    </div>
+                    <div class="tile green" data-title="laravel">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="http://mayurinteriors.in/images/project-management.jpg" width="100%" />
+                    </div>
+                    <div class="tile blue" data-title="html-css-js">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="http://www.123projectmanagement.com/files/2011/08/crm.jpg" width="100%" />
+                    </div>
+                    <div class="tile blue" data-title="html-css-js">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="http://danidearest.com/wp-content/uploads/2016/02/Group-Project-3.png" width="100%" />
+                    </div>
+                    <div class="tile green" data-title="laravel">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="https://supportteamnews.files.wordpress.com/2016/06/project-finance-250x250.jpg?w=820" width="100%" />
+                    </div>
+                    <div class="tile red" data-title="wordpress">
+                        <div class="tile-fixed">
+                            <div class="img">
+                                <a href="https://codepen.io/Em-An/" target="_blank">
+                                    <img src="https://lh5.googleusercontent.com/-Bx09DAuw7QE/WGDncAkIuzI/AAAAAAACGJE/sMLLkbGw2QATznIpURA1McaNDz0LRBVIACL0B/w717-h808-no/Untitled.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <img src="https://valorganado.com/2-home_default/project-charter.jpg" width="100%" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ---------------------------- End Filter ---------------------------------- -->
+        <!-- ---------------------------- Start Images ---------------------------------- -->
+        <div class="images">
+            <div class="container">
+                <ul>
+                    <li><a href="#"><img src="https://www.classe.cornell.edu/rsrc/Home/Internal/DesignDraftingServices/CommonLogos/NIH_Logo.png" width="85"/></a></li>
+                    <li><a href="#"><img src="http://brussels.e2industry.com/files/Renault_logo_1992-300x242.png" width="85"/></a></li>
+                    <li><a href="#"><img src="https://www.bpa.gov/news/AboutUs/Logos/brandlogo/BPA-Logo-2015-BW-Text.png" width="85"/></a></li>
+                    <li><a href="#"><img src="https://upload.wikimedia.org/wikipedia/en/8/8b/Seal_of_the_Dominican_Order.png" width="85"/></a></li>
+                    <li><a href="#"><img src="https://openclipart.org/image/800px/svg_to_png/193426/Happy-Mothers-Day.png" width="85"/></a></li>
+                    <li><a href="#"><img src="https://files.graphiq.com/10/media/images/Boise_State_University_214801.png" width="85"/></a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- ---------------------------- End Images ---------------------------------- -->
+        <!-- ---------------------------- Start Some ---------------------------------- -->
+        <section class="some">
+            <div class="container">
+                <h3>What We Do</h3>
+                <h2>Some Of Our Work</h2>
+                <div class="small-border"></div>
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            </div>
+            <div class="da-thumbs">
+                <div>
+                    <a href="#">
+                        <img src="https://pbs.twimg.com/profile_images/443432256313364480/y5pKgsw6.jpeg" />
+                        <div>
+                            <i class="fa fa-image fa-2x"></i>
+                            <h5>Creatively Designed</h5>
+                            <i>Lorem Ipsum Dolor Sit 1</i>
+                        </div>
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="https://68.media.tumblr.com/2a51a8bf96c3cb18719c3761a578b172/tumblr_nyzzu89p4K1uet07no1_500.gif" />
+                        <div>
+                            <i class="fa fa-image fa-2x"></i>
+                            <h5>Creatively Designed</h5>
+                            <i>Lorem Ipsum Dolor Sit 2</i>
+                        </div>
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="http://www.lovethispic.com/uploaded_images/166149-Daisy.jpg" />
+                        <div>
+                            <i class="fa fa-image fa-2x"></i>
+                            <h5>Creatively Designed</h5>
+                            <i>Lorem Ipsum Dolor Sit 3</i>
+                        </div>
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="https://secure.static.tumblr.com/606572b9dd4b3108757b0acc737e69bf/ygkjfge/mveo8x20l/tumblr_static_8kpdb809fo4ckcc8w8wooc404_640_v2.jpg" />
+                        <div>
+                            <i class="fa fa-image fa-2x"></i>
+                            <h5>Creatively Designed</h5>
+                            <i>Lorem Ipsum Dolor Sit 4</i>
+                        </div>
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="http://data.whicdn.com/images/134140351/original.jpg" />
+                        <div>
+                            <i class="fa fa-image fa-2x"></i>
+                            <h5>Creatively Designed</h5>
+                            <i>Lorem Ipsum Dolor Sit 5</i>
+                        </div>
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="https://38.media.tumblr.com/04905121cada316941ecd673cbe54449/tumblr_mx2z3ph3YK1sv1swho1_400.jpg" />
+                        <div>
+                            <i class="fa fa-image fa-2x"></i>
+                            <h5>Creatively Designed</h5>
+                            <i>Lorem Ipsum Dolor Sit 6</i>
+                        </div>
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="https://secure.static.tumblr.com/51ac80f71df0e4e1a48db721e0305639/vno6llj/R5Unrafj9/tumblr_static_filename_640_v2.jpg" />
+                        <div>
+                            <i class="fa fa-image fa-2x"></i>
+                            <h5>Creatively Designed</h5>
+                            <i>Lorem Ipsum Dolor Sit 7</i>
+                        </div>
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="https://31.media.tumblr.com/5da199130ac3cf71e9efcad0b162f5a5/tumblr_n7loc28PJK1qgz2u0o1_400.gif" />
+                        <div>
+                            <i class="fa fa-image fa-2x"></i>
+                            <h5>Creatively Designed</h5>
+                            <i>Lorem Ipsum Dolor Sit 8</i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- ---------------------------- End Some ---------------------------------- -->
+        <!-- ---------------------------- Start Slider Text ---------------------------------- -->
+        <div class="slideroneimg">
+            <div class="container">
+                <div class="slideroneimg-parent">
+                    <ul class="slideroneimg-ul">
+                        <li class="slideroneimg-ul-li slideroneimg-active" data-slideroneimg="0">
+                            <div class="slideroneimg-flex">
+                                <img src="http://img.tgareed.org/imgcache/977894.png" width="200" height="200" />
+                                <blockquote>
+                                    <p><q>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing </q></p>
+                                    <h3>Jshua Earle</h3>
+                                </blockquote>
+                            </div>
+                        </li>
+                        <li class="slideroneimg-ul-li" data-slideroneimg="1">
+                            <div class="slideroneimg-flex">
+                               <img src="http://www4.0zz0.com/2013/02/02/10/235418598.png" width="200" height="200" />
+                                <blockquote>
+                                    <p><q>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing </q></p>
+                                    <h3>Nora Rabie</h3>
+                                </blockquote>
+                            </div>
+                        </li>
+                        <li class="slideroneimg-ul-li" data-slideroneimg="2">
+                            <div class="slideroneimg-flex">
+                                <img src="http://up.1sw1r.com/upfiles2/r3i62262.png" width="200" height="200" />
+                                <blockquote>
+                                    <p><q>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing </q></p>
+                                    <h3>Tola Post</h3>
+                                </blockquote>
+                            </div>
+                        </li>
+                        <li class="slideroneimg-ul-li">
+                            <div class="slideroneimg-flex">
+                                <img src="http://img.tgareed.org/imgcache/977894.png" width="200" height="200" />
+                                <blockquote>
+                                    <p><q>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing </q></p>
+                                    <h3>Jon Doe</h3>
+                                </blockquote>
+                            </div>
+                        </li>
+                    </ul>
+                    <i class="fa fa-angle-left fa-2x"></i>
+                    <i class="fa fa-angle-right fa-2x"></i>
+                </div>
+            </div>
+        </div>
+        <!-- ---------------------------- End Slider Text ---------------------------------- -->
+        <!-- ---------------------------- Start Client ---------------------------------- -->
+        <section class="unique">
+            <div class="container">
+                <h3>Happy Client</h3>
+                <h2>What People Say</h2>
+                <div class="small-border"></div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="unique-client">
+                            <div class="img one"></div>
+                            <div class="text">
+                                <h4>Matthw dix</h4>
+                                <i>Graphic Design</i>
+                                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="unique-client">
+                            <div class="img two"></div>
+                            <div class="text">
+                                <h4>Matthw dix</h4>
+                                <i>Graphic Design</i>
+                                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="unique-client">
+                            <div class="img three"></div>
+                            <div class="text">
+                                <h4>Matthw dix</h4>
+                                <i>Graphic Design</i>
+                                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="unique-client">
+                            <div class="img four"></div>
+                            <div class="text">
+                                <h4>Matthw dix</h4>
+                                <i>Graphic Design</i>
+                                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ---------------------------- End Client ---------------------------------- -->
+        <!-- ---------------------------- Start Stories ---------------------------------- -->
+        <div class="container">
+            <section class="stories">
+                <h3>Our Stories</h3>
+                <h2>Latest Blog</h2>
+                <div class="small-border"></div>
+                <div class="stories-content">
+                    <figure class="one">
+                        <div>
+                            <p><span>15</span><span>jan</span></p>
+                        </div>
+                        <figcaption>
+                            <h5>Lorem ipsum dolor sit amet</h5>
+                            <span>consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
+                            <hr>
+                            <i class="fa fa-eye"></i> <span>542</span> <i class="fa fa-commenting"></i> <span>17</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="two">
+                        <div>
+                            <p><span>15</span><span>jan</span></p>
+                        </div>
+                        <figcaption>
+                            <h5>Lorem ipsum dolor sit amet</h5>
+                            <span>consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
+                            <hr>
+                            <i class="fa fa-eye"></i> <span>542</span> <i class="fa fa-commenting"></i> <span>17</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="three">
+                        <div>
+                            <p><span>15</span><span>jan</span></p>
+                        </div>
+                        <figcaption>
+                            <h5>Lorem ipsum dolor sit amet</h5>
+                            <span>consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
+                            <hr>
+                            <i class="fa fa-eye"></i> <span>542</span> <i class="fa fa-commenting"></i> <span>17</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
+        </div>
+        <!-- ---------------------------- End Stories ---------------------------------- -->
+        <!-- ---------------------------- Start Map ---------------------------------- -->
+        <section class="map">
+            <div class="map-content">
+                <i class="fa fa-map-marker"></i>
+                <h4>Opan Map</h4>
+                <div class="overlay-map">
+                    <div>
+                        <script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script><div style='overflow:hidden;height:100%;width:100%;'><div id='gmap_canvas' style='height:100%;width:100%;'></div><div><small><a href="http://embedgooglemaps.com">									embed google maps							</a></small></div><div><small><a href="http://buywebtrafficexperts.com">buy website traffic</a></small></div><style>#gmap_canvas img{max-width:none!important;background:none!important}</style></div><script type='text/javascript'>function init_map(){var myOptions = {zoom:10,center:new google.maps.LatLng(30.0444196,31.23571160000006),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(30.0444196,31.23571160000006)});infowindow = new google.maps.InfoWindow({content:'<strong>Em An</strong><br>Egype, Cairo<br>'});google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ---------------------------- End Map ---------------------------------- -->
+        <!-- ---------------------------- Start Footer --------------------------------- -->
+        <footer>
+            <div class="container">
+                <div class="footer-content footer-one">
+                    <h2>MOGO</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+                    <label>15K </label> <span>flowers</span>
+                    <hr>
+                    <ul><i>flow us </i>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                        <li><a href="#"><i class="fa fa-globe"></i></a></li>
+                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                    </ul>
+                    <form>
+                        <input type="email" placeholder="Your Email" />
+                        <input type="submit" value="Subscribe" />
+                    </form>
+                </div>
+                <div class="footer-content footer-two">
+                    <h5>Blogs</h5>
+                    <div class="footer-two-flex">
+                        <div class="img"><div><a href="#"><i class="fa fa-anchor"></i></a></div></div>
+                        <div class="text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                            <span><a href="#">jan 9, 2016</a></span>
+                        </div>
+                    </div>
+                    <div class="footer-two-flex">
+                        <div class="img"><div><a href="#"><i class="fa fa-anchor"></i></a></div></div>
+                        <div class="text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                            <span><a href="#">jan 9, 2016</a></span>
+                        </div>
+                    </div>
+                    <div class="footer-two-flex">
+                        <div class="img"><div><a href="#"><i class="fa fa-anchor"></i></a></div></div>
+                        <div class="text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                            <span><a href="#">jan 9, 2016</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-content footer-three">
+                    <h5>Instagram</h5>
+                    <ul>
+                        <li><div><a href="#"><i class="fa fa-anchor"></i></a></div></li>
+                        <li><div><a href="#"><i class="fa fa-anchor"></i></a></div></li>
+                        <li><div><a href="#"><i class="fa fa-anchor"></i></a></div></li>
+                        <li><div><a href="#"><i class="fa fa-anchor"></i></a></div></li>
+                        <li><div><a href="#"><i class="fa fa-anchor"></i></a></div></li>
+                        <li><div><a href="#"><i class="fa fa-anchor"></i></a></div></li>
+                        <li><div><a href="#"><i class="fa fa-anchor"></i></a></div></li>
+                        <li><div><a href="#"><i class="fa fa-anchor"></i></a></div></li>
+                        <li><div><a href="#"><i class="fa fa-anchor"></i></a></div></li>
+                    </ul>
+                    <a href="#">view more photo</a>
+                </div>
+            </div>
+            <hr>
+            <div class="footer-footer">&copy; <span class="footer"></span> MOGO Free PSD Templete By <a href="#">Laaqiq</a> </div>
+        </footer>
+        <!-- ---------------------------- End Footer ----------------------------------- -->
+        <!-- ---------------------------- Start Section Loading -------------------------------- -->
+        <div class="loading">
+            Test
+        </div>
+        <!-- ---------------------------- End Section Loading ---------------------------------- -->
+        <!-- ---------------------------- Start Scroll To Top ---------------------------------- -->
+        <div id="scroll-top">
+            <i class="fa fa-chevron-up fa-3x"></i>
+        </div>
+        <!-- ---------------------------- End Scroll To Top ---------------------------------- -->
+        <script src="js/jquery-1.12.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/plugin.js"></script>
+        <script src="js/thumbs.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script>new WOW().init();</script>
+        <script src="js/jquery.nicescroll.min.js"></script>
+    </body>
+</html>
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+<script >/*global $, jQuery, console, alert, prompt, let */
+$(document).ready(function () {
+    "use strict";
+    // All Variable ====================================================================================
+    var x, bodyHeight, d,
+        footer = $('.footer'),
+        activeClick = $('[data-active]'),
+        heightEqualWidth = $('.meet .meet-content figure div, .some .da-thumbs > div'),
+        heightFromWidth = $('.stories .stories-content figure div'),
+        mapClick = $('.map .map-content, .filter .tile'),
+        mapClickChild = $('.map .map-content .overlay-map'),
+        footerLi = $('footer .footer-three ul li'),
+        
+        slidertext = $('.slidertext-parent'), // Slider Text
+        slidertextUl = slidertext.find('.slidertext-ul'),
+        slidertextUlLi = slidertextUl.find('.slidertext-ul-li'),
+        slidertextFaLeft = slidertext.find('> .fa:first-of-type'),
+        slidertextFaRight = slidertext.find('> .fa:last-of-type'),
+        slidertextTime = 1000,
+        slidertextSet,
+        
+        slideroneimg = $('.slideroneimg-parent'), // Slider One Image
+        slideroneimgUl = slideroneimg.find('.slideroneimg-ul'),
+        slideroneimgUlLi = slideroneimgUl.find('.slideroneimg-ul-li'),
+        slideroneimgFaLeft = slideroneimg.find('> .fa:first-of-type'),
+        slideroneimgFaRight = slideroneimg.find('> .fa:last-of-type'),
+        slideroneimgTime = 1000,
+        slideroneimgSet;
+    
+    // Slider Text ====================================================================================
+    slidertextFaLeft.fadeOut();
+    function slidertextRun() { // Run Slider
+        if (slidertextUlLi.hasClass('slidertext-active')) {
+            slidertextUl.animate({
+                left: -slidertext.width() * $('.slidertext-active').data('slidertext')
+            }, slidertextTime);
+            if (slidertextUlLi.first().hasClass('slidertext-active')) { slidertextFaLeft.fadeOut(); } else { slidertextFaLeft.fadeIn(); }
+            if (slidertextUlLi.last().prev().hasClass('slidertext-active')) { slidertextFaRight.fadeOut(); } else { slidertextFaRight.fadeIn(); }
+        }
+    }
+    function slidertextAuto() { // Auto Slider
+        if ($('.slidertext-active').next().is(':last-of-type')) {
+            slidertextUl.animate({
+                left: -slidertext.width() * ($('.slidertext-active').data('slidertext') + 1)
+            }, slidertextTime, function () {
+                slidertextUl.css('left', '0');
+                slidertextUlLi.first().addClass('slidertext-active').siblings().removeClass('slidertext-active');
+                slidertextRun();
+            });
+        } else {
+            $('.slidertext-active').next().addClass('slidertext-active').siblings().removeClass('slidertext-active');
+            slidertextRun();
+        }
+    }
+    slidertext.each(function () { // Work Slider
+        slidertextSet = setInterval(slidertextAuto, slidertextTime * 3);
+        $(this).find('> .fa').hover(function () {
+            clearInterval(slidertextSet); // Pause
+        }, function () {
+            slidertextSet = setInterval(slidertextAuto, slidertextTime * 3); // Resume
+        });
+        $(this).find('> .fa').click(function () {
+            if ($(this).is(':first-of-type')) {
+                $('.slidertext-active').prev().addClass('slidertext-active').siblings().removeClass('slidertext-active');
+                slidertextRun();
+            }
+            if ($(this).is(':last-of-type')) {
+                $('.slidertext-active').next().addClass('slidertext-active').siblings().removeClass('slidertext-active');
+                slidertextRun();
+            }
+        });
+    });
+    // Slider One Image ====================================================================================
+    slideroneimgFaLeft.fadeOut();
+    function slideroneimgRun() { // Run Slider
+        if (slideroneimgUlLi.hasClass('slideroneimg-active')) {
+            slideroneimgUl.animate({
+                left: -slideroneimg.width() * $('.slideroneimg-active').data('slideroneimg')
+            }, slideroneimgTime);
+            if (slideroneimgUlLi.first().hasClass('slideroneimg-active')) { slideroneimgFaLeft.fadeOut(); } else { slideroneimgFaLeft.fadeIn(); }
+            if (slideroneimgUlLi.last().prev().hasClass('slideroneimg-active')) { slideroneimgFaRight.fadeOut(); } else { slideroneimgFaRight.fadeIn(); }
+        }
+    }
+    function slideroneimgAuto() { // Auto Slider
+        if ($('.slideroneimg-active').next().is(':last-of-type')) {
+            slideroneimgUl.animate({
+                left: -slideroneimg.width() * ($('.slideroneimg-active').data('slideroneimg') + 1)
+            }, slideroneimgTime, function () {
+                slideroneimgUl.css('left', '0');
+                slideroneimgUlLi.first().addClass('slideroneimg-active').siblings().removeClass('slideroneimg-active');
+                slideroneimgRun();
+            });
+        } else {
+            $('.slideroneimg-active').next().addClass('slideroneimg-active').siblings().removeClass('slideroneimg-active');
+            slideroneimgRun();
+        }
+    }
+    slideroneimg.each(function () { // Work Slider
+        slideroneimgSet = setInterval(slideroneimgAuto, slideroneimgTime * 3);
+        $(this).find('> .fa').hover(function () {
+            clearInterval(slideroneimgSet); // Pause
+        }, function () {
+            slideroneimgSet = setInterval(slideroneimgAuto, slideroneimgTime * 3); // Resume
+        });
+        $(this).find('> .fa').click(function () {
+            if ($(this).is(':first-of-type')) {
+                $('.slideroneimg-active').prev().addClass('slideroneimg-active').siblings().removeClass('slideroneimg-active');
+                slideroneimgRun();
+            }
+            if ($(this).is(':last-of-type')) {
+                $('.slideroneimg-active').next().addClass('slideroneimg-active').siblings().removeClass('slideroneimg-active');
+                slideroneimgRun();
+            }
+        });
+    });
+    // Dimaintion ======================================================================================
+    function resetDimaintion() {
+//        bodyHeight = document.body.scrollHeight; // Footer Bottom 0
+//        footer.css('position', 'absolute');
+//        footer.css('top', bodyHeight);
+        
+        slidertext.width(slidertext.parent().width()).height(slidertextUl.height()); // Slider Text
+        slidertextUl.width(slidertext.width() * slidertextUlLi.length).height(slidertextUl.height());
+        slidertextUlLi.width(slidertext.width()).height(slidertextUl.height());
+        slidertext.css('max-height', slidertextUlLi.height());
+        
+        slideroneimg.width(slideroneimg.parent().width()).height(slideroneimgUl.height()); // Slider One Image
+        slideroneimgUl.width(slideroneimg.width() * slideroneimgUlLi.length).height(slideroneimgUl.height());
+        slideroneimgUlLi.width(slideroneimg.width()).height(slideroneimgUl.height());
+        slideroneimg.css('max-height', slideroneimgUlLi.height());
+        
+        heightEqualWidth.height(heightEqualWidth.width()); // Height % Width
+        footerLi.height(footerLi.width()); // Height % Width
+        heightFromWidth.height(heightFromWidth.width() * 0.65);
+    }
+    // Active ==========================================================================================
+    activeClick.children().on('click', function () {
+        x = $(this).parent().data('active');
+        $(this).addClass(x).siblings().removeClass(x);
+    });
+    // Send Google Search ==============================================================================
+    function send() {
+        document.form.submit();
+    }
+    // Fontawsome Search ===============================================================================
+    $('html').click(function () {
+        if ($('.form-search').is(":visible")) {
+            $('.form-search').slideUp();
+        }
+    });
+    $('.fa-search').click(function (event) {
+        $('.form-search').slideToggle();
+    });
+    $('.form-search, .fa-search').click(function (event) {
+        event.stopPropagation();
+    });
+    // Progress Number =============================================================================
+    function progressFunc() {
+        $('.progress-number').each(function () {
+            $(this).animate({
+                left: $(this).data('percentage')
+            }, {
+                duration: 3000,
+                step: function (nowoooo) {
+                    var data = Math.round(nowoooo),
+                        zero = (data < 10) ? "0" : "";
+                    $(this).html(zero + data + '%');
+                }
+            });
+        });
+    }
+    $(window).scroll(function () {
+        if ($(this).scrollTop() >= $('.progress-pure').offset().top / 2) {
+            progressFunc();
+        }
+    });
+    // Accordion ====================================================================================
+    $('dd').filter(':nth-child(n+4)').addClass('accordion-hide');
+    $('dt').filter(':nth-child(1)').find('span').html("<i class='fa fa-angle-down'></i>");
+    $('dt').filter(':nth-child(n+2)').find('span').html("<i class='fa fa-angle-up'></i>");
+
+	$('dl').on('click', 'dt', function () {
+		$(this).addClass("add").find("span").html("<i class='fa fa-angle-down'></i>").end().siblings().find("span").html("<i class='fa fa-angle-up'></i>").end().removeClass("add").end().next().slideDown(200).siblings('dd').slideUp(200);
+	});
+    // Map & Title ========================================================================================
+    mapClick.click(function () {
+        $(this).children('.map .map-content .overlay-map, .filter .tile .tile-fixed').fadeToggle();
+    });
+    // Publicholder ====================================================================================
+    $('[placeholder]').focus(function () { // Placeholder
+		$(this).attr('data-place', $(this).attr('placeholder'));
+		$(this).attr('placeholder', '');
+	}).blur(function () {
+		$(this).attr('placeholder', $(this).attr('data-place'));
+	});
+    // Public ====================================================================================
+    resetDimaintion(); // Function Reset Dimaintion
+    d = new Date(); // Append Date To Footer
+    footer.text(footer.text() + d.getFullYear());
+    // When Resize ===============================================================================
+    $(window).resize(function () {
+        resetDimaintion();
+        setTimeout(function () {location.removedByCodePen(); }, 2000);
+    });
+});
+
+    // Some ====================================================================================
+    $(function () {
+        $('.da-thumbs > div').hoverdir();
+    });
+    (function (factory) {
+        if (typeof define === 'function' && define.amd) {
+            define(['jquery'], factory);
+        } else if (typeof exports !== 'undefined') {
+            module.exports = factory(require('jquery'));
+        } else {
+            factory(jQuery);
+        }
+    })(function ($) {
+        function Hoverdir(element, options) {
+            this.$el = $(element);
+            this.options = $.extend(true, {}, this.defaults, options);
+            this.isVisible = false;
+            this.$hoverElem = this.$el.find(this.options.hoverElem);
+            this.transitionProp = 'all ' + this.options.speed + 'ms ' + this.options.easing;
+            this.support = this._supportsTransitions();
+            this._loadEvents();
+        }
+        Hoverdir.prototype = {
+            defaults: {
+                speed: 300,
+                easing: 'ease',
+                hoverDelay: 0,
+                inverse: false,
+                hoverElem: 'div'
+            },
+            constructor: Hoverdir,
+            _supportsTransitions: function() {
+                if (typeof Modernizr !== 'undefined') {
+                    return Modernizr.csstransitions;
+                } else {
+                    var b = document.body || document.documentElement,
+                        s = b.style,
+                        p = 'transition';
+
+                    if (typeof s[p] === 'string') {
+                        return true;
+                    }
+                    var v = ['Moz', 'webkit', 'Webkit', 'Khtml', 'O', 'ms'];
+                    p = p.charAt(0).toUpperCase() + p.substr(1);
+
+                    for ( var i = 0; i < v.length; i++) {if (window.CP.shouldStopExecution(1)){break;}
+                        if (typeof s[v[i] + p] === 'string') {
+                            return true;
+                        }
+                    }
+window.CP.exitedLoop(1);
+
+
+                    return false;
+                }
+            },
+            _loadEvents: function() {
+                this.$el.on('mouseenter.hoverdir mouseleave.hoverdir', $.proxy(function(event) {
+                    this.direction = this._getDir({
+                        x: event.pageX,
+                        y: event.pageY
+                    });
+
+                    if (event.type === 'mouseenter') {
+                        this._showHover();
+                    } else {
+                        this._hideHover();
+                    }
+                }, this));
+            },
+            _showHover: function() {
+                var styleCSS = this._getStyle(this.direction);
+                if (this.support) {
+                    this.$hoverElem.css('transition', '');
+                }
+
+                this.$hoverElem.hide().css(styleCSS.from);
+                clearTimeout(this.tmhover);
+
+                this.tmhover = setTimeout($.proxy(function() {
+                    this.$hoverElem.show(0, $.proxy(function() {
+                        if (this.support) {
+                            this.$hoverElem.css('transition', this.transitionProp);
+                        }
+                        this._applyAnimation(styleCSS.to);
+
+                    }, this));
+                }, this), this.options.hoverDelay);
+
+                this.isVisible = true;
+            },
+            _hideHover: function() {
+                var styleCSS = this._getStyle(this.direction);
+                if (this.support) {
+                    this.$hoverElem.css('transition', this.transitionProp);
+                }
+                clearTimeout(this.tmhover);
+                this._applyAnimation(styleCSS.from);
+                this.isVisible = false;
+            },
+            _getDir: function(coordinates) {
+                var w = this.$el.width(),
+                    h = this.$el.height(),
+                    x = (coordinates.x - this.$el.offset().left - (w / 2)) * (w > h ? (h / w) : 1),
+                    y = (coordinates.y - this.$el.offset().top - (h / 2)) * (h > w ? (w / h) : 1),
+                    direction = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180) / 90) + 3) % 4;
+                return direction;
+            },
+            _getStyle: function(direction) {
+                var fromStyle, toStyle,
+                    slideFromTop = {
+                        'left': '0',
+                        'top': '-100%'
+                    },
+                    slideFromBottom = {
+                        'left': '0',
+                        'top': '100%'
+                    },
+                    slideFromLeft = {
+                        'left': '-100%',
+                        'top': '0'
+                    },
+                    slideFromRight = {
+                        'left': '100%',
+                        'top': '0'
+                    },
+                    slideTop = {
+                        'top': '0'
+                    },
+                    slideLeft = {
+                        'left': '0'
+                    };
+
+                switch (direction) {
+                    case 0:
+                    case 'top':
+                        // from top
+                        fromStyle = !this.options.inverse ? slideFromTop : slideFromBottom;
+                        toStyle = slideTop;
+                        break;
+                    case 1:
+                    case 'right':
+                        // from right
+                        fromStyle = !this.options.inverse ? slideFromRight : slideFromLeft;
+                        toStyle = slideLeft;
+                        break;
+                    case 2:
+                    case 'bottom':
+                        // from bottom
+                        fromStyle = !this.options.inverse ? slideFromBottom : slideFromTop;
+                        toStyle = slideTop;
+                        break;
+                    case 3:
+                    case 'left':
+                        // from left
+                        fromStyle = !this.options.inverse ? slideFromLeft : slideFromRight;
+                        toStyle = slideLeft;
+                        break;
+                }
+                return {
+                    from: fromStyle,
+                    to: toStyle
+                };
+            },
+            _applyAnimation: function(styleCSS) {
+                $.fn.applyStyle = this.support ? $.fn.css : $.fn.animate;
+                this.$hoverElem.stop().applyStyle(styleCSS, $.extend(true, [], {
+                    duration: this.options.speed
+                }));
+            },
+            show: function(direction) {
+                this.$el.off('mouseenter.hoverdir mouseleave.hoverdir');
+                if (!this.isVisible) {
+                    this.direction = direction || 'top';
+                    this._showHover();
+                }
+            },
+            hide: function(direction) {
+                this.rebuild();
+                if (this.isVisible) {
+                    this.direction = direction || 'bottom';
+                    this._hideHover();
+                }
+            },
+            setOptions: function(options) {
+                this.options = $.extend(true, {}, this.defaults, this.options, options);
+            },
+            destroy: function() {
+                this.$el.off('mouseenter.hoverdir mouseleave.hoverdir');
+                this.$el.data('hoverdir', null);
+            },
+            rebuild: function(options) {
+                if (typeof options === 'object') {
+                    this.setOptions(options);
+                }
+                this._loadEvents();
+            }
+        };
+
+        $.fn.hoverdir = function(option, parameter) {
+            return this.each(function() {
+                var data = $(this).data('hoverdir');
+                var options = typeof option === 'object' && option;
+                if (!data) {
+                    data = new Hoverdir(this, options);
+                    $(this).data('hoverdir', data);
+                }
+                if (typeof option === 'string') {
+                    data[option](parameter);
+                    if (option === 'destroy') {
+                        $(this).data('hoverdir', false);
+                    }
+                }
+            });
+        };
+        $.fn.hoverdir.Constructor = Hoverdir;
+    });
+
+// Em An
+// 26-12-2016
+//# sourceURL=pen.js
+</script>
+</body></html>

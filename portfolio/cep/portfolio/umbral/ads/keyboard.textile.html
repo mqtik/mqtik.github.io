@@ -1,0 +1,104 @@
+
+<!DOCTYPE html><html class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/BRJNOm" />
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+<style class="cp-pen-styles">body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  height: 100vh;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+  background: -webkit-linear-gradient(top, #a7a7a7, #5a5a5a);
+  background: linear-gradient(to bottom, #a7a7a7, #5a5a5a);
+  cursor: crosshair;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-family: avenir;
+}
+
+.keys {
+  -webkit-transform: rotateX(40deg);
+          transform: rotateX(40deg);
+}
+
+.row {
+  display: block;
+}
+
+span {
+  border-radius: 4px;
+  display: inline-block;
+  padding: 5px;
+  background-color: #222;
+  margin: 0.2em;
+  font-size: 0.8em;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  box-shadow: 0px 2px 0 rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+  -webkit-transition: 0.1s ease all;
+  transition: 0.1s ease all;
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  -webkit-transform: translateY(-20px) scale(0.8);
+          transform: translateY(-20px) scale(0.8);
+  -webkit-transition: 0.4s ease all;
+  transition: 0.4s ease all;
+}
+
+span.show:hover {
+  color: white;
+  -webkit-transform: translateY(2px) !important;
+          transform: translateY(2px) !important;
+}
+
+span.show {
+  -webkit-transition: 0.4s ease all;
+  transition: 0.4s ease all;
+  opacity: 1;
+  -webkit-transform: translateY(0px) scale(1);
+          transform: translateY(0px) scale(1);
+}
+</style></head><body>
+<div class='keys'><div class='row'>1234567890</div><div class='row'>qwertyuiop</div><div class='row'>asdfghjkl</div><div class='row'>zxcvbnm</div></div>
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script>const row = Array.from(document.querySelectorAll(".row"));
+let multiplier = 0.2;
+for (const [i, r] of row.entries()) {if (window.CP.shouldStopExecution(1)){break;}
+	const rC = [...r.innerHTML].map((c, index) => {
+    let delay = multiplier;
+    multiplier = multiplier + 0.05;
+   return `<span style="transition-delay:${multiplier}s">${c}</span>`
+  });
+  r.innerHTML = rC.join("");
+}
+window.CP.exitedLoop(1);
+
+const spans = document.querySelectorAll("span");
+setTimeout(function(){
+spans.forEach(s => {
+  s.classList.add("show");
+})
+}, 500);
+
+setTimeout(function() {
+  spans.forEach(s => {
+    s.style.transitionDelay="0s";
+  })
+}, 2000);
+
+//# sourceURL=pen.js
+</script>
+</body></html>

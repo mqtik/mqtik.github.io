@@ -1,0 +1,235 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/Johnm__/pen/dpGOkB?limit=all&page=4&q=account+settings" />
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+<style class="cp-pen-styles">@import 'https://fonts.googleapis.com/css?family=Noto+Sans';
+nav {
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Noto Sans', sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+nav:hover .breadcrumb,
+.active nav .breadcrumb {
+  height: 3em;
+}
+.active nav .breadcrumb {
+  background: transparent !important;
+}
+.active nav .icon {
+  -webkit-transform: rotate(180deg) translateY(5px);
+          transform: rotate(180deg) translateY(5px);
+}
+nav .breadcrumb {
+  line-height: 3em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0.3em;
+  width: 100%;
+  background: rgba(209,61,61,0.85);
+  -webkit-transition: height 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+  transition: height 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+  color: #fff;
+  overflow: hidden;
+}
+nav .breadcrumb span {
+  margin-left: 5em;
+  color: #ffbcbc;
+}
+nav .button {
+  box-sizing: border-box;
+  padding: 3.6em;
+  border-radius: 3.7em;
+  background: #d13d3d;
+  position: absolute;
+  top: -3.8em;
+  left: -3em;
+  cursor: pointer;
+  -webkit-transition: all 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+  transition: all 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+}
+nav .button .icon {
+  bottom: 0.9em;
+  right: 1.8em;
+  position: absolute;
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+  transition: -webkit-transform 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+  transition: transform 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+  transition: transform 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85), -webkit-transform 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+}
+nav .button .icon .close {
+  display: none;
+}
+.menu {
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0 0 2000px 0;
+  background: rgba(209,61,61,0.9);
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+.active .btn {
+  opacity: 1 !important;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  -webkit-transition-delay: 0.2s;
+          transition-delay: 0.2s;
+}
+.active .button {
+  -webkit-transition: background 0.1s linear;
+  transition: background 0.1s linear;
+  background: none;
+}
+.active .button .close {
+  display: block !important;
+}
+.active .button .burger {
+  display: none !important;
+}
+.active .menu {
+  width: 100vw;
+  height: 100vh;
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+  border-radius: 0px;
+  -webkit-transform: translate(0);
+          transform: translate(0);
+}
+.menu-items {
+  position: absolute;
+  top: 5em;
+  left: 1.5em;
+  list-style-type: none;
+  padding: 0;
+  color: #fff;
+}
+.menu-items li {
+  padding: 0.8em 0;
+}
+.user-actions {
+  position: absolute;
+  left: 1.5em;
+  bottom: 1.5em;
+}
+.user-actions .btn {
+  text-align: center;
+  opacity: 0;
+  color: #fff;
+  padding: 0.4em;
+  border-radius: 3px;
+  display: inline-block;
+  width: 15em;
+  background: #90282b;
+}
+main {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("https://hd.unsplash.com/photo-1465459462810-6f2d41fae06b") center center no-repeat;
+  background-size: cover;
+}
+main:not(.active) .button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+.intercom {
+  z-index: 100;
+  position: absolute;
+  bottom: -3.8em;
+  right: -3em;
+  box-sizing: border-box;
+  padding: 3.6em;
+  border-radius: 3.7em;
+  background: #222;
+  position: absolute;
+  cursor: pointer;
+  -webkit-transition: all 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+  transition: all 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+}
+.intercom .intercom-icon {
+  top: 1.6em;
+  left: 1.8em;
+  position: absolute;
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+  transition: -webkit-transform 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+  transition: transform 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+  transition: transform 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85), -webkit-transform 0.3s cubic-bezier(0.51, 1.64, 0.64, 0.85);
+}
+</style></head><body>
+<main id='main'>
+  <div class='intercom'>
+    <div class='intercom-icon'>
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="white" d="M4 1h16q1.242 0 2.121.879T23 4v11q0 1.242-.879 2.121T20 18h-8l-7 5v-5H4q-1.242 0-2.121-.879T1 15V4q0-1.242.879-2.121T4 1zm16 2H4q-.414 0-.707.293T3 4v11q0 .414.293.707T4 16h3v3.117L11.359 16H20q.414 0 .707-.293T21 15V4q0-.414-.293-.707T20 3z"/></svg>
+    </div>
+  </div>
+  <nav>
+    <div class='menu'>
+      <ul class='menu-items'>
+        <li>Dashboard</li>
+        <li>Projects</li>
+        <li>Templating</li>
+        <li>Teams and Users</li>
+        <li>Account Settings</li>
+      </ul>
+      <div class='user-actions'>
+        <a class='btn'>
+          Log out
+        </a>
+      </div>
+    </div>
+    <div class='breadcrumb'>
+      <span>
+        Summer Sale &nbsp;›&nbsp; Asia Pacific &nbsp;›&nbsp;
+      </span>
+      Documents
+    </div>
+    <div class='button' onClick='checkNav()'>
+      <div class='icon'>
+        <div class='burger'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M3 5h18q.414 0 .707.293T22 6t-.293.707T21 7H3q-.414 0-.707-.293T2 6t.293-.707T3 5zm0 12h18q.414 0 .707.293T22 18t-.293.707T21 19H3q-.414 0-.707-.293T2 18t.293-.707T3 17zm0-6h18q.414 0 .707.293T22 12t-.293.707T21 13H3q-.414 0-.707-.293T2 12t.293-.707T3 11z"/></svg>
+        </div>
+        <div class='close'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M19 4q.43 0 .715.285T20 5q0 .422-.289.711L13.414 12l6.297 6.289Q20 18.578 20 19q0 .43-.285.715T19 20q-.422 0-.711-.289L12 13.414l-6.289 6.297Q5.422 20 5 20q-.43 0-.715-.285T4 19q0-.422.289-.711L10.586 12 4.289 5.711Q4 5.422 4 5q0-.43.285-.715T5 4q.422 0 .711.289L12 10.586l6.289-6.297Q18.578 4 19 4z"/></svg>
+        </div>
+      </div>
+    </div>
+  </nav>
+</main>
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script >var main = document.getElementById('main');
+
+function checkNav() {
+  if (main.classList.contains('active')) {
+    closeNav();    
+  }
+  else {
+    openNav();
+  }
+}
+function openNav() {
+  main.classList.add('active');
+}
+function closeNav() {
+  main.classList.remove('active');
+}
+//# sourceURL=pen.js
+</script>
+</body></html>

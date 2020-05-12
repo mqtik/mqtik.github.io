@@ -1,0 +1,198 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/Mamboleoo/pen/ERYedG" />
+
+
+<style class="cp-pen-styles">body {
+  overflow: hidden;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+</style></head><body>
+<canvas></canvas>
+
+<script id="vertexShader" type="x-shader/x-vertex">
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+  }
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+  varying vec2 vUv;
+  void main() {
+    if (vUv.y > 0.51) {
+      gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    } else if (vUv.y > 0.49) {
+      float t = (vUv.y - 0.49) / 0.02;
+      gl_FragColor = vec4(t, t, t, 1.0);
+    } else { 
+      gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+    }
+  }
+</script>
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.min.js'></script><script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/127738/OrbitControls.js'></script><script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/127738/TrackballControls.js'></script>
+<script >console.clear();
+var canvas = document.querySelector('canvas');
+
+var width = window.innerWidth;
+var height = window.innerHeight;
+
+// ====================== //
+// ====== RENDERER ====== //
+// ====================== //
+var renderer = new THREE.WebGLRenderer({
+  canvas: canvas,
+  antialias: true
+});
+
+renderer.setSize(width, height);
+renderer.setClearColor(0xffffff);
+
+renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
+
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
+camera.position.z = 600
+
+const controls = new THREE.TrackballControls(camera, canvas);
+controls.noPan = true;
+controls.noZoom = true;
+controls.dynamicDampingFactor = 0.15;
+
+const circleGeom = new THREE.SphereBufferGeometry(1, 40, 40);
+
+var fShader = document.getElementById('fragmentShader').text;
+var vShader = document.getElementById('vertexShader').text;
+var matShader = new THREE.ShaderMaterial({
+  fragmentShader: fShader,
+  vertexShader: vShader,
+  transparent: true
+})
+
+class Circle {
+  constructor(x, y, z) {
+    this.r = 0;
+    this.speed = (Math.random() * 0.15) + 0.03;
+    this.rotateSpeedZ = (Math.random() - 0.5) * 0.05;
+    this.grow = true;
+    
+    this.mat = matShader.clone();
+    
+    this.mesh = new THREE.Mesh(circleGeom, this.mat);
+    this.mesh.position.x = x;
+    this.mesh.position.y = y;
+    this.mesh.position.z = z;
+    this.mesh.rotation.x = Math.PI * 0.5;
+    this.mesh.rotation.z = Math.random() * Math.PI * 2;
+  }
+  
+  update() {
+    // Check if radius is smaller than half width
+    if (this.r > 100) {
+      this.grow = false;
+      return;
+    }
+    
+    // Check if it doesn't collide with siblings
+    let collide = false;
+    circles.forEach((circle) => {
+      if (collide === false && circle !== this) {
+        collide = this.checkCollision(circle);
+      }
+    });
+    if (collide) {
+      this.grow = false;
+    }
+    
+    if (this.grow) {
+      this.r += this.speed;
+      this.mesh.scale.set(this.r, this.r, this.r);
+    }
+  }
+  
+  rotate() {
+    this.mesh.rotation.z += this.rotateSpeedZ;  
+  }
+  
+  isInside(circle) {
+    const dist = this.mesh.position.distanceTo(circle.mesh.position);
+    // If dist is smaller greater than the radius -> We are outside
+    if (dist > this.r) {
+      return false;
+    }
+    return true;
+  }
+  
+  checkCollision(circle) {
+    const dist = this.mesh.position.distanceTo(circle.mesh.position);
+    if (dist > (this.r + circle.r)) {
+      return false;
+    }
+    return true;
+  }
+  
+}
+const circles = [];
+const groupCircle = new THREE.Group();
+scene.add(groupCircle);
+
+let prevFrame = 0;
+let worldRadius = 0;
+function render (now) {
+  window.requestAnimationFrame(render);
+    if (circles.length < 1000 && now - prevFrame > 60) {
+      const x = (Math.random() - 0.5) * worldRadius;
+      const y = (Math.random() - 0.5) * worldRadius;
+      const z = (Math.random() - 0.5) * worldRadius;
+      const pos = new THREE.Vector3(x, y, z);
+      pos.multiplyScalar(Math.random() * 250);
+      let tempCircle = new Circle(pos.x, pos.y, pos.z);
+      // Check if new sphere is not inside another one
+      let insideCircle = false;
+      circles.forEach((circle) => {
+        if (!insideCircle) {
+          insideCircle = circle.isInside(tempCircle);
+        }
+      });
+      if (!insideCircle) {
+        circles.push(tempCircle);
+        groupCircle.add(tempCircle.mesh);
+        worldRadius = Math.min(worldRadius + 0.1, 4);
+      }
+      prevFrame = now;
+    }
+  
+  circles.forEach((circle) => {
+    if (circle.grow) {
+      circle.update();
+    } 
+    circle.rotate();
+  });
+  
+  groupCircle.rotation.y += 0.003;
+  controls.update();
+  
+  // Render the scene
+  renderer.render(scene, camera);
+}
+
+window.addEventListener("resize", function() {
+  ww = window.innerWidth;
+  wh = window.innerHeight;
+  camera.aspect = ww / wh;
+  camera.updateProjectionMatrix();
+  renderer.setSize(ww, wh);
+});
+
+window.requestAnimationFrame(render);
+//# sourceURL=pen.js
+</script>
+</body></html>

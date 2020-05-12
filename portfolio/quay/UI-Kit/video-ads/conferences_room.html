@@ -1,0 +1,1012 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/therealtakeshi/pen/EbbWRK?editors=0010" />
+
+
+<style class="cp-pen-styles">body, html {
+	margin: 0;
+}
+
+#webgl-container {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+#webgl-canvas {
+	width: inherit;
+	height: inherit;
+	margin: 0;
+}</style></head><body>
+<body>
+	<div id="webgl-container">
+		<canvas id="webgl-canvas"></canvas>
+	</div>
+	<div id="hidden" style="display:none;">
+		<canvas id="gifCanvas"></canvas>
+	</div>
+</body>
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js'></script><script src='https://cdn.rawgit.com/mrdoob/three.js/3cb51d86/examples/js/controls/OrbitControls.js'></script><script src='https://cdn.rawgit.com/matt-way/gifuct-js/674a63fc/dist/gifuct-js.min.js'></script>
+<script >/*
+ * In which I learned:
+ * To put a damn moving GIF on a 3D object!
+ * YouTube makes it *really* hard to stream their videos without iframing them
+ * There's some very cool, weird libs out there ( thanks to https://github.com/matt-way/gifuct-js )
+ * Default soft shadow maps can be wicked expensive, but some scenes need the shadows, so try basic and see.
+ */
+(function () {
+	
+	// Scoped to allow animate tick to access
+	var clock = new THREE.Clock();
+	var scene;
+	var camera;
+	var renderer;
+	var controls;
+	var needToRender = true;
+	
+	// Scene-specific vars go here
+	var rawScene = {
+	"metadata": {
+		"version": 4.4,
+		"type": "Object",
+		"generator": "Object3D.toJSON"
+	},
+	"geometries": [
+		{
+			"uuid": "FDC64A92-09A0-436F-A093-C5F3DFE6F125",
+			"type": "CylinderBufferGeometry",
+			"radiusTop": 1,
+			"radiusBottom": 1,
+			"height": 2,
+			"radialSegments": 16,
+			"heightSegments": 1,
+			"openEnded": false
+		},
+		{
+			"uuid": "3D0E526D-4D60-4F95-8790-6BD1919F1607",
+			"type": "SphereBufferGeometry",
+			"radius": 1,
+			"widthSegments": 16,
+			"heightSegments": 8,
+			"phiStart": 0,
+			"phiLength": 6.283185307179586,
+			"thetaStart": 0,
+			"thetaLength": 3.141592653589793
+		},
+		{
+			"uuid": "77DFB9FA-6F2C-455C-A4DD-CA099352AD72",
+			"type": "CylinderBufferGeometry",
+			"radiusTop": 1,
+			"radiusBottom": 1,
+			"height": 2,
+			"radialSegments": 16,
+			"heightSegments": 1,
+			"openEnded": false
+		},
+		{
+			"uuid": "E102D5F3-5255-4329-9066-4627B688C91B",
+			"type": "SphereBufferGeometry",
+			"radius": 1,
+			"widthSegments": 16,
+			"heightSegments": 8,
+			"phiStart": 0,
+			"phiLength": 6.283185307179586,
+			"thetaStart": 0,
+			"thetaLength": 3.141592653589793
+		},
+		{
+			"uuid": "4C7285F9-90C7-4303-BD6B-AC428E5E92A0",
+			"type": "CylinderBufferGeometry",
+			"radiusTop": 1,
+			"radiusBottom": 1,
+			"height": 2,
+			"radialSegments": 16,
+			"heightSegments": 1,
+			"openEnded": false
+		},
+		{
+			"uuid": "B94D6B50-D32C-4ACB-9B39-F469F6151A67",
+			"type": "SphereBufferGeometry",
+			"radius": 1,
+			"widthSegments": 16,
+			"heightSegments": 8,
+			"phiStart": 0,
+			"phiLength": 6.283185307179586,
+			"thetaStart": 0,
+			"thetaLength": 3.141592653589793
+		},
+		{
+			"uuid": "0A0C5BCA-2348-45C2-A15B-C4CD39F2901C",
+			"type": "CylinderBufferGeometry",
+			"radiusTop": 1,
+			"radiusBottom": 1,
+			"height": 2,
+			"radialSegments": 16,
+			"heightSegments": 1,
+			"openEnded": false
+		},
+		{
+			"uuid": "A9F84207-4203-4DA8-95E0-AF882EC4190D",
+			"type": "SphereBufferGeometry",
+			"radius": 1,
+			"widthSegments": 16,
+			"heightSegments": 8,
+			"phiStart": 0,
+			"phiLength": 6.283185307179586,
+			"thetaStart": 0,
+			"thetaLength": 3.141592653589793
+		},
+		{
+			"uuid": "A5CAE136-8588-4CCB-9771-A37E75ED88D4",
+			"type": "PlaneBufferGeometry",
+			"width": 2,
+			"height": 2
+		},
+		{
+			"uuid": "58812584-B449-4259-A345-DE75823F72DE",
+			"type": "PlaneBufferGeometry",
+			"width": 2,
+			"height": 2
+		},
+		{
+			"uuid": "A7951AB9-1FC3-4F09-B841-1066A455C8EF",
+			"type": "BoxBufferGeometry",
+			"width": 1,
+			"height": 1,
+			"depth": 1
+		},
+		{
+			"uuid": "8E8E728D-B3EE-4748-B16B-C08F00F2F0A7",
+			"type": "BoxBufferGeometry",
+			"width": 1,
+			"height": 1,
+			"depth": 1
+		},
+		{
+			"uuid": "181C3BCD-5652-40B9-99AB-EDD18A6D1C54",
+			"type": "BoxBufferGeometry",
+			"width": 1,
+			"height": 1,
+			"depth": 1
+		},
+		{
+			"uuid": "8F71D1D7-6A5D-453A-8D41-9A778D95AF6C",
+			"type": "BoxBufferGeometry",
+			"width": 1,
+			"height": 1,
+			"depth": 1
+		},
+		{
+			"uuid": "13819BF0-5D47-41B9-B1E8-A40215000E2E",
+			"type": "PlaneBufferGeometry",
+			"width": 2,
+			"height": 2
+		},
+		{
+			"uuid": "2EE27FC4-EEE2-4C73-9045-E1FD62BAE4FA",
+			"type": "BoxBufferGeometry",
+			"width": 1,
+			"height": 1,
+			"depth": 1
+		}],
+	"materials": [
+		{
+			"uuid": "17BFD6B0-DEBB-4DAA-B2E5-982DF70720C5",
+			"type": "MeshPhongMaterial",
+			"color": 11974326,
+			"emissive": 1315860,
+			"specular": 15000804,
+			"shininess": 120,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "70928C49-A2A3-43D1-93C2-AB545B866DDF",
+			"type": "MeshPhongMaterial",
+			"color": 15658728,
+			"emissive": 15658728,
+			"specular": 1118481,
+			"shininess": 30,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "B717AC7D-F709-4E00-8CC5-B846854D683A",
+			"type": "MeshPhongMaterial",
+			"color": 15987699,
+			"emissive": 0,
+			"specular": 15783575,
+			"shininess": 1.6,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "EB317F1C-4AFD-4B95-A013-3C1D097CBC0B",
+			"type": "MeshPhongMaterial",
+			"color": 15724527,
+			"emissive": 0,
+			"specular": 263172,
+			"shininess": -9.88,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "6C3A40C5-95CB-463C-8502-1CE4B663ADDE",
+			"type": "MeshPhongMaterial",
+			"color": 16514268,
+			"emissive": 6250335,
+			"specular": 1118481,
+			"shininess": 30,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "B52FAA00-EAD4-4F56-881D-43481F3F62DA",
+			"type": "MeshPhongMaterial",
+			"name": "Canvas",
+			"color": 15969257,
+			"emissive": 0,
+			"specular": 7204228,
+			"shininess": 10,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "91E70EBF-CF56-4791-8B00-6A42B277AFAA",
+			"type": "MeshPhongMaterial",
+			"color": 11924723,
+			"emissive": 0,
+			"specular": 15458396,
+			"shininess": 10,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "3957C42E-F0E9-4B6F-B704-15F5A15D7716",
+			"type": "MeshPhongMaterial",
+			"color": 4871912,
+			"emissive": 0,
+			"specular": 1634287,
+			"shininess": 10,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "A89FB0BB-CE10-4D25-9BFC-0DD747E87580",
+			"type": "MeshPhongMaterial",
+			"color": 16221830,
+			"emissive": 0,
+			"specular": 10016462,
+			"shininess": 30,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "DB664415-82F8-4255-A8C1-EAF180A65E0F",
+			"type": "MeshPhongMaterial",
+			"color": 15773480,
+			"emissive": 0,
+			"specular": 15176178,
+			"shininess": 30,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "3DB38801-5D41-475B-AE94-E581E1A16CC9",
+			"type": "MeshPhongMaterial",
+			"color": 9102973,
+			"emissive": 0,
+			"specular": 8707325,
+			"shininess": 30,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "4260566F-D233-46A3-ADA8-9FB65AF1C82E",
+			"type": "MeshPhongMaterial",
+			"color": 6592503,
+			"emissive": 0,
+			"specular": 10329182,
+			"shininess": 30,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "91BD0663-DEFF-48E0-9077-6A43B29CD89F",
+			"type": "MeshPhongMaterial",
+			"color": 13470183,
+			"emissive": 0,
+			"specular": 5196203,
+			"shininess": 30,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "FF2D3A6F-7EE1-47FB-8E1F-203F048F114D",
+			"type": "MeshPhongMaterial",
+			"color": 4737096,
+			"emissive": 0,
+			"specular": 14737632,
+			"shininess": 5.34,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "7A85D27A-27F7-4E48-B792-6D696B06DAB5",
+			"type": "MeshPhongMaterial",
+			"color": 3158064,
+			"emissive": 0,
+			"specular": 1118481,
+			"shininess": 30,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "6A9A99E1-6213-4A6A-8EA5-2343F0943E37",
+			"type": "MeshBasicMaterial",
+			"color": 16777215,
+			"map": "46D58E16-527C-4425-8699-2D7DC316B3D8",
+			"blending": 2,
+			"shading": 1,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		},
+		{
+			"uuid": "5B4BCD4F-2C6F-4EFC-AB23-D8EC6BD332B0",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 0,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"skinning": false,
+			"morphTargets": false
+		}],
+	"textures": [
+		{
+			"uuid": "46D58E16-527C-4425-8699-2D7DC316B3D8",
+			"name": "",
+			"mapping": 300,
+			"repeat": [1,1],
+			"offset": [0,0],
+			"wrap": [1001,1001],
+			"minFilter": 1008,
+			"magFilter": 1006,
+			"anisotropy": 1,
+			"flipY": true,
+			"image": "9785FBAE-456F-4155-8774-CD4E3222269C"
+		}],
+	"images": [
+		{
+			"uuid": "9785FBAE-456F-4155-8774-CD4E3222269C",
+			"url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAgAElEQVR4Xu3dCbSUxZ338ZJ93zfZZBWISFwQ1IiCBnNcRhwFERQRTdSjmckkTqJvJk6SMYuTOMlMFs12EkCFcQEiDu7KoqgsI67Ijmwi670ioCjie37FVOe5zQVu3/t0dXXX9znnHhC6n6r61CP1f2o95vPPP//ccCGAAAIIIIBAVALHEABEVd8UFgEEEEAAAStAAMCDgAACCCCAQIQCBAARVjpFRgABBBBAgACAZwABBBBAAIEIBQgAIqx0iowAAggggAABAM8AAggggAACEQoQAERY6RQZAQQQQAABAgCeAQQQQAABBCIUIACIsNIpMgIIIIAAAgQAPAMIIIAAAghEKEAAEGGlU2QEEEAAAQQIAHgGEEAAAQQQiFCAACDCSqfICCCAAAIIEADwDCCAAAIIIBChAAFAhJVOkRFAAAEEECAA4BlAAAEEEEAgQgECgAgrnSIjgAACCCBAAMAzgAACCCCAQIQCBAARVjpFRgABBBBAgACAZwABBBBAAIEIBQgAIqx0iowAAggggAABAM8AAggggAACEQoQAERY6RQZAQQQQAABAgCeAQQQQAABBCIUIACIsNIpMgIIIIAAAgQAPAMIIIAAAghEKEAAEGGlU2QEEEAAAQQIAHgGEEAAAQQQiFCAACDCSqfICCCAAAIIEADwDCCAAAIIIBChAAFAhJVOkRFAAAEEECAA4BlAAAEEEEAgQgECgAgrnSIjgAACCCBAAMAzgAACCCCAQIQCBAARVjpFRgABBBBAgACAZwABBBBAAIEIBQgAIqx0iowAAggggAABAM8AAggggAACEQoQAERY6RQZAQQQQAABAgCeAQQQQAABBCIUIACIsNIpMgIIIIAAAgQAPAMIIIAAAghEKEAAEGGlU2QEEEAAAQQIAHgGEEAAAQQQiFCAACDCSqfICCCAAAIIEADwDCCAAAIIIBChAAFAhJVOkRFAAAEEECAA4BlAAAEEEEAgQgECgAgrnSIjgAACCCBAAMAzgAACCCCAQIQCBAARVjpFRgABBBBAgACAZwABBBBAAIEIBQgAIqx0iowAAggggAABAM8AAggggAACEQoQAERY6RQZAQQQQAABAgCeAQQQQAABBCIUIACIsNIpMgIIIIAAAgQAPAMIIIAAAghEKEAAEGGlU2QEEEAAAQQIAHgGEEAAAQQQiFCAACDCSqfICCCAAAIIEADwDCCAAAIIIBChAAFAhJVOkRFAAAEEECAA4BlAAAEEEEAgQgECgAgrnSIjgAACCCBAAMAzgAACCCCAQIQCBAARVjpFRgABBBBAgACAZwABBBBAAIEIBQgAIqx0iowAAggggAABAM8AAggggAACEQoQAERY6RQZAQQQQAABAgCeAQQQQAABBCIUIACIsNIpMgIIIIAAAgQAPAMIIIAAAghEKEAAEGGlU2QEEEAAAQQIAHgGEEAAAQQQiFCAACDCSqfICCCAAAIIEADwDCCAAAIIIBChAAFAhJVOkRFAAAEEECAA4BlAAAEEEEAgQgECgAgrnSIjgAACCCBAAMAzgAACCCCAQIQCBAARVjpFRgABBBBAgACAZwABBBBAAIEIBQgAIqx0iowAAggggAABAM8AAggggAACEQoQAERY6RQZAQQQQAABAgCeAQQQQAABBCIUIACIsNIpMgIIIIAAAgQAPAMIIIAAAghEKEAAEGGlU2QEEEAAAQQIAHgGEEAAAQQQiFCAACDCSqfICCCAAAIIEADwDCCAAAIIIBChAAFAhJVOkRFAAAEEECAA4BlAAAEEEEAgQgECgAgrnSIjgAACCCBAAMAzgAACCCCAQIQCBAARVjpFRgABBBBAgACAZwABBBBAAIEIBQgAIqx0iowAAggggAABAM8AAggggAACEQoQAERY6RQZAQQQQAABAgCeAQQQQAABBCIUIACIsNIpMgIIIIAAAgQAPAMIIIAAAghEKEAAEGGlU2QEEEAAAQQIAHgGEEAAAQQQiFCAACDCSqfICCCAAAIIEADwDCCAAAIIIBChAAFAhJVOkRFAAAEEECAA4BlAAAEEEEAgQgECgAgrnSIjgAACCCBAAMAzgAACCCCAQIQCBAARVjpFRgABBBBAgACAZwABBBBAAIEIBQgAIqx0iowAAggggAABAM8AAggggAACEQoQAERY6RQZAQQQQAABAgCeAQQQQAABBCIUIACIsNIpMgIIIIAAAgQAPAMIIIAAAghEKEAAEGGlU2QEEEAAAQQIAHgGEEAAAQQQiFCAACDCSqfICCCAAAIIEADwDCCAAAIIIBChAAFAhJVOkRFAAAEEECAA4BlAAAEEEEAgQgECgAgrnSIjgAACCCBAAMAzgAACCCCAQIQCBAARVjpFRgABBBBAgACAZwABBBBAAIEIBQgAIqx0iowAAggggAABAM8AAggggAACEQoQAERY6RQZAQQQQAABAgCeAQQQQAABBCIUIACIsNIpMgIIIIAAAgQAPAMIIIAAAghEKEAAEGGlU2QEEEAAAQQIAHgGEEAAAQQQiFCAACDCSqfICCCAAAIIEADwDCCAAAIIIBChAAFAhJVOkRFAAAEEECAA4BlAAAEEEEAgQgECgAgrnSIjgAACCCBAAMAzgAACCCCAQIQCBAARVjpFRgABBBBAgACAZwABBBBAAIEIBQgAIqx0iowAAggggAABAM8AAggggAACEQoQAERY6RQZAQQQQAABAgCeAQQQQAABBCIUIACIsNIpMgIIIIAAAgQAPAMIIIAAAghEKEAAEGGlU2QEEEAAAQQIAHgGEEAAAQQQiFCAACDCSqfICCCAAAIIEADwDCCAAAIIIBChAAFAhJVOkRFAAAEEECAA4BlAAAEEEEAgQgECgAgrnSIjgAACCCBAAMAzgAACCCCAQIQCBAARVjpFRgABBBBAgACAZwABBBBAAIEIBQgAIqx0iowAAggggAABAM8AAggggAACEQoQAERY6RQZAQQQQAABAgCeAQQQQAABBCIUIACIsNIpMgIIIIAAAgQAPAMIIIAAAghEKEAAEGGlU2QEEEAAAQQIAHgGEEAAAQQQiFCAACDCSqfICCCAAAIIEADwDCCAAAIIIBChAAFAhJVOkRFAAAEEECAA4BlAAAEEEEAgQgECgAgrnSIjgAACCCBAAMAzgAACCCCAQIQCBAARVjpFRgABBBBAgACAZwABBCoVePXVV82f//xns2PHDnPWWWeZ6667zjRs2BAtBBAoEQECgBKpSIqBQJoCavzHjRtnysrKTO3atc0nn3xixowZa+6+++emTp06aSbFvRBAoEACBAAFgidZBEIW+Id/+Aczbdo006RJE5vNzz77zP46c+ZMc8IJJ4ScdfKGAAJVFCAAqCIUH0MgJoErr7zSzJ8/33b5f/7557boe/fuNQ8//LA588wzY6KgrAiUrAABQMlWLQVDoPoCY8eONS+88EKFAOCjjz6yAcAZZ5xR/RvzTQQQCEaAACCYqiAjCIQjQAAQTl2QEwTyJUAAkC9Z7otAEQsQABRx5ZF1BKooQABQRSg+hkBMApUFAJoD8MgjjzAEENODQFlLWoAAoKSrl8IVk0B5+QdmzpzZpry83AwaNMh84QtfKFj2kwGAMqGJgIWeA6CliQpAtCLhsssuM4MHDy6YDwkjUAoCBAClUIuUoegFNm3aZG699Vbz5ptv2rI0aNDQ3H777WbUqJEFKVtoPQCPP/GEmXDttWbr1q3Wo3Xr1uaee+41V1wxqiA+JIpAKQgQAJRCLVKGohf48Y9/bO6//37TrFkz+7atjXf0+6lTp5pOnTp5L19IcwA09HDuueeat956yzRq1MhabNu2zZx22mlm9uzZpnHjxt59SBCBUhAgACiFWqQMRS9w7bXXmiVLlpgGDRrYsigI2LNnj7n++uvNt771Le/lCykAuP/+B8xNN92Yafxls3//ftOqVSszZ84c06VLF+8+JIhAKQgQAJRCLVKGohf4/ve/b2bMmFFh3b0auebNm9tegA4dOngtowKAF1980QYkyY2AfE8CVE/I8OHDjcb/3TkEbj6CegCefvppU7duXa82JIZAqQgQAJRKTVKOohZ44403zA033GAnuB1zzDGZsqgX4KabbjLamtfnFcocgGnTp5trx4+vcAiRAoDt27ebiRMnmfHjr/HJQloIlJQAAUBJVSeFKWYBTQJ85plnDukF0IS3KVOmmLZt23orXggBgIKhCy64wLz00ksVuv+1GkErJBj/9/Y4kFCJChAAlGjFUqziE1A394033mgzXqtWrUzXu3oB/vEf/zHzdz5K5oYA3FkAeuv2vQ/ArFmPm7Fjx5h69erZXhE3FKG3/9///ve2x4QLAQSqL0AAUH07volAqgJq4L7xjW/YiW3JQ3g0F6Bdu3ZmypSpplWrlqmmebibFboH4MCBA+aSSy6xFm7mv3z27dtnevbsaebMnWuaN2vmxYJEEChVAQKAUq1ZylWUAgsWLDC33HKL7QFIvvWqF+Cf//mfzYQJE7yUq9CrAJ577jkzcuRIU6dOncycCDf2/5//+Z82UOJCAIGaCRAA1MyPbyOQqoDefL/+9a/bo3iTM/A//fRT07FjRzNl6lQvb76H6wHwcRywGvpRo0aZJ598ssLbv1YEdO7c2cydO9e0adMmVXduhkCMAgQAMdY6ZQ5aQMvv9IZbu3btQ3oBbr/9/5lx467Oe/4L2QOg4OfSSy+1ZXQrItzb/1133WVuu+22vJefBBCIQYAAIIZapoxFJaBeAE0GXLhwYYWNgfQG3LVrV7sioEmTJnktUyHPArjqqqvMo48+anf4U8PvdkbUPIgXXnjB+54IeYXm5ggUUIAAoID4JI3A4QS0xE3LAt0YuJsBr7kA//qv3zejR1+RV7zkKgAFJG7znXxvBLR48WJz0UUX2f0Q3EoI9QJo619tlvSDH/wgr+Xm5gjEJEAAEFNtU9aiEVADqG2AX3/9dbsMzgUA6gXQLHidG+B2xstHoQq1CuC6664zDzzwgGnRokXm7V+rIPTf8+bNY9vffFQ294xWgAAg2qqn4KELaJtbjXcrANDlggBthHPnnXdmxsnzUY7sAMBHD4BOQvzKV75il/pp/oMrs9b9f/vb3zY/+9nP8lFU7olAtAIEANFWPQUPXUAz/3VI0NKlSysEAWog+/XrZyZPnpz587TLUogAQMsf//SnP9nzD1ywo7d/zXfQzP8ePXqkXUzuh0DUAgQAUVc/hQ9d4LHH/sfcccf3MksCXcP48ccfm5/85Kfm4osvyksRsicBah6Aeh7ytQxwxYoV5rzzzrO7DertP7nrn3ZB/K//+q+8lJObIhCzAAFAzLVP2YMX0Nv++PHjjRpInXqXDAD69+9vewE0UTDty3cAoCOPf/nLX1Y470A9IJrn8Pzzz5u+ffumXUTuh0D0AgQA0T8CAIQuMH3GDPPDH/wgsz2wWxqn4ODuu+82559/fupFONxxwPnoAXj33XfNsGHDzK5duzJj/yqQZv5/7WtfM3/4wx9SLx83RAABYwgAeAoQCFxA3eLXXHONWbNmje0F0KUgQMMAJ598svnzn/9coeFMozg+A4B/+Zd/MT/5yU/seQcuuNEqCJVVEyG/+MUvplEk7oEAAlkCBAA8EggUgcB///eD5qc//ckhvQDqJtfe+EOHDk21FL4CgE2bNtm879ixww5lJMf+x40bZ4c4uBBAID8CBAD5ceWuCKQq8OGHH5qrr77abNy4sUJDqYl5gwcPtt3k2jgnretwAUDaGwH96Ec/MnfccUeFsX/N/NfmP48//rgtGxcCCORHgAAgP67ctQQEXn75ZbN8+QrTuXMnM2TIEFO/fv2Clmry5PvM3Xf/PLMBkN6WNTtf3eW/+c1vzJe+9KXU8pcMANyQg4Yi0pwDsHXrVjv2/95772WGNpSWxv6vuOIK8+CDD6ZWnureSMbyVUDiTmis7r34HgKhCRAAhFYj5KfgAvoH/5577rGNnWv8NNauzWi6dOlSsPyVlZXbg4A2b95coRdADbMCFOXZHZ5T00z6CAD+4z/+wx5x3LZt24yzAhr96CyAs88+u6bFqNH31RPh6t/dKHk8cY1uzpcRCECAACCASiALYQlo+91/+qd/sm+lrltdjWz79u2NlqudccYZBcvwX/7yF7tcTsvj3Hi5e0v93e9+ZwYNGpRK3vK9FfDOnWVm2LChZv369RWWN2rXv0suucT89a9/TS2YyRXEeTpf9339t56HfCy7zDWPfB6BNAQIANJQ5B4lJTBz5mO2q71Ro0YVyqVldwoKrr12ghk7dkxByqzJcpoct2XLVlOnzt+2y1WAcu6559oNc9LoBTjcToBpDQGot0I7/2W//WtSo+YZ5GNpY1UqTI28e/PPfvt3AYBbiVGV+/EZBEIWIAAIuXbIW0EE1APwzW9+0zb22Y2pGgcdyKM969VLoCNrfV+///3vzW9/+9tD5gJ8/rkxf/rTH+3SwJpe+QwANKFRY/+rV6/OHHSkxlVv/3KdNWtW6ssaq+KhoR8NPyTf+JPf09/pmXDnFFTlnnwGgZAFCABCrh3yVhABNQS//vWvzfTp0+0WvMmtaZUhty3uCSecYL7zne9436Nek+fUC6DegOShOeoFUAOqsfWaXtmrANxhQGn0AGjfAm3vq+DJrft3+xroJMARI0bUNPs5f1+BXbLLP7v7X3Uua97+c6blCwELEAAEXDlkrXAC+gf/gQemmPvvv8/OAk9uw6tcuQaxTZs2tifA94Q1BSh//OMf7TDF3zbPOWBq1TrGaJ6AtgmuyZWvAEDLFr/85S8bnfyn4CppOXDgQPPss896HWOvbLy/skBAjT9j/zV5ovhuiAIEACHWCnkKRuDFF1+04+pampaceOcyqOEATQwbN+4aO0M/zbX4R0LQSgD1ApSXl1foodizZ4+5+OKLzb//+7/XyDBfAcCUKVPNjTfekBm+cD0qGhbQMsfRo6+oUb5z+fKRGn8XBGgISA2/r3rNJf98FoGaChAA1FSQ75e8gPaq//nPf27fWvXGrUYhOQNfvQWaIKhJeLfeeqtp2rSpF5Nf/OIXZuLEiYf0Amhy4KRJk2p0gE4+AgBN8Bs+fLh59dVXM6cbCkq9AgMGDDCzZ8/2tteC2z8hWVHZb/6q58rmgXipXBJBwIMAAYAHZJIofgGNr6vb/YknnrAT17LnBajx0Gf69Olj9wvQr/m+tCugegF2796deUNVPtQLcNlll5k777yz2lnIRwCgQ40mXHttppF3Qxeay/CXv0w01147vtr5zeWLycl+lS3105+5Lv80VlTkkjc+i4BPAQIAn9qkVfQCDz74kJk48S92JYACAXe5hkRvs82bN7eT3DTWne/rrrvuMlOmTMn0Aii9/fs/M/Xr1zP33Xef6dmzZ7WykHYAoEb3wgsvNC+99FKFoRR59enT18ybNzfvKyqyu/wrG+vXn6nLn/H+aj02fKnIBAgAiqzCyG7hBRYsWGAP4NE4vOYF6Eo2JgoOdI0ZM8Zcd911eV02tnbtWjN+/Hjbje7GqV0vwJVXXmn32a/O5QIAN+/BrXyo7iqAx594wlw1dqxtWN0QivKpt/97773X3HTTTdXJZpW/c7TGX3/vuvwZ768yKx8scgECgCKvQLJfGAF1v999991myZIlNghIzgtQjvTGq+N6zzrrLPPtb3/HtGrVMm8ZVVe/GuaKKwI+s/nSsrrjjjsu57QrCwA0xDFt2rScd0JU8HDppZea559/vkJPhXy6d+9u5s17wbRo0TznPFb1C8nx/sMt9WOyX1U1+VwpCRAAlFJtUhavAmrA9Pb62GOP2Tfb5LwA19Co0ezRo4fdL0D7BuTjWrVqlZkwYYKdiKi3Vze2rrkA11xzjbnttttyTjYZAKgBdXMcFGjkeuiQJveNHDkyc5hOcuxf2xprGWW+riOt73f5YH1/vvS5b+gCBACh1xD5C15A+9ZrTb4CAp0Y6BoWl3F1z2tlwM233GIuvOCCvJRHXf0zZ87MjK+7Lm9ttjN16lTTqVOnnNLV0cPz5s3LzNZ3+x6oB+D000+v8r30vdGjR9ujfd3Wym7VROfOnc0LL7xgtJdC2leyy/9wb/2M96etzv2KTYAAoNhqjPwGKaClbVqWp6EB1xWvjLrGR0vgNCwwatQoc8MNN6S+o9w777xjrr/+eruPfXYvgP5chxjlcqln44c//KFp0qSJHd5Qb4KGEnRKX7t27ap8Kx2prMN9dGWP/f/4xz823/3ud6t8r6p+UOaV7eefPePf9dpU9b58DoFSEyAAKLUapTwFE9iyZYvdL2DRokWHzAtwvQIaEtAbtIYEcmlIq1Ko22+/3Tz55JM2bddtr4ZQqxK0UuDYY4+tym3sZ9SbocZZvQr6fdeuXe2ywvPOO6/K91CZtUxRPSRu21/lS5MkVXa9/eeSp6okXNl4f3YPgDvRj8l+VRHlM6UsQABQyrVL2bwLqHH7wx/+YGbMmJFZS54cEnBj6V26dLH7BaRxcI8rpDYqUu+CGsHk27be3r/zndvM+PHX5Ozx1ltvGe3S17t375y76leuXGkDBqWvcXZ30I5m/mvI4t/+7d9yzs+RvlDZ+v7sxp/x/lTJuVmRCxAAFHkFkv0wBWbNetz87nf32s2B3LwA5dQ1SHqr1pv6jTfeaGfIp3VpJ0Ltp++WJ6rRVQOspYLqdfB5LV682B5OpDdtBSTu7b9ly5b27V+9Cmlch1vi56zdr6zvT0Obe5SSAAFAKdUmZQlKQG/kOplPWwlXNi9A3fOaG6AA4Oabb05lG9zXXnvNfPWrXzU6Grhu3Tp2LFyTEH/1q1/l1H2fBmRZWbk5//zhRoGAJvrpDb2srMxoqOKnP/1pGknYgEr3zW7sGe9PhZeblLgAAUCJVzDFK6yAurs1OXD+/Pl2Rn1ya1k1Um6DnVNOOcW+oec6W7+y0ul8AA1D7Nq1y6apDYG01K4Qu9vNnTvXfOMb3zCvv/66XQlx0UUX2bylcV6C7Nxch2TvSnLIRb0P7Odf2P8HSD1cAQKAcOuGnJWIgN7CdUTvQw89ZEvkGuLkW6ve0jUhTl34gwYNqnHJV69ebdatW2fv2a9fvxrfryY3UBCkuQRaUXDqqafW5FaZ72aP91e21I/x/lSouUkJCxAAlHDlUrSwBJ555hnz29/+NvNmnt1trY18dL7A9dd/1VxxxaiwMh9Ibo7W5c94fyAVRTaKQoAAoCiqiUyWisCyZcvsFsKaIe+WxrmyufXrWkmgrnIdKOQm85VK+WtSjuT6/sre+N2fKYhiiV9NpPluLAIEALHUNOUMRuCDXbvML3/xCzNnzhw7Ru827lEGk/sFDBgwwM4LqM5e/sEUNqWMJNf3O6fsXznMJyVsbhONAAFANFVNQUMSUIM2efJ9ZurUKXYimyaqZQ8JaAlh27ZtzTe/+U17qFCsV3I//+QEv2TApHkVMuRCAIGqCxAAVN2KTyKQuoBmyf/mN7+xx+KqNyC7a1vDAZrMNn78teaqq8ZWWEWQemYCu6FbJeE2EDpc46+GvxArHALjIjsI5CxAAJAzGV9AIF2BNWvW2C2EtZ+/OzAn2RvgjhYeMWJEwZbzpVvio98tOdkvaZG9vl+NvwIkLgQQyF2AACB3M76BQOoCu3fvtpv1aBe/5CQ299br9gu46667cj6ON/XMerihuv2Tb/4uSefh1vcz2c9DZZBEyQoQAJRs1VKwYhSYMmWque++yXYHv7p165nPPz9gi+HOEJgwYYLRTylfKqt2SHTlzv5Vb/wKkrgQQKBmAgQANfPj2wikLvDSSy/Z3oCtW7eaBg0aqvm3AYD29P/e975nzj///NTTDO2GCgAq2+WP8f7Qaor8FLMAAUAx1x55L1mB9evX2y2Etbe/urnVI6BjhHWCniYLlvrlDg5KjvnrrZ/x/lKvecrnU4AAwKc2aSGQg4BODHzqqafM2rVrTbdu3ezJejFtDOQmAopMDX/yHIUcGPkoAggcRoAAgEejZAU2bdpkVqxYYXfc69ixo90XnzfIkq3uoAqmlRv60VDGp5/uN7Vr17IrPHj+gqqm6DNDABD9I1CaAPPmzcuciKcu9GbNmpl27drZM+j79u1runfvbjp06JDKqXSlKUipqirgeirc8c7au8EFAMl7qPFv3bo1QUBVYflc3gUIAPJOTAK+BbSpzm233WZ27txp6tevb5PXmLJbWqZ/sDWerF32FAT07NnL9O3bx/YQ6IcLgSMJuG2J9Tzt2/eJ2b//U/tsuSWKhxuq0N/rGOQ0jkKmhhBIQ4AAIA1F7hGUwNKlS+1seTX+7h/j7A1k3MEyelPT7/W5Fi1amPbt22d6CbQHvwICtzlPUIUkM94E3Nu83uw/+eRT89ln++0bfvYzlZ0h91y5P1fg0LBhI9OqVUtveSchBI4kQADA81FyAhr7Vw+Axl8rG3M93D/c+kc9+SanCXfqJdD8gV69epvjj+9teww0lMBVmgLJwHDfJ5+Y/Z8efLtPbkp0pMmIrtGv7BnTPVq2bGnnpHAhEIIAAUAItUAeUhXQP77aUOeRRx62b/aaA6C94o+0a1xl/2Bn9xLo+xrDVQCgWfmaS9ClSxfbS+CGGlItCDfLu4DrzlewqO58vd0nDx/KzoCep+zzGg6XyexnqlGjxqZFi+asZsh7rZJAVQUIAKoqxeeKTuCVV14xCxcuNBs3bjTbtm0zu3btsmVIBgVVKVTyH3I3s1vf059reKBdu/amc+dOpnfv3qZXr162l0CBAld4Aq6XRw1+Lt35rr6P1NgnnxMFi+p9UuCp4FBzTti9MLznIfYcEQDE/gREUH79o79582bz3nvvmWXLlpu1a9fYXfa2b99u3/Z0uV6CXNaa6x98N7lQaejSP/hq/DWXQCsN+vXrZ4cQ9MOJdX4fNjc73zb26sqvRnd+ZTlOHk7kegTc8wSWIcYAACAASURBVKPtm+vXr2ePJlZ95/I8+dUhNQSMIQDgKYhSYOfOMrN16xazatVqs3Llikwvgbbbdb0EeoOr6rrt5NufggoFBAoO1ABo1rfmEnTu3Nn06dvX9OzRw7Rv38F2B3OlJ5Bce6+3e83Or+pkvSPlws3uT35Gjbt+6tarZ+rXq2d/T4CXXl1yJz8CBAB+nEklcAHN8FYvgYYLtHmQdt9TL4GWErq3e9elm0tRkr0Ebm97vR26JYg9evS0SxAVHGjogKvqAvI82JWv2fkV1967gCz7DbwqM/ezx/jd270aeG3D7N7uOYmw6nXFJ8MUIAAIs17IVQACmjewZYt6CVaZlStX2iEE/dlHH31kc+fGeavaECS7jt3bqvszbVR07rnnmauvvqrKvQ4BEBUsC/v27TMffPBBhTf8ZGN/uEmdlWU4+7Ou50fd+Q0a1M+83dOdX7DqJuE8CRAA5AmW25aegBr+999/3+ignuXLl5t169bZXoLy8vLMzPBchg0k5JaNadhA9//6179u9/znOryAgifN33A9M5Xt9ZDsAahs1n7y7133vZusp/+u6tAP9YRAMQsQABRz7ZH3gguoh0BDBytXrjKrV6+yAYKCAnVJu16C5GSwI3VB6/Cfk08+2dxxxx0FL1fIGZCtjLN7XrIb+uSSPRdo6c/UuKsbn+78kGuZvPkQIADwoUwa0Qjs3r3bBgHqHVAvwYYNG+ywgbqrXSOkBkiNV7KB0u/37t1rhgwZYr71rW9F41WdgmrcXwGAuw73hu8aewVg9erVrzA7vzrp8h0ESk2AAKDUapTyBCWgiWoKCDR/YMWKlWbNmtWZJYh6k1UjpR91Z6sL+rvf/a7p379/UGUIMTNlZeXmww8P7uvgLjnamfl169rZ+Q3qHxy/pzs/xBokTyEIEACEUAvkISqB8vIP7BLENWvW2BUHChC0PeyFF15ohwC4ji6gt34t2dS8CfWm0J1/dDM+gUC2AAEAzwQCCCCAAAIRChAARFjpFBkBBBBAAAECAJ4BBBBAAAEEIhQgAIiw0ikyAggggAACBAA8AwgggAACCEQoQAAQYaVTZAQQQAABBAgAeAYQQAABBBCIUIAAIMJKp8gIIIAAAggQAPAMIIAAAgggEKEAAUCElU6REUAAAQQQIADgGUAAAQQQQCBCAQKACCudIocjoBMAd+zYYfeyb9u2bTgZK4Kc7N+/3x67rEOA6tWrx6E/RVBnZDEsAQKAsOqD3JS4wM6dZfYgoNWr15i1a9eYLVu2mPLyclO7dh1z+umnm5EjL7cn2HEdWeDDDz+0JyzqaGAXACgIaNiwoWnUqJENCPTDhQAChxcgAODpQCBPAjoKWA385s2bzapVq8369evsUcBlZWX2+F93Xr2Oq9Vn9+3bZ6666iozfPjwPOWoNG6rN/9Vq1bZt3931K9OB9SPTHUpiFIAoJ6VRo0amwYN6tv/1smBXAggcFCAAIAnAYGUBHQ0rRr8DRs22AZq06ZNZvv27UZvq/Z/tmOOsQ2WflxD5ZLWfysA6Nu3r7n11ltTylFp3kbHAK9cubJSx2SJFRC4S+YKAOrXr5/pJahbt67RDxcCsQoQAMRa85S7xgLqzt+2batZvWaNWbtmjXn//ffteP7HH39sG3i9bboGPzuxZADgfq/vnXTSSeaWW26pcd5K+QYKtFasWGGN9ZN8808GVC7oOlxQoMZfAYF6CRo3bpwZNsgOzkrZkrLFLUAAEHf9U/oqCiS781euXGU2bFh/2O581zAdqdFPNk66t8ayFSzcfPPN5sQTT6xiruL8mBr8jRs3mm3btmUCLddoV9azkh0UuP92PQQugEj2EmjYoGHDBkwujPMRi6bUBADRVDUFzUWgsu58NTiuO7+yt/sjNT7JtDX+r0Zfl+7TokUL065dOzN06FBz8skn55LNaD+rRlvDK7t27bJzATR8krxcEFZZT0v257J7CFxgoLpxvQRMLoz2USvpghMAlHT1UriqClTWna8GRg2La0w0sUyNwuG6iCsLANTQa9Kaa1TU5dy6dWvTvn170717d/vTtm0706pVy6pmlc9lCchX9aQllZofoN8rKFCg5a7K6q2yesz+Mze50PXYMLmQx6+UBAgASqk2KUuVBFx3vsbs1Z1/pNn5R3urz/573VsNj2vwmzRpYtf3H3tsR9OrV0/TpUsX+99aqsaVHwHZKwj46KOPzZ49u+2cDAUEGmZJXm5FwNHG/JN/n1xtoN/rHgrqNMFQdaofJhfmp165a/oCBADpm3LHwAQONztf3cfu7b6yyXpHe9NXA+C68/V73cN153fp0tU2+B06dLDd+265WmA00WRHAYB+1EOgngLXS6CAzdVz9hLB7OEDF9RV1ksgSDeXQAGA25OgYaNGpsH/BQhHCzSiqQwKGowAAUAwVUFG0hZYuHChWbRoUWZ2vgIB1xXsuvOTaVb2tp+cYa7GPvl2n+zO79a9u+nRvbtp16493flpV2Qe7qd6VECgYEA/rpdAwwnuSk7mPFowmMxicthAf67g7+Cz0sa0aNE8D6XhlghUT4AAoHpufCtwgZkzHzMzZkzPrL1Xg59cNqbsH20MOLvBb9xY3fltTMeO6s7vZbvz9XZPd37gD0MVs+d6BZK9BBo2SO4ncKQ5IMnAITtJ19OgOR9acsiFQAgCBAAh1AJ5SFWgrKzc/OhHd9oZ+67hr0oCrsHXZ5Oz85Pd+Zq8R3d+VTSL/zPurIEjTS50+z1UVtrK5oe0bNnSdO7cufhxKEFJCBAAlEQ1UoikgNaI33XXXba7/nBbv+qtzs3O1+8rzM7v0YPufB6pQwTc5MKPP95nJxdqSEk9BK6XoLKlh8leAT2PCgDUc8SFQAgCBAAh1AJ5SFVAXbk/+9nPzNq1a+22r7qSk/X03+rOb9OmtenUqRPd+anqx3UzNf6VTS5MDhu43QoloyGApk2bxoVEaYMVIAAItmrIWE0Eli9fbiZNmmT35leXvd68tPxO3fm9e/eys/Ppzq+JMN+tTMBNLnRLEBWMKkhQT1SbNm3sHhBcCIQiQAAQSk2Qj9QFNAdg3bp1dl12Mf/jq0ZEQxQxXnq71ht0MR/a47Z55iTCGJ/gsMtMABB2/ZC7iAXUe/HUU0+brVu3GG0opK2CdVpgDJc78re8vNy+Pbdq1cp2nzMBM4bap4y+BAgAfEmTDgI5CLz11ltmxowZRg2gVjJoGZlOrfva175munbtmsOdivOj77zzjnnvvfcyqzhUfm2ydPzxx7PssjirlFwHKEAAEGClkKW4BWbPnm2eeuopu/7cdX2rG1xDAWeeeaa59NJLSxpI5Vy8eHFm7FyFVfldENSzZ087pMOFAAI1EyAAqJkf30YgNQHtRjdjxl/N//7vYtvwJ7u71QBqPHzQ4MHm8ssuSy3NEG+kAEA7OLrJcy4AcLPp9Wu3bt1YThdi5ZGnohIgACiq6iKzpSqg8f6HHnrIvPvuu7arP9no6ffqDdAb8IQJE0zv3r1LlSFTrmXLlpn169dnJj8mt+V1FlrJoR0ZNUTChQACuQsQAORuxjcQSFXg7bfftuP9H3zwgT1Exu0g5xo9TYhTI3fhhRea008/PdW0Q72ZltNpKefmzZvtJMDkyX3OR59p1qyZnRjJdsyh1iT5ClmAACDk2iFvJS8wZ84cO96vt/vkUjfX4KnbX3sYaNy/T58+Je+RXUAt41yzZo3tAXFDIskASW5aIqmeAOYFRPd4UOAaChAA1BCQryNQHQGN9//1r4+axYsX2YbfHTKT3D9ejb+Wvl1++eV2E6NYr+3bt9veAJm57v7sIMDNC4hhhUSszwHlTl+AACB9U+6IwBEFDjfery+5iW7q9h848DTzd393cbSbACURdSCPlgaWlZVllgYmgwA3L0C7O2qOBPMC+J8QgaMLEAAc3YhPIJCawNKlS8306dOPOt5//vnnm7POOiu1dEvhRhrzX7Fihd0fwM0LSPaY6PduXoCGSzh2txRqnTLkU4AAIJ+63BuBhEByvD95TLFrxLTsTZvdaLw/lh3/qvOAbNiwwaxevdrOC3BDJ+4++m8FARpWUU9AzEMn1bHlO3EJEADEVd+UtgACWteu9f2LFi20s/yTjZZr/NMc71cDuGTJErNmzVr7Fjxw4Kn24KNCXJqkp1MZNZtfk/i0fv/YY4+tcVZ27Nhh5wXoSN7KgimlK9vjjjvO7pyY7CmoceLcAIESESAAKJGKpBhhCmi8/5FHHrFvrFrfn1zP7na3U4N9yimnmhEjLkllvP/xJ54w/7t4cWYcXOcIjBw5MpWGN1flN954wyxd+k4mL3Xq1DaDBg0yHTt2zPVWh3xejb/mBezcudPeP7lU0H1YgYB6AbSFMPMCakzODUpMgACgxCqU4oQjoMZp2rRpmfF+5Sw5cc2t7x8+fLg5++yzU8m4uscfeOAB+7btxsnVA3HiiQPMRRddmEoaVb2JGuhnnnnW7mCohl/XZwcOmFYtW9rypnGwj4KnVatWmU2bNh2yX4DLpz7TtGlTu4xSwRAXAggcFCAA4ElAIA8Cc+fOtev73Xh0Mgm3ra8b7+/Xr19qOZg+Y4ZZ9s47mZ4EBQEKNI47rpu54opRqaVTlRt9sGuXmf3887bRr12r1sF/cDRR78ABc9rAgalu5btx40YbCCT3C0gGXG6fBZ0jUKjhkKqY8RkEfAoQAPjUJq2SF9Dbttb3a7w/ub7fFdwd6tOjRw9z2WWXmXbt2qVmonF2vf0nJ8cpPU0uPOecc8zgwYNzSkvj7DqVcM/evebYDh1M//79K2xWdLSbqdHVxMft23eYevXqZj5+4PPPTetWrcyQIUMy3fZHu1dV/n7nzjKzfPkyoyWDbl5AcuxfLrq6dOli5yIwL6AqqnymlAUIAEq5dimbV4GtW7eahx9+2I73N2zYMJO2G/dXg6i38VNPHZjaeH+ygI899j/mzTffsG//yTS1Te64ceNy6v5W4z9r1uNm7949tqtePRmaVT9s2LCcGm2dbbBgwUJTt15dU+uYYyr0AgweNMh06tQp1TrSZkHJeQHZywSVmMri5gUkd19MNSPcDIEiECAAKIJKIovhC6jR0fr+8vJyO9NfV/Z4vxpSjffrbTztS8HH/fffbxu35K6CGn/X+QG5pjl//nyjCXwumFB+FcBcfPHFOXWhK+DR8cbl5R+YunX/dmiPegHatmlj9zpI+01c+dRwgIYFkhbJdPQZzQfQ5EDND+BCIEYBAoAYa50ypyowb9488+STT9rGN7kkzQUBaoQ13j9ixAjzhS98IdW03c2U/quvvlqhwdbfqQG/etw407xZs5zSffrpp+3yPb0hH+xN0Pr6/ebcc8+12xPncmkv/0WLFlfoBXDf17BEGssCK8uPJgYqEFBjn320sj6vIQHVF/MCcqlNPltKAgQApVSblMWrQGXj/dlv/vqMxpu1n3++Jp9p7Hvy5El2rD/77f+0006zjXau1zPPPGMP4UkjAFAvwHPPPWd27frQ1K5TOzMUoMmAHdq3N2eeeWbqvQCuvGVl5XZewJ49ezLzFyqbF9C5c2dbT24pYa5efB6BYhQgACjGWiPPBRdw4/1qJLW+P9nwu7dLNXxa33/ppSNSWd9/uEKrcV2wYEGFmf96u1XjPXbsWNO6deucvZIBgGsU1cNRnR4AJa438VdfXWLq1K2TCQBcphQApDkZMruwCsKWLVtmdKhQZZsG6fMqm5y0VNAN4eSMxhcQKDIBAoAiqzCyW3gBNSba3Efj/epiz2781Zjkc7w/KaCldpMmTjRq5LLf/k866STzla98pVpgLgBQY3jwjVn77FdvCEAZ0DDI888/b3bv3pPZE0D33f/ZZ6bjscfaeQppzwVIFlzDAArWtE+CLtVPdnqqN+2ceHyfPjkPmVQLmS8hUGABAoACVwDJF5fAkcb7VRJ1wzdv3tzu55+v8f6kmPYb0IQ9F4goCHBr4ceMGVPtN+tkAOACnJr0AOge2rr3tddeN/XrH5wk6e6r/H7pS1/ysm+/lkquXLnSvvG7eQHZQwL6cy3TzNfchOJ64sltKQsQAJRy7VK21AT0hj1z5mNmwYJXbDeyftRwJRsPfUYT5PI53p8s0O7du82kSZPs+HbydDy9bZ9wQn9z8cUXVbv8+QgA5PPc88+bvXu0Tv/gzoC6NBegc6dOOe9TUN3CqddEmyXJL3sZoDuOWffWEkXVJ/MCqivN90IXIAAIvYbIX8EFNN7v9vNPrrF3GVMg4Mb7tZ+/mxOQ74zrzV89AMmleu6tevTo0TXab//QSYAHj9qt7hwAZ6Hlkm+88eYhKwLU8A4ZcrZp1aplvtns/RWMqEdC8wKSwwHZSwVbtWpllwq6HhYvmSMRBDwJEAB4giaZ4hTQeL/W95eVlR2yvt++vf7funut7x86dKi3Qmqf/YkTJ5pdu3ZVmNimQEQNloYganLlKwDQRj3PPvuc0a+uF8DNBejapYvRqgVflwK35LyA5Ju+20hJnpoX0Lv38aZFi+a+skY6CHgRIADwwkwixSjw4osvmscffzyzvt+VIXmEr1vff8IJJ3gt4qJFi4wa6exJiGrURo0aZY/ArcmVrwBAedL2wm+/vfSQXoBatWrbQ4J8N7Tvv/++XaWg+RuV7Rfg9hHQfgHMC6jJU8V3QxMgAAitRshPEAKasT5r1iz71p88ZtaNESfX93fo0MFrnpX25MmTM8fguoBEb6s9evQ0l19+WY1n1OczANBe/eoF+HT/p5lDgmxvyoEDpnu3buaUU07x6qnEPvzwQ7uFsH493DkCCq40sVPbCHMhUAoCBAClUIuUIVUBTRL79a9+lWkMdHPXyLrx/pNPPsWu7/c13p8s4JIlS8wTTzxxyNi/3lR1wJBmsNf0evbZZ+2ZBn/bCOgYO8/hvPPOy3knwMry8vrrr5vly1dUOCRIn6tdu445+5yzC7IMTz0AGvLZtm3bIfMC7CmGn31mWrZsaQYMGFBTXr6PQBACBABBVAOZCElAS8XuueeezPi+y5sb7//yl79sD8UpxKVG6r777jOamOgaZ+VDjXOXLl3NlVeOrvHbv+6Xzx4A3V8z8LWBkfYBcEcFHyzHZ6ZXr55GexgU4lKApy2Q169fb5N3eyvo96p/DfkUKm+F8CDN0hYgACjt+qV01RBQF/u9995rtJe8G2PX0jqt79d+/joWt1CXxs9nzpxZ4e3fTqLbv9/mTRMA07gq6wFIYxVAMm/qyVi5ctUhvQB16tQ1Q4eek9PphWmUOXmPLVu22P0C3PbKLgCQr7YN5kKgFAQIAEqhFilD6gKaFKajfXUsriaGaT24GthCTgJTA3z//Q+YzZvfq/D2rz8/9tiOZsyYKytMYqsJit7OZZAcAlA6WumgyXBpXBpvVzo6GTB5VPCnn2olQ++Cd7Wrl0IG+lXPgLYr1vBKPncsTMOVeyBQVQECgKpK8bnoBNRAqStYEwEVAGhyWCEvjU/PmDHjkOWIevvXMb1p7jyoSZB6A04ebax0FAD06tUrNYbFixebNWvWHtILULduPTNs2FDTqFGj1NKq7o00aVEBAHsBVFeQ74UqQAAQas2QLwQSAprgN2XKVLNx44YKp9rprbxt23bmqqvGHrKrXU0AfQUAOq1v7tw5FXoBbHf7gQOmb58+xvfyypqY8V0Eik2AAKDYaoz8Rimgruhp06ZleiFcN7TGqC+44ILUu8tnz55tVqzQLP2D+/a7eQZp9wDo3gsXLjTvvrsu0wvgllrWq1/fnDtsWEFWWkT5kFHo6AQIAKKrcgpcbAKamf7ggw+ZtWvX2AbZNf7uCNurr7469SNsffUAqC527iwzc+bOsdXi5gLo91oR0L//CaZv377FVmXkF4GiECAAKIpqIpMxC6xbt848+OCDmQN/nIXe/rUk8dRTT02dxwUA2fsA5KMHQJl/5ZVXzIYNG03duhXnWTRs2NDOO2D8PfUq5oYIGAIAHgIEAhd45JFpZuXKit3xbk263v7VSKZ9+ewBUN51KM+8F16o0APgzgg4sX//1JY3pu3E/RAoZgECgGKuPfJe8gLai2Dq1Km2nO6AGv2qfQnOOeccc/rpp+fFwHcAoELodMP33ttcoRdASwSbNG5sewHcfIS8FJibIhChAAFAhJVOkYtH4NFHHzVLly6tMBlPKwKaNGlixo0bZ0+qy8elSYBaBqghABd85GMZYDLv2nznxfnzK+wMqL/XioCTvvjF1PYfyIcX90SgGAUIAIqx1shzFAI6pe6BBx4wmgToJv65t/+zzjrL6CdfVyECAJVTvQCbN79/SC9As6ZNbY+HC0jyVW7ui0BMAgQAMdU2ZS0qgVmzHjevv/5ahW1/1UjqAKJrrrnGNG3aNG/lccsAfU0CdAXROQwvvfxyhV4ANxfglJNPTuUgoryhcWMEikyAAKDIKozsxiGgSXE69EeT/dzYv0qusf/Bgwfn/TCiQgUACnDmzZtntm3bburUqZ2pbM0FaN6smZ0LoF35uBBAoOYCBAA1N+QOCKQuoNP4Fi1alFn+piBAY/9aDnf11eNMy5YtUk8zecPkRkBu+CHfcwBc+pr4+NJLL1cYBnC9AANPPdUcd9xxeS07N0cgFgECgFhqmnIWjYC2x508eZJ929dxtLrUAGrd/ymnnGKGDx+e97L43AkwuzDqBZgzZ47ZsWPnIb0ArVq2NEOGDKEXIO9PAAnEIEAAEEMtU8aiElDj+/LLL2d2/XNb4+oworFjx5q2bdvmvTyFWAaYLNSGDRvMK68sOGRjIK0IGHTaaaZLly55NyABBEpdgACg1GuY8hWVgE4gnDRpkvnoo4/s27/rfldvwIknDjAXXXShl/IUYhVAsmCa+zB37ly7TXD2XIDWrVrZXgDXO+IFhEQQKEEBAoASrFSKVLwCL774op0Ep7F+1/irS1yN3ZgxY0yHDh28FK6QQwCugO+++65ZtGjxIb0AmhB4+uDBpmPHjl4sSASBUhUgACjVmqVcRSegc+cnTpxo1Aug7v7k23+/fv3MiBEjvJUphABAkw6Vjw8+2HVIL0DbNm3sPgjOyBsMCSFQQgIEACVUmRSluAV0II7G3t3BN8kegNGjR5vOnTt7K6C635ctW2Y33nHLENUgn3322V735V+9erV59dUlmV6ApIm2QfbVI+INnoQQ8ChAAOARm6QQOJyAxvwnT55sysvL7du/Lrv0bf9+07NXL3PZ3/+917ddDUO88847hwQAGnvv06ePt4rUygf1Any4e3eFzYE0DNChfXtzxhlneHXxVnASQsCDAAGAB2SSQOBoAsuXLzfTp0+vcOCNW/s/cuRI061bt6PdItW/zw4AdHNNzPMdAChdnUnw2muvHzIXoHbtOmbo0HPyuiNiqqjcDIHABAgAAqsQshOnwJtvvmlmzpxpt/l13dx6++3Wrbu54opR3t9yXQCQPIGvUAGAVkBoaGTP3r0VegFq1apthg0bSgAQ5/8ylDoFAQKAFBC5BQI1FdDmP/fdN9ns2bPHdrtr5r9+9Pbfo0ePmt4+5++HMgTgMq5eAM0F0DbAx9Q6xuz/dL/p2rWL3RaZ5YA5Vy9fQMAKEADwICAQiIAaOe2Ap1UA6gkYNGiQGThwYEFyV1kPgJsE6HMOgCu8giFNSly/fr09HrhN69ZmwIAB1okLAQSqJ0AAUD03voVAXgT27dtnysrKbLd248aN85JGVW4a0hBAMr8aFtFQBA1/VWqRzyBwZAECAJ4QBBA4RCA7AHArEgoxCZDqQQCB/AgQAOTHlbsiUNQCCgDcPgCuIIWaBFjUkGQegYAFCAACrhyyhkChBAgACiVPugj4EyAA8GdNSggUjQBDAEVTVWQUgWoLEABUm44vIlC6AvPnzzdvvfVWhY2JtApg6NChpnfv3qVbcEqGQEQCBAARVTZFRaCqAmvXrjVPPfWU3ZNA6+w1/l+nTl17IFHLli2qehs+hwACAQsQAARcOWQNgUIJaN394sWLzdtvv220E1+jRo3N4MGDePsvVIWQLgJ5ECAAyAMqt0SgVAS0Q+FHH+01zZs3L+i+BKXiSTkQCEmAACCk2iAvCCCAAAIIeBIgAPAETTIIIIAAAgiEJEAAEFJtkBcEEEAAAQQ8CRAAeIImGQQQQAABBEISIAAIqTbICwIIIIAAAp4ECAA8QZMMAggggAACIQkQAIRUG+QFAQQQQAABTwIEAJ6gSQYBBBBAAIGQBAgAQqoN8oIAAggggIAnAQIAT9AkgwACCCCAQEgCBAAh1QZ5QQABBBBAwJMAAYAnaJJBAAEEEEAgJAECgJBqg7wggAACCCDgSYAAwBM0ySCAAAIIIBCSAAFASLVBXhBAAAEEEPAkQADgCZpkEEAAAQQQCEmAACCk2iAvCCCAAAIIeBIgAPAETTIIIIAAAgiEJEAAEFJtkBcEEEAAAQQ8CRAAeIImGQQQQAABBEISIAAIqTbICwIIIIAAAp4ECAA8QZMMAggggAACIQkQAIRUG+QFAQQQQAABTwIEAJ6gSQYBBBBAAIGQBAgAQqoN8oIAAggggIAnAQIAT9AkgwACCCCAQEgCBAAh1QZ5QQABBBBAwJMAAYAnaJJBAAEEEEAgJAECgJBqg7wggAACCCDgSYAAwBM0ySCAAAIIIBCSAAFASLVBXhBAAAEEEPAkQADgCZpkEEAAAQQQCEmAACCk2iAvCCCAAAIIeBIgAPAETTIIIIAAAgiEJEAAEFJtkBcEEEAAAQQ8CRAAeIImGQQQQAABBEISIAAIqTbICwIIIIAAAp4ECAA8QZMMAggggAACIQkQAIRUG+QFAQQQQAABTwIEAJ6gSQYBBBBAAIGQBAgAQqoN8oIAAggggIAnAQIAT9AkgwACCCCAQEgCBAAh1QZ5QQABBBBAwJMAAYAnaJJBAAEEEEAgJAECgJBqg7wggAACCCDgSYAAwBM0ZWDGUgAABn5JREFUySCAAAIIIBCSAAFASLVBXhBAAAEEEPAkQADgCZpkEEAAAQQQCEmAACCk2iAvCCCAAAIIeBIgAPAETTIIIIAAAgiEJEAAEFJtkBcEEEAAAQQ8CRAAeIImGQQQQAABBEISIAAIqTbICwIIIIAAAp4ECAA8QZMMAggggAACIQkQAIRUG+QFAQQQQAABTwIEAJ6gSQYBBBBAAIGQBAgAQqoN8oIAAggggIAnAQIAT9AkgwACCCCAQEgCBAAh1QZ5QQABBBBAwJMAAYAnaJJBAAEEEEAgJAECgJBqg7wggAACCCDgSYAAwBM0ySCAAAIIIBCSAAFASLVBXhBAAAEEEPAkQADgCZpkEEAAAQQQCEmAACCk2iAvCCCAAAIIeBIgAPAETTIIIIAAAgiEJEAAEFJtkBcEEEAAAQQ8CRAAeIImGQQQQAABBEISIAAIqTbICwIIIIAAAp4ECAA8QZMMAggggAACIQkQAIRUG+QFAQQQQAABTwIEAJ6gSQYBBBBAAIGQBAgAQqoN8oIAAggggIAnAQIAT9AkgwACCCCAQEgCBAAh1QZ5QQABBBBAwJMAAYAnaJJBAAEEEEAgJAECgJBqg7wggAACCCDgSYAAwBM0ySCAAAIIIBCSAAFASLVBXhBAAAEEEPAkQADgCZpkEEAAAQQQCEmAACCk2iAvCCCAAAIIeBIgAPAETTIIIIAAAgiEJEAAEFJtkBcEEEAAAQQ8CRAAeIImGQQQQAABBEISIAAIqTbICwIIIIAAAp4ECAA8QZMMAggggAACIQkQAIRUG+QFAQQQQAABTwIEAJ6gSQYBBBBAAIGQBAgAQqoN8oIAAggggIAnAQIAT9AkgwACCCCAQEgCBAAh1QZ5QQABBBBAwJMAAYAnaJJBAAEEEEAgJAECgJBqg7wggAACCCDgSYAAwBM0ySCAAAIIIBCSAAFASLVBXhBAAAEEEPAkQADgCZpkEEAAAQQQCEmAACCk2iAvCCCAAAIIeBIgAPAETTIIIIAAAgiEJEAAEFJtkBcEEEAAAQQ8CRAAeIImGQQQQAABBEISIAAIqTbICwIIIIAAAp4ECAA8QZMMAggggAACIQkQAIRUG+QFAQQQQAABTwIEAJ6gSQYBBBBAAIGQBAgAQqoN8oIAAggggIAnAQIAT9AkgwACCCCAQEgCBAAh1QZ5QQABBBBAwJMAAYAnaJJBAAEEEEAgJAECgJBqg7wggAACCCDgSYAAwBM0ySCAAAIIIBCSAAFASLVBXhBAAAEEEPAkQADgCZpkEEAAAQQQCEmAACCk2iAvCCCAAAIIeBIgAPAETTIIIIAAAgiEJEAAEFJtkBcEEEAAAQQ8CRAAeIImGQQQQAABBEISIAAIqTbICwIIIIAAAp4ECAA8QZMMAggggAACIQkQAIRUG+QFAQQQQAABTwIEAJ6gSQYBBBBAAIGQBAgAQqoN8oIAAggggIAnAQIAT9AkgwACCCCAQEgCBAAh1QZ5QQABBBBAwJMAAYAnaJJBAAEEEEAgJAECgJBqg7wggAACCCDgSYAAwBM0ySCAAAIIIBCSAAFASLVBXhBAAAEEEPAkQADgCZpkEEAAAQQQCEmAACCk2iAvCCCAAAIIeBIgAPAETTIIIIAAAgiEJEAAEFJtkBcEEEAAAQQ8CRAAeIImGQQQQAABBEISIAAIqTbICwIIIIAAAp4ECAA8QZMMAggggAACIQkQAIRUG+QFAQQQQAABTwIEAJ6gSQYBBBBAAIGQBAgAQqoN8oIAAggggIAnAQIAT9AkgwACCCCAQEgCBAAh1QZ5QQABBBBAwJMAAYAnaJJBAAEEEEAgJAECgJBqg7wggAACCCDgSYAAwBM0ySCAAAIIIBCSAAFASLVBXhBAAAEEEPAkQADgCZpkEEAAAQQQCEmAACCk2iAvCCCAAAIIeBIgAPAETTIIIIAAAgiEJEAAEFJtkBcEEEAAAQQ8CRAAeIImGQQQQAABBEISIAAIqTbICwIIIIAAAp4ECAA8QZMMAggggAACIQkQAIRUG+QFAQQQQAABTwIEAJ6gSQYBBBBAAIGQBAgAQqoN8oIAAggggIAnAQIAT9AkgwACCCCAQEgCBAAh1QZ5QQABBBBAwJMAAYAnaJJBAAEEEEAgJAECgJBqg7wggAACCCDgSYAAwBM0ySCAAAIIIBCSAAFASLVBXhBAAAEEEPAkQADgCZpkEEAAAQQQCEng/wPG8kfwjLpraAAAAABJRU5ErkJggg=="
+		}],
+	"object": {
+		"uuid": "5E1E6313-44E0-45E5-AC4A-2BA71CF44452",
+		"type": "Scene",
+		"name": "Scene",
+		"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,-1,0,1],
+		"children": [
+			{
+				"uuid": "51132875-A7A0-425F-973E-A49E2C4D4FBA",
+				"type": "AmbientLight",
+				"name": "AmbientLight 1",
+				"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+				"color": 2236962,
+				"intensity": 0.08
+			},
+			{
+				"uuid": "AD09227A-6DB8-4FBA-93F2-53B9DCD41233",
+				"type": "Group",
+				"name": "Ceiling Lights",
+				"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+				"children": [
+					{
+						"uuid": "E52F7C6E-074C-453C-AB64-D68AF0E3AB73",
+						"type": "Group",
+						"name": "Ceiling Light",
+						"matrix": [0.2199999988079071,0,0,0,0,0.2199999988079071,0,0,0,0,0.2199999988079071,0,2,4,4,1],
+						"children": [
+							{
+								"uuid": "A3DB3D56-10A8-41E1-845A-CF9E95083731",
+								"type": "Mesh",
+								"name": "Casing",
+								"matrix": [1,0,0,0,0,0.05999999865889549,0,0,0,0,1,0,0,0,0,1],
+								"geometry": "FDC64A92-09A0-436F-A093-C5F3DFE6F125",
+								"material": "17BFD6B0-DEBB-4DAA-B2E5-982DF70720C5"
+							},
+							{
+								"uuid": "2128850F-EFFB-416F-BF63-AB5E34833791",
+								"type": "Mesh",
+								"name": "Light",
+								"matrix": [0.9800000190734863,0,0,0,0,0.5,0,0,0,0,0.9800000190734863,0,0,0,0,1],
+								"geometry": "3D0E526D-4D60-4F95-8790-6BD1919F1607",
+								"material": "70928C49-A2A3-43D1-93C2-AB545B866DDF"
+							},
+							{
+								"uuid": "6BFDE01B-6643-42FF-9091-2C2E9D64A87C",
+								"type": "PointLight",
+								"name": "PointLight",
+								"castShadow": true,
+								"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,-0.5,0,1],
+								"color": 15658728,
+								"intensity": 0.58,
+								"distance": 30,
+								"decay": 4,
+								"shadow": {
+									"camera": {
+										"uuid": "A1970CC0-9D43-4DD3-8420-FCCEAD971B81",
+										"type": "PerspectiveCamera",
+										"fov": 90,
+										"zoom": 1,
+										"near": 0.5,
+										"far": 500,
+										"focus": 10,
+										"aspect": 1,
+										"filmGauge": 35,
+										"filmOffset": 0
+									}
+								}
+							}]
+					},
+					{
+						"uuid": "64969408-9B7B-4DDE-AB1E-8BF306A521AB",
+						"type": "Group",
+						"name": "Ceiling Light",
+						"matrix": [0.2199999988079071,0,0,0,0,0.2199999988079071,0,0,0,0,0.2199999988079071,0,-2,4,4,1],
+						"children": [
+							{
+								"uuid": "E74A6BDF-5159-45A4-AF49-89092C992A39",
+								"type": "Mesh",
+								"name": "Casing",
+								"matrix": [1,0,0,0,0,0.05999999865889549,0,0,0,0,1,0,0,0,0,1],
+								"geometry": "77DFB9FA-6F2C-455C-A4DD-CA099352AD72",
+								"material": "17BFD6B0-DEBB-4DAA-B2E5-982DF70720C5"
+							},
+							{
+								"uuid": "9B277279-4055-4EBC-9F9B-418D68C2B82E",
+								"type": "Mesh",
+								"name": "Light",
+								"matrix": [0.9800000190734863,0,0,0,0,0.5,0,0,0,0,0.9800000190734863,0,0,0,0,1],
+								"geometry": "E102D5F3-5255-4329-9066-4627B688C91B",
+								"material": "70928C49-A2A3-43D1-93C2-AB545B866DDF"
+							},
+							{
+								"uuid": "C85DFB24-6ACC-4643-9DAD-423A7F102B2D",
+								"type": "PointLight",
+								"name": "PointLight",
+								"castShadow": true,
+								"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,-0.5,0,1],
+								"color": 15658728,
+								"intensity": 0.58,
+								"distance": 30,
+								"decay": 4,
+								"shadow": {
+									"camera": {
+										"uuid": "637AB7C5-4E5D-4C1B-BAE5-9FB92F573B56",
+										"type": "PerspectiveCamera",
+										"fov": 90,
+										"zoom": 1,
+										"near": 0.5,
+										"far": 500,
+										"focus": 10,
+										"aspect": 1,
+										"filmGauge": 35,
+										"filmOffset": 0
+									}
+								}
+							}]
+					},
+					{
+						"uuid": "1934015C-4BC0-4299-9929-0CA3C53E707B",
+						"type": "Group",
+						"name": "Ceiling Light",
+						"matrix": [0.2199999988079071,0,0,0,0,0.2199999988079071,0,0,0,0,0.2199999988079071,0,2,4,-3,1],
+						"children": [
+							{
+								"uuid": "A01C81FE-E4D5-4092-93F2-9FC0226DAE44",
+								"type": "Mesh",
+								"name": "Casing",
+								"matrix": [1,0,0,0,0,0.05999999865889549,0,0,0,0,1,0,0,0,0,1],
+								"geometry": "4C7285F9-90C7-4303-BD6B-AC428E5E92A0",
+								"material": "17BFD6B0-DEBB-4DAA-B2E5-982DF70720C5"
+							},
+							{
+								"uuid": "4DAE56CC-42BF-4447-9A84-FA2F6105F95E",
+								"type": "Mesh",
+								"name": "Light",
+								"matrix": [0.9800000190734863,0,0,0,0,0.5,0,0,0,0,0.9800000190734863,0,0,0,0,1],
+								"geometry": "B94D6B50-D32C-4ACB-9B39-F469F6151A67",
+								"material": "70928C49-A2A3-43D1-93C2-AB545B866DDF"
+							},
+							{
+								"uuid": "952BFC24-2BA4-40E3-A48E-DA118DE09355",
+								"type": "PointLight",
+								"name": "PointLight",
+								"castShadow": true,
+								"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,-0.5,0,1],
+								"color": 15658728,
+								"intensity": 0.42,
+								"distance": 30,
+								"decay": 4,
+								"shadow": {
+									"camera": {
+										"uuid": "59A3BC94-AA56-47A1-BD5D-EAD047024131",
+										"type": "PerspectiveCamera",
+										"fov": 90,
+										"zoom": 1,
+										"near": 0.5,
+										"far": 500,
+										"focus": 10,
+										"aspect": 1,
+										"filmGauge": 35,
+										"filmOffset": 0
+									}
+								}
+							}]
+					},
+					{
+						"uuid": "23218583-51F7-4AC4-808C-0635C202EFBD",
+						"type": "Group",
+						"name": "Ceiling Light",
+						"matrix": [0.2199999988079071,0,0,0,0,0.2199999988079071,0,0,0,0,0.2199999988079071,0,-2,4,-3,1],
+						"children": [
+							{
+								"uuid": "5B86699C-1C63-47C4-BC3E-1535B0C9FE6F",
+								"type": "Mesh",
+								"name": "Casing",
+								"matrix": [1,0,0,0,0,0.05999999865889549,0,0,0,0,1,0,0,0,0,1],
+								"geometry": "0A0C5BCA-2348-45C2-A15B-C4CD39F2901C",
+								"material": "17BFD6B0-DEBB-4DAA-B2E5-982DF70720C5"
+							},
+							{
+								"uuid": "6C81E265-33C1-47E4-A2FD-2082A788CCD0",
+								"type": "Mesh",
+								"name": "Light",
+								"matrix": [0.9800000190734863,0,0,0,0,0.5,0,0,0,0,0.9800000190734863,0,0,0,0,1],
+								"geometry": "A9F84207-4203-4DA8-95E0-AF882EC4190D",
+								"material": "70928C49-A2A3-43D1-93C2-AB545B866DDF"
+							},
+							{
+								"uuid": "59034C80-4C2E-4B55-BE55-D873C23FE333",
+								"type": "PointLight",
+								"name": "PointLight",
+								"castShadow": true,
+								"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,-0.5,0,1],
+								"color": 15658728,
+								"intensity": 0.42,
+								"distance": 30,
+								"decay": 4,
+								"shadow": {
+									"camera": {
+										"uuid": "EB2B1FA2-275C-4E2A-B230-E5E66CD87805",
+										"type": "PerspectiveCamera",
+										"fov": 90,
+										"zoom": 1,
+										"near": 0.5,
+										"far": 500,
+										"focus": 10,
+										"aspect": 1,
+										"filmGauge": 35,
+										"filmOffset": 0
+									}
+								}
+							}]
+					}]
+			},
+			{
+				"uuid": "D5EEC79E-FC40-4AEE-B972-0D1EDB3DAD01",
+				"type": "Mesh",
+				"name": "Wall",
+				"receiveShadow": true,
+				"matrix": [4,0,0,0,0,2,0,0,0,0,1,0,0,2,-6,1],
+				"geometry": "A5CAE136-8588-4CCB-9771-A37E75ED88D4",
+				"material": "B717AC7D-F709-4E00-8CC5-B846854D683A"
+			},
+			{
+				"uuid": "6374FE99-5055-4AA1-8492-FBB610B65B09",
+				"type": "Mesh",
+				"name": "Wall",
+				"receiveShadow": true,
+				"matrix": [1.3322676295501878e-15,0,-6,0,0,2,0,0,1,0,2.220446049250313e-16,0,-4,2,0,1],
+				"geometry": "A5CAE136-8588-4CCB-9771-A37E75ED88D4",
+				"material": "B717AC7D-F709-4E00-8CC5-B846854D683A"
+			},
+			{
+				"uuid": "5E38884E-077A-4D03-A4EE-E41B7C85EF1C",
+				"type": "Mesh",
+				"name": "Wall",
+				"receiveShadow": true,
+				"matrix": [1.3322676295501878e-15,0,6,0,0,2,0,0,-1,0,2.220446049250313e-16,0,4,2,0,1],
+				"geometry": "A5CAE136-8588-4CCB-9771-A37E75ED88D4",
+				"material": "B717AC7D-F709-4E00-8CC5-B846854D683A"
+			},
+			{
+				"uuid": "EE3FDB41-85C9-4B59-8282-D4478FFFEA5E",
+				"type": "Mesh",
+				"name": "Wall",
+				"matrix": [-4,0,-4.898587410340671e-16,0,0,2,0,0,1.2246468525851679e-16,0,-1,0,0,2,6,1],
+				"geometry": "A5CAE136-8588-4CCB-9771-A37E75ED88D4",
+				"material": "B717AC7D-F709-4E00-8CC5-B846854D683A"
+			},
+			{
+				"uuid": "4EE0C97B-0D02-4920-8025-C460E2102F79",
+				"type": "Mesh",
+				"name": "Ground",
+				"receiveShadow": true,
+				"matrix": [4,0,0,0,0,1.3322676295501878e-15,-6,0,0,1,2.220446049250313e-16,0,0,0,0,1],
+				"geometry": "58812584-B449-4259-A345-DE75823F72DE",
+				"material": "EB317F1C-4AFD-4B95-A013-3C1D097CBC0B"
+			},
+			{
+				"uuid": "113D58B1-230E-4D7F-8CF3-DEA3F2B5EF4D",
+				"type": "Mesh",
+				"name": "Ceiling",
+				"matrix": [4,0,0,0,0,1.3322676295501878e-15,6,0,0,-1,2.220446049250313e-16,0,0,4,0,1],
+				"geometry": "58812584-B449-4259-A345-DE75823F72DE",
+				"material": "6C3A40C5-95CB-463C-8502-1CE4B663ADDE"
+			},
+			{
+				"uuid": "6D6F84D0-2377-4C34-BC78-6082AD39C6A8",
+				"type": "Mesh",
+				"name": "Canvas",
+				"matrix": [6.661338147750939e-16,0,-3,0,0,1.5,0,0,0.05999999865889549,0,1.3322675997716858e-17,0,3.940000057220459,2.200000047683716,2,1],
+				"geometry": "A7951AB9-1FC3-4F09-B841-1066A455C8EF",
+				"material": "B52FAA00-EAD4-4F56-881D-43481F3F62DA"
+			},
+			{
+				"uuid": "FAF7948F-BBC4-40C9-95D7-3821E7D6CAD1",
+				"type": "Mesh",
+				"name": "Canvas",
+				"matrix": [5.66213731970918e-16,0,-2.549999952316284,0,0,1,0,0,0.05999999865889549,0,1.3322675997716858e-17,0,3.940000057220459,2.200000047683716,-3,1],
+				"geometry": "A7951AB9-1FC3-4F09-B841-1066A455C8EF",
+				"material": "91E70EBF-CF56-4791-8B00-6A42B277AFAA"
+			},
+			{
+				"uuid": "D3C5126D-F6C4-4889-8AD8-0E35EBCEAFC1",
+				"type": "Mesh",
+				"name": "Canvas",
+				"matrix": [1.3322676295501878e-15,0,-6,0,0,2.700000047683716,0,0,0.05999999865889549,0,1.3322675997716858e-17,0,-3.940000057220459,2.200000047683716,2,1],
+				"geometry": "A7951AB9-1FC3-4F09-B841-1066A455C8EF",
+				"material": "3957C42E-F0E9-4B6F-B704-15F5A15D7716"
+			},
+			{
+				"uuid": "02D41CDF-92DC-4986-AAF2-7EDB0D0298C1",
+				"type": "Mesh",
+				"name": "Canvas",
+				"matrix": [0.4000000059604645,0,0,0,0,1.7999999523162842,0,0,0,0,0.05999999865889549,0,-3,2.200000047683716,-5.940000057220459,1],
+				"geometry": "A7951AB9-1FC3-4F09-B841-1066A455C8EF",
+				"material": "A89FB0BB-CE10-4D25-9BFC-0DD747E87580"
+			},
+			{
+				"uuid": "49525BA9-3B75-4D61-AF65-7324AC74664E",
+				"type": "Mesh",
+				"name": "Canvas",
+				"matrix": [0.4000000059604645,0,0,0,0,1.7999999523162842,0,0,0,0,0.05999999865889549,0,-2.5,2,-5.940000057220459,1],
+				"geometry": "A7951AB9-1FC3-4F09-B841-1066A455C8EF",
+				"material": "DB664415-82F8-4255-A8C1-EAF180A65E0F"
+			},
+			{
+				"uuid": "D0522055-70EF-4E65-B690-522C5E08EF35",
+				"type": "Mesh",
+				"name": "Canvas",
+				"matrix": [0.4000000059604645,0,0,0,0,1.7999999523162842,0,0,0,0,0.05999999865889549,0,-2,2.4000000953674316,-5.940000057220459,1],
+				"geometry": "A7951AB9-1FC3-4F09-B841-1066A455C8EF",
+				"material": "91E70EBF-CF56-4791-8B00-6A42B277AFAA"
+			},
+			{
+				"uuid": "69980977-DE28-4AC9-BA1E-0BAE78F4FA02",
+				"type": "Mesh",
+				"name": "Canvas",
+				"matrix": [0.4000000059604645,0,0,0,0,1.7999999523162842,0,0,0,0,0.05999999865889549,0,-1.5,2.200000047683716,-5.940000057220459,1],
+				"geometry": "A7951AB9-1FC3-4F09-B841-1066A455C8EF",
+				"material": "3DB38801-5D41-475B-AE94-E581E1A16CC9"
+			},
+			{
+				"uuid": "976CCBF2-15D7-4F1B-9480-1CA42F61B130",
+				"type": "Mesh",
+				"name": "Canvas",
+				"matrix": [0.4000000059604645,0,0,0,0,1.7999999523162842,0,0,0,0,0.05999999865889549,0,-1,2.5999999046325684,-5.940000057220459,1],
+				"geometry": "A7951AB9-1FC3-4F09-B841-1066A455C8EF",
+				"material": "4260566F-D233-46A3-ADA8-9FB65AF1C82E"
+			},
+			{
+				"uuid": "37291CDB-E3EC-44CA-8D0E-924D1BB28502",
+				"type": "Mesh",
+				"name": "Canvas",
+				"matrix": [0.4000000059604645,0,0,0,0,1.7999999523162842,0,0,0,0,0.05999999865889549,0,-0.5,2.0999999046325684,-5.940000057220459,1],
+				"geometry": "A7951AB9-1FC3-4F09-B841-1066A455C8EF",
+				"material": "91BD0663-DEFF-48E0-9077-6A43B29CD89F"
+			},
+			{
+				"uuid": "E488252E-E849-4337-9D5F-D657D841CDA3",
+				"type": "Group",
+				"name": "Table",
+				"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1],
+				"children": [
+					{
+						"uuid": "906F4C68-E4FF-4E0C-BFFD-1003D3D64E85",
+						"type": "Mesh",
+						"name": "TableLeg",
+						"castShadow": true,
+						"matrix": [0.10000000149011612,0,0,0,0,1,0,0,0,0,0.10000000149011612,0,1,0.5,0.5,1],
+						"geometry": "8E8E728D-B3EE-4748-B16B-C08F00F2F0A7",
+						"material": "FF2D3A6F-7EE1-47FB-8E1F-203F048F114D"
+					},
+					{
+						"uuid": "C8236D3E-2F4E-4D0D-8F03-B96B1C0A9F66",
+						"type": "Mesh",
+						"name": "TableLeg",
+						"castShadow": true,
+						"matrix": [0.10000000149011612,0,0,0,0,1,0,0,0,0,0.10000000149011612,0,-1,0.5,0.5,1],
+						"geometry": "8E8E728D-B3EE-4748-B16B-C08F00F2F0A7",
+						"material": "FF2D3A6F-7EE1-47FB-8E1F-203F048F114D"
+					},
+					{
+						"uuid": "0D0D40C0-305B-420A-B9E0-80A6C9F1C116",
+						"type": "Mesh",
+						"name": "TableLeg",
+						"castShadow": true,
+						"matrix": [0.10000000149011612,0,0,0,0,1,0,0,0,0,0.10000000149011612,0,-1,0.5,-0.5,1],
+						"geometry": "8E8E728D-B3EE-4748-B16B-C08F00F2F0A7",
+						"material": "FF2D3A6F-7EE1-47FB-8E1F-203F048F114D"
+					},
+					{
+						"uuid": "0E3041A5-0EC5-4B7D-8863-61623B19794E",
+						"type": "Mesh",
+						"name": "TableLeg",
+						"castShadow": true,
+						"matrix": [0.10000000149011612,0,0,0,0,1,0,0,0,0,0.10000000149011612,0,1,0.5,-0.5,1],
+						"geometry": "8E8E728D-B3EE-4748-B16B-C08F00F2F0A7",
+						"material": "FF2D3A6F-7EE1-47FB-8E1F-203F048F114D"
+					},
+					{
+						"uuid": "A8D0BBA3-8E43-44F0-999D-EFAA512A4B82",
+						"type": "Mesh",
+						"name": "TableTop",
+						"castShadow": true,
+						"receiveShadow": true,
+						"matrix": [2.4700000286102295,0,0,0,0,0.05292857065796852,0,0,0,0,1.3232142925262451,0,0,1,0,1],
+						"geometry": "181C3BCD-5652-40B9-99AB-EDD18A6D1C54",
+						"material": "FF2D3A6F-7EE1-47FB-8E1F-203F048F114D"
+					}]
+			},
+			{
+				"uuid": "6E8CE5A8-A639-4A22-AC70-037063AF7147",
+				"type": "Group",
+				"name": "Comp",
+				"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,1.5,0.800000011920929,1],
+				"children": [
+					{
+						"uuid": "B0EDA292-38A9-4BB4-85D5-A9E74D5A2628",
+						"type": "Mesh",
+						"name": "Monitor",
+						"matrix": [2,0,0,0,0,1.125,0,0,0,0,0.10000000149011612,0,0,0.10000000149011612,0,1],
+						"geometry": "8F71D1D7-6A5D-453A-8D41-9A778D95AF6C",
+						"material": "7A85D27A-27F7-4E48-B792-6D696B06DAB5",
+						"children": [
+							{
+								"uuid": "0EA97829-FC06-480F-BA6B-32C974577FA9",
+								"type": "Mesh",
+								"name": "Screen",
+								"matrix": [0.47999998927116394,0,0,0,0,0.47999998927116394,0,0,0,0,0.47999998927116394,0,0,0,0.6000000238418579,1],
+								"geometry": "13819BF0-5D47-41B9-B1E8-A40215000E2E",
+								"material": "6A9A99E1-6213-4A6A-8EA5-2343F0943E37"
+							}]
+					},
+					{
+						"uuid": "BE279A70-B5F9-4696-9B9F-89464F17CB7A",
+						"type": "Mesh",
+						"name": "Tower",
+						"matrix": [0.800000011920929,0,0,0,0,0.699999988079071,0,0,0,0,0.30000001192092896,0,0.47999998927116394,-0.15000000596046448,-0.23999999463558197,1],
+						"geometry": "2EE27FC4-EEE2-4C73-9045-E1FD62BAE4FA",
+						"material": "5B4BCD4F-2C6F-4EFC-AB23-D8EC6BD332B0"
+					}]
+			}],
+		"background": 11184810
+	}
+};
+	
+	var gifUrl = 'https://vignette1.wikia.nocookie.net/r2d/images/6/66/Brodyquest-o.gif';
+	var gifPlay = false;
+	/* This chunk lightly modified from https://github.com/matt-way/gifuct-js/blob/master/demo/demo.js */
+	// user canvas
+	var c = document.getElementById('gifCanvas');
+	var ctx = c.getContext('2d');
+	// gif patch canvas
+	var tempCanvas = document.createElement('canvas');
+	var tempCtx = tempCanvas.getContext('2d');
+	// full gif canvas
+	var gifCanvas = document.createElement('canvas');
+	var gifCtx = gifCanvas.getContext('2d');
+	var gif;
+	var loadedFrames;
+	var frameIndex;
+	var frameImageData;
+	// load a gif with a given URL
+	var loadGif = function( gifUrl ){
+		var oReq = new XMLHttpRequest();
+		oReq.open("GET", gifUrl, true);
+		oReq.responseType = "arraybuffer";
+
+		oReq.onload = function (oEvent) {
+			var arrayBuffer = oReq.response; // Note: not oReq.responseText
+			if (arrayBuffer) {
+				gif = new GIF(arrayBuffer);
+				var frames = gif.decompressFrames(true);
+				// render the gif
+				renderGIF(frames);
+			}
+		};
+		oReq.send(null);	
+	};
+	var renderGIF = function(frames){
+		loadedFrames = frames;
+		frameIndex = 0;
+
+		c.width = frames[0].dims.width;
+		c.height = frames[0].dims.height;
+
+		gifCanvas.width = c.width;
+		gifCanvas.height = c.height;
+		
+		gifPlay = true;
+	};
+	var drawPatch = function(frame) {
+		var dims = frame.dims;
+
+		if(!frameImageData || dims.width != frameImageData.width || dims.height != frameImageData.height){
+			tempCanvas.width = dims.width;
+			tempCanvas.height = dims.height;
+			frameImageData = tempCtx.createImageData(dims.width, dims.height);	
+		}
+
+		// set the patch data as an override
+		frameImageData.data.set(frame.patch);
+
+		// draw the patch back over the canvas
+		tempCtx.putImageData(frameImageData, 0, 0);
+
+		gifCtx.drawImage(tempCanvas, dims.left, dims.top);
+	};
+	var renderFrame = function() {
+		// get the frame
+		var frame = loadedFrames[frameIndex];
+
+		gifCtx.clearRect(0, 0, c.width, c.height);
+
+		// draw the patch
+		drawPatch(frame);
+		
+		var imageData = gifCtx.getImageData(0, 0, gifCanvas.width, gifCanvas.height);
+		var pixelPercent = 100;
+		var pixelsX = 5 + Math.floor(pixelPercent / 100 * (c.width - 5));
+		var pixelsY = (pixelsX * c.height) / c.width;
+		ctx.putImageData(imageData, 0, 0);
+		ctx.drawImage(c, 0, 0, c.width, c.height, 0, 0, pixelsX, pixelsY);
+		ctx.drawImage(c, 0, 0, pixelsX, pixelsY, 0, 0, c.width, c.height);
+
+		// update the frame index
+		frameIndex++;
+		if(frameIndex >= loadedFrames.length){
+			frameIndex = 0;
+		}
+
+	}
+	
+	// This runs once before animation
+	function initScene() {
+		
+		// Setup code hacked together from three.js docs boilerplate;
+		var loader = new THREE.ObjectLoader();
+		scene = loader.parse( rawScene );
+		camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.001, 10000 );
+		camera.position.set( 0.0, 1.0, 4.0 );
+		renderer = new THREE.WebGLRenderer({
+			canvas: document.querySelector( '#webgl-canvas' ),
+			antialias: true,
+		});
+		renderer.setSize( window.innerWidth, window.innerHeight - 4 );
+		renderer.setClearColor( 0x0121021 );
+		renderer.shadowMap.enabled = true;
+		renderer.shadowMap.type = THREE.BasicShadowMap;
+		
+		// Get the gif
+		loadGif( gifUrl );		
+		
+		// Orbit controls, thanks to threejs repo
+		controls = new THREE.OrbitControls( camera, renderer.domElement );
+		controls.enableDamping = true;
+		controls.dampingFactor = .85;
+		
+		// Little boilerplate for handling resizing
+		function onWindowResize( event ) {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize( window.innerWidth, window.innerHeight - 4 );
+		}
+		onWindowResize();
+		window.addEventListener( 'resize', onWindowResize, false );
+	}
+	
+	// This gets run each frame;
+	var frameIdx = 0;
+	var skipModulus = 4;
+	function updateScene() {
+		frameIdx++;
+		if ( gifPlay && ( frameIdx % skipModulus === 0 ) ) {
+			renderFrame();
+			
+			var screen = scene.getObjectByName( 'Screen' );
+			screen.material.map = new THREE.CanvasTexture( c );
+			screen.material.map.needsUpdate = true;
+			screen.material.needsUpdate = true;
+		}
+	}
+	
+	// Loop almost verbatim from docs
+	function animate() {
+		requestAnimationFrame( animate );
+		updateScene();
+		if ( !needToRender ) return;
+		renderer.render( scene, camera );
+	}
+	
+	initScene();
+	animate();
+
+})();
+
+//# sourceURL=pen.js
+</script>
+</body></html>

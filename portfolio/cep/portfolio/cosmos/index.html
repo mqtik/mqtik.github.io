@@ -1,0 +1,134 @@
+
+<!DOCTYPE html><html class=''>
+<head><meta charset='UTF-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matikbird - Through the cosmos</title>
+<style>        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        html {
+            background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 70%);
+            overflow: hidden
+        }
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}</style></head><body>
+<body onresize="resize()" onmousemove="mousemove(event)" onmouseleave="mouseleave()">
+  <canvas id="canvas" width="1000" height="800">
+</body>
+<script>'use strict';
+
+var MAX_PARTICLE_COUNT = 200;
+var GLOBAL_WIDTH = window.innerWidth;
+var GLOBAL_HEIGHT = window.innerHeight;
+var CENTER_X = GLOBAL_WIDTH / 2;
+var CENTER_Y = GLOBAL_HEIGHT / 2;
+var UNIVERSAL_COEFF = (GLOBAL_WIDTH + GLOBAL_HEIGHT) / 2;
+var END_CIRCLE = 2 * Math.PI;
+var resize = function resize() {
+    GLOBAL_WIDTH = window.innerWidth;
+    GLOBAL_HEIGHT = window.innerHeight;
+    document.getElementById('canvas').width = GLOBAL_WIDTH;
+    document.getElementById('canvas').height = GLOBAL_HEIGHT;
+};
+var star = function star() {
+    this.angle = Math.random() * 360;
+    this.angleSin = Math.sin(this.angle);
+    this.angleCos = Math.cos(this.angle);
+
+    this.red = Math.random() * 255;
+    this.green = Math.random() * 255;
+    this.blue = Math.random() * 255;
+
+    this.color = 'rgb(' + this.red + ', ' + this.green + ', ' + this.blue + ')';
+
+    this.r = Math.random() * 100;
+    this.speed = this.r * 2 / UNIVERSAL_COEFF;
+
+    this.realX = this.r * this.angleCos;
+    this.realY = this.r * this.angleSin;
+    return this;
+};
+
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+
+var particles = [];
+for (var i = 0; i < MAX_PARTICLE_COUNT; i++) {
+    particles.push(new star());
+}
+
+function calculateFrame() {
+    for (var _i = 0; _i < particles.length; _i++) {
+        particles[_i].r += 13 * particles[_i].speed;
+        particles[_i].speed = particles[_i].r * 2 / UNIVERSAL_COEFF;
+        particles[_i].realX = CENTER_X + particles[_i].r * particles[_i].angleCos;
+        particles[_i].realY = CENTER_Y + particles[_i].r * particles[_i].angleSin;
+        if (particles[_i].realX < 0 || particles[_i].realX > GLOBAL_WIDTH || particles[_i].realY < 0 || particles[_i].realY > GLOBAL_HEIGHT) {
+            particles.splice(_i, 1);
+            particles.push(new star());
+        }
+    }
+}
+
+//Lets animate the particle
+function draw() {
+    ctx.clearRect(0, 0, GLOBAL_WIDTH, GLOBAL_HEIGHT);
+    ctx.fillStyle = 'rgb(255,255,255)';
+    for (var _i2 = 0; _i2 < particles.length; _i2++) {
+        //ctx.arc(particles[i].realX, particles[i].realY, 3, 0,END_CIRCLE, false);
+
+        //ctx.fill();  
+        ctx.fillRect(particles[_i2].realX, particles[_i2].realY, 2, 2);
+    }
+}
+
+var samesign = function samesign(x, y) {
+    return Boolean(x >= 0 ^ y < 0);
+};
+
+var mousemove = function mousemove(e) {
+
+    CENTER_X = GLOBAL_WIDTH / 2 - 100 * e.pageX / GLOBAL_WIDTH;
+    CENTER_Y = GLOBAL_HEIGHT / 2 - 100 * e.pageY / GLOBAL_HEIGHT;
+};
+
+var mouseleave = function mouseleave(e) {
+    var diffX = CENTER_X - GLOBAL_WIDTH / 2;
+    var diffY = CENTER_Y - GLOBAL_HEIGHT / 2;
+    var stepX = -1 * diffX / 75;
+    var stepY = -1 * diffY / 75;
+    var samesignX = false;
+    var samesignY = false;
+    var interval = setInterval(function () {
+        diffX += stepX;
+        diffY += stepY;
+        samesignX = samesign(diffX, stepX);
+        samesignY = samesign(diffY, stepY);
+        if (!samesignX) ;
+        CENTER_X += stepX;
+        if (!samesignY) CENTER_Y += stepY;
+        if (samesignX && samesignY) {
+            clearInterval(interval);
+            CENTER_X = GLOBAL_WIDTH / 2;
+            CENTER_Y = GLOBAL_HEIGHT / 2;
+        }
+    }, 33);
+    //CENTER_X = GLOBAL_WIDTH / 2;
+    //CENTER_Y = GLOBAL_HEIGHT / 2;
+};
+
+setInterval(draw, 33);
+calculateFrame();
+setInterval(calculateFrame, 33);
+resize();
+</script>
+</body></html>

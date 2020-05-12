@@ -1,0 +1,196 @@
+
+<!DOCTYPE html><html class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/VpjyaW" />
+
+
+<style class="cp-pen-styles">body {
+  background: #dedede;
+}
+body .container {
+  position: relative;
+  height: 240px;
+  width: 500px;
+  margin: auto;
+  margin-top: 100px;
+}
+body .container::after {
+  content: "";
+  position: absolute;
+  top: 216px;
+  left: 10px;
+  width: 480px;
+  border: 3px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0px 0px 50% 50%;
+}
+body .container::before {
+  content: "";
+  position: absolute;
+  top: 218px;
+  left: 25px;
+  height: 5px;
+  width: 450px;
+  background: #C8DBFE;
+  border-radius: 50%;
+}
+body .container .laptop {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+}
+body .container .laptop .screen {
+  position: absolute;
+  left: 115px;
+  top: 0px;
+  height: 200px;
+  width: 300px;
+  background: #fafafa;
+  border-radius: 12px 12px 0px 0px;
+  border: 3px solid #666;
+  box-sizing: border-box;
+}
+body .container .laptop .screen::after, body .container .laptop .screen::before {
+  content: "";
+  position: absolute;
+}
+body .container .laptop .screen::after {
+  top: 20px;
+  left: 8px;
+  height: 162px;
+  width: 278px;
+  background: #555;
+  border: 3px solid #666;
+  box-sizing: border-box;
+}
+body .container .laptop .screen::before {
+  top: 5px;
+  left: calc(50% - 4px);
+  height: 8px;
+  width: 8px;
+  background: #777;
+  border-radius: 50%;
+}
+body .container .laptop .base {
+  position: absolute;
+  top: 198px;
+  left: 85px;
+  height: 18px;
+  width: 360px;
+  background: #fafafa;
+  border-radius: 0px 0px 15px 15px;
+  border: 3px solid #666;
+  box-sizing: border-box;
+}
+body .container .laptop .base::after {
+  content: "";
+  position: absolute;
+  left: 135px;
+  height: 4px;
+  width: 90px;
+  background: #fff;
+  border-radius: 0px 0px 8px 8px;
+  background: #ddd;
+  border: 2px solid #666;
+  box-sizing: border-box;
+  border-top: none;
+}
+body .container .cup {
+  position: absolute;
+  top: 136px;
+  left: 30px;
+  height: 80px;
+  width: 75px;
+  background: #d81159;
+  border-radius: 0px 0px 10px 10px;
+  border: 3px solid #666;
+  box-sizing: border-box;
+}
+body .container .cup::after, body .container .cup::before {
+  content: "";
+  position: absolute;
+}
+body .container .cup::after {
+  left: -30px;
+  top: 4px;
+  height: 55px;
+  width: 60px;
+  background: #d81159;
+  z-index: -10;
+  border-radius: 50%;
+  border: 3px solid #666;
+}
+body .container .cup::before {
+  left: -20px;
+  top: 14px;
+  height: 41px;
+  width: 40px;
+  background: #dedede;
+  border: 3px solid #666;
+  border-radius: 50%;
+  z-index: -5;
+  box-sizing: border-box;
+}
+body .steam {
+  position: absolute;
+  top: 130px;
+  left: 45px;
+  width: 45px;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  z-index: -1;
+  opacity: 0;
+  -webkit-animation: steam 3s linear infinite;
+          animation: steam 3s linear infinite;
+}
+body .steam div {
+  height: 30px;
+  width: 10px;
+  background: #fff;
+  border-radius: 10px 0px 10px 0px;
+}
+@-webkit-keyframes steam {
+  20% {
+    opacity: 0.6;
+  }
+  35% {
+    top: 100px;
+    opacity: 0.6;
+  }
+  70% {
+    top: 70px;
+    opacity: 0;
+  }
+}
+@keyframes steam {
+  20% {
+    opacity: 0.6;
+  }
+  35% {
+    top: 100px;
+    opacity: 0.6;
+  }
+  70% {
+    top: 70px;
+    opacity: 0;
+  }
+}
+</style></head><body>
+
+<div class="container">
+  <div class="laptop">
+    <div class="screen"></div>
+    <div class="base"></div>
+  </div>
+  <div class="cup"></div>
+  <div class="steam">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+</body></html>

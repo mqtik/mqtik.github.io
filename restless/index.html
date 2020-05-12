@@ -1,0 +1,1357 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
+<title>Restless - The movie</title>
+<style class="restless">#camera-body,
+#reel-1,
+#reel-2 {
+  fill: #fff;
+  fill-opacity: 0.95;
+  stroke: none;
+}
+
+body {
+  height: 100vh;
+  background: #111;
+  color: rgba(255, 255, 255, 0.95);
+  display: flexbox;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+span {
+  font-family: 'Open Sans', arial, sans-serif;
+  font-size: 1.2em;
+  font-weight: lighter;
+  font-weight: 300;
+  line-height: 2em;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  pointer-events: none;
+}
+.modal.open {
+  visibility: visible;
+  pointer-events: auto;
+}
+.modal.open iframe {
+  animation-name: grow;  
+  animation-duration: .4s;
+/*   animation-iteration-count: 10; */
+/*   animation-direction: alternate; */
+/*   animation-timing-function: ease-out; */
+/*   animation-fill-mode: forwards; */
+/*   animation-delay: 2s; */
+}
+@keyframes grow {
+  0% {
+    transform: scale(.05,.05);
+  }
+  70% {
+    transform: scale(.05,1);
+  }
+  100% {
+    transform: scale(1,1);
+  }
+}
+
+article.video {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  background: #343b4a;
+  font-size: 13px;
+  border-radius: 3px;
+  overflow: hidden;
+  font-family: Arial;
+}
+article.video video {
+  cursor: pointer;
+  width: 100%;
+  opacity: 0;
+}
+article.video video.visible {
+  opacity: 1;
+  transition: opacity 1s ease-out 0.8s;
+}
+article.video .control-bar {
+  width: 100%;
+  height: 2.2em;
+  padding-bottom: 1px;
+  position: absolute;
+  bottom: -2.2em;
+  left: 0;
+  transition: bottom 0.3s ease-out;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none;
+}
+article.video .control-bar .button-bar {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.17) 0%, rgba(34, 41, 58, 0.8) 100%);
+  border-radius: 3px;
+  z-index: 2;
+}
+article.video .control-bar .button-bar i {
+  font-family: "FontAwesome";
+  font-style: normal;
+  font-weight: 100;
+  color: white;
+  position: absolute;
+  width: 2em;
+  height: 1.6em;
+  line-height: 1.6em;
+  text-align: center;
+  top: 50%;
+  margin-top: -0.75em;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+  z-index: 2;
+}
+article.video .control-bar .button-bar i:hover {
+  opacity: 1;
+}
+article.video .control-bar .button-bar i.hidden {
+  opacity: 0;
+  z-index: 1;
+}
+article.video .control-bar .button-bar i.play,
+article.video .control-bar .button-bar i.pause,
+article.video .control-bar .button-bar i.replay {
+  width: 2.5em;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+article.video .control-bar .button-bar i.fullscreen {
+  left: auto;
+  right: 0.3em;
+}
+article.video .control-bar .button-bar .volume {
+  font-family: "FontAwesome";
+  font-style: normal;
+  font-weight: 100;
+  color: white;
+  position: absolute;
+  width: 2em;
+  height: 1.6em;
+  line-height: 1.6em;
+  text-align: center;
+  top: 50%;
+  margin-top: -0.75em;
+  opacity: 0.6;
+  cursor: pointer;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+  z-index: 2;
+  overflow: hidden;
+  left: 2.3em;
+  font-size: 1.2em;
+  transition: all 0.8s ease-out;
+}
+article.video .control-bar .button-bar .volume.shift {
+  width: 7.5em;
+  transition: all 0.2s ease-in;
+}
+article.video .control-bar .button-bar .volume .toggle {
+  left: 0;
+}
+article.video .control-bar .button-bar .volume .rail {
+  position: absolute;
+  left: 2.5em;
+  top: 0;
+  width: 3em;
+  height: 100%;
+  margin-top: 0;
+  overflow: hidden;
+}
+article.video .control-bar .button-bar .volume .rail .grip {
+  position: absolute;
+  width: 0.4em;
+  height: 1em;
+  margin-left: -0.2em;
+  left: 100%;
+  top: 50%;
+  margin-top: -0.5em;
+  background: white;
+}
+article.video .control-bar .button-bar .volume .rail .audible,
+article.video .control-bar .button-bar .volume .rail .inaudible {
+  position: absolute;
+  width: 100%;
+  height: 0.3em;
+  left: 0;
+  top: 50%;
+  margin-top: -0.15em;
+  background: #2bffdf;
+}
+article.video .control-bar .button-bar .volume .rail .inaudible {
+  background: #ccc;
+}
+article.video .control-bar .button-bar .time {
+  color: #eee;
+  font-size: 0.8em;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+  position: absolute;
+  left: 7em;
+  height: 2.2em;
+  line-height: 2.8em;
+  opacity: 0.9;
+  transition: all 0.7s ease-in 0.2s;
+}
+article.video .control-bar .button-bar .time.shift {
+  left: 13em;
+  transition: all 0.2s ease-out;
+}
+article.video .control-bar .seek {
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.2);
+  top: -2px;
+  opacity: 0.5;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  z-index: 7;
+}
+article.video .control-bar .seek .buffer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  z-index: 8;
+}
+article.video .control-bar .seek .watched {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  z-index: 8;
+  background: #2d2d2d;
+  overflow: visible!important;
+}
+article.video .control-bar .seek .watched:before,
+article.video .control-bar .seek .watched:after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  height: 100%;
+  width: 10px;
+  background: #5effe7;
+  border-radius: 2px;
+  box-shadow: 0 0 2px #5effe7;
+}
+article.video .control-bar .seek .watched:after {
+  right: 0px;
+  box-shadow: 0px 0 3px 0px #91ffee;
+  background: #91ffee;
+}
+article.video .control-bar .seek .watched .handle {
+  position: absolute;
+  display: block;
+  right: -2px;
+  top: -1px;
+  width: 0px;
+  height: 0px;
+  border: 2px solid white;
+  z-index: 9;
+  background: transparent;
+  border-radius: 100%;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.8), 0 0 4px 1px #91ffee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none;
+}
+article.video .control-bar .seek .watched .handle.active {
+  background: #666;
+}
+article.video .control-bar .seek .watched .handle:after {
+  content: "";
+  width: 26px;
+  height: 22px;
+  position: absolute;
+  left: 50%;
+  margin-left: -13px;
+  top: 50%;
+  margin-top: -15px;
+}
+article.video .control-bar .seek:after {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+  z-index: 6;
+}
+article.video .control-bar .seek:hover {
+  height: 6px;
+  top: -6px;
+}
+article.video.active .control-bar {
+  bottom: 0;
+  transition: bottom 0.05s ease-out;
+}
+article.video.active .control-bar.active .seek:hover .handle {
+  top: -3px;
+}
+article.video.active .control-bar.active .seek .handle {
+  width: 4px;
+  height: 4px;
+  right: -5px;
+  top: -6px;
+  border-width: 5px;
+  transition: all 0.1s ease;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.8), 0 0 4px 0px #91ffee;
+}
+article.video.active .seek {
+  opacity: 1;
+}
+article.video .loading {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  top: 50%;
+  height: 100px;
+  margin-top: 20px;
+  color: white;
+  font-size: 0.8em;
+  opacity: 0.1;
+  transition: all 0.4s ease;
+}
+article.video .loading.hidden {
+  opacity: 0;
+  top: 120%;
+  height: 0;
+}
+article.video .loading:hover,
+article.video .loading.error {
+  opacity: 1;
+}
+article.video .large-play {
+  text-align: center;
+  display: block;
+  width: 50px;
+  height: 50px;
+  font-family: "FontAwesome";
+  font-style: normal;
+  font-weight: 100;
+  font-size: 3em;
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -25px;
+  margin-left: -25px;
+  cursor: pointer;
+  opacity: 0.8;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: 0.3s ease;
+}
+article.video .large-play.hidden {
+  top: 45%;
+  opacity: 0;
+}
+article.video .spinner {
+  display: block;
+  overflow: visible;
+  text-indent: -999em;
+  position: absolute;
+  border-radius: 100% 0;
+  z-index: 2;
+  background: #fff;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 2px;
+  margin-left: -10px;
+  margin-top: -10px;
+  box-shadow: 0px 0px 3px 2px rgba(43, 255, 223, 0.4), 0 0 5px 3px rgba(43, 255, 223, 0.4) inset;
+  border: none;
+  transform-origin: 9px 9px;
+  animation: spin 13s cubic-bezier(0.435, -0.165, 0.56, 1.17) infinite;
+  transition: top 1s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+article.video .spinner.hidden {
+  top: 120%;
+}
+article.video .spinner:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 100% 0;
+  z-index: 10;
+  background: #fff;
+  top: 0px;
+  left: 0px;
+  width: 5px;
+  height: 3px;
+  transform: rotate(140deg);
+  box-shadow: 0px 0px 3px 2px rgba(43, 255, 188, 0.4), 0 0 5px 2px rgba(43, 255, 188, 0.4) inset;
+  animation: spin2 17s linear infinite;
+  transform-origin: 9px 9px;
+}
+article.video .spinner:before {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 100% 0;
+  z-index: 10;
+  background: #fff;
+  top: 0px;
+  left: 0px;
+  width: 6px;
+  height: 4px;
+  transform: rotate(70deg);
+  box-shadow: 0px 0px 5px 3px rgba(43, 252, 255, 0.4), 0 0 5px 1px rgba(43, 252, 255, 0.4) inset;
+  animation: spin2 13s linear infinite;
+  transform-origin: 9px 9px;
+}
+@media screen and (max-width: 800px) {
+  article.video {
+    font-size: 12px;
+  }
+}
+body,
+html {
+  background: #222;
+  color: #222;
+}
+.intro {
+  font-family: "Source Sans Pro", Arial, Helvetica;
+  color: #ddd;
+  width: 50%;
+  margin: 30px auto;
+  font-size: 1.6em;
+  font-weight: 100;
+}
+.intro p {
+  margin: 8px auto;
+}
+.intro h2,
+.intro h3 {
+  margin: 8px auto;
+}
+.demo-container {
+  width: 50%;
+  margin: auto;
+  background: #eee;
+  padding: 20px;
+  font-family: "Redacted";
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.2;
+}
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('https://netdna.bootstrapcdn.com/font-awesome/3.1.1/font/fontawesome-webfont.eot?v=3.1.0');
+  src: url('https://netdna.bootstrapcdn.com/font-awesome/3.1.1/font/fontawesome-webfont.eot?#iefix&v=3.1.0') format('embedded-opentype'), url('https://netdna.bootstrapcdn.com/font-awesome/3.1.1/font/fontawesome-webfont.woff?v=3.1.0') format('woff'), url('https://netdna.bootstrapcdn.com/font-awesome/3.1.1/font/fontawesome-webfont.ttf?v=3.1.0') format('truetype'), url('https://netdna.bootstrapcdn.com/font-awesome/3.1.1/font/fontawesome-webfont.svg#fontawesomeregular?v=3.1.0') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(360deg);
+  }
+  14% {
+    transform: rotate(470deg);
+  }
+  18% {
+    transform: rotate(490deg);
+  }
+  20% {
+    transform: rotate(520deg);
+  }
+  22% {
+    transform: rotate(540deg);
+  }
+  26% {
+    transform: rotate(940deg);
+  }
+  30% {
+    transform: rotate(1080deg);
+  }
+  40% {
+    transform: rotate(1340deg);
+  }
+  45% {
+    transform: rotate(1440deg);
+  }
+  55% {
+    transform: rotate(1500deg);
+  }
+  56% {
+    transform: rotate(1500deg);
+  }
+  86% {
+    transform: rotate(3220deg);
+  }
+  100% {
+    transform: rotate(3600deg);
+  }
+}
+@keyframes spin2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(3600deg);
+  }
+}
+
+</style></head><body>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org"
+	id="camera-loader"
+   width="85.708488"
+   height="100">
+  <defs
+     id="defs12" />
+  <path
+	 id="camera-body"
+     d="M 51.5625 0 C 50.667739 -0.00962983 49.756943 0.05800477 48.84375 0.1875 C 41.018415 1.2971691 35.117198 7.3376842 33.8125 14.71875 C 30.504071 7.9918491 23.138091 3.8277945 15.3125 4.9375 C 5.573576 6.3185261 -1.1937811 15.321773 0.1875 25.0625 C 1.030765 31.00916 4.7245026 35.850708 9.6875 38.40625 L 10.59375 44.84375 L 41.21875 40.5 C 42.618434 40.301472 43.966737 41.101389 44.15625 42.4375 C 44.34576 43.773612 43.274684 44.957723 41.875 45.15625 L 11.25 49.5 L 12.40625 57.6875 C 12.593105 59.005185 13.837018 59.937079 15.15625 59.75 L 64.25 52.78125 C 65.567815 52.594377 66.499355 51.348937 66.3125 50.03125 L 63.5625 30.78125 C 67.618077 26.946961 69.843395 21.259142 69 15.3125 C 67.748216 6.4849658 60.211858 0.09304631 51.5625 0 z M 51.28125 3.75 C 58.168631 3.6506107 64.22589 8.6859174 65.21875 15.6875 C 66.295328 23.279482 61.029156 30.329715 53.4375 31.40625 C 45.84552 32.482829 38.795329 27.18573 37.71875 19.59375 C 36.641441 11.998855 41.938942 4.9828747 49.53125 3.90625 C 50.124347 3.8221462 50.697574 3.7584222 51.28125 3.75 z M 17.5625 8.53125 C 24.449868 8.4318561 30.507144 13.46718 31.5 20.46875 C 32.576577 28.060719 27.310389 35.110969 19.71875 36.1875 C 12.126783 37.264077 5.0765804 31.966969 4 24.375 C 2.9226914 16.780121 8.2202041 9.7641225 15.8125 8.6875 C 16.405598 8.603395 16.978824 8.5396714 17.5625 8.53125 z M 79.71875 27.46875 L 66.9375 33.65625 L 68.53125 44.8125 L 82.53125 47.21875 L 79.71875 27.46875 z M 41.71875 41.0625 C 41.582761 41.058251 41.422178 41.073761 41.28125 41.09375 L 8.15625 45.78125 L 7.90625 44.09375 L 2.78125 43.9375 L 4 52.53125 L 8.875 50.9375 L 8.625 49.25 L 41.78125 44.5625 C 42.908673 44.40259 43.699053 43.493996 43.5625 42.53125 C 43.443014 41.688847 42.670671 41.092246 41.71875 41.0625 z M 51.53125 57.21875 L 28.625 60.4375 C 28.625117 63.279515 28.625057 61.501735 28.625 64.34375 L 30.90625 64.34375 L 32.40625 64.34375 L 17.21875 97.46875 C 16.804629 98.371268 17.19123 99.429629 18.09375 99.84375 C 18.996268 100.25787 20.054629 99.87127 20.46875 98.96875 L 36.34375 64.34375 L 38.28125 64.34375 L 38.28125 98.21875 C 38.28125 99.211743 39.069507 100 40.0625 100 C 41.055493 100 41.875 99.211743 41.875 98.21875 L 41.875 64.34375 L 43.6875 64.34375 L 59.71875 98.96875 C 60.136118 99.869771 61.192729 100.26112 62.09375 99.84375 C 62.994771 99.426382 63.386118 98.338521 62.96875 97.4375 L 47.65625 64.34375 L 49.09375 64.34375 L 51.53125 64.34375 L 51.53125 57.21875 z " />
+  <path
+     id="reel-1"
+     d="m 17.763265,10.60917 c -1.849868,0 -3.349902,1.500036 -3.349902,3.349902 0,1.849868 1.500034,3.34863 3.349902,3.34863 1.849865,0 3.348629,-1.498762 3.348629,-3.34863 0,-1.849866 -1.498764,-3.349902 -3.348629,-3.349902 z m -8.0539896,5.851215 c -1.849868,0 -3.3499023,1.500032 -3.3499023,3.349898 0,1.849866 1.5000343,3.349897 3.3499023,3.349897 1.8498656,0 3.3498996,-1.500031 3.3498996,-3.349897 0,-1.849866 -1.500034,-3.349898 -3.3498996,-3.349898 z m 16.1016246,0 c -1.849868,0 -3.3499,1.500032 -3.3499,3.349898 0,1.849866 1.500032,3.349897 3.3499,3.349897 1.849865,0 3.348629,-1.500031 3.348629,-3.349897 0,-1.849866 -1.498764,-3.349898 -3.348629,-3.349898 z m -13.023579,9.460259 c -1.849867,0 -3.3498994,1.500032 -3.3498994,3.349902 0,1.849865 1.5000324,3.348629 3.3498994,3.348629 1.849867,0 3.3499,-1.498764 3.3499,-3.348629 0,-1.84987 -1.500033,-3.349902 -3.3499,-3.349902 z m 9.950613,0 c -1.849866,0 -3.348629,1.500032 -3.348629,3.349902 0,1.849865 1.498763,3.348629 3.348629,3.348629 1.849865,0 3.349901,-1.498764 3.349901,-3.348629 0,-1.84987 -1.500036,-3.349902 -3.349901,-3.349902 z">
+    <animateTransform
+       attributeName="transform"
+       attributeType="XML"
+       type="rotate"
+       dur="2s"
+       begin="0"
+       from="0 17.66 22.74"
+       to="360 17.66 22.74"
+       repeatCount="indefinite" />
+  </path>
+  <path
+     id="reel-2"
+     d="m 51.483904,5.8171007 c -1.849872,0 -3.349908,1.5000388 -3.349908,3.3499074 0,1.8498709 1.500036,3.3486359 3.349908,3.3486359 1.849868,0 3.348635,-1.498765 3.348635,-3.3486359 0,-1.8498686 -1.498767,-3.3499074 -3.348635,-3.3499074 z M 43.4299,11.668326 c -1.849872,0 -3.349908,1.500034 -3.349908,3.349904 0,1.849869 1.500036,3.349903 3.349908,3.349903 1.849869,0 3.349906,-1.500034 3.349906,-3.349903 0,-1.84987 -1.500037,-3.349904 -3.349906,-3.349904 z m 16.101654,0 c -1.849871,0 -3.349907,1.500034 -3.349907,3.349904 0,1.849869 1.500036,3.349903 3.349907,3.349903 1.849867,0 3.348635,-1.500034 3.348635,-3.349903 0,-1.84987 -1.498768,-3.349904 -3.348635,-3.349904 z m -13.023602,9.460276 c -1.849871,0 -3.349907,1.500034 -3.349907,3.349908 0,1.849869 1.500036,3.348635 3.349907,3.348635 1.849869,0 3.349905,-1.498766 3.349905,-3.348635 0,-1.849874 -1.500036,-3.349908 -3.349905,-3.349908 z m 9.950632,0 c -1.849872,0 -3.348637,1.500034 -3.348637,3.349908 0,1.849869 1.498765,3.348635 3.348637,3.348635 1.849867,0 3.349905,-1.498766 3.349905,-3.348635 0,-1.849874 -1.500038,-3.349908 -3.349905,-3.349908 z">
+    <animateTransform
+       attributeName="transform"
+       attributeType="XML"
+       type="rotate"
+       dur="3.6s"
+       begin="0"
+       from="0 51.4 17.7"
+       to="360 51.4 17.7"
+       repeatCount="indefinite" />
+  </path>
+</svg>
+
+<span>Restless&hellip;</span>
+<div class="modal">
+  <div class="iframe-container">
+   <article class="video"> 
+    <video id="target_video" autoplay="autoplay" loop="loop">
+      
+      <!-- MP4 must be first for iPad! 
+      removed this as it was causing me guff!
+
+      interestingly, add it back in to see the error
+
+      <source src="http://files.simey.me/html5-vids/trailer.mp4" type="video/mp4">-->
+        <!-- Safari / iOS, IE9 -->
+        <source src="restless.mp4" type="video/mp4">
+ 
+            <!-- Firefox3.6+ / Opera 10.5+ -->
+            
+            <div class="loading">
+              I have a bad feeling about this... <br>
+              ... your browser doesn't support the video format!
+            </div>
+          </video>    
+        </article>
+  </div>
+</div>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script>
+  
+  $(document).ready( function() {
+
+    
+    setTimeout(function(){
+
+      $('.modal').addClass('open');
+      $('article.video').siPlayer(true);
+      var video = document.getElementById("target_video");
+video.autoplay = true;
+video.load(); 
+    },5000)
+    
+});
+
+// i did learn some things though.
+// and i remember why i hate working
+// with html5 apis ;(
+
+
+$.fn.siPlayer = function( autoplay ) {
+    
+    return $(this).each( function(k,v) {
+                
+        var $player = $(v);
+        var $video = $player.find('video');
+        var src = $video.get(0).currentSrc;
+        
+        var _video = $video.get(0);
+        
+        // a few options we will need.
+        
+        var o = {
+            
+            duration: 0,
+            seek: null,
+            isPaused: true,
+            isFinished: false,
+            position: 0,
+            loadingText: "Cargando Restless — mQ",
+            shift: null
+            
+        };
+        
+        // create and store all the elements we need 
+        // for controlling the video.
+        
+        var $el = {
+            
+            controls:               $('<div/>').addClass('control-bar'),
+                buttons:            $('<div/>').addClass('button-bar'),
+                    play:           $('<i/>').addClass('play').html("&#61515;"),
+                    pause:          $('<i/>').addClass('pause hidden').html("&#61516;"),
+                    replay:         $('<i/>').addClass('replay hidden').html("&#61666;"),
+                    volume:         $('<div/>').addClass('volume'),
+                        toggle:     $('<i/>').addClass('toggle').html('&#61480;'),
+                        rail:       $('<div/>').addClass('rail'),
+                           audible: $('<div/>').addClass('audible'),
+                         inaudible: $('<div/>').addClass('inaudible'),
+                            grip:   $('<div/>').addClass('grip'),
+                    time:           $('<span/>').addClass('time'),
+                        total:      $('<span/>').addClass('total'),
+                        divider:    $('<span/>').html(' / '),
+                        current:    $('<span/>').addClass('current'),
+                        fullscreen: $('<i/>').addClass('fullscreen').html("&#61541"),
+            
+                seek:               $('<div/>').addClass('seek'),
+                    buffer:         $('<div/>').addClass('buffer'),
+                    watched:        $('<div/>').addClass('watched'),
+                        handle:     $('<i/>').addClass('handle'),
+            
+          largePlay:                $('<span/>').addClass('large-play').html("&#61515;"),
+            spinner:                $('<span/>').addClass('spinner'),
+            loading:                $('<div/>')
+                                        .addClass('loading')
+                                        .text( o.loadingText )
+                                        .attr('title',  o.loadingText +' recibiendo datos de video')
+            
+        };
+        
+        // all the helper functions used in the plugin
+        
+        var funcs = {
+            
+            init: function() {
+                
+                o.duration = _video.duration;
+                
+                if( o.duration > 0 ) {
+                    funcs.setTime();
+                    funcs.getBuffered();
+                    funcs.clearLoading();
+                }
+                
+                // bind the events
+                funcs.ui();
+                events();
+                
+                // auto play after timer, because won't play
+                // right away for some reason.
+                if( autoplay ) {
+
+                  setTimeout( function() {
+                    $el.play.trigger('mouseup.play');   
+                  },1000);
+                  
+                } else {
+
+                  setTimeout(function() {
+                    $el.largePlay.removeClass('hidden');
+                  },800);
+                  
+                }
+                
+            },
+            
+            ui: function() {
+              
+                $player.append( $el.controls );
+                
+                $el.controls.append( 
+                    $el.buttons , 
+                    $el.seek 
+                );
+                
+                $el.buttons.append( 
+                    $el.play , 
+                    $el.pause , 
+                    $el.replay ,
+                    $el.volume ,
+                    $el.time ,
+                    $el.fullscreen
+                );
+                
+                $el.volume.append(
+                    $el.toggle ,
+                    $el.rail
+                );
+                
+                $el.rail.append( 
+                    $el.inaudible ,
+                    $el.audible ,
+                    $el.grip 
+                );
+                
+                $el.seek.append(
+                    $el.buffer ,
+                    $el.watched
+                );
+                
+                $el.watched.append( $el.handle );
+                
+                $el.time.append(
+                    $el.current ,
+                    $el.divider,
+                    $el.total
+                );
+                
+                $video.addClass('visible');
+                
+            },
+            
+            fullscreen: function() {
+                
+                if($player.get(0).requestFullScreen) {
+                    $player.get(0).requestFullScreen();
+                } else if($player.get(0).mozRequestFullScreen) {
+                    $player.get(0).mozRequestFullScreen();
+                } else if($player.get(0).webkitRequestFullScreen) {
+                    $player.get(0).webkitRequestFullScreen();
+                }
+                
+            },
+          
+            loadFail: function() {
+            
+              $el.loading
+                .addClass('error')
+                .text("I've got a bad feeling about this...");
+              
+              // we're proceeding but it'll
+              // probably be a problem... probably.
+              
+              funcs.init();
+            
+            },
+            
+            getPos: function( time ) {
+                
+                time = time || _video.currentTime;
+                var pixels = ( $el.seek.width() / o.duration ) * time;                
+                return { time: time , pixels: pixels };
+                
+            },
+            
+            toHHMMSS: function( secs ) {
+                
+                var secs    = parseInt(secs, 10);
+                var hours   = Math.floor(secs / 3600);
+                var minutes = Math.floor((secs - (hours * 3600)) / 60);
+                var seconds = secs - (hours * 3600) - (minutes * 60);
+                
+                if (hours   < 10) {hours   = "0"+hours;}
+                if (minutes < 10) {minutes = ""+minutes;}
+                if (seconds < 10) {seconds = "0"+seconds;}
+                
+                var time;
+                if( hours === "00" ) { time = minutes+':'+seconds; } 
+                else { time = hours+':'+minutes+':'+seconds; }
+                
+                return time;
+                
+            },
+            
+            setTime: function() {
+                
+                var current = funcs.toHHMMSS( funcs.getPos().time.toString() );
+                var total = funcs.toHHMMSS( o.duration.toString() );
+                
+                $el.current.text( current );
+                $el.total.text( total );
+                
+            },
+            
+            setVolume: function( e ) {
+                
+                if( !$(e.target).is( $el.grip ) ) {
+                    
+                    if( $(e.target).is( $el.rail ) || $(e.target).is( $el.rail.find("*") ) ) {
+                        
+                        var x = e.offsetX || e.originalEvent.layerX;
+                        
+                        var perc = Math.floor( x / $el.rail.width() * 100);
+                        $el.grip.css({ left:  + perc + "%" });
+                        
+                        var vol = _video.volume;
+                        if( perc > 1 && perc < 99 ) { 
+                            vol = perc/100;
+                        }
+                        _video.volume = vol;
+                        
+                        if( perc < 3 ) {
+                            funcs.toggleMute( true );
+                        } else {
+                            funcs.toggleMute( false )   
+                        }
+                        
+                    }
+                    
+                }
+                
+            },
+            
+            toggleMute: function( on ) {
+                
+                if( on !== undefined ) {
+                    if( on ) {
+                        $video.prop('muted', false);
+                        $el.toggle.html('&#61480;');
+                    } else {
+                        $video.prop('muted', true);
+                        $el.toggle.html('&#61478;')
+                    }
+                }
+                
+                if( $video.prop('muted') ) {
+                    
+                    $video.prop('muted', false);
+                    $el.toggle.html('&#61480;');
+                    
+                    //if( _video.volume < 5 ) { _video.volume = 10; }
+                    
+                } else {
+                    $video.prop('muted', true);
+                    $el.toggle.html('&#61478;');
+                }
+                
+            },
+            
+            reachEnd: function() {
+             
+                _video.pause();
+                o.isPaused = true;
+                o.isFinished = true;
+                o.handleFocus = false;
+                
+                $el.play.addClass('hidden');
+                $el.pause.addClass('hidden');
+                $el.replay.removeClass('hidden');
+                $el.largePlay.removeClass('hidden');
+                
+                clearTimeout(o.seek);
+                
+            },
+            
+            play: function() {
+                
+                _video.play();
+                o.isPaused = false;
+                
+                $el.play.addClass('hidden');
+                $el.largePlay.addClass('hidden');
+                $el.pause.removeClass('hidden');
+                
+                funcs.clearLoading();
+                
+                clearTimeout(o.seek);
+                o.seek = setInterval( function() {
+                    
+                    var w = funcs.getPos();
+                    $el.watched.width( w.pixels );
+                    
+                    if( w.time >= o.duration ) {
+                        funcs.reachEnd();
+                    }
+                    
+                    funcs.setTime();
+                    funcs.getBuffered();
+                   
+                }, 100 );
+                
+            },
+            
+            pause: function() {
+                
+                _video.pause();
+                o.isPaused = true;
+                
+                $el.pause.addClass('hidden');
+                $el.replay.addClass('hidden');
+                $el.play.removeClass('hidden');
+                $el.largePlay.removeClass('hidden');
+                
+                clearTimeout(o.seek);
+                
+            },
+            
+            replay: function() {
+                
+                o.isFinished = false;
+                o.isPaused = false;
+                
+                $el.pause.addClass('hidden');
+                $el.replay.addClass('hidden');
+                $el.play.removeClass('hidden');
+                $el.largePlay.removeClass('hidden');
+                
+                $el.watched.animate({ 
+                    'width': '0' 
+                }, { 
+                    duration: 330 , 
+                    complete: function() { 
+                        _video.currentTime = 0;
+                        $el.play.trigger('mouseup.play');
+                    }
+                });
+                
+            },
+            
+            seek: function( x , time ) {
+                
+                x = x || 0;
+                
+                if( !time ) {
+                    
+                    var perc = x / $el.seek.width() * 100;
+                    var pos = o.duration / 100 * perc;
+                    
+                    _video.currentTime = pos;                    
+                    
+                } else {
+                    
+                    _video.currentTime = x;
+                    
+                }
+                
+                funcs.setTime();
+                var w = funcs.getPos();
+                $el.watched.width( w.pixels );
+                
+                if( o.isFinished ) {
+                    funcs.pause();
+                    o.isFinished = false;
+                }
+                                    
+                if( w.time >= o.duration ) {
+                    funcs.reachEnd();
+                }
+                
+            },
+            
+            handleDrag: function(x) {
+                
+                if( !o.isPaused ) { 
+                    funcs.pause(); 
+                    o.resume = true; 
+                }
+                
+                
+                var perc = x / $el.seek.width() * 100;
+                var pos = o.duration / 100 * perc;
+                
+                var w = funcs.getPos(pos);
+                $el.watched.width( w.pixels );
+                
+                funcs.seek( x );
+                
+            },
+            
+            getBuffered: function() {
+                
+                var buffered = 0;
+                if( _video.buffered.length > 0 ) {
+                    
+                    buffered = _video.buffered.end(0);
+                    $el.buffer.width( funcs.getPos( buffered ).pixels );
+                
+                }
+                
+                return buffered;
+                
+            },
+            
+            clearLoading: function() {
+             
+                $el.spinner.addClass('hidden');
+                $el.loading.addClass('hidden');
+                $video.removeClass('hidden');
+
+                setTimeout(function() {
+                  $el.spinner.remove();
+                  $el.loading.remove();
+                },1000);
+                
+            }
+            
+        };
+        
+        var events = function() {
+            
+            var t;
+            
+            $(window).on({
+               
+                'keydown': function(e) {
+                    if( o.handleFocus ) {
+                        
+                        var seek = 0;
+                        if( e.keyCode === 39 ) { seek = 0.1; }
+                        else if (e.keyCode === 37 ) { seek = -0.1; }
+                        
+                        if( e.shiftKey ) { seek = seek * 10; }
+                        
+                        funcs.pause();
+                        var time = funcs.getPos().time + seek;
+                        funcs.seek( time , true );
+                        
+                    }
+                }
+                
+            });
+            
+            $player.on({
+                
+                'mousedown.player': function(e) {
+                    var $what = $el.seek.add( $el.handle ).add( $el.seek.find("*") );
+                    if( $(e.target).is( $what ) ) {
+                        o.handleDragging = true;
+                        o.handleFocus = true;
+                    } else {
+                        o.handleFocus = false;
+                    }
+                },
+                
+                'mouseup.player': function(e) {
+                    o.handleDragging = false;
+                    if( o.resume ) { 
+                        funcs.play(); 
+                        o.resume = false; 
+                    }
+                },
+                
+                'mousemove.player': function(e) {
+                    if( o.handleDragging ) {
+                        
+                        // FF won't expose offsetX, so we get layerX.
+                        var x = e.offsetX || e.originalEvent.layerX;
+                        
+                        // when mouse is over the handle, it has a
+                        // different offsetX, so we need to calculate
+                        if( $(e.target).is($el.controls.find("*")) ) {
+                            
+                            if( $(e.target).is( $el.time.add( $el.time.find("*") ) ) ) {
+                                x += $el.time.get(0).offsetLeft;
+                            } else if( $(e.target).is( $el.volume.add( $el.volume.find("*") ) ) ) {
+                                x += $el.volume.get(0).offsetLeft;
+                            } else {
+                                x += e.target.offsetLeft;   
+                            }
+                            
+                        }
+                        o.lastDrag = x;
+                        funcs.handleDrag(x);
+                    }
+                },
+                
+                'mouseleave.player': function(e) {
+                 
+                    if( o.handleDragging ) {
+                        
+                        var x;
+                        
+                        if( o.lastDrag > $player.width()*0.5 ) {
+                            x = $player.width();
+                        } else if( o.lastDrag < $player.width()*0.5 ) {
+                            x = 0;
+                        }
+                        
+                        o.lastDrag = x;
+                        o.handleDragging = false;
+                        funcs.handleDrag(x);
+                        
+                        
+                    }
+                    
+                }
+                
+            });
+            
+            $video.on({
+                
+                'mouseenter.video': function (e) {
+                    // set the class active, so the CSS can
+                    // show the controls bar.
+                    clearTimeout(t);
+                    $player.addClass('active');
+                },
+                
+                'mouseleave.video': function (e) {
+                    // remove the class after short duration
+                    clearTimeout(t);
+                    t = setTimeout(function () {
+                        $player.removeClass('active');
+                        $el.controls.removeClass('active');
+                    }, 700);
+                },
+                
+                'mousemove.video': function (e) {
+                    // while we are moving around the player
+                    // is always active.
+                    $player.addClass('active');
+                    
+                    // but if we stop (outside of the control bar) we
+                    // want the player to be inactive.
+                    clearTimeout(t);
+                    t = setTimeout(function () {
+                        $player.removeClass('active');
+                        $el.controls.removeClass('active');
+                    }, 2000);
+                    
+                },
+                
+                'click.video': function() {
+                    
+                    if( o.isFinished ) {                        
+                        $el.replay.trigger('mouseup.replay');
+                    } else if( o.isPaused ) {
+                        $el.play.trigger('mouseup.play');
+                    } else {
+                        $el.pause.trigger('mouseup.pause');   
+                    }
+                    
+                }
+                
+            });
+            
+            $el.handle.on({
+               
+                'mouseover': function(e) {
+                    $el.handle.addClass('active');
+                },
+                
+                'mouseout': function(e) {
+                    $el.handle.removeClass('active');
+                },
+                
+                'mousedown': function(e) {
+                     o.handleFocus = true;   
+                }
+                
+            });
+            
+            $el.controls.on({
+               
+                'mouseenter.controls': function (e) {
+                    // make sure the controls are always
+                    // active when we are on them.
+                    clearTimeout(t);
+                    $player.addClass('active');
+                    $el.controls.addClass('active');
+                    
+                },
+                
+                'mouseleave.controls': function (e) {
+                    // remove the class after short duration
+                    clearTimeout(t);
+                    t = setTimeout(function () {
+                        $player.removeClass('active');
+                        $el.controls.removeClass('active');
+                    }, 700);
+                }
+                
+            });
+            
+            $el.play.on({
+                                
+                'mouseup.play': function(e) {
+                    funcs.play();
+                }
+                
+            });
+            
+            $el.largePlay.on({
+                                
+                'click.play': function() {
+                    
+                    if( o.isFinished ) {                        
+                        $el.replay.trigger('mouseup.replay');
+                    } else if( o.isPaused ) {
+                        $el.play.trigger('mouseup.play');
+                    } else {
+                        $el.pause.trigger('mouseup.pause');   
+                    }
+                    
+                }
+                
+            });
+            
+            $el.pause.on({
+                
+                'mouseup.pause': function(e) {
+                    funcs.pause();                  
+                }
+                
+            });
+            
+            $el.replay.on({
+                
+                'mouseup.replay': function(e) {
+                    funcs.replay();
+                }
+                
+            });
+            
+            $el.volume.on({
+               
+                'mouseup.volume': function(e) {
+                    
+                    if( $(e.target).is( $el.toggle ) ) {
+                         funcs.toggleMute();   
+                    }
+                    
+                },
+                
+                'mousedown.volume': function(e) {
+                    if( !$(e.target).is( $el.toggle ) ) {
+                        funcs.setVolume( e ); 
+                    }
+                },
+                
+                'mouseenter.volume': function(e) {
+                    clearTimeout(o.shift);
+                    $el.time.addClass('shift');
+                    $el.volume.addClass('shift');
+                },
+                
+                'mouseleave.volume': function(e) {
+                    o.shift = setTimeout( function() {
+                        $el.time.removeClass('shift');
+                        $el.volume.removeClass('shift');
+                    },1000);
+                }
+                
+            });
+            
+            $el.fullscreen.on({
+               
+                'mouseup': function(e) {
+                    
+                    funcs.fullscreen();
+                    
+                }
+                
+            });
+            
+            $el.seek.on({
+               
+                'mouseup.seek': function(e) {
+                    
+                    // dont seek if we clicked the handle
+                    if( !$(e.target).is( $el.handle ) ) { 
+                        // FF won't expose offsetX, so we get layerX.
+                        var x = e.offsetX || e.originalEvent.layerX;
+                        funcs.seek(x);
+                    }
+                    
+                }
+                
+            });
+            
+        };
+        
+        // we have to stop the other events being bound until this
+        // event has completed, or we'll have major issues.
+        // so it sits out of the events() setup.
+        
+        $el.loading.appendTo( $player );
+        $el.spinner.appendTo( $player );
+        $el.largePlay.appendTo( $player ).addClass("hidden");
+        
+        var loop = 0;
+        var ready = setInterval( function() {
+           
+            var state = _video.readyState;
+            loop++;
+            
+            if( state > 1 ) {
+             
+                clearInterval( ready );
+                
+                // save the length (time) of the video.
+                o.duration = _video.duration;
+                
+                funcs.setTime();
+                funcs.getBuffered();
+                funcs.init();
+                
+            }
+            
+            if( state < 1 && loop > 30 ) {
+                
+                clearInterval( ready );
+                funcs.loadFail();
+                
+            }
+            
+            
+        }, 500 );
+        
+    });
+    
+};
+</script>
+</body></html>

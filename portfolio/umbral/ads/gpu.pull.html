@@ -1,0 +1,133 @@
+
+<!DOCTYPE html><html class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/vmBPpx" />
+
+
+<style class="cp-pen-styles"></style></head><body>
+<script src="https://wzrd.in/standalone/regl@latest"></script>
+<script src="https://wzrd.in/standalone/regl-camera@latest"></script>
+
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script>'use strict';
+
+// Built with: https://github.com/regl-project/regl
+
+regl({
+  extensions: ['oes_texture_float'],
+  onDone: start,
+  // Lower quality to speed things up a bit:
+  pixelRatio: 1,
+  attributes: { alpha: false, antialias: false }
+});
+
+// Create an array of texture lookup coordinates. It's just
+// uv texture points in [0, 1] x [0, 1] in raster order.
+// Sampling at these points will give the xyz spatial coordinates
+function particleLookup(w, h) {
+  return new Array(w * h).fill(0).map(function (d, i) {
+    return [i % w / Math.max(1, w - 1), Math.floor(i / w) / (h - 1)];
+  });
+}
+
+function start(err, regl) {
+  if (err) return console.error(err);
+
+  // Create a 3d camera:
+  var camera = reglCamera(regl, {
+    center: [0, 100, 0],
+    distance: 500,
+    far: 1500,
+    damping: 0
+  });
+
+  // The width/height of the particle texture. So we have
+  // 256^2 particles total
+  var radius = 256;
+
+  // Create two framebuffers to store the xyz coordinates
+  // that we ping-pong between for udpates:
+  var fbo = new Array(2).fill(0).map(function () {
+    return regl.framebuffer({
+      depthStencil: false,
+      color: regl.texture({
+        data: new Array(radius * radius * 4).fill(0).map(function () {
+          return (Math.random() - 0.5) * 100;
+        }),
+        radius: radius,
+        type: 'float'
+      })
+    });
+  });
+
+  // The main update is just a fbo -> fbo map that reads the
+  // floating point position from one fbo, integrates, and
+  // sets it as the frag color to write it to the other.
+  var update = regl({
+    vert: '\n      precision mediump float;\n      attribute vec2 xy;\n      varying vec2 uv;\n      void main () {\n        uv = 0.5 * xy + 0.5;\n        gl_Position = vec4(xy, 0, 1);\n      }\n    ',
+    frag: '\n      precision mediump float;\n      varying vec2 uv;\n      uniform sampler2D src;\n      const float dt = 0.002;\n\n      vec3 derivative (vec3 p) {\n        return vec3(\n          40.0 * (p.y - p.x) + 0.16 * p.x * p.z,\n          55.0 * p.x - p.x * p.z + 20.0 * p.y,\n          1.833 * p.z + p.x * p.y - 0.65 * p.x * p.x\n        );\n      }\n\n      void main () {\n        vec3 p = texture2D(src, uv).xyz;\n\n        // Midpoint integration. First, step halfway:\n        vec3 pm = p + derivative(p) * 0.5 * dt;\n\n        // Evaluate the derivative there and use for a whole step:\n        gl_FragColor = vec4(p + derivative(pm) * dt, 1);\n      }\n    ',
+    // A full-screen triangle, i.e. update every texel (particle):
+    attributes: { xy: [[-4, -4], [0, 4], [4, -4]] },
+
+    // Input/output:
+    uniforms: { src: regl.prop('src') },
+    framebuffer: regl.prop('dst'),
+
+    // It's just a flat full-fbo map. no depth.
+    depth: { enable: false },
+
+    // Three vertices in the big triangle:
+    count: 3
+  });
+
+  var draw = regl({
+    vert: '\n      precision mediump float;\n      attribute vec2 uv;\n      uniform sampler2D position;\n      uniform mat4 projection, view;\n      void main () {\n        // Convert uv -> xyz:\n        vec3 p = texture2D(position, uv).xyz;\n        gl_Position = projection * view * vec4(p.yzx, 1);\n        gl_PointSize = 2.0;\n      }\n    ',
+    frag: '\n      precision mediump float;\n      void main () {\n        gl_FragColor = vec4(0.4, 0.6, 0.8, 0.1);\n      }\n    ',
+    // The coordinates of each point are a uv location in the
+    // texture. We evaluate the texture to get the xyz values
+    // and project them into 3d space:
+    attributes: { uv: particleLookup(radius, radius) },
+    depth: { enable: false },
+    blend: {
+      enable: true,
+      func: {
+        srcRGB: 'src alpha',
+        srcAlpha: 1,
+        dstRGB: 1,
+        dstAlpha: 1
+      },
+      equation: { rgb: 'add', alpha: 'add' }
+    },
+    uniforms: { position: regl.prop('src') },
+    primitive: 'points',
+    count: radius * radius
+  });
+
+  // A nice background, I guess.
+  var background = regl({
+    vert: '\n      precision mediump float;\n      attribute vec2 xy;\n      varying vec2 uv;\n      void main () {\n        uv = xy;\n        gl_Position = vec4(xy, 0, 1);\n      }\n    ',
+    frag: '\n      precision mediump float;\n      varying vec2 uv;\n      void main () {\n        gl_FragColor = vec4(vec3(0.3, 0.35, 0.4) * vec3(1.0 - dot(uv, uv) * 0.4), 1.0);\n      }\n    ',
+    attributes: { xy: [[-4, -4], [0, 4], [4, -4]] },
+    depth: { enable: false },
+    count: 3
+  });
+
+  // The main update loop:
+  regl.frame(function (_ref) {
+    var tick = _ref.tick;
+
+    // Ping-pong between buffers:
+    update({
+      src: fbo[tick % 2],
+      dst: fbo[(tick + 1) % 2]
+    });
+
+    background();
+
+    camera(function () {
+      draw({ src: fbo[(tick + 1) % 2] });
+    });
+  });
+}
+//# sourceURL=pen.js
+</script>
+</body></html>

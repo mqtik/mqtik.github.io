@@ -1,0 +1,577 @@
+
+<!DOCTYPE html><html lang='en' class='<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">'>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/xpVydN" />
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<style class="cp-pen-styles">
+
+.cmrc {
+  cursor: pointer;
+  text-align: left;
+  font-size: 4em;
+  font-weight: 900;
+  display: block;
+  position: absolute;
+  margin:35px 10px 0 auto;
+  color:#08fdd8;
+  font-family: 'Pacifico', cursive;
+   -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
+  -moz-animation: neon1 1.5s ease-in-out infinite alternate;
+  animation: neon1 1.5s ease-in-out infinite alternate;
+}
+.cmrc:hover {
+  color: #BA01FF;
+  -webkit-animation: neon2 1.5s ease-in-out infinite alternate;
+  -moz-animation: neon2 1.5s ease-in-out infinite alternate;
+  animation: neon2 1.5s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes neon1 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #228DFF, 0 0 35px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF, 0 0 75px #228DFF;
+  }
+}
+@keyframes neon2 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
+  }
+}
+@media (max-width: 650px) {
+ .cmrc {
+    font-size: 2.5em;
+    margin: 10px 10px 0 auto;
+  }
+}
+
+#cls {
+position:relative;
+  display: inline-block;
+  padding: 10px 50px;
+  font-weight: bold;
+ white-space: normal;
+    width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#avlb {
+  position:relative;
+  display: inline-block;
+  padding: 10px 50px;
+  font-weight: bold;
+ white-space: normal;
+    width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.content {
+  margin: 50px auto;
+}
+
+.fa-bars {
+  color:#08fdd8!important;
+}
+.btn:hover .fa-bars {
+  color:black!important;
+}
+.fa {
+  color: #333;
+}
+
+a:hover .fa {
+  color: #08fdd8;
+   -webkit-animation:spin 1.5s  ;
+    -moz-animation:spin 1.5s  ;
+    animation:spin 1.5s  ;
+}
+@-moz-keyframes spin { 40% { -moz-transform: rotate(60deg); } }
+@-webkit-keyframes spin { 40% { -webkit-transform: rotate(60deg); } }
+@keyframes spin { 40% { -webkit-transform: rotate(60deg); transform:rotate(60deg); } }
+
+
+.container {
+  display:none;
+  width: 100%;
+  height: 100%;
+  left:0;
+  top:0;
+  position: absolute;
+  overflow: hidden;
+  background-size: cover;
+  background-repeat: repeat;
+    background-attachment: fixed;
+    background-position: left; 
+  background-image: url("https://images.unsplash.com/photo-1465533403411-0af6ede250dd?dpr=1&auto=compress,format&fit=crop&w=1500&h=&q=80&cs=tinysrgb&crop=");
+}
+.btn {
+  border:2px solid #08fdd8;
+  color: #08fdd8;
+  background-color: transparent;
+  position: absolute;
+  
+  overflow: hidden;
+}
+.btn:hover {
+  border:2px solid #08fdd8;
+  color: #333;
+  background-color: #08fdd8;
+}
+
+
+.btn#btnPopover {
+  border:2px solid #08fdd8;
+  color: #08fdd8;
+  background-color: transparent;
+  position: absolute;
+  left: 85%;
+  top:10%;
+  overflow: hidden;
+  white-space: normal;
+    word-wrap: break-word;
+}
+.btn#btnPopover:hover {
+  border: none;
+  color: #333;
+  background-color: #08fdd8;
+}
+
+ul.menu {
+  list-style-type: none;
+  margin: 0;
+    padding: 0;  
+}
+li.but1 {
+  display: block;
+  padding:0;
+ border-bottom: 1px solid #dddfe2;
+}
+.popover-content {
+  text-align: center;
+  width:100%;
+  padding: 0;
+  overflow: auto;
+}
+a:hover {
+  text-decoration: none;
+}
+li a {
+    display: block;
+    color: #000;
+    width: 100%;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+.notification:after {
+  font-weight: bold;
+  cursor:pointer;
+  color: white;
+  content: '1';
+  display: inline-block;
+  position: absolute;
+  top: 9%;
+  right: 7%;
+  width: 2em;
+  margin: 1%;
+  border-radius: 50%;
+  font-size: 0.75em;
+  line-height: 2;
+  text-align: center;
+  background: #f53d3d;
+  box-shadow: 0 0 0 0.25em #c20a0a;
+  animation: pulse 0.75s infinite;
+  z-index: 99;
+}
+.notification1:after {
+  font-weight: bold;
+  cursor:pointer;
+  color: white;
+  content: '1';
+  display: block;
+  position: absolute;
+  top: 30px;
+  right: 1.3333em;
+  width: 2em;
+  margin: 1.0833em 0;
+  border-radius: 50%;
+  font-size: 0.75em;
+  line-height: 2;
+  text-align: center;
+  background: #f53d3d;
+  box-shadow: 0 0 0 0.25em #c20a0a;
+  animation: pulse 0.75s infinite;
+}
+@-webkit-keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0.2em #c20a0a;
+  }
+  25% {
+    box-shadow: 0 0 0 0.05em #c20a0a;
+  }
+  50% {
+    box-shadow: 0 0 0 0.375em #c20a0a;
+  }
+  75% {
+    box-shadow: 0 0 0 0.2em #c20a0a;
+  }
+  100% {
+    box-shadow: 0 0 0 0.3em #c20a0a;
+  }
+}
+@-moz-keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0.2em #c20a0a;
+  }
+  25% {
+    box-shadow: 0 0 0 0.05em #c20a0a;
+  }
+  50% {
+    box-shadow: 0 0 0 0.375em #c20a0a;
+  }
+  75% {
+    box-shadow: 0 0 0 0.2em #c20a0a;
+  }
+  100% {
+    box-shadow: 0 0 0 0.3em #c20a0a;
+  }
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0.2em #c20a0a;
+  }
+  25% {
+    box-shadow: 0 0 0 0.05em #c20a0a;
+  }
+  50% {
+    box-shadow: 0 0 0 0.375em #c20a0a;
+  }
+  75% {
+    box-shadow: 0 0 0 0.2em #c20a0a;
+  }
+  100% {
+    box-shadow: 0 0 0 0.3em #c20a0a;
+  }
+}
+.myimg {
+  margin: auto;
+  display:block;
+  width: 200px;
+  border-radius: 50%;
+  border: 2px solid #08fdd8;
+}
+.name {
+  text-align:center;
+  color: white;
+}
+.ko {
+  text-align:center;
+  color: white;
+}
+img:hover {
+  border: 2px white solid;
+}
+footer {
+  color: white;
+  text-align: center;
+}
+a {
+  color: orange;
+}
+#modop {
+  top: 350px;
+  left: 40%;
+}
+
+
+#contact-form {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+label {
+  font-weight: 400;
+  cursor: pointer;
+}
+
+textarea,
+input {
+  border: none;
+  outline: none;
+  border-radius: 0;
+  text-align: center;
+  background: none;
+  font-weight: 700;
+  font-family: 'Lato', georgia;
+  font-size: 25px;
+  color: rgba(255, 255, 255, 1);
+  max-width: 90%;
+  padding: 1rem;
+  border: 2px dashed rgba(255, 255, 255, 0);
+  box-sizing: border-box;
+  cursor: text;
+}
+
+textarea {
+  text-align: left;
+  /* overflow:hidden; */
+  
+  resize: none;
+  width: 90%;
+  border-color: rgba(255, 255, 255, 0)
+}
+
+textarea:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px dashed rgba(255, 255, 255, 1);
+}
+
+textarea:focus:required:valid {
+  border: 2px solid rgba(255, 255, 255, 0);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+textarea:required:valid {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+input {
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
+}
+
+input:required,
+textarea:required {
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
+}
+
+input:focus {
+  border-bottom: 2px dashed rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+input:required:valid {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+input:required:invalid {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+::-webkit-input-placeholder {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+  font-weight: 400;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+  font-weight: 400;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+  font-weight: 400;
+}
+
+:-ms-input-placeholder {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.expanding {
+  vertical-align: top;
+}
+
+.send-icn {
+  fill: rgba(255, 255, 255, 1)
+}
+
+.send-icn:hover {
+  fill: rgba(0, 0, 0, 1);
+  cursor: pointer;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  margin: 2vmax;
+}
+
+button:hover small {
+  opacity: 1;
+}
+small {
+  display: block;
+  opacity: 0;
+}
+#loginModal {
+  font-family: 'Lato', georgia;
+  font-size: 25px;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(236, 181, 62, 0.95);
+  text-align: center;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  background-size: cover;
+  background-repeat: repeat;
+    background-attachment: fixed;
+    background-position: left; 
+  background-image: url("https://images.unsplash.com/photo-1497091071254-cc9b2ba7c48a?dpr=1&auto=compress,format&fit=crop&w=753&h=&q=80&cs=tinysrgb&crop=");
+}
+small {
+  font-size: 12px;
+}
+.avail {
+  width: 32px;
+}
+footer {
+   padding-top: 40px;
+ 
+}
+</style></head><body>
+
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="container">
+  <div class="notification">
+  </div>
+           <button class="btn btn-primary btn-responsive" id="btnPopover" title="<strong>FIND ME ON MY LINKS</strong>"
+       data-content= "<ul class='menu'>
+                      <li class='but1'><div class='notification1'><a href='http://tdrdimov.com/' target='_blank'><i class='fa fa-link fa-2x' ></i></a></li></div>
+      <li class='but1'><a href='https://www.facebook.com/tdrdimov' target='_blank'><i class='fa fa-facebook fa-2x' ></i></a></li>
+                      <li class='but1'><a href='https://www.instagram.com/tdimov/' target='_blank'><i class='fa fa-instagram fa-2x' ></i></a></li>
+                      <li class='but1'><a href='https://www.linkedin.com/in/todor-dimov-96900b115/' target='_blank'><i class='fa fa-linkedin fa-2x' ></i></a></li>
+                      <li class='but1'><a href='https://github.com/tdrdimov' target='_blank'><i class='fa fa-github fa-2x' ></i></a></li>
+                      <li class='but1'><a href='https://codepen.io/tdrdimov' target='_blank'><i class='fa fa-codepen fa-2x' ></i></a></li>
+                      </ul>"
+          data-placement="left"
+        data-toggle="popover"
+          data-animation="boolean"
+        data-trigger="focus">
+    <strong> <i class="fa fa-bars fa-3x" aria-hidden="true"></i></strong>
+</button>
+ 
+  <p class="cmrc">TdrDimov</p>
+  
+<div class="content"><img id="prlx" class="myimg img-responsive" src="https://scontent.fhou1-2.fna.fbcdn.net/v/t1.0-9/200513_1607641110268_2278520_n.jpg?oh=b04e4b336a2b062e0311bb70c1f1845d&oe=5A730404"><h2 class="name">Todor Dimov</h2>
+  <h3 class="ko">Front-End Web Developer/Designer</h3>
+  </div>
+
+  <p align="center"><button id="avlb" class="btn btn-primary btn-sm btn-responsive" data-target="#loginModal" data-toggle="modal">CHECK AVAILABILITY</button></p>
+
+<div id="loginModal" class="modal fade" tabindex="-1" data-keyboard="false" data-backdrop="static">
+<div class="modal-dialog modal-lg">
+<div class="modal-dialog">
+<div class="modal-header">
+  <h2 class="modal-title" style="text-align: center;"> AVAILABLE <img class="avail" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU1IDU1IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1NSA1NTsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxnPgoJPGc+CgkJPHBhdGggc3R5bGU9ImZpbGw6IzNBQkNBNzsiIGQ9Ik00NC4xMzYsNTJIOC44NjRDNC4yNDUsNTIsMC41LDQ4LjI1NSwwLjUsNDMuNjM2VjguMzY0QzAuNSwzLjc0NSw0LjI0NSwwLDguODY0LDBoMzUuMjcyICAgIEM0OC43NTUsMCw1Mi41LDMuNzQ1LDUyLjUsOC4zNjR2MzUuMjcyQzUyLjUsNDguMjU1LDQ4Ljc1NSw1Miw0NC4xMzYsNTJ6Ii8+CgkJPHBhdGggc3R5bGU9ImZpbGw6I0ZGRkZGRjsiIGQ9Ik00NC41LDE0aC0xOGMtMC41NTIsMC0xLTAuNDQ3LTEtMXMwLjQ0OC0xLDEtMWgxOGMwLjU1MywwLDEsMC40NDcsMSwxUzQ1LjA1MywxNCw0NC41LDE0eiIvPgoJCTxwYXRoIHN0eWxlPSJmaWxsOiNGRkZGRkY7IiBkPSJNNDQuNSwyOGgtMThjLTAuNTUyLDAtMS0wLjQ0Ny0xLTFzMC40NDgtMSwxLTFoMThjMC41NTMsMCwxLDAuNDQ3LDEsMVM0NS4wNTMsMjgsNDQuNSwyOHoiLz4KCQk8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTQ0LjUsNDJoLTE4Yy0wLjU1MiwwLTEtMC40NDctMS0xczAuNDQ4LTEsMS0xaDE4YzAuNTUzLDAsMSwwLjQ0NywxLDFTNDUuMDUzLDQyLDQ0LjUsNDJ6Ii8+CgkJPHBhdGggc3R5bGU9ImZpbGw6I0ZGRkZGRjsiIGQ9Ik0xMi41NzEsMTdjLTAuMjA5LDAtMC40Mi0wLjA2NS0wLjYtMC4yTDcuNCwxMy4zNzFjLTAuNDQyLTAuMzMxLTAuNTMxLTAuOTU4LTAuMi0xLjM5OSAgICBjMC4zMzEtMC40NDEsMC45NTctMC41MzEsMS40LTAuMmwzLjgyMiwyLjg2Nmw2LjI0OC03LjI4OGMwLjM1OS0wLjQyLDAuOTkyLTAuNDY4LDEuNDEtMC4xMDhjMC40MTksMC4zNTksMC40NjgsMC45OSwwLjEwOCwxLjQwOSAgICBsLTYuODU3LDhDMTMuMTMzLDE2Ljg4MSwxMi44NTQsMTcsMTIuNTcxLDE3eiIvPgoJCTxwYXRoIHN0eWxlPSJmaWxsOiNGRkZGRkY7IiBkPSJNMTIuNTcxLDMxYy0wLjIwOSwwLTAuNDItMC4wNjUtMC42LTAuMkw3LjQsMjcuMzcxYy0wLjQ0Mi0wLjMzMS0wLjUzMS0wLjk1OC0wLjItMS4zOTkgICAgYzAuMzMxLTAuNDQxLDAuOTU3LTAuNTMxLDEuNC0wLjJsMy44MjIsMi44NjZsNi4yNDgtNy4yODhjMC4zNTktMC40MiwwLjk5Mi0wLjQ2OCwxLjQxLTAuMTA4YzAuNDE5LDAuMzU5LDAuNDY4LDAuOTksMC4xMDgsMS40MDkgICAgbC02Ljg1Nyw4QzEzLjEzMywzMC44ODEsMTIuODU0LDMxLDEyLjU3MSwzMXoiLz4KCQk8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTEyLjU3MSw0NS45OTljLTAuMjA5LDAtMC40Mi0wLjA2NS0wLjYtMC4yTDcuNCw0Mi4zN2MtMC40NDItMC4zMzEtMC41MzEtMC45NTgtMC4yLTEuMzk5ICAgIGMwLjMzMS0wLjQ0MSwwLjk1Ny0wLjUzMSwxLjQtMC4ybDMuODIyLDIuODY2bDYuMjQ4LTcuMjg3YzAuMzU5LTAuNDIxLDAuOTkyLTAuNDY5LDEuNDEtMC4xMDggICAgYzAuNDE5LDAuMzU5LDAuNDY4LDAuOTksMC4xMDgsMS40MDlsLTYuODU3LDcuOTk5QzEzLjEzMyw0NS44OCwxMi44NTQsNDUuOTk5LDEyLjU3MSw0NS45OTl6Ii8+Cgk8L2c+Cgk8Zz4KCQk8cmVjdCB4PSIzMi41IiB5PSIzMyIgc3R5bGU9ImZpbGw6IzIxQUU1RTsiIHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIvPgoJCTxyZWN0IHg9IjQyLjUiIHk9IjM0LjU4NiIgc3R5bGU9ImZpbGw6I0ZGRkZGRjsiIHdpZHRoPSIyIiBoZWlnaHQ9IjE2Ii8+CgkJPHBvbHlnb24gc3R5bGU9ImZpbGw6I0ZGRkZGRjsiIHBvaW50cz0iNDMuNSw1MiAzNi41LDQ1LjI5MyAzNy45NzYsNDMuODc5IDQzLjUsNDkuMTcyIDQ5LjAyNCw0My44NzkgNTAuNSw0NS4yOTMgICAiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" /></h2>
+  
+<button class="close" type="button" data-dismiss="modal">
+X
+</button>
+
+</div>
+<div class="modal-body">
+
+<form id="contact-form">
+  <p>Dear Todor,</p>
+  <p>My
+    <label for="your-name">name</label> is
+    <input type="text" name="your-name" id="your-name" minlength="3" placeholder="(your name here)" required> and</p>
+
+  <p>my
+    <label for="email">email address</label> is
+    <input type="email" name="your-email" id="email" placeholder="(your email address)" required>
+  </p>
+
+  <p> I have a
+    <label for="your-message">message</label> for you,</p>
+
+  <p>
+    <textarea name="your-message" id="your-message" placeholder="(your msg here)" class="expanding" required></textarea>
+  </p>
+  <p>
+    <button type="submit">
+      <svg version="1.1" class="send-icn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="36px" viewBox="0 0 100 36" enable-background="new 0 0 100 36" xml:space="preserve">
+        <path d="M100,0L100,0 M23.8,7.1L100,0L40.9,36l-4.7-7.5L22,34.8l-4-11L0,30.5L16.4,8.7l5.4,15L23,7L23.8,7.1z M16.8,20.4l-1.5-4.3
+	l-5.1,6.7L16.8,20.4z M34.4,25.4l-8.1-13.1L25,29.6L34.4,25.4z M35.2,13.2l8.1,13.1L70,9.9L35.2,13.2z" />
+      </svg>
+      <small>send</small>
+    </button>
+  </p>
+</form>
+  
+</div>
+<div class="modal-footer">
+<p align="center"><button id="cls" class="btn btn-primary" type="button" data-dismiss="modal">Close</button></p></div>
+</div>
+</div>
+</div>
+
+  <footer>coded by: <a href="http://tdrdimov.com/">tdrdimov</a></footer>
+  
+  
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/parallax/2.1.3/parallax.min.js'></script>
+<script >$(document).ready(function () {
+    $('#btnPopover').popover({html:true});
+});
+$(document).ready(function(){
+    $('#btnPopover').click(function(){
+        $('.notification').hide();
+    });
+});
+
+$(document).ready(function(){
+    $("body").ready(function(){
+       
+       $(".container").fadeIn(1500);
+    });
+});
+$(function(){
+    $("img").on('click', function(){
+       
+       $(".cmrc").html( 'WebDesigner');
+    });
+});
+
+var scene = document.getElementByClassName('container');
+var parallax = new Parallax(scene, {
+  selector: '.myimg'
+});
+//# sourceURL=pen.js
+</script>
+</body></html>

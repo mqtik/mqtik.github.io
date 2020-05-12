@@ -1,0 +1,1032 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/yjBpRJ" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style class="cp-pen-styles">*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-size: 16px;
+}
+
+body {
+  background-color: currentColor;
+  display: flex;
+  font: 1em "Helvetica Neue", Helvetica, sans-serif;
+  height: 100vh;
+  line-height: 1.5;
+  overflow: hidden;
+  perspective: 800px;
+}
+
+main, .particle {
+  transform-style: preserve-3d;
+}
+
+main {
+  animation: speed 6s cubic-bezier(0.8, 0.1, 0.9, 0.25) infinite;
+  margin: auto;
+  will-change: transform;
+  width: 90px;
+  height: 90px;
+}
+
+.particle {
+  animation: fadeIn 6s linear infinite;
+  background-image: radial-gradient(50% 75% at center, #fff, #88f, transparent);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  width: 3px;
+  height: 300px;
+  transform-origin: 50% 0%;
+}
+.particle:nth-of-type(1) {
+  transform: translateX(-50%) rotateZ(227.009859134deg) rotateX(90deg) translateZ(30.8877582191px) translateY(891.2605386277px);
+}
+.particle:nth-of-type(2) {
+  transform: translateX(-50%) rotateZ(3.6250812518deg) rotateX(90deg) translateZ(31.3489489882px) translateY(385.6121769553px);
+}
+.particle:nth-of-type(3) {
+  transform: translateX(-50%) rotateZ(313.3187500831deg) rotateX(90deg) translateZ(20.0137164545px) translateY(584.0089036507px);
+}
+.particle:nth-of-type(4) {
+  transform: translateX(-50%) rotateZ(49.8864951048deg) rotateX(90deg) translateZ(35.0840032374px) translateY(546.2005329869px);
+}
+.particle:nth-of-type(5) {
+  transform: translateX(-50%) rotateZ(322.5056385027deg) rotateX(90deg) translateZ(38.4168973988px) translateY(124.2089821094px);
+}
+.particle:nth-of-type(6) {
+  transform: translateX(-50%) rotateZ(343.7144266399deg) rotateX(90deg) translateZ(35.8124487058px) translateY(375.9282583438px);
+}
+.particle:nth-of-type(7) {
+  transform: translateX(-50%) rotateZ(95.797198277deg) rotateX(90deg) translateZ(18.8116069276px) translateY(639.6113566418px);
+}
+.particle:nth-of-type(8) {
+  transform: translateX(-50%) rotateZ(102.2386467164deg) rotateX(90deg) translateZ(22.7172300383px) translateY(872.0674535756px);
+}
+.particle:nth-of-type(9) {
+  transform: translateX(-50%) rotateZ(0.3074476022deg) rotateX(90deg) translateZ(19.9734762388px) translateY(908.7240503681px);
+}
+.particle:nth-of-type(10) {
+  transform: translateX(-50%) rotateZ(127.9922013726deg) rotateX(90deg) translateZ(42.5038403755px) translateY(375.733386719px);
+}
+.particle:nth-of-type(11) {
+  transform: translateX(-50%) rotateZ(328.8678476713deg) rotateX(90deg) translateZ(31.5862484997px) translateY(765.9347855125px);
+}
+.particle:nth-of-type(12) {
+  transform: translateX(-50%) rotateZ(143.77910404deg) rotateX(90deg) translateZ(22.9380032766px) translateY(723.108615354px);
+}
+.particle:nth-of-type(13) {
+  transform: translateX(-50%) rotateZ(339.1179453577deg) rotateX(90deg) translateZ(22.4519832981px) translateY(411.504986927px);
+}
+.particle:nth-of-type(14) {
+  transform: translateX(-50%) rotateZ(243.6168962985deg) rotateX(90deg) translateZ(38.547053997px) translateY(617.4806832333px);
+}
+.particle:nth-of-type(15) {
+  transform: translateX(-50%) rotateZ(165.9224715737deg) rotateX(90deg) translateZ(24.6453922066px) translateY(856.8906786991px);
+}
+.particle:nth-of-type(16) {
+  transform: translateX(-50%) rotateZ(88.6454546323deg) rotateX(90deg) translateZ(44.2017076089px) translateY(648.1023714535px);
+}
+.particle:nth-of-type(17) {
+  transform: translateX(-50%) rotateZ(330.0263031512deg) rotateX(90deg) translateZ(39.0455533618px) translateY(840.118747035px);
+}
+.particle:nth-of-type(18) {
+  transform: translateX(-50%) rotateZ(65.6644666829deg) rotateX(90deg) translateZ(30.0671763368px) translateY(863.6686894578px);
+}
+.particle:nth-of-type(19) {
+  transform: translateX(-50%) rotateZ(150.0038037269deg) rotateX(90deg) translateZ(44.3912367071px) translateY(532.8463842028px);
+}
+.particle:nth-of-type(20) {
+  transform: translateX(-50%) rotateZ(40.6805779935deg) rotateX(90deg) translateZ(19.4425412588px) translateY(815.7867953576px);
+}
+.particle:nth-of-type(21) {
+  transform: translateX(-50%) rotateZ(160.9171118962deg) rotateX(90deg) translateZ(40.9841599064px) translateY(184.0475242066px);
+}
+.particle:nth-of-type(22) {
+  transform: translateX(-50%) rotateZ(244.3291019942deg) rotateX(90deg) translateZ(31.4009376175px) translateY(213.3053632031px);
+}
+.particle:nth-of-type(23) {
+  transform: translateX(-50%) rotateZ(340.4920287559deg) rotateX(90deg) translateZ(25.9670474418px) translateY(557.4542510743px);
+}
+.particle:nth-of-type(24) {
+  transform: translateX(-50%) rotateZ(169.5259553982deg) rotateX(90deg) translateZ(38.3085015011px) translateY(262.3768134759px);
+}
+.particle:nth-of-type(25) {
+  transform: translateX(-50%) rotateZ(6.7911712026deg) rotateX(90deg) translateZ(40.0371435232px) translateY(167.0017312427px);
+}
+.particle:nth-of-type(26) {
+  transform: translateX(-50%) rotateZ(351.8856055087deg) rotateX(90deg) translateZ(32.4242046016px) translateY(652.6817790845px);
+}
+.particle:nth-of-type(27) {
+  transform: translateX(-50%) rotateZ(44.7483295325deg) rotateX(90deg) translateZ(37.898333055px) translateY(206.8693571242px);
+}
+.particle:nth-of-type(28) {
+  transform: translateX(-50%) rotateZ(270.2041558428deg) rotateX(90deg) translateZ(24.9714000068px) translateY(873.6336281714px);
+}
+.particle:nth-of-type(29) {
+  transform: translateX(-50%) rotateZ(3.973308505deg) rotateX(90deg) translateZ(41.0090871087px) translateY(592.5926749346px);
+}
+.particle:nth-of-type(30) {
+  transform: translateX(-50%) rotateZ(44.5434768682deg) rotateX(90deg) translateZ(15.7583694436px) translateY(582.8423249383px);
+}
+.particle:nth-of-type(31) {
+  transform: translateX(-50%) rotateZ(162.8606877419deg) rotateX(90deg) translateZ(27.1032085367px) translateY(567.2081082276px);
+}
+.particle:nth-of-type(32) {
+  transform: translateX(-50%) rotateZ(190.6232895749deg) rotateX(90deg) translateZ(22.3596822102px) translateY(817.4115937584px);
+}
+.particle:nth-of-type(33) {
+  transform: translateX(-50%) rotateZ(342.8324452938deg) rotateX(90deg) translateZ(31.5808453118px) translateY(347.1069808561px);
+}
+.particle:nth-of-type(34) {
+  transform: translateX(-50%) rotateZ(118.2954412839deg) rotateX(90deg) translateZ(43.0677726994px) translateY(421.637222935px);
+}
+.particle:nth-of-type(35) {
+  transform: translateX(-50%) rotateZ(54.6466553799deg) rotateX(90deg) translateZ(25.6227824812px) translateY(743.4151237509px);
+}
+.particle:nth-of-type(36) {
+  transform: translateX(-50%) rotateZ(158.4579537888deg) rotateX(90deg) translateZ(39.7561645545px) translateY(866.8059674124px);
+}
+.particle:nth-of-type(37) {
+  transform: translateX(-50%) rotateZ(69.7494222746deg) rotateX(90deg) translateZ(18.993641986px) translateY(276.0915217408px);
+}
+.particle:nth-of-type(38) {
+  transform: translateX(-50%) rotateZ(284.5952199988deg) rotateX(90deg) translateZ(34.5520621258px) translateY(226.2817199373px);
+}
+.particle:nth-of-type(39) {
+  transform: translateX(-50%) rotateZ(253.1819253836deg) rotateX(90deg) translateZ(30.7951509058px) translateY(408.5677184582px);
+}
+.particle:nth-of-type(40) {
+  transform: translateX(-50%) rotateZ(199.4267764645deg) rotateX(90deg) translateZ(29.8561111982px) translateY(68.9086764712px);
+}
+.particle:nth-of-type(41) {
+  transform: translateX(-50%) rotateZ(121.5641791126deg) rotateX(90deg) translateZ(20.7288202528px) translateY(643.9894483026px);
+}
+.particle:nth-of-type(42) {
+  transform: translateX(-50%) rotateZ(104.499784901deg) rotateX(90deg) translateZ(17.5258011297px) translateY(640.6361509082px);
+}
+.particle:nth-of-type(43) {
+  transform: translateX(-50%) rotateZ(153.8069421453deg) rotateX(90deg) translateZ(31.5202780355px) translateY(532.4894775746px);
+}
+.particle:nth-of-type(44) {
+  transform: translateX(-50%) rotateZ(20.0814186867deg) rotateX(90deg) translateZ(27.1360204918px) translateY(72.0634356389px);
+}
+.particle:nth-of-type(45) {
+  transform: translateX(-50%) rotateZ(302.8932003963deg) rotateX(90deg) translateZ(36.1613838161px) translateY(962.9731976832px);
+}
+.particle:nth-of-type(46) {
+  transform: translateX(-50%) rotateZ(283.9997877103deg) rotateX(90deg) translateZ(39.244899707px) translateY(953.9217339052px);
+}
+.particle:nth-of-type(47) {
+  transform: translateX(-50%) rotateZ(110.9079805454deg) rotateX(90deg) translateZ(26.5638204463px) translateY(192.3074528198px);
+}
+.particle:nth-of-type(48) {
+  transform: translateX(-50%) rotateZ(9.1213584326deg) rotateX(90deg) translateZ(21.4460880136px) translateY(965.0902461823px);
+}
+.particle:nth-of-type(49) {
+  transform: translateX(-50%) rotateZ(35.987891917deg) rotateX(90deg) translateZ(43.2183759883px) translateY(875.6354992112px);
+}
+.particle:nth-of-type(50) {
+  transform: translateX(-50%) rotateZ(14.8141910429deg) rotateX(90deg) translateZ(22.5932716312px) translateY(711.8164771165px);
+}
+.particle:nth-of-type(51) {
+  transform: translateX(-50%) rotateZ(253.2480119094deg) rotateX(90deg) translateZ(32.9073742432px) translateY(758.7309982948px);
+}
+.particle:nth-of-type(52) {
+  transform: translateX(-50%) rotateZ(184.3288784133deg) rotateX(90deg) translateZ(23.3543543856px) translateY(852.5707881649px);
+}
+.particle:nth-of-type(53) {
+  transform: translateX(-50%) rotateZ(319.5824776916deg) rotateX(90deg) translateZ(19.4243051891px) translateY(126.1110376939px);
+}
+.particle:nth-of-type(54) {
+  transform: translateX(-50%) rotateZ(149.8323653937deg) rotateX(90deg) translateZ(43.8220109384px) translateY(122.4336942148px);
+}
+.particle:nth-of-type(55) {
+  transform: translateX(-50%) rotateZ(12.2286419485deg) rotateX(90deg) translateZ(24.5809743093px) translateY(137.9197772529px);
+}
+.particle:nth-of-type(56) {
+  transform: translateX(-50%) rotateZ(130.9913409138deg) rotateX(90deg) translateZ(29.9354278039px) translateY(697.6915234233px);
+}
+.particle:nth-of-type(57) {
+  transform: translateX(-50%) rotateZ(40.2083662988deg) rotateX(90deg) translateZ(15.0448277214px) translateY(270.2090718735px);
+}
+.particle:nth-of-type(58) {
+  transform: translateX(-50%) rotateZ(183.9532350485deg) rotateX(90deg) translateZ(18.7692723719px) translateY(639.0714623383px);
+}
+.particle:nth-of-type(59) {
+  transform: translateX(-50%) rotateZ(120.0635461792deg) rotateX(90deg) translateZ(29.6703372137px) translateY(384.0177205308px);
+}
+.particle:nth-of-type(60) {
+  transform: translateX(-50%) rotateZ(322.6576288227deg) rotateX(90deg) translateZ(38.0628876429px) translateY(190.060047901px);
+}
+.particle:nth-of-type(61) {
+  transform: translateX(-50%) rotateZ(160.9724379281deg) rotateX(90deg) translateZ(17.1343676708px) translateY(340.5585492421px);
+}
+.particle:nth-of-type(62) {
+  transform: translateX(-50%) rotateZ(142.0485670431deg) rotateX(90deg) translateZ(19.1400838093px) translateY(127.1441297249px);
+}
+.particle:nth-of-type(63) {
+  transform: translateX(-50%) rotateZ(310.4905193774deg) rotateX(90deg) translateZ(24.7507023527px) translateY(437.8437830004px);
+}
+.particle:nth-of-type(64) {
+  transform: translateX(-50%) rotateZ(309.3715328659deg) rotateX(90deg) translateZ(31.2803176515px) translateY(501.5994988553px);
+}
+.particle:nth-of-type(65) {
+  transform: translateX(-50%) rotateZ(338.1852998717deg) rotateX(90deg) translateZ(42.2667926866px) translateY(572.9099162375px);
+}
+.particle:nth-of-type(66) {
+  transform: translateX(-50%) rotateZ(165.8154486508deg) rotateX(90deg) translateZ(18.050895289px) translateY(518.2579833077px);
+}
+.particle:nth-of-type(67) {
+  transform: translateX(-50%) rotateZ(13.3661085769deg) rotateX(90deg) translateZ(39.3284893694px) translateY(154.6736993106px);
+}
+.particle:nth-of-type(68) {
+  transform: translateX(-50%) rotateZ(104.1331631639deg) rotateX(90deg) translateZ(38.178443219px) translateY(700.7708939114px);
+}
+.particle:nth-of-type(69) {
+  transform: translateX(-50%) rotateZ(299.4275916392deg) rotateX(90deg) translateZ(30.2916227693px) translateY(611.1546426361px);
+}
+.particle:nth-of-type(70) {
+  transform: translateX(-50%) rotateZ(340.3257164575deg) rotateX(90deg) translateZ(33.7503215463px) translateY(376.2427747671px);
+}
+.particle:nth-of-type(71) {
+  transform: translateX(-50%) rotateZ(161.7588742521deg) rotateX(90deg) translateZ(23.8149583964px) translateY(263.6109817733px);
+}
+.particle:nth-of-type(72) {
+  transform: translateX(-50%) rotateZ(28.1608031507deg) rotateX(90deg) translateZ(38.219512699px) translateY(955.7972939419px);
+}
+.particle:nth-of-type(73) {
+  transform: translateX(-50%) rotateZ(339.4774725785deg) rotateX(90deg) translateZ(40.9419189589px) translateY(724.9662010562px);
+}
+.particle:nth-of-type(74) {
+  transform: translateX(-50%) rotateZ(78.0003698392deg) rotateX(90deg) translateZ(40.8521058269px) translateY(794.4588983548px);
+}
+.particle:nth-of-type(75) {
+  transform: translateX(-50%) rotateZ(253.5290178175deg) rotateX(90deg) translateZ(26.805588246px) translateY(760.7946622133px);
+}
+.particle:nth-of-type(76) {
+  transform: translateX(-50%) rotateZ(307.8216988023deg) rotateX(90deg) translateZ(16.2412168206px) translateY(319.0156890749px);
+}
+.particle:nth-of-type(77) {
+  transform: translateX(-50%) rotateZ(206.5498096955deg) rotateX(90deg) translateZ(32.5377230492px) translateY(223.2423616362px);
+}
+.particle:nth-of-type(78) {
+  transform: translateX(-50%) rotateZ(45.2741370758deg) rotateX(90deg) translateZ(15.8583901484px) translateY(788.1578484015px);
+}
+.particle:nth-of-type(79) {
+  transform: translateX(-50%) rotateZ(310.0337601753deg) rotateX(90deg) translateZ(42.3456738008px) translateY(504.2720491602px);
+}
+.particle:nth-of-type(80) {
+  transform: translateX(-50%) rotateZ(349.8729887258deg) rotateX(90deg) translateZ(36.4817621982px) translateY(620.632980379px);
+}
+.particle:nth-of-type(81) {
+  transform: translateX(-50%) rotateZ(339.2115448904deg) rotateX(90deg) translateZ(38.0779205694px) translateY(142.2872366721px);
+}
+.particle:nth-of-type(82) {
+  transform: translateX(-50%) rotateZ(186.4955445382deg) rotateX(90deg) translateZ(27.0477546016px) translateY(858.3147613804px);
+}
+.particle:nth-of-type(83) {
+  transform: translateX(-50%) rotateZ(275.283012974deg) rotateX(90deg) translateZ(24.4732588505px) translateY(316.1904845007px);
+}
+.particle:nth-of-type(84) {
+  transform: translateX(-50%) rotateZ(309.5406514324deg) rotateX(90deg) translateZ(35.5873584793px) translateY(526.9869578524px);
+}
+.particle:nth-of-type(85) {
+  transform: translateX(-50%) rotateZ(41.4730529706deg) rotateX(90deg) translateZ(15.9390519367px) translateY(730.105576607px);
+}
+.particle:nth-of-type(86) {
+  transform: translateX(-50%) rotateZ(66.7165166427deg) rotateX(90deg) translateZ(18.5372069472px) translateY(329.2610675596px);
+}
+.particle:nth-of-type(87) {
+  transform: translateX(-50%) rotateZ(138.9150421609deg) rotateX(90deg) translateZ(36.7771461937px) translateY(441.5442174686px);
+}
+.particle:nth-of-type(88) {
+  transform: translateX(-50%) rotateZ(97.2386705552deg) rotateX(90deg) translateZ(19.1244627047px) translateY(870.3688006928px);
+}
+.particle:nth-of-type(89) {
+  transform: translateX(-50%) rotateZ(185.2756207202deg) rotateX(90deg) translateZ(17.2882659779px) translateY(599.1315942354px);
+}
+.particle:nth-of-type(90) {
+  transform: translateX(-50%) rotateZ(253.3393869752deg) rotateX(90deg) translateZ(32.959726179px) translateY(449.5464219259px);
+}
+.particle:nth-of-type(91) {
+  transform: translateX(-50%) rotateZ(43.9146056404deg) rotateX(90deg) translateZ(34.0190305241px) translateY(212.97201009px);
+}
+.particle:nth-of-type(92) {
+  transform: translateX(-50%) rotateZ(100.3905757044deg) rotateX(90deg) translateZ(25.2664844941px) translateY(937.4224140196px);
+}
+.particle:nth-of-type(93) {
+  transform: translateX(-50%) rotateZ(330.7424842904deg) rotateX(90deg) translateZ(44.5613479655px) translateY(495.7509882181px);
+}
+.particle:nth-of-type(94) {
+  transform: translateX(-50%) rotateZ(148.7612312817deg) rotateX(90deg) translateZ(42.4140417056px) translateY(635.4120338672px);
+}
+.particle:nth-of-type(95) {
+  transform: translateX(-50%) rotateZ(352.6912717929deg) rotateX(90deg) translateZ(38.5309075836px) translateY(795.9815446145px);
+}
+.particle:nth-of-type(96) {
+  transform: translateX(-50%) rotateZ(323.2513503884deg) rotateX(90deg) translateZ(29.9388109279px) translateY(128.9556419769px);
+}
+.particle:nth-of-type(97) {
+  transform: translateX(-50%) rotateZ(147.2802991315deg) rotateX(90deg) translateZ(34.4519449521px) translateY(156.3534876513px);
+}
+.particle:nth-of-type(98) {
+  transform: translateX(-50%) rotateZ(317.1216600406deg) rotateX(90deg) translateZ(16.0445661736px) translateY(318.7133444847px);
+}
+.particle:nth-of-type(99) {
+  transform: translateX(-50%) rotateZ(206.6981375143deg) rotateX(90deg) translateZ(24.040862431px) translateY(308.4443739108px);
+}
+.particle:nth-of-type(100) {
+  transform: translateX(-50%) rotateZ(58.1228847019deg) rotateX(90deg) translateZ(37.4565677481px) translateY(608.4734707151px);
+}
+.particle:nth-of-type(101) {
+  transform: translateX(-50%) rotateZ(52.1376413936deg) rotateX(90deg) translateZ(25.8528000568px) translateY(631.2028652316px);
+}
+.particle:nth-of-type(102) {
+  transform: translateX(-50%) rotateZ(258.3084443151deg) rotateX(90deg) translateZ(41.5085864861px) translateY(895.1974722074px);
+}
+.particle:nth-of-type(103) {
+  transform: translateX(-50%) rotateZ(92.2138902225deg) rotateX(90deg) translateZ(30.568267978px) translateY(347.5336118711px);
+}
+.particle:nth-of-type(104) {
+  transform: translateX(-50%) rotateZ(348.9415831039deg) rotateX(90deg) translateZ(28.796636898px) translateY(713.4910871612px);
+}
+.particle:nth-of-type(105) {
+  transform: translateX(-50%) rotateZ(79.7964064537deg) rotateX(90deg) translateZ(44.3485643739px) translateY(429.3105926782px);
+}
+.particle:nth-of-type(106) {
+  transform: translateX(-50%) rotateZ(125.2035886107deg) rotateX(90deg) translateZ(15.5107647178px) translateY(270.1056446037px);
+}
+.particle:nth-of-type(107) {
+  transform: translateX(-50%) rotateZ(332.8257222614deg) rotateX(90deg) translateZ(25.8351477575px) translateY(735.3595267387px);
+}
+.particle:nth-of-type(108) {
+  transform: translateX(-50%) rotateZ(271.8001057986deg) rotateX(90deg) translateZ(26.962191139px) translateY(721.9134744931px);
+}
+.particle:nth-of-type(109) {
+  transform: translateX(-50%) rotateZ(210.0338353949deg) rotateX(90deg) translateZ(34.2023774149px) translateY(708.0477116017px);
+}
+.particle:nth-of-type(110) {
+  transform: translateX(-50%) rotateZ(32.59232479deg) rotateX(90deg) translateZ(38.7776391049px) translateY(390.5096671049px);
+}
+.particle:nth-of-type(111) {
+  transform: translateX(-50%) rotateZ(105.2834551264deg) rotateX(90deg) translateZ(23.151626705px) translateY(979.2901911292px);
+}
+.particle:nth-of-type(112) {
+  transform: translateX(-50%) rotateZ(240.4230515626deg) rotateX(90deg) translateZ(30.292225331px) translateY(720.5990604117px);
+}
+.particle:nth-of-type(113) {
+  transform: translateX(-50%) rotateZ(215.4234162584deg) rotateX(90deg) translateZ(24.6036141803px) translateY(327.182871281px);
+}
+.particle:nth-of-type(114) {
+  transform: translateX(-50%) rotateZ(305.8795561363deg) rotateX(90deg) translateZ(15.065707047px) translateY(816.8360710201px);
+}
+.particle:nth-of-type(115) {
+  transform: translateX(-50%) rotateZ(43.5574214006deg) rotateX(90deg) translateZ(22.0984783841px) translateY(697.5877539122px);
+}
+.particle:nth-of-type(116) {
+  transform: translateX(-50%) rotateZ(233.0441700477deg) rotateX(90deg) translateZ(31.4361151261px) translateY(470.0539863377px);
+}
+.particle:nth-of-type(117) {
+  transform: translateX(-50%) rotateZ(342.3556099022deg) rotateX(90deg) translateZ(32.1783548877px) translateY(542.0099364957px);
+}
+.particle:nth-of-type(118) {
+  transform: translateX(-50%) rotateZ(167.8534360214deg) rotateX(90deg) translateZ(15.3636576964px) translateY(714.8655553607px);
+}
+.particle:nth-of-type(119) {
+  transform: translateX(-50%) rotateZ(302.2056727666deg) rotateX(90deg) translateZ(19.8374329663px) translateY(181.4625649942px);
+}
+.particle:nth-of-type(120) {
+  transform: translateX(-50%) rotateZ(301.2337836437deg) rotateX(90deg) translateZ(20.7676482373px) translateY(42.1457365436px);
+}
+.particle:nth-of-type(121) {
+  transform: translateX(-50%) rotateZ(347.4018620448deg) rotateX(90deg) translateZ(36.4522707611px) translateY(423.0233417606px);
+}
+.particle:nth-of-type(122) {
+  transform: translateX(-50%) rotateZ(208.7506175722deg) rotateX(90deg) translateZ(25.371761691px) translateY(817.0279892942px);
+}
+.particle:nth-of-type(123) {
+  transform: translateX(-50%) rotateZ(96.0764200009deg) rotateX(90deg) translateZ(22.2704247524px) translateY(882.1228568752px);
+}
+.particle:nth-of-type(124) {
+  transform: translateX(-50%) rotateZ(169.6636617686deg) rotateX(90deg) translateZ(43.9250858336px) translateY(764.4386198719px);
+}
+.particle:nth-of-type(125) {
+  transform: translateX(-50%) rotateZ(60.7289060159deg) rotateX(90deg) translateZ(21.9523635081px) translateY(137.8701326196px);
+}
+.particle:nth-of-type(126) {
+  transform: translateX(-50%) rotateZ(246.9297017459deg) rotateX(90deg) translateZ(28.7281989087px) translateY(459.3117367612px);
+}
+.particle:nth-of-type(127) {
+  transform: translateX(-50%) rotateZ(284.0247870694deg) rotateX(90deg) translateZ(33.8053528559px) translateY(98.2188778553px);
+}
+.particle:nth-of-type(128) {
+  transform: translateX(-50%) rotateZ(89.6228444708deg) rotateX(90deg) translateZ(22.5697950922px) translateY(636.3960061911px);
+}
+.particle:nth-of-type(129) {
+  transform: translateX(-50%) rotateZ(281.5592221707deg) rotateX(90deg) translateZ(15.6352104236px) translateY(498.7209417548px);
+}
+.particle:nth-of-type(130) {
+  transform: translateX(-50%) rotateZ(352.848657326deg) rotateX(90deg) translateZ(43.7655528286px) translateY(307.1079576322px);
+}
+.particle:nth-of-type(131) {
+  transform: translateX(-50%) rotateZ(71.8345183501deg) rotateX(90deg) translateZ(39.6514896943px) translateY(62.3759589306px);
+}
+.particle:nth-of-type(132) {
+  transform: translateX(-50%) rotateZ(205.4219136212deg) rotateX(90deg) translateZ(22.7158681243px) translateY(715.2147692797px);
+}
+.particle:nth-of-type(133) {
+  transform: translateX(-50%) rotateZ(72.8041389726deg) rotateX(90deg) translateZ(37.4925564585px) translateY(957.2919997043px);
+}
+.particle:nth-of-type(134) {
+  transform: translateX(-50%) rotateZ(121.0384363153deg) rotateX(90deg) translateZ(27.74606635px) translateY(917.8780932784px);
+}
+.particle:nth-of-type(135) {
+  transform: translateX(-50%) rotateZ(10.4018049489deg) rotateX(90deg) translateZ(29.288182634px) translateY(109.2585591983px);
+}
+.particle:nth-of-type(136) {
+  transform: translateX(-50%) rotateZ(231.5730972395deg) rotateX(90deg) translateZ(35.5466900789px) translateY(718.1180240991px);
+}
+.particle:nth-of-type(137) {
+  transform: translateX(-50%) rotateZ(237.2498873312deg) rotateX(90deg) translateZ(44.3504170504px) translateY(162.6683324091px);
+}
+.particle:nth-of-type(138) {
+  transform: translateX(-50%) rotateZ(69.8849413848deg) rotateX(90deg) translateZ(15.1255089676px) translateY(555.532481374px);
+}
+.particle:nth-of-type(139) {
+  transform: translateX(-50%) rotateZ(276.8234803843deg) rotateX(90deg) translateZ(19.069558038px) translateY(314.80236971px);
+}
+.particle:nth-of-type(140) {
+  transform: translateX(-50%) rotateZ(319.8826888375deg) rotateX(90deg) translateZ(27.5459538755px) translateY(545.0488225072px);
+}
+.particle:nth-of-type(141) {
+  transform: translateX(-50%) rotateZ(340.7326190312deg) rotateX(90deg) translateZ(22.6995886932px) translateY(565.2776033218px);
+}
+.particle:nth-of-type(142) {
+  transform: translateX(-50%) rotateZ(18.2036851026deg) rotateX(90deg) translateZ(17.9098102902px) translateY(621.6909921355px);
+}
+.particle:nth-of-type(143) {
+  transform: translateX(-50%) rotateZ(220.4750235333deg) rotateX(90deg) translateZ(20.2911301578px) translateY(856.2601617887px);
+}
+.particle:nth-of-type(144) {
+  transform: translateX(-50%) rotateZ(135.5763755372deg) rotateX(90deg) translateZ(18.4526338388px) translateY(168.362147864px);
+}
+.particle:nth-of-type(145) {
+  transform: translateX(-50%) rotateZ(161.2213596636deg) rotateX(90deg) translateZ(16.3607692472px) translateY(657.5824450711px);
+}
+.particle:nth-of-type(146) {
+  transform: translateX(-50%) rotateZ(209.591609711deg) rotateX(90deg) translateZ(25.0483891225px) translateY(651.4605901198px);
+}
+.particle:nth-of-type(147) {
+  transform: translateX(-50%) rotateZ(4.7544420515deg) rotateX(90deg) translateZ(36.4869951451px) translateY(411.3588312599px);
+}
+.particle:nth-of-type(148) {
+  transform: translateX(-50%) rotateZ(142.9532582461deg) rotateX(90deg) translateZ(34.8370099857px) translateY(871.0492646011px);
+}
+.particle:nth-of-type(149) {
+  transform: translateX(-50%) rotateZ(295.3671874292deg) rotateX(90deg) translateZ(25.1261792238px) translateY(389.9142225199px);
+}
+.particle:nth-of-type(150) {
+  transform: translateX(-50%) rotateZ(306.1342289048deg) rotateX(90deg) translateZ(43.0598017631px) translateY(748.2189761606px);
+}
+.particle:nth-of-type(151) {
+  transform: translateX(-50%) rotateZ(117.7754715328deg) rotateX(90deg) translateZ(25.4893874252px) translateY(942.3227581364px);
+}
+.particle:nth-of-type(152) {
+  transform: translateX(-50%) rotateZ(317.7085480454deg) rotateX(90deg) translateZ(20.3367031862px) translateY(630.7961909734px);
+}
+.particle:nth-of-type(153) {
+  transform: translateX(-50%) rotateZ(294.501530649deg) rotateX(90deg) translateZ(37.5476050746px) translateY(13.4967141691px);
+}
+.particle:nth-of-type(154) {
+  transform: translateX(-50%) rotateZ(246.8456562836deg) rotateX(90deg) translateZ(24.4072883203px) translateY(620.0374251958px);
+}
+.particle:nth-of-type(155) {
+  transform: translateX(-50%) rotateZ(291.3127848524deg) rotateX(90deg) translateZ(27.086071705px) translateY(624.4709721179px);
+}
+.particle:nth-of-type(156) {
+  transform: translateX(-50%) rotateZ(102.4273192006deg) rotateX(90deg) translateZ(38.953784189px) translateY(237.8636540027px);
+}
+.particle:nth-of-type(157) {
+  transform: translateX(-50%) rotateZ(207.1691489168deg) rotateX(90deg) translateZ(18.449876395px) translateY(350.8944570366px);
+}
+.particle:nth-of-type(158) {
+  transform: translateX(-50%) rotateZ(61.1361555464deg) rotateX(90deg) translateZ(15.774307604px) translateY(485.0085375584px);
+}
+.particle:nth-of-type(159) {
+  transform: translateX(-50%) rotateZ(149.9715301632deg) rotateX(90deg) translateZ(16.161344869px) translateY(853.0294076873px);
+}
+.particle:nth-of-type(160) {
+  transform: translateX(-50%) rotateZ(22.5441766429deg) rotateX(90deg) translateZ(30.3412114304px) translateY(645.8049092938px);
+}
+.particle:nth-of-type(161) {
+  transform: translateX(-50%) rotateZ(282.433735698deg) rotateX(90deg) translateZ(24.3561678062px) translateY(465.5580836706px);
+}
+.particle:nth-of-type(162) {
+  transform: translateX(-50%) rotateZ(61.1917136071deg) rotateX(90deg) translateZ(37.8683334104px) translateY(757.7340249661px);
+}
+.particle:nth-of-type(163) {
+  transform: translateX(-50%) rotateZ(89.8741021789deg) rotateX(90deg) translateZ(44.2639513193px) translateY(16.2148102361px);
+}
+.particle:nth-of-type(164) {
+  transform: translateX(-50%) rotateZ(244.5804447675deg) rotateX(90deg) translateZ(24.9850231646px) translateY(649.9526691895px);
+}
+.particle:nth-of-type(165) {
+  transform: translateX(-50%) rotateZ(319.8055023521deg) rotateX(90deg) translateZ(17.7261265387px) translateY(705.4852486883px);
+}
+.particle:nth-of-type(166) {
+  transform: translateX(-50%) rotateZ(215.5880836261deg) rotateX(90deg) translateZ(28.2466958786px) translateY(859.0336146263px);
+}
+.particle:nth-of-type(167) {
+  transform: translateX(-50%) rotateZ(48.1457161489deg) rotateX(90deg) translateZ(22.3198069514px) translateY(323.4652527293px);
+}
+.particle:nth-of-type(168) {
+  transform: translateX(-50%) rotateZ(220.8409712059deg) rotateX(90deg) translateZ(42.9147438915px) translateY(434.4149859421px);
+}
+.particle:nth-of-type(169) {
+  transform: translateX(-50%) rotateZ(358.9819255063deg) rotateX(90deg) translateZ(31.7627211076px) translateY(52.7190101052px);
+}
+.particle:nth-of-type(170) {
+  transform: translateX(-50%) rotateZ(83.9380722125deg) rotateX(90deg) translateZ(37.643641324px) translateY(368.7817935049px);
+}
+.particle:nth-of-type(171) {
+  transform: translateX(-50%) rotateZ(348.4780531863deg) rotateX(90deg) translateZ(16.3987669566px) translateY(713.9180121334px);
+}
+.particle:nth-of-type(172) {
+  transform: translateX(-50%) rotateZ(156.924319898deg) rotateX(90deg) translateZ(40.0994768187px) translateY(126.6881823257px);
+}
+.particle:nth-of-type(173) {
+  transform: translateX(-50%) rotateZ(42.18411205deg) rotateX(90deg) translateZ(16.660241739px) translateY(616.089261098px);
+}
+.particle:nth-of-type(174) {
+  transform: translateX(-50%) rotateZ(227.2532292488deg) rotateX(90deg) translateZ(44.5871677503px) translateY(404.0881331285px);
+}
+.particle:nth-of-type(175) {
+  transform: translateX(-50%) rotateZ(124.8252036373deg) rotateX(90deg) translateZ(40.4786331286px) translateY(521.5428325014px);
+}
+.particle:nth-of-type(176) {
+  transform: translateX(-50%) rotateZ(339.890793388deg) rotateX(90deg) translateZ(35.0453861667px) translateY(912.3613337109px);
+}
+.particle:nth-of-type(177) {
+  transform: translateX(-50%) rotateZ(50.7372619516deg) rotateX(90deg) translateZ(28.163594252px) translateY(654.4706523854px);
+}
+.particle:nth-of-type(178) {
+  transform: translateX(-50%) rotateZ(261.0985156209deg) rotateX(90deg) translateZ(17.631624354px) translateY(309.8120407884px);
+}
+.particle:nth-of-type(179) {
+  transform: translateX(-50%) rotateZ(183.420885937deg) rotateX(90deg) translateZ(43.863014042px) translateY(181.0834332582px);
+}
+.particle:nth-of-type(180) {
+  transform: translateX(-50%) rotateZ(204.1917612073deg) rotateX(90deg) translateZ(23.2246389164px) translateY(521.6928941515px);
+}
+.particle:nth-of-type(181) {
+  transform: translateX(-50%) rotateZ(31.3526322043deg) rotateX(90deg) translateZ(43.9203850528px) translateY(222.7412936117px);
+}
+.particle:nth-of-type(182) {
+  transform: translateX(-50%) rotateZ(295.8058596675deg) rotateX(90deg) translateZ(38.9634765271px) translateY(8.1097878846px);
+}
+.particle:nth-of-type(183) {
+  transform: translateX(-50%) rotateZ(89.3390492956deg) rotateX(90deg) translateZ(37.482873463px) translateY(744.2918125355px);
+}
+.particle:nth-of-type(184) {
+  transform: translateX(-50%) rotateZ(59.9019392506deg) rotateX(90deg) translateZ(37.0851207436px) translateY(783.2653020864px);
+}
+.particle:nth-of-type(185) {
+  transform: translateX(-50%) rotateZ(77.2281129351deg) rotateX(90deg) translateZ(44.2056704258px) translateY(196.3031988175px);
+}
+.particle:nth-of-type(186) {
+  transform: translateX(-50%) rotateZ(253.6229484765deg) rotateX(90deg) translateZ(34.2056844881px) translateY(533.8998139019px);
+}
+.particle:nth-of-type(187) {
+  transform: translateX(-50%) rotateZ(246.0514614409deg) rotateX(90deg) translateZ(32.3539218211px) translateY(80.0272165599px);
+}
+.particle:nth-of-type(188) {
+  transform: translateX(-50%) rotateZ(249.634480986deg) rotateX(90deg) translateZ(16.6100662748px) translateY(87.7773256238px);
+}
+.particle:nth-of-type(189) {
+  transform: translateX(-50%) rotateZ(352.2631956596deg) rotateX(90deg) translateZ(36.1493096611px) translateY(449.6137269377px);
+}
+.particle:nth-of-type(190) {
+  transform: translateX(-50%) rotateZ(179.043714817deg) rotateX(90deg) translateZ(41.3534731098px) translateY(208.7825567077px);
+}
+.particle:nth-of-type(191) {
+  transform: translateX(-50%) rotateZ(68.9348864402deg) rotateX(90deg) translateZ(15.0829329815px) translateY(407.8198170443px);
+}
+.particle:nth-of-type(192) {
+  transform: translateX(-50%) rotateZ(277.3824563401deg) rotateX(90deg) translateZ(21.4869835635px) translateY(581.4056293472px);
+}
+.particle:nth-of-type(193) {
+  transform: translateX(-50%) rotateZ(74.2188074653deg) rotateX(90deg) translateZ(34.6350064783px) translateY(388.1085972703px);
+}
+.particle:nth-of-type(194) {
+  transform: translateX(-50%) rotateZ(277.8625100685deg) rotateX(90deg) translateZ(43.6260865277px) translateY(113.8247165888px);
+}
+.particle:nth-of-type(195) {
+  transform: translateX(-50%) rotateZ(233.9515833747deg) rotateX(90deg) translateZ(16.1956340151px) translateY(778.9931383054px);
+}
+.particle:nth-of-type(196) {
+  transform: translateX(-50%) rotateZ(343.7401941809deg) rotateX(90deg) translateZ(25.8009563597px) translateY(72.6747865438px);
+}
+.particle:nth-of-type(197) {
+  transform: translateX(-50%) rotateZ(177.8832418498deg) rotateX(90deg) translateZ(37.549364904px) translateY(267.6660898152px);
+}
+.particle:nth-of-type(198) {
+  transform: translateX(-50%) rotateZ(234.7881775277deg) rotateX(90deg) translateZ(39.8418762324px) translateY(97.5031110424px);
+}
+.particle:nth-of-type(199) {
+  transform: translateX(-50%) rotateZ(189.1035914098deg) rotateX(90deg) translateZ(17.3161867321px) translateY(325.5339558707px);
+}
+.particle:nth-of-type(200) {
+  transform: translateX(-50%) rotateZ(36.2442849334deg) rotateX(90deg) translateZ(41.9486073772px) translateY(722.5729237935px);
+}
+.particle:nth-of-type(201) {
+  transform: translateX(-50%) rotateZ(75.1037460912deg) rotateX(90deg) translateZ(38.1455855824px) translateY(815.3439422606px);
+}
+.particle:nth-of-type(202) {
+  transform: translateX(-50%) rotateZ(137.7199854511deg) rotateX(90deg) translateZ(31.8330388185px) translateY(480.2686683892px);
+}
+.particle:nth-of-type(203) {
+  transform: translateX(-50%) rotateZ(176.350483979deg) rotateX(90deg) translateZ(27.6197639099px) translateY(361.493123155px);
+}
+.particle:nth-of-type(204) {
+  transform: translateX(-50%) rotateZ(67.2127394652deg) rotateX(90deg) translateZ(26.3825959731px) translateY(221.3447592702px);
+}
+.particle:nth-of-type(205) {
+  transform: translateX(-50%) rotateZ(343.1529933548deg) rotateX(90deg) translateZ(31.1810919903px) translateY(156.7951512799px);
+}
+.particle:nth-of-type(206) {
+  transform: translateX(-50%) rotateZ(253.9952792538deg) rotateX(90deg) translateZ(44.8180195174px) translateY(642.8279787473px);
+}
+.particle:nth-of-type(207) {
+  transform: translateX(-50%) rotateZ(114.8927446293deg) rotateX(90deg) translateZ(42.1205758998px) translateY(202.4436881268px);
+}
+.particle:nth-of-type(208) {
+  transform: translateX(-50%) rotateZ(181.8712540065deg) rotateX(90deg) translateZ(17.4441178552px) translateY(110.5480916454px);
+}
+.particle:nth-of-type(209) {
+  transform: translateX(-50%) rotateZ(334.9263131171deg) rotateX(90deg) translateZ(22.3197806952px) translateY(90.1028137853px);
+}
+.particle:nth-of-type(210) {
+  transform: translateX(-50%) rotateZ(114.9365810273deg) rotateX(90deg) translateZ(37.6317335189px) translateY(109.3167318056px);
+}
+.particle:nth-of-type(211) {
+  transform: translateX(-50%) rotateZ(93.7224330603deg) rotateX(90deg) translateZ(32.2902059995px) translateY(942.6290707717px);
+}
+.particle:nth-of-type(212) {
+  transform: translateX(-50%) rotateZ(287.4541494975deg) rotateX(90deg) translateZ(25.0908651019px) translateY(329.0738424677px);
+}
+.particle:nth-of-type(213) {
+  transform: translateX(-50%) rotateZ(85.252176213deg) rotateX(90deg) translateZ(30.2721856601px) translateY(226.8963970013px);
+}
+.particle:nth-of-type(214) {
+  transform: translateX(-50%) rotateZ(348.243874016deg) rotateX(90deg) translateZ(34.1588254669px) translateY(323.0414707789px);
+}
+.particle:nth-of-type(215) {
+  transform: translateX(-50%) rotateZ(357.9901108244deg) rotateX(90deg) translateZ(20.5926452819px) translateY(717.5628999544px);
+}
+.particle:nth-of-type(216) {
+  transform: translateX(-50%) rotateZ(13.5882707532deg) rotateX(90deg) translateZ(40.1945821522px) translateY(728.2792672626px);
+}
+.particle:nth-of-type(217) {
+  transform: translateX(-50%) rotateZ(312.3117689901deg) rotateX(90deg) translateZ(15.4318585467px) translateY(743.5913542257px);
+}
+.particle:nth-of-type(218) {
+  transform: translateX(-50%) rotateZ(274.1920746779deg) rotateX(90deg) translateZ(30.6506974214px) translateY(131.017617721px);
+}
+.particle:nth-of-type(219) {
+  transform: translateX(-50%) rotateZ(68.323655404deg) rotateX(90deg) translateZ(36.0353102984px) translateY(130.1343640667px);
+}
+.particle:nth-of-type(220) {
+  transform: translateX(-50%) rotateZ(153.0232094226deg) rotateX(90deg) translateZ(40.7984601935px) translateY(110.5928636642px);
+}
+.particle:nth-of-type(221) {
+  transform: translateX(-50%) rotateZ(44.2089573154deg) rotateX(90deg) translateZ(32.9794025175px) translateY(213.6967689507px);
+}
+.particle:nth-of-type(222) {
+  transform: translateX(-50%) rotateZ(28.2559179915deg) rotateX(90deg) translateZ(42.3166409918px) translateY(661.1502023379px);
+}
+.particle:nth-of-type(223) {
+  transform: translateX(-50%) rotateZ(63.1248982717deg) rotateX(90deg) translateZ(15.800904373px) translateY(180.2564896035px);
+}
+.particle:nth-of-type(224) {
+  transform: translateX(-50%) rotateZ(213.8851675864deg) rotateX(90deg) translateZ(43.7050305371px) translateY(933.195448536px);
+}
+.particle:nth-of-type(225) {
+  transform: translateX(-50%) rotateZ(108.203855167deg) rotateX(90deg) translateZ(23.7373211738px) translateY(335.8133800786px);
+}
+.particle:nth-of-type(226) {
+  transform: translateX(-50%) rotateZ(344.2121604234deg) rotateX(90deg) translateZ(18.6358891999px) translateY(925.8266022354px);
+}
+.particle:nth-of-type(227) {
+  transform: translateX(-50%) rotateZ(43.3391460323deg) rotateX(90deg) translateZ(22.0802779403px) translateY(999.0180681978px);
+}
+.particle:nth-of-type(228) {
+  transform: translateX(-50%) rotateZ(211.1473796899deg) rotateX(90deg) translateZ(15.6391160239px) translateY(18.4160737527px);
+}
+.particle:nth-of-type(229) {
+  transform: translateX(-50%) rotateZ(315.772848222deg) rotateX(90deg) translateZ(27.7734351953px) translateY(236.643951862px);
+}
+.particle:nth-of-type(230) {
+  transform: translateX(-50%) rotateZ(30.4517781277deg) rotateX(90deg) translateZ(29.1227951939px) translateY(862.7920243795px);
+}
+.particle:nth-of-type(231) {
+  transform: translateX(-50%) rotateZ(207.131904809deg) rotateX(90deg) translateZ(43.9375652511px) translateY(110.067219537px);
+}
+.particle:nth-of-type(232) {
+  transform: translateX(-50%) rotateZ(119.3261583587deg) rotateX(90deg) translateZ(15.0860491757px) translateY(870.6118261437px);
+}
+.particle:nth-of-type(233) {
+  transform: translateX(-50%) rotateZ(34.0814141832deg) rotateX(90deg) translateZ(21.5125211528px) translateY(215.7570972627px);
+}
+.particle:nth-of-type(234) {
+  transform: translateX(-50%) rotateZ(310.6755115646deg) rotateX(90deg) translateZ(38.0580835663px) translateY(648.2171219111px);
+}
+.particle:nth-of-type(235) {
+  transform: translateX(-50%) rotateZ(353.5759360296deg) rotateX(90deg) translateZ(19.3245033768px) translateY(896.628129819px);
+}
+.particle:nth-of-type(236) {
+  transform: translateX(-50%) rotateZ(91.6060864495deg) rotateX(90deg) translateZ(26.3462691671px) translateY(116.9820114656px);
+}
+.particle:nth-of-type(237) {
+  transform: translateX(-50%) rotateZ(177.8420617372deg) rotateX(90deg) translateZ(24.7742120891px) translateY(544.4986776566px);
+}
+.particle:nth-of-type(238) {
+  transform: translateX(-50%) rotateZ(340.7454332065deg) rotateX(90deg) translateZ(36.3260820218px) translateY(385.3530548371px);
+}
+.particle:nth-of-type(239) {
+  transform: translateX(-50%) rotateZ(295.9716019853deg) rotateX(90deg) translateZ(34.3099196698px) translateY(102.6697470865px);
+}
+.particle:nth-of-type(240) {
+  transform: translateX(-50%) rotateZ(206.278791665deg) rotateX(90deg) translateZ(18.3357719636px) translateY(653.7662215901px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  25%, to {
+    opacity: 1;
+  }
+}
+@keyframes speed {
+  from {
+    transform: translateZ(-500px);
+  }
+  75%, to {
+    transform: translateZ(1000px);
+  }
+}
+</style></head><body>
+
+<main>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+</main>
+
+</body></html>

@@ -1,0 +1,959 @@
+
+<!DOCTYPE html><html class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/kunukn/pen/PjjJPY" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="//s3-us-west-2.amazonaws.com/s.cdpn.io/157670/">
+
+<style class="cp-pen-styles">*, :before, :after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  background: linear-gradient(135deg, #111, #444);
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  font-family: sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+body.is-toggled:after {
+  content: 'paused';
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  padding: 10px;
+}
+body.is-toggled .scene, body.is-toggled .rotate, body.is-toggled .rotate-2 {
+  animation-play-state: paused;
+}
+
+.scene {
+  -webkit-tap-highlight-color: transparent;
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  top: calc(50% - 80px);
+  left: calc(50% - 80px);
+  transform-style: preserve-3d;
+  transform: translateY(40px) rotateY(0deg) rotateX(60deg) rotateZ(0deg);
+  animation: scene 10s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+.rotate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 160px;
+  height: 160px;
+  transform-style: preserve-3d;
+  animation: anim-1 5s cubic-bezier(0.455, 0.03, 0.515, 0.955) alternate infinite;
+  will-change: transform;
+}
+
+.rotate-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 160px;
+  height: 160px;
+  transform-style: preserve-3d;
+  animation: anim-2 0.2s linear infinite;
+  will-change: transform;
+}
+.rotate-2:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  width: 10%;
+  height: 10%;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+}
+
+.figure {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+}
+.figure > div {
+  transform-style: preserve-3d;
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  width: 10%;
+  height: 10%;
+  border-radius: 50%;
+  transition: 1200ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+.figure > :nth-child(n + 1):nth-child(-n + 10) {
+  background: linear-gradient(90deg, #40bf40, #40bf40 25%, #4095bf 25%, #4095bf 75%, #9540bf 75%);
+}
+.figure > :nth-child(n + 11):nth-child(-n + 20) {
+  background: linear-gradient(90deg, #40bf55, #40bf55 25%, #4080bf 25%, #4080bf 75%, #aa40bf 75%);
+}
+.figure > :nth-child(n + 21):nth-child(-n + 30) {
+  background: linear-gradient(90deg, #40bf6a, #40bf6a 25%, #406abf 25%, #406abf 75%, #bf40bf 75%);
+}
+.figure > :nth-child(n + 31):nth-child(-n + 40) {
+  background: linear-gradient(90deg, #40bf80, #40bf80 25%, #4055bf 25%, #4055bf 75%, #bf40aa 75%);
+}
+.figure > :nth-child(n + 41):nth-child(-n + 50) {
+  background: linear-gradient(90deg, #40bf95, #40bf95 25%, #4040bf 25%, #4040bf 75%, #bf4095 75%);
+}
+.figure > :nth-child(n + 51):nth-child(-n + 60) {
+  background: linear-gradient(90deg, #40bfaa, #40bfaa 25%, #5540bf 25%, #5540bf 75%, #bf4080 75%);
+}
+.figure > :nth-child(n + 61):nth-child(-n + 70) {
+  background: linear-gradient(90deg, #40bfbf, #40bfbf 25%, #6a40bf 25%, #6a40bf 75%, #bf406a 75%);
+}
+.figure > :nth-child(n + 71):nth-child(-n + 80) {
+  background: linear-gradient(90deg, #40aabf, #40aabf 25%, #8040bf 25%, #8040bf 75%, #bf4055 75%);
+}
+.figure > :nth-child(n + 81):nth-child(-n + 90) {
+  background: linear-gradient(90deg, #4095bf, #4095bf 25%, #9540bf 25%, #9540bf 75%, #bf4040 75%);
+}
+.figure > :nth-child(n + 91):nth-child(-n + 100) {
+  background: linear-gradient(90deg, #4080bf, #4080bf 25%, #aa40bf 25%, #aa40bf 75%, #bf5540 75%);
+}
+.figure > :nth-child(n + 101):nth-child(-n + 110) {
+  background: linear-gradient(90deg, #406abf, #406abf 25%, #bf40bf 25%, #bf40bf 75%, #bf6a40 75%);
+}
+.figure > :nth-child(n + 111):nth-child(-n + 120) {
+  background: linear-gradient(90deg, #4055bf, #4055bf 25%, #bf40aa 25%, #bf40aa 75%, #bf8040 75%);
+}
+.figure > :nth-child(n + 121):nth-child(-n + 130) {
+  background: linear-gradient(90deg, #4040bf, #4040bf 25%, #bf4095 25%, #bf4095 75%, #bf9540 75%);
+}
+.figure > :nth-child(n + 131):nth-child(-n + 140) {
+  background: linear-gradient(90deg, #5540bf, #5540bf 25%, #bf4080 25%, #bf4080 75%, #bfaa40 75%);
+}
+.figure > :nth-child(n + 141):nth-child(-n + 150) {
+  background: linear-gradient(90deg, #6a40bf, #6a40bf 25%, #bf406a 25%, #bf406a 75%, #bfbf40 75%);
+}
+.figure > :nth-child(n + 151):nth-child(-n + 160) {
+  background: linear-gradient(90deg, #8040bf, #8040bf 25%, #bf4055 25%, #bf4055 75%, #aabf40 75%);
+}
+.figure > :nth-of-type(1) {
+  transform: translateZ(1px);
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+.figure > :nth-of-type(2) {
+  transform: translateZ(2px);
+}
+.figure > :nth-of-type(3) {
+  transform: translateZ(3px);
+}
+.figure > :nth-of-type(4) {
+  transform: translateZ(4px);
+}
+.figure > :nth-of-type(5) {
+  transform: translateZ(5px);
+}
+.figure > :nth-of-type(6) {
+  transform: translateZ(6px);
+}
+.figure > :nth-of-type(7) {
+  transform: translateZ(7px);
+}
+.figure > :nth-of-type(8) {
+  transform: translateZ(8px);
+}
+.figure > :nth-of-type(9) {
+  transform: translateZ(9px);
+}
+.figure > :nth-of-type(10) {
+  transform: translateZ(10px);
+}
+.figure > :nth-of-type(11) {
+  transform: translateZ(11px);
+}
+.figure > :nth-of-type(12) {
+  transform: translateZ(12px);
+}
+.figure > :nth-of-type(13) {
+  transform: translateZ(13px);
+}
+.figure > :nth-of-type(14) {
+  transform: translateZ(14px);
+}
+.figure > :nth-of-type(15) {
+  transform: translateZ(15px);
+}
+.figure > :nth-of-type(16) {
+  transform: translateZ(16px);
+}
+.figure > :nth-of-type(17) {
+  transform: translateZ(17px);
+}
+.figure > :nth-of-type(18) {
+  transform: translateZ(18px);
+}
+.figure > :nth-of-type(19) {
+  transform: translateZ(19px);
+}
+.figure > :nth-of-type(20) {
+  transform: translateZ(20px);
+}
+.figure > :nth-of-type(21) {
+  transform: translateZ(21px);
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+.figure > :nth-of-type(22) {
+  transform: translateZ(22px);
+}
+.figure > :nth-of-type(23) {
+  transform: translateZ(23px);
+}
+.figure > :nth-of-type(24) {
+  transform: translateZ(24px);
+}
+.figure > :nth-of-type(25) {
+  transform: translateZ(25px);
+}
+.figure > :nth-of-type(26) {
+  transform: translateZ(26px);
+}
+.figure > :nth-of-type(27) {
+  transform: translateZ(27px);
+}
+.figure > :nth-of-type(28) {
+  transform: translateZ(28px);
+}
+.figure > :nth-of-type(29) {
+  transform: translateZ(29px);
+}
+.figure > :nth-of-type(30) {
+  transform: translateZ(30px);
+}
+.figure > :nth-of-type(31) {
+  transform: translateZ(31px);
+}
+.figure > :nth-of-type(32) {
+  transform: translateZ(32px);
+}
+.figure > :nth-of-type(33) {
+  transform: translateZ(33px);
+}
+.figure > :nth-of-type(34) {
+  transform: translateZ(34px);
+}
+.figure > :nth-of-type(35) {
+  transform: translateZ(35px);
+}
+.figure > :nth-of-type(36) {
+  transform: translateZ(36px);
+}
+.figure > :nth-of-type(37) {
+  transform: translateZ(37px);
+}
+.figure > :nth-of-type(38) {
+  transform: translateZ(38px);
+}
+.figure > :nth-of-type(39) {
+  transform: translateZ(39px);
+}
+.figure > :nth-of-type(40) {
+  transform: translateZ(40px);
+}
+.figure > :nth-of-type(41) {
+  transform: translateZ(41px);
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+.figure > :nth-of-type(42) {
+  transform: translateZ(42px);
+}
+.figure > :nth-of-type(43) {
+  transform: translateZ(43px);
+}
+.figure > :nth-of-type(44) {
+  transform: translateZ(44px);
+}
+.figure > :nth-of-type(45) {
+  transform: translateZ(45px);
+}
+.figure > :nth-of-type(46) {
+  transform: translateZ(46px);
+}
+.figure > :nth-of-type(47) {
+  transform: translateZ(47px);
+}
+.figure > :nth-of-type(48) {
+  transform: translateZ(48px);
+}
+.figure > :nth-of-type(49) {
+  transform: translateZ(49px);
+}
+.figure > :nth-of-type(50) {
+  transform: translateZ(50px);
+}
+.figure > :nth-of-type(51) {
+  transform: translateZ(51px);
+}
+.figure > :nth-of-type(52) {
+  transform: translateZ(52px);
+}
+.figure > :nth-of-type(53) {
+  transform: translateZ(53px);
+}
+.figure > :nth-of-type(54) {
+  transform: translateZ(54px);
+}
+.figure > :nth-of-type(55) {
+  transform: translateZ(55px);
+}
+.figure > :nth-of-type(56) {
+  transform: translateZ(56px);
+}
+.figure > :nth-of-type(57) {
+  transform: translateZ(57px);
+}
+.figure > :nth-of-type(58) {
+  transform: translateZ(58px);
+}
+.figure > :nth-of-type(59) {
+  transform: translateZ(59px);
+}
+.figure > :nth-of-type(60) {
+  transform: translateZ(60px);
+}
+.figure > :nth-of-type(61) {
+  transform: translateZ(61px);
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+.figure > :nth-of-type(62) {
+  transform: translateZ(62px);
+}
+.figure > :nth-of-type(63) {
+  transform: translateZ(63px);
+}
+.figure > :nth-of-type(64) {
+  transform: translateZ(64px);
+}
+.figure > :nth-of-type(65) {
+  transform: translateZ(65px);
+}
+.figure > :nth-of-type(66) {
+  transform: translateZ(66px);
+}
+.figure > :nth-of-type(67) {
+  transform: translateZ(67px);
+}
+.figure > :nth-of-type(68) {
+  transform: translateZ(68px);
+}
+.figure > :nth-of-type(69) {
+  transform: translateZ(69px);
+}
+.figure > :nth-of-type(70) {
+  transform: translateZ(70px);
+}
+.figure > :nth-of-type(71) {
+  transform: translateZ(71px);
+}
+.figure > :nth-of-type(72) {
+  transform: translateZ(72px);
+}
+.figure > :nth-of-type(73) {
+  transform: translateZ(73px);
+}
+.figure > :nth-of-type(74) {
+  transform: translateZ(74px);
+}
+.figure > :nth-of-type(75) {
+  transform: translateZ(75px);
+}
+.figure > :nth-of-type(76) {
+  transform: translateZ(76px);
+}
+.figure > :nth-of-type(77) {
+  transform: translateZ(77px);
+}
+.figure > :nth-of-type(78) {
+  transform: translateZ(78px);
+}
+.figure > :nth-of-type(79) {
+  transform: translateZ(79px);
+}
+.figure > :nth-of-type(80) {
+  transform: translateZ(80px);
+}
+.figure > :nth-of-type(81) {
+  transform: translateZ(81px);
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+.figure > :nth-of-type(82) {
+  transform: translateZ(82px);
+}
+.figure > :nth-of-type(83) {
+  transform: translateZ(83px);
+}
+.figure > :nth-of-type(84) {
+  transform: translateZ(84px);
+}
+.figure > :nth-of-type(85) {
+  transform: translateZ(85px);
+}
+.figure > :nth-of-type(86) {
+  transform: translateZ(86px);
+}
+.figure > :nth-of-type(87) {
+  transform: translateZ(87px);
+}
+.figure > :nth-of-type(88) {
+  transform: translateZ(88px);
+}
+.figure > :nth-of-type(89) {
+  transform: translateZ(89px);
+}
+.figure > :nth-of-type(90) {
+  transform: translateZ(90px);
+}
+.figure > :nth-of-type(91) {
+  transform: translateZ(91px);
+}
+.figure > :nth-of-type(92) {
+  transform: translateZ(92px);
+}
+.figure > :nth-of-type(93) {
+  transform: translateZ(93px);
+}
+.figure > :nth-of-type(94) {
+  transform: translateZ(94px);
+}
+.figure > :nth-of-type(95) {
+  transform: translateZ(95px);
+}
+.figure > :nth-of-type(96) {
+  transform: translateZ(96px);
+}
+.figure > :nth-of-type(97) {
+  transform: translateZ(97px);
+}
+.figure > :nth-of-type(98) {
+  transform: translateZ(98px);
+}
+.figure > :nth-of-type(99) {
+  transform: translateZ(99px);
+}
+.figure > :nth-of-type(100) {
+  transform: translateZ(100px);
+}
+.figure > :nth-of-type(101) {
+  transform: translateZ(101px);
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+.figure > :nth-of-type(102) {
+  transform: translateZ(102px);
+}
+.figure > :nth-of-type(103) {
+  transform: translateZ(103px);
+}
+.figure > :nth-of-type(104) {
+  transform: translateZ(104px);
+}
+.figure > :nth-of-type(105) {
+  transform: translateZ(105px);
+}
+.figure > :nth-of-type(106) {
+  transform: translateZ(106px);
+}
+.figure > :nth-of-type(107) {
+  transform: translateZ(107px);
+}
+.figure > :nth-of-type(108) {
+  transform: translateZ(108px);
+}
+.figure > :nth-of-type(109) {
+  transform: translateZ(109px);
+}
+.figure > :nth-of-type(110) {
+  transform: translateZ(110px);
+}
+.figure > :nth-of-type(111) {
+  transform: translateZ(111px);
+}
+.figure > :nth-of-type(112) {
+  transform: translateZ(112px);
+}
+.figure > :nth-of-type(113) {
+  transform: translateZ(113px);
+}
+.figure > :nth-of-type(114) {
+  transform: translateZ(114px);
+}
+.figure > :nth-of-type(115) {
+  transform: translateZ(115px);
+}
+.figure > :nth-of-type(116) {
+  transform: translateZ(116px);
+}
+.figure > :nth-of-type(117) {
+  transform: translateZ(117px);
+}
+.figure > :nth-of-type(118) {
+  transform: translateZ(118px);
+}
+.figure > :nth-of-type(119) {
+  transform: translateZ(119px);
+}
+.figure > :nth-of-type(120) {
+  transform: translateZ(120px);
+}
+.figure > :nth-of-type(121) {
+  transform: translateZ(121px);
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+.figure > :nth-of-type(122) {
+  transform: translateZ(122px);
+}
+.figure > :nth-of-type(123) {
+  transform: translateZ(123px);
+}
+.figure > :nth-of-type(124) {
+  transform: translateZ(124px);
+}
+.figure > :nth-of-type(125) {
+  transform: translateZ(125px);
+}
+.figure > :nth-of-type(126) {
+  transform: translateZ(126px);
+}
+.figure > :nth-of-type(127) {
+  transform: translateZ(127px);
+}
+.figure > :nth-of-type(128) {
+  transform: translateZ(128px);
+}
+.figure > :nth-of-type(129) {
+  transform: translateZ(129px);
+}
+.figure > :nth-of-type(130) {
+  transform: translateZ(130px);
+}
+.figure > :nth-of-type(131) {
+  transform: translateZ(131px);
+}
+.figure > :nth-of-type(132) {
+  transform: translateZ(132px);
+}
+.figure > :nth-of-type(133) {
+  transform: translateZ(133px);
+}
+.figure > :nth-of-type(134) {
+  transform: translateZ(134px);
+}
+.figure > :nth-of-type(135) {
+  transform: translateZ(135px);
+}
+.figure > :nth-of-type(136) {
+  transform: translateZ(136px);
+}
+.figure > :nth-of-type(137) {
+  transform: translateZ(137px);
+}
+.figure > :nth-of-type(138) {
+  transform: translateZ(138px);
+}
+.figure > :nth-of-type(139) {
+  transform: translateZ(139px);
+}
+.figure > :nth-of-type(140) {
+  transform: translateZ(140px);
+}
+.figure > :nth-of-type(141) {
+  transform: translateZ(141px);
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+.figure > :nth-of-type(142) {
+  transform: translateZ(142px);
+}
+.figure > :nth-of-type(143) {
+  transform: translateZ(143px);
+}
+.figure > :nth-of-type(144) {
+  transform: translateZ(144px);
+}
+.figure > :nth-of-type(145) {
+  transform: translateZ(145px);
+}
+.figure > :nth-of-type(146) {
+  transform: translateZ(146px);
+}
+.figure > :nth-of-type(147) {
+  transform: translateZ(147px);
+}
+.figure > :nth-of-type(148) {
+  transform: translateZ(148px);
+}
+.figure > :nth-of-type(149) {
+  transform: translateZ(149px);
+}
+.figure > :nth-of-type(150) {
+  transform: translateZ(150px);
+}
+.figure > :nth-of-type(151) {
+  transform: translateZ(151px);
+}
+.figure > :nth-of-type(152) {
+  transform: translateZ(152px);
+}
+.figure > :nth-of-type(153) {
+  transform: translateZ(153px);
+}
+.figure > :nth-of-type(154) {
+  transform: translateZ(154px);
+}
+.figure > :nth-of-type(155) {
+  transform: translateZ(155px);
+}
+.figure > :nth-of-type(156) {
+  transform: translateZ(156px);
+}
+.figure > :nth-of-type(157) {
+  transform: translateZ(157px);
+}
+.figure > :nth-of-type(158) {
+  transform: translateZ(158px);
+}
+.figure > :nth-of-type(159) {
+  transform: translateZ(159px);
+}
+.figure > :nth-of-type(160) {
+  transform: translateZ(160px);
+}
+
+.shadow {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  width: 40%;
+  height: 40%;
+  background: rgba(17, 17, 17, 0.5);
+  box-shadow: 0 0 10px #111;
+  border-radius: 50%;
+  transition: 1200ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+.shadow.is-toggled {
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+}
+
+@keyframes anim-1 {
+  0% {
+    transform: rotateZ(0deg) rotateY(-6deg);
+  }
+  100% {
+    transform: rotateZ(0deg) rotateY(6deg);
+  }
+}
+@keyframes anim-2 {
+  0% {
+    transform: rotateZ(0deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg) rotateY(0deg);
+  }
+}
+@keyframes scene {
+  0%, 100% {
+    transform: translateX(50px) translateY(40px) rotateX(60deg) rotateZ(0);
+  }
+  50% {
+    transform: translateX(-50px) translateY(40px) rotateX(30deg) rotateZ(360deg);
+  }
+}
+</style></head><body>
+<div class="scene"><div class="shadow"></div><div class="rotate"><div class="rotate-2"><div class="figure">
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</div></div></div></div>
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script>"use strict";
+
+var log = console.log.bind(console);
+
+var pixelsUsed = 160; // same as css
+
+var body = qs("body");
+var scene = qs(".scene");
+var figure = qs(".figure");
+var shadow = qs(".shadow");
+var pixels = qsa(".figure > *");
+var state = 1;
+
+scene.addEventListener("touchstart", onToggle);
+scene.addEventListener("click", onToggle);
+body.addEventListener("click", function () {
+  return body.classList.toggle("is-toggled");
+});
+
+onToggle({});
+
+function getSize(size) {
+  var rsize = Math.round(size);
+  var offset = Math.round((pixelsUsed - size) / 2) + "px";
+  return {
+    width: rsize + "px",
+    height: rsize + "px",
+    left: offset,
+    top: offset
+  };
+}
+
+function renderSpinningTop() {
+  // bottom up
+  for (var i = 0; i < pixelsUsed / 4; i++) {if (window.CP.shouldStopExecution(1)){break;}
+    var size = getSize(i * 2);
+    setElement({ el: pixels[i], size: size });
+  }
+window.CP.exitedLoop(1);
+
+  for (var i = pixelsUsed / 4; i < pixelsUsed / 2; i++) {if (window.CP.shouldStopExecution(2)){break;}
+    var j = i - pixelsUsed / 4;
+    var size = undefined;
+    if (j > pixelsUsed / 4 - 10) {
+      size = getSize(24);
+    } else {
+      size = getSize(2 + (pixelsUsed - i * 2));
+    }
+    setElement({ el: pixels[i], size: size });
+  }
+window.CP.exitedLoop(2);
+
+  for (var i = pixelsUsed / 2; i < pixelsUsed; i++) {if (window.CP.shouldStopExecution(3)){break;}
+    var j = i - pixelsUsed / 2;
+    var size = getSize(Math.sqrt(pixelsUsed / 2 - j) * 2.5);
+    //let size = getSize(0 + (100 - j) / 4);
+    setElement({ el: pixels[i], size: size });
+  }
+window.CP.exitedLoop(3);
+
+}
+
+function renderBall() {
+  var radius = pixelsUsed / 2;
+  // circle formula: x*x + y*y = radius*radius
+  // pythagoras is used here.
+  // bottom up
+  for (var i = 0; i < pixelsUsed; i++) {if (window.CP.shouldStopExecution(4)){break;}
+    var y = radius - i;
+    var size = getSize(2 * Math.sqrt(radius * radius - y * y));
+    setElement({ el: pixels[i], size: size });
+  }
+window.CP.exitedLoop(4);
+
+}
+
+function setElement(_ref) {
+  var el = _ref.el;
+  var size = _ref.size;
+
+  el.style.width = size.width;
+  el.style.height = size.height;
+  el.style.top = size.top;
+  el.style.left = size.left;
+}
+
+function onToggle(event) {
+  if (event.stopPropagation) event.stopPropagation();
+  if (event.preventDefault) event.preventDefault();
+
+  if (state === 1) {
+    state = 0;
+    renderSpinningTop();
+    shadow.classList.remove('is-toggled');
+  } else {
+    state = 1;
+    renderBall();
+    shadow.classList.add('is-toggled');
+  }
+
+  //figure.classList.toggle("is-toggled");
+}
+
+function qs(expr, context) {
+  return (context || document).querySelector(expr);
+}
+function qsa(expr, context) {
+  return [].slice.call((context || document).querySelectorAll(expr), 0);
+}
+function byId(id) {
+  return document.getElementById(id);
+}
+//# sourceURL=pen.js
+</script>
+</body></html>

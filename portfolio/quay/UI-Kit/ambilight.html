@@ -1,0 +1,79 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/wjwaGM" />
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+<style class="cp-pen-styles">body {
+  display: flex;
+  height: 100vh;
+  width: 90vw;
+  background-color: #0a0a0a;
+  margin: auto;
+}
+
+@-webkit-keyframes animateBg {
+  0% {
+    background-position: 0% 54%;
+  }
+  50% {
+    background-position: 100% 47%;
+  }
+  100% {
+    background-position: 0% 54%;
+  }
+}
+
+@keyframes animateBg {
+  0% {
+    background-position: 0% 54%;
+  }
+  50% {
+    background-position: 100% 47%;
+  }
+  100% {
+    background-position: 0% 54%;
+  }
+}
+.box {
+  background: linear-gradient(240deg, #f9d423, #ff4e50, #9d50bb, #6e48aa, #b3ffab, #12fff7);
+  background-size: 1200% 1200%;
+  -webkit-animation: animateBg 10s ease infinite;
+          animation: animateBg 10s ease infinite;
+  width: 300px;
+  height: 150px;
+  margin: auto;
+  position: relative;
+}
+.box--img {
+  background: url("https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg");
+  -webkit-animation: none;
+          animation: none;
+  background-size: 100% 100%;
+}
+.box:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  z-index: -1;
+  -webkit-filter: blur(15px);
+          filter: blur(15px);
+}
+</style></head><body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ambilight css</title>
+</head>
+<body>
+  <div class="box"></div>
+  <div class="box box--img"></div>
+</body>
+</html>
+
+</body></html>

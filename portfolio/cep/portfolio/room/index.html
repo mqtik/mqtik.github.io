@@ -1,0 +1,1330 @@
+
+<!DOCTYPE html><html class=''>
+<head><meta charset='UTF-8'><meta name="robots" content="noindex">
+<title>Lonely Room</title>
+<style>    html {
+    	overflow: hidden;
+    	touch-action: none;
+    	content-zooming: none;
+    }
+    
+    body {
+    	position: absolute;
+    	margin: 0;
+    	padding: 0;
+    	width: 100%;
+    	height: 100%;
+    	background: #000;
+    }
+    
+    #canvas {
+    	position: absolute;
+    	width: 100%;
+    	height: 100%;
+    	background: #000;
+    	image-rendering: auto;
+    }</style></head><body>
+<canvas id="canvas"></canvas>
+
+<script>"use strict";
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("algo fue mal"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+var Canvas = function () {
+	function Canvas(container) {
+		_classCallCheck(this, Canvas);
+
+		this.elem = document.getElementById(container);
+		this.width = 0;
+		this.height = 0;
+		this.fullscreen = false;
+	}
+
+	Canvas.prototype.enableFullscreen = function enableFullscreen(style) {
+		var _this = this;
+
+		if (document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled) {
+			this.bfs = document.createElement("button");
+			this.bfs.appendChild(document.createTextNode("Pantalla completa"));
+			canvas.elem.parentElement.appendChild(this.bfs);
+			for (var s in style) {
+				this.bfs.style[s] = style[s];
+			}this.bfs.addEventListener('click', function (e) {
+				e.preventDefault();
+				_this.requestFullscreen();
+			});
+		}
+	};
+
+	Canvas.prototype.requestFullscreen = function requestFullscreen() {
+
+		if (this.elem.requestFullscreen) {
+			this.elem.requestFullscreen();
+		} else if (this.elem.webkitRequestFullscreen) {
+			this.elem.webkitRequestFullscreen();
+		} else if (this.elem.mozRequestFullScreen) {
+			this.elem.mozRequestFullScreen();
+		} else if (this.elem.msRequestFullscreen) {
+			this.elem.msRequestFullscreen();
+		}
+	};
+
+	return Canvas;
+}();
+
+var Pointer = function () {
+	function Pointer(canvas) {
+		var _this2 = this;
+
+		_classCallCheck(this, Pointer);
+
+		this.x = 0;
+		this.y = 0;
+		this.z = 0;
+		this.xold = 0;
+		this.yold = 0;
+		this.zold = 0;
+		this.isDown = false;
+
+		window.addEventListener('mousemove', function (e) {
+			return _this2.move(e);
+		}, false);
+		canvas.elem.addEventListener('touchmove', function (e) {
+			return _this2.move(e);
+		}, false);
+		window.addEventListener('mousedown', function (e) {
+			return _this2.down(e);
+		}, false);
+		window.addEventListener('touchstart', function (e) {
+			return _this2.down(e);
+		}, false);
+		window.addEventListener('mouseup', function (e) {
+			return _this2.up(e);
+		}, false);
+		window.addEventListener('touchend', function (e) {
+			return _this2.up(e);
+		}, false);
+		window.addEventListener('wheel', function (e) {
+			return _this2.wheel(e);
+		}, false);
+	}
+
+	Pointer.prototype.down = function down(e) {
+
+		this.move(e);
+		this.xold = this.x;
+		this.yold = this.y;
+		this.isDown = true;
+	};
+
+	Pointer.prototype.up = function up(e) {
+
+		this.isDown = false;
+	};
+
+	Pointer.prototype.move = function move(e) {
+
+		var touchMode = e.targetTouches;
+		var pointer = null;
+		if (touchMode) {
+			e.preventDefault();
+			if (touchMode.length > 1) {
+				var dx = touchMode[0].clientX - touchMode[1].clientX;
+				var dy = touchMode[0].clientY - touchMode[1].clientY;
+				var d = dx * dx + dy * dy;
+				this.z += d > this.zold ? -0.2 : 0.2;
+				this.zold = d;
+				return;
+			}
+			pointer = touchMode[0];
+		} else pointer = e;
+		this.x = pointer.clientX;
+		this.y = pointer.clientY;
+	};
+
+	Pointer.prototype.wheel = function wheel(e) {
+
+		e.preventDefault();
+		this.z += e.deltaY > 0 ? -1 : 1;
+	};
+
+	return Pointer;
+}();
+
+var WebGL = function () {
+	function WebGL(canvas, options) {
+		_classCallCheck(this, WebGL);
+
+		this.canvas = canvas;
+		this.gl = this.canvas.elem.getContext("webgl", options);
+		if (!this.gl) this.gl = this.canvas.elem.getContext("experimental-webgl", options);
+		if (!this.gl) throw new Error('This browser does not support WebGL');
+		this.width = 0;
+		this.height = 0;
+		this.aspect = 0;
+		this.textureUnits = [];
+		for (var i = 0; i < 16; ++i) {
+			this.textureUnits.push(null);
+		}
+		this.vertexUnits = [];
+		for (var i = 0; i < 16; ++i) {
+			this.vertexUnits.push({
+				enabled: false,
+				drawable: null,
+				idx: null
+			});
+		}
+		this.currentShader = null;
+	}
+
+	WebGL.prototype.getExtension = function getExtension(name) {
+
+		var ext = this.gl.getExtension(name);
+		if (!ext) {
+			throw new Error('WebGL Extension not supported: ' + name);
+		}
+		return ext;
+	};
+
+	WebGL.prototype.adjustSize = function adjustSize() {
+
+		var canvasWidth = this.canvas.elem.offsetWidth * 1 || 2;
+		var canvasHeight = this.canvas.elem.offsetHeight * 1 || 2;
+		if (this.width !== canvasWidth || this.height !== canvasHeight) {
+			this.width = this.canvas.width = this.canvas.elem.width = canvasWidth;
+			this.height = this.canvas.height = this.canvas.elem.height = canvasHeight;
+			this.aspect = this.width / this.height;
+		}
+		return this;
+	};
+
+	WebGL.prototype.viewport = function viewport() {
+		var left = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+		var top = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+		var width = arguments.length <= 2 || arguments[2] === undefined ? this.width : arguments[2];
+		var height = arguments.length <= 3 || arguments[3] === undefined ? this.height : arguments[3];
+
+		this.gl.viewport(left, top, width, height);
+		return this;
+	};
+
+	WebGL.prototype.cullFace = function cullFace() {
+		var value = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+
+		if (value) {
+			this.gl.enable(this.gl.CULL_FACE);
+		} else {
+			this.gl.disable(this.gl.CULL_FACE);
+		}
+		return this;
+	};
+
+	WebGL.prototype.clearColor = function clearColor() {
+		var r = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+		var g = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+		var b = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
+		var a = arguments.length <= 3 || arguments[3] === undefined ? 1 : arguments[3];
+
+		this.gl.clearColor(r, g, b, a);
+		this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+		return this;
+	};
+
+	WebGL.prototype.clearDepth = function clearDepth() {
+		var depth = arguments.length <= 0 || arguments[0] === undefined ? 1 : arguments[0];
+
+		this.gl.clearDepth(depth);
+		this.gl.clear(this.gl.DEPTH_BUFFER_BIT);
+		return this;
+	};
+
+	WebGL.prototype.depthTest = function depthTest() {
+		var value = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+
+		if (value) {
+			this.gl.enable(this.gl.DEPTH_TEST);
+		} else {
+			this.gl.disable(this.gl.DEPTH_TEST);
+		}
+		return this;
+	};
+
+	WebGL.prototype.texture = function texture(params) {
+		return new Texture(this, params);
+	};
+
+	WebGL.prototype.framebuffer = function framebuffer() {
+		return new Framebuffer(this);
+	};
+
+	WebGL.prototype.depthbuffer = function depthbuffer() {
+		return new Depthbuffer(this);
+	};
+
+	WebGL.prototype.shader = function shader(params) {
+		return new Shader(this, params);
+	};
+
+	WebGL.prototype.drawable = function drawable(params) {
+		return new Drawable(this, params);
+	};
+
+	WebGL.prototype.filter = function filter(size, _filter) {
+		return new Filter(this, size, _filter);
+	};
+
+	WebGL.prototype.mat3 = function mat3(data) {
+		return new Mat3(data);
+	};
+
+	WebGL.prototype.mat4 = function mat4(data) {
+		return new Mat4(data);
+	};
+
+	WebGL.prototype.meshesPointers = function meshesPointers() {
+
+		return [{
+			name: 'position',
+			size: 3,
+			offset: 0,
+			stride: 6
+		}, {
+			name: 'normal',
+			size: 3,
+			offset: 3,
+			stride: 6
+		}];
+	};
+
+	WebGL.prototype.quad = function quad() {
+
+		return {
+			pointers: [{
+				name: 'position',
+				size: 2,
+				offset: 0,
+				stride: 2
+			}],
+			vertexSize: 2,
+			vertices: [-1, -1, 1, -1, 1, 1, -1, 1, -1, -1, 1, 1]
+		};
+	};
+
+	WebGL.prototype.plane = function plane(s) {
+
+		return {
+			pointers: this.meshesPointers(),
+			vertexSize: 6,
+			vertices: [-s, 0, -s, 0, 1, 0, -s, 0, s, 0, 1, 0, s, 0, s, 0, 1, 0, s, 0, -s, 0, 1, 0, -s, 0, -s, 0, 1, 0, s, 0, s, 0, 1, 0]
+		};
+	};
+
+	WebGL.prototype.cube = function cube() {
+		var x = arguments.length <= 0 || arguments[0] === undefined ? 1 : arguments[0];
+		var y = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
+		var z = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
+
+		return {
+			pointers: this.meshesPointers(),
+			vertexSize: 6,
+			vertices: [-x, -y, -z, 0, 0, -1, -x, y, -z, 0, 0, -1, x, y, -z, 0, 0, -1, x, -y, -z, 0, 0, -1, -x, -y, -z, 0, 0, -1, x, y, -z, 0, 0, -1, x, y, z, 0, 0, 1, -x, y, z, 0, 0, 1, -x, -y, z, 0, 0, 1, x, y, z, 0, 0, 1, -x, -y, z, 0, 0, 1, x, -y, z, 0, 0, 1, -x, y, -z, 0, 1, 0, -x, y, z, 0, 1, 0, x, y, z, 0, 1, 0, x, y, -z, 0, 1, 0, -x, y, -z, 0, 1, 0, x, y, z, 0, 1, 0, x, -y, z, 0, -1, 0, -x, -y, z, 0, -1, 0, -x, -y, -z, 0, -1, 0, x, -y, z, 0, -1, 0, -x, -y, -z, 0, -1, 0, x, -y, -z, 0, -1, 0, -x, -y, -z, -1, 0, 0, -x, -y, z, -1, 0, 0, -x, y, z, -1, 0, 0, -x, y, -z, -1, 0, 0, -x, -y, -z, -1, 0, 0, -x, y, z, -1, 0, 0, x, y, z, 1, 0, 0, x, -y, z, 1, 0, 0, x, -y, -z, 1, 0, 0, x, y, z, 1, 0, 0, x, -y, -z, 1, 0, 0, x, y, -z, 1, 0, 0]
+		};
+	};
+
+	WebGL.prototype.sphere = function sphere() {
+		var radius = arguments.length <= 0 || arguments[0] === undefined ? 1 : arguments[0];
+		var res = arguments.length <= 1 || arguments[1] === undefined ? 36 : arguments[1];
+
+		var nx = [];
+		var ny = [];
+		var nz = [];
+		var vertices = [];
+		for (var i = 0; i <= res; i++) {
+			var theta = i * Math.PI / res;
+			var sinTheta = Math.sin(theta);
+			var cosTheta = Math.cos(theta);
+			for (var j = 0; j <= res; j++) {
+				var phi = -j * 2 * Math.PI / res;
+				nx.push(Math.cos(phi) * sinTheta);
+				ny.push(cosTheta);
+				nz.push(Math.sin(phi) * sinTheta);
+			}
+		}
+		for (var i = 0; i < res; i++) {
+			for (var j = 0; j < res; j++) {
+				var first = i * (res + 1) + j;
+				var second = first + res + 1;
+				vertices.push(nx[first] * radius, ny[first] * radius, nz[first] * radius, nx[first], ny[first], nz[first], nx[second] * radius, ny[second] * radius, nz[second] * radius, nx[second], ny[second], nz[second], nx[first + 1] * radius, ny[first + 1] * radius, nz[first + 1] * radius, nx[first + 1], ny[first + 1], nz[first + 1], nx[second] * radius, ny[second] * radius, nz[second] * radius, nx[second], ny[second], nz[second], nx[second + 1] * radius, ny[second + 1] * radius, nz[second + 1] * radius, nx[second + 1], ny[second + 1], nz[second + 1], nx[first + 1] * radius, ny[first + 1] * radius, nz[first + 1] * radius, nx[first + 1], ny[first + 1], nz[first + 1]);
+			}
+		}
+
+		return {
+			pointers: this.meshesPointers(),
+			vertexSize: 6,
+			vertices: vertices
+		};
+	};
+
+	WebGL.prototype.cylinder = function cylinder() {
+		var radius = arguments.length <= 0 || arguments[0] === undefined ? 1 : arguments[0];
+		var res = arguments.length <= 1 || arguments[1] === undefined ? 36 : arguments[1];
+
+		var angle = 0;
+		var alpha = 2 * Math.PI / res;
+		var vertices = [];
+
+		for (var i = 0; i < res; i++) {
+
+			var c0 = Math.cos(angle);
+			var s0 = Math.sin(angle);
+			var c1 = Math.cos(angle + alpha);
+			var s1 = Math.sin(angle + alpha);
+
+			vertices.push(c1 * radius, s1 * radius, -1, c1, s1, -1, c0 * radius, s0 * radius, 1, c0, s0, 1, c0 * radius, s0 * radius, -1, c0, s0, -1, c1 * radius, s1 * radius, -1, c1, s1, -1, c1 * radius, s1 * radius, 1, c1, s1, 1, c0 * radius, s0 * radius, 1, c0, s0, 1, c0 * radius, s0 * radius, -1, c0, s0, -1, 0, 0, -1, 0, 0, -1, c1 * radius, s1 * radius, -1, c1, s1, -1, c1 * radius, s1 * radius, 1, c1, s1, 1, 0, 0, -1, 0, 0, 1, c0 * radius, s0 * radius, 1, c0, s0, 1);
+
+			angle += alpha;
+		}
+
+		return {
+			pointers: this.meshesPointers(),
+			vertexSize: 6,
+			vertices: vertices
+		};
+	};
+
+	return WebGL;
+}();
+
+var Shader = function () {
+	function Shader(webGL, shaders) {
+		_classCallCheck(this, Shader);
+
+		this.webGL = webGL;
+		this.gl = webGL.gl;
+		this.program = this.gl.createProgram();
+		this.vs = this.gl.createShader(this.gl.VERTEX_SHADER);
+		this.fs = this.gl.createShader(this.gl.FRAGMENT_SHADER);
+		this.gl.attachShader(this.program, this.vs);
+		this.gl.attachShader(this.program, this.fs);
+		this.compileShader(this.vs, shaders.vertex);
+		this.compileShader(this.fs, shaders.fragment);
+		this.link();
+		this.uniformCache = {};
+		this.attributeCache = {};
+		this.samplers = {};
+		this.unitCounter = 0;
+	}
+
+	Shader.prototype.compileShader = function compileShader(shader, source) {
+
+		var boilerplate = "\n\t\t\t#ifdef GL_FRAGMENT_PRECISION_HIGH\n\t\t\t\tprecision highp int;\n\t\t\t\tprecision highp float;\n\t\t\t#else\n\t\t\t\tprecision mediump int;\n\t\t\t\tprecision mediump float;\n\t\t\t#endif\n\t\t\t#define PI 3.141592653589793\n    ";
+
+		this.gl.shaderSource(shader, boilerplate + '\n' + source);
+		this.gl.compileShader(shader);
+		if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
+			throw new Error(this.gl.getShaderInfoLog(shader));
+		}
+	};
+
+	Shader.prototype.attributeLocation = function attributeLocation(name) {
+
+		var location = this.attributeCache[name];
+		if (location === void 0) {
+			location = this.attributeCache[name] = this.gl.getAttribLocation(this.program, name);
+		}
+		return location;
+	};
+
+	Shader.prototype.uniformLocation = function uniformLocation(name) {
+
+		var location = this.uniformCache[name];
+		if (location === void 0) {
+			location = this.uniformCache[name] = this.gl.getUniformLocation(this.program, name);
+		}
+		return location;
+	};
+
+	Shader.prototype.link = function link() {
+
+		this.gl.linkProgram(this.program);
+		if (!this.gl.getProgramParameter(this.program, this.gl.LINK_STATUS)) {
+			throw new Error(this.gl.getProgramInfoLog(this.program));
+		}
+	};
+
+	Shader.prototype.use = function use() {
+
+		if (this.webGL.currentShader !== this) {
+			this.webGL.currentShader = this;
+			this.gl.useProgram(this.program);
+		}
+		return this;
+	};
+
+	Shader.prototype.draw = function draw(drawable) {
+
+		drawable.setPointersForShader(this).draw();
+		return this;
+	};
+
+	Shader.prototype.int = function int(name, value) {
+
+		var loc = this.uniformLocation(name);
+		if (loc) {
+			this.gl.uniform1i(loc, value);
+		}
+		return this;
+	};
+
+	Shader.prototype.sampler = function sampler(name, texture) {
+
+		var unit = this.samplers[name];
+		if (unit === void 0) {
+			unit = this.samplers[name] = this.unitCounter++;
+		}
+		texture.bind(unit);
+		this.int(name, unit);
+		return this;
+	};
+
+	Shader.prototype.vec2 = function vec2(name, a, b) {
+
+		var loc = this.uniformLocation(name);
+		if (loc) {
+			this.gl.uniform2f(loc, a, b);
+		}
+		return this;
+	};
+
+	Shader.prototype.vec3 = function vec3(name, a, b, c) {
+
+		var loc = this.uniformLocation(name);
+		if (loc) {
+			this.gl.uniform3f(loc, a, b, c);
+		}
+		return this;
+	};
+
+	Shader.prototype.mat4 = function mat4(name, value) {
+
+		var loc = this.uniformLocation(name);
+		if (loc) {
+			if (value instanceof Mat4) {
+				this.gl.uniformMatrix4fv(loc, this.gl.FALSE, value.data);
+			} else {
+				this.gl.uniformMatrix4fv(loc, this.gl.FALSE, value);
+			}
+		}
+		return this;
+	};
+
+	Shader.prototype.mat3 = function mat3(name, value) {
+
+		var loc = this.uniformLocation(name);
+		if (loc) {
+			if (value instanceof Mat3) {
+				this.gl.uniformMatrix3fv(loc, this.gl.FALSE, value.data);
+			} else {
+				this.gl.uniformMatrix3fv(loc, this.gl.FALSE, value);
+			}
+		}
+		return this;
+	};
+
+	Shader.prototype.float = function float(name, value) {
+
+		var loc = this.uniformLocation(name);
+		if (loc) {
+			this.gl.uniform1f(loc, value);
+		}
+		return this;
+	};
+
+	return Shader;
+}();
+
+var Drawable = function () {
+	function Drawable(webGL, obj) {
+		_classCallCheck(this, Drawable);
+
+		this.pointers = obj.pointers;
+		this.webGL = webGL;
+		this.gl = webGL.gl;
+		this.buffer = this.gl.createBuffer();
+		this.mode = this.gl.TRIANGLES;
+		this.vertexSize = obj.vertexSize;
+		this.upload(new Float32Array(obj.vertices));
+	}
+
+	Drawable.prototype.upload = function upload(vertices) {
+
+		this.size = vertices.length / this.vertexSize;
+		this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffer);
+		this.gl.bufferData(this.gl.ARRAY_BUFFER, vertices, this.gl.STATIC_DRAW);
+		return this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
+	};
+
+	Drawable.prototype.setPointersForShader = function setPointersForShader(shader) {
+
+		this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffer);
+		for (var i = 0, len = this.pointers.length; i < len; ++i) {
+			var _pointer = this.pointers[i];
+			this.setPointer(shader, _pointer, i);
+		}
+		return this;
+	};
+
+	Drawable.prototype.setPointer = function setPointer(shader, pointer, idx) {
+
+		var location = shader.attributeLocation(pointer.name);
+		if (location >= 0) {
+			var unit = this.webGL.vertexUnits[location];
+			if (!unit.enabled) {
+				unit.enabled = true;
+				this.gl.enableVertexAttribArray(location);
+			}
+			if (unit.drawable !== this || unit.idx !== idx) {
+				var float_size = Float32Array.BYTES_PER_ELEMENT;
+				unit.idx = idx;
+				unit.drawable = this;
+				this.gl.vertexAttribPointer(location, pointer.size, this.gl.FLOAT, false, pointer.stride * float_size, pointer.offset * float_size);
+			}
+		}
+		return this;
+	};
+
+	Drawable.prototype.draw = function draw() {
+		var first = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+		var size = arguments.length <= 1 || arguments[1] === undefined ? this.size : arguments[1];
+		var mode = arguments.length <= 2 || arguments[2] === undefined ? this.mode : arguments[2];
+
+		this.gl.drawArrays(mode, first, size);
+		return this;
+	};
+
+	return Drawable;
+}();
+
+var Texture = function () {
+	function Texture(webGL, params) {
+		_classCallCheck(this, Texture);
+
+		this.gl = webGL.gl;
+		this.channels = this.gl[(params.channels || 'rgb').toUpperCase()];
+		if (typeof params.type === 'number') {
+			this.type = params.type;
+		} else {
+			this.type = this.gl[(params.type || 'unsigned_byte').toUpperCase()];
+		}
+		this.target = this.gl.TEXTURE_2D;
+		this.handle = this.gl.createTexture();
+		this.width = 0;
+		this.height = 0;
+	}
+
+	Texture.prototype.destroy = function destroy() {
+
+		return this.gl.deleteTexture(this.handle);
+	};
+
+	Texture.prototype.bind = function bind() {
+		var unit = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+
+		if (unit > 15) {
+			throw new Error('Texture unit too large: ' + unit);
+		}
+		this.gl.activeTexture(this.gl.TEXTURE0 + unit);
+		this.gl.bindTexture(this.target, this.handle);
+		return this;
+	};
+
+	Texture.prototype.setSize = function setSize(width, height) {
+
+		this.width = width;
+		this.height = height;
+		this.gl.texImage2D(this.target, 0, this.channels, this.width, this.height, 0, this.channels, this.type, null);
+		return this;
+	};
+
+	Texture.prototype.linear = function linear() {
+
+		this.gl.texParameteri(this.target, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR);
+		this.gl.texParameteri(this.target, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR);
+		return this;
+	};
+
+	Texture.prototype.nearest = function nearest() {
+
+		this.gl.texParameteri(this.target, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+		this.gl.texParameteri(this.target, this.gl.TEXTURE_MIN_FILTER, this.gl.NEAREST);
+		return this;
+	};
+
+	Texture.prototype.clampToEdge = function clampToEdge() {
+
+		this.gl.texParameteri(this.target, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
+		this.gl.texParameteri(this.target, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
+		return this;
+	};
+
+	Texture.prototype.repeat = function repeat() {
+
+		this.gl.texParameteri(this.target, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
+		this.gl.texParameteri(this.target, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
+		return this;
+	};
+
+	return Texture;
+}();
+
+var Framebuffer = function () {
+	function Framebuffer(webGL) {
+		_classCallCheck(this, Framebuffer);
+
+		this.webGL = webGL;
+		this.gl = webGL.gl;
+		this.buffer = this.gl.createFramebuffer();
+		this.ownDepth = false;
+		this.depthBuffer = null;
+		this.colorTexture = null;
+	}
+
+	Framebuffer.prototype.destroy = function destroy() {
+
+		return this.gl.deleteFRamebuffer(this.buffer);
+	};
+
+	Framebuffer.prototype.bind = function bind() {
+
+		this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, this.buffer);
+		return this;
+	};
+
+	Framebuffer.prototype.unbind = function unbind() {
+
+		this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null);
+		return this;
+	};
+
+	Framebuffer.prototype.color = function color(colorTexture) {
+
+		this.colorTexture = colorTexture;
+		this.gl.framebufferTexture2D(this.gl.FRAMEBUFFER, this.gl.COLOR_ATTACHMENT0, this.colorTexture.target, this.colorTexture.handle, 0);
+		return this;
+	};
+
+	Framebuffer.prototype.depth = function depth(depthBuffer) {
+
+		this.depthBuffer = depthBuffer;
+		if (!this.depthBuffer) {
+			if (!this.colorTexture) {
+				throw new Error('Cannot create implicit depth buffer without a color texture');
+			} else {
+				this.ownDepth = true;
+				this.depthBuffer = this.webGL.depthbuffer().bind().setSize(this.colorTexture.width, this.colorTexture.height);
+			}
+		}
+		this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER, this.gl.DEPTH_ATTACHMENT, this.gl.RENDERBUFFER, this.depthBuffer.id);
+		return this;
+	};
+
+	Framebuffer.prototype.destroy = function destroy() {
+
+		this.gl.deleteFramebuffer(this.buffer);
+		if (this.ownDepth) {
+			return this.depthBuffer.destroy();
+		}
+	};
+
+	return Framebuffer;
+}();
+
+var Renderbuffer = function () {
+	function Renderbuffer(webGL) {
+		_classCallCheck(this, Renderbuffer);
+
+		this.webGL = webGL;
+		this.gl = webGL.gl;
+		this.id = this.gl.createRenderbuffer();
+	}
+
+	Renderbuffer.prototype.bind = function bind() {
+
+		this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, this.id);
+		return this;
+	};
+
+	Renderbuffer.prototype.setSize = function setSize(width, height) {
+
+		this.width = width;
+		this.height = height;
+		this.bind();
+		this.gl.renderbufferStorage(this.gl.RENDERBUFFER, this.gl[this.format], this.width, this.height);
+		return this.unbind();
+	};
+
+	Renderbuffer.prototype.unbind = function unbind() {
+
+		this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, null);
+		return this;
+	};
+
+	Renderbuffer.prototype.destroy = function destroy() {
+
+		return this.gl.deleteRenderbuffer(this.id);
+	};
+
+	return Renderbuffer;
+}();
+
+var Depthbuffer = function (_Renderbuffer) {
+	_inherits(Depthbuffer, _Renderbuffer);
+
+	function Depthbuffer(webGL) {
+		_classCallCheck(this, Depthbuffer);
+
+		var _this3 = _possibleConstructorReturn(this, _Renderbuffer.call(this, webGL));
+
+		_this3.format = 'DEPTH_COMPONENT16';
+
+		return _this3;
+	}
+
+	return Depthbuffer;
+}(Renderbuffer);
+
+var Filter = function () {
+	function Filter(webGL, size) {
+		_classCallCheck(this, Filter);
+
+		this.webGL = webGL;
+		this.size = size;
+		this.output = webGL.texture({
+			type: 0x8D61, // HALF_FLOAT_OES
+			channels: 'rgba'
+		}).bind().setSize(this.size, this.size).linear().clampToEdge();
+		this.framebuffer = webGL.framebuffer().bind().color(this.output).unbind();
+		this.quad = webGL.drawable(webGL.quad());
+		this.shader = webGL.shader({
+			vertex: "\n\t\t\t\tattribute vec2 position;\n\t\t\t\tvarying vec2 texcoord;\n\t\t\t\tvoid main(){\n\t\t\t\t\ttexcoord = position*0.5+0.5;\n\t\t\t\t\tgl_Position = vec4(position, 0.0, 1.0);\n\t\t\t\t}\n\t\t\t\t",
+			fragment: "\n\t\t\t\tuniform vec2 viewport;\n\t\t\t\tuniform sampler2D source;\n\t\t\t\tvarying vec2 texcoord;\n\t\t\t\tvec3 get(int x, int y){\n\t\t\t\t\tvec2 off = vec2(x, y);\n\t\t\t\t\treturn texture2D(source, texcoord+off/viewport).rgb;\n\t\t\t\t}\n\t\t\t\tvec3 get(float x, float y){\n\t\t\t\t\tvec2 off = vec2(x, y);\n\t\t\t\t\treturn texture2D(source, texcoord+off/viewport).rgb;\n\t\t\t\t}\n\t\t\t\tvec3 filter(){\n\t\t\t\t\tvec3 result = vec3(0.0);\n\t\t\t\t\tfor(int x=-1; x<=1; x++){\n\t\t\t\t\t\tfor(int y=-1; y<=1; y++){\n\t\t\t\t\t\t\tresult += get(x,y);\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\treturn result/9.0;\n\t\t\t\t}\n\t\t\t\tvoid main(){\n\t\t\t\t\tgl_FragColor = vec4(filter(), 2.0);\n\t\t\t\t}\n\t\t\t"
+		});
+	}
+
+	Filter.prototype.bind = function bind(unit) {
+
+		return this.output.bind(unit);
+	};
+
+	Filter.prototype.apply = function apply(source) {
+
+		this.framebuffer.bind();
+		this.webGL.viewport(0, 0, this.size, this.size);
+		this.shader.use().vec2('viewport', this.size, this.size).sampler('source', source).draw(this.quad);
+		return this.framebuffer.unbind();
+	};
+
+	return Filter;
+}();
+
+var Mat3 = function () {
+	function Mat3() {
+		_classCallCheck(this, Mat3);
+
+		this.data = new Float32Array(9);
+		this.ident();
+	}
+
+	Mat3.prototype.ident = function ident() {
+
+		var d = this.data;
+		d[0] = 1;
+		d[1] = 0;
+		d[2] = 0;
+		d[3] = 0;
+		d[4] = 1;
+		d[5] = 0;
+		d[6] = 0;
+		d[7] = 0;
+		d[8] = 1;
+		return this;
+	};
+
+	Mat3.prototype.fromMat4Rot = function fromMat4Rot(source) {
+		return source.toMat3Rot(this);
+	};
+
+	return Mat3;
+}();
+
+var Mat4 = function () {
+	function Mat4() {
+		_classCallCheck(this, Mat4);
+
+		this.data = new Float32Array(16);
+		this.ident();
+	}
+
+	Mat4.prototype.ident = function ident() {
+
+		var d = this.data;
+		d[0] = 1;
+		d[1] = 0;
+		d[2] = 0;
+		d[3] = 0;
+		d[4] = 0;
+		d[5] = 1;
+		d[6] = 0;
+		d[7] = 0;
+		d[8] = 0;
+		d[9] = 0;
+		d[10] = 1;
+		d[11] = 0;
+		d[12] = 0;
+		d[13] = 0;
+		d[14] = 0;
+		d[15] = 1;
+		return this;
+	};
+
+	Mat4.prototype.zero = function zero() {
+
+		var d = this.data;
+		d[0] = 0;
+		d[1] = 0;
+		d[2] = 0;
+		d[3] = 0;
+		d[4] = 0;
+		d[5] = 0;
+		d[6] = 0;
+		d[7] = 0;
+		d[8] = 0;
+		d[9] = 0;
+		d[10] = 0;
+		d[11] = 0;
+		d[12] = 0;
+		d[13] = 0;
+		d[14] = 0;
+		d[15] = 0;
+		return this;
+	};
+
+	Mat4.prototype.set = function set(a00, a10, a20, a30, a01, a11, a21, a31, a02, a12, a22, a32, a03, a13, a23, a33) {
+
+		var d = this.data;
+		d[0] = a00;
+		d[4] = a10;
+		d[8] = a20;
+		d[12] = a30;
+		d[1] = a01;
+		d[5] = a11;
+		d[9] = a21;
+		d[13] = a31;
+		d[2] = a02;
+		d[6] = a12;
+		d[10] = a22;
+		d[14] = a32;
+		d[3] = a03;
+		d[7] = a13;
+		d[11] = a23;
+		d[15] = a33;
+		return this;
+	};
+
+	Mat4.prototype.perspective = function perspective(data) {
+
+		var fov = data.fov || 60;
+		var aspect = data.aspect || 1;
+		var near = data.near || 0.01;
+		var far = data.far || 100;
+		this.zero();
+		var d = this.data;
+		var top = near * Math.tan(fov * Math.PI / 360);
+		var right = top * aspect;
+		var left = -right;
+		var bottom = -top;
+		d[0] = 2 * near / (right - left);
+		d[5] = 2 * near / (top - bottom);
+		d[8] = (right + left) / (right - left);
+		d[9] = (top + bottom) / (top - bottom);
+		d[10] = -(far + near) / (far - near);
+		d[11] = -1;
+		d[14] = -(2 * far * near) / (far - near);
+		return this;
+	};
+
+	Mat4.prototype.ortho = function ortho() {
+		var near = arguments.length <= 0 || arguments[0] === undefined ? -1 : arguments[0];
+		var far = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
+		var top = arguments.length <= 2 || arguments[2] === undefined ? -1 : arguments[2];
+		var bottom = arguments.length <= 3 || arguments[3] === undefined ? 1 : arguments[3];
+		var left = arguments.length <= 4 || arguments[4] === undefined ? -1 : arguments[4];
+		var right = arguments.length <= 5 || arguments[5] === undefined ? 1 : arguments[5];
+
+		var rl = right - left;
+		var tb = top - bottom;
+		var fn = far - near;
+
+		return this.set(2 / rl, 0, 0, -(left + right) / rl, 0, 2 / tb, 0, -(top + bottom) / tb, 0, 0, -2 / fn, -(far + near) / fn, 0, 0, 0, 1);
+	};
+
+	Mat4.prototype.trans = function trans(x, y, z) {
+
+		var d = this.data;
+		d[12] = d[0] * x + d[4] * y + d[8] * z + d[12];
+		d[13] = d[1] * x + d[5] * y + d[9] * z + d[13];
+		d[14] = d[2] * x + d[6] * y + d[10] * z + d[14];
+		d[15] = d[3] * x + d[7] * y + d[11] * z + d[15];
+		return this;
+	};
+
+	Mat4.prototype.rotatex = function rotatex(angle) {
+
+		var d = this.data;
+		var rad = Math.PI * (angle / 180);
+		var s = Math.sin(rad);
+		var c = Math.cos(rad);
+		var a10 = d[4];
+		var a11 = d[5];
+		var a12 = d[6];
+		var a13 = d[7];
+		var a20 = d[8];
+		var a21 = d[9];
+		var a22 = d[10];
+		var a23 = d[11];
+		d[4] = a10 * c + a20 * s;
+		d[5] = a11 * c + a21 * s;
+		d[6] = a12 * c + a22 * s;
+		d[7] = a13 * c + a23 * s;
+		d[8] = a10 * -s + a20 * c;
+		d[9] = a11 * -s + a21 * c;
+		d[10] = a12 * -s + a22 * c;
+		d[11] = a13 * -s + a23 * c;
+		return this;
+	};
+
+	Mat4.prototype.rotatey = function rotatey(angle) {
+
+		var d = this.data;
+		var rad = Math.PI * (angle / 180);
+		var s = Math.sin(rad);
+		var c = Math.cos(rad);
+		var a00 = d[0];
+		var a01 = d[1];
+		var a02 = d[2];
+		var a03 = d[3];
+		var a20 = d[8];
+		var a21 = d[9];
+		var a22 = d[10];
+		var a23 = d[11];
+		d[0] = a00 * c + a20 * -s;
+		d[1] = a01 * c + a21 * -s;
+		d[2] = a02 * c + a22 * -s;
+		d[3] = a03 * c + a23 * -s;
+		d[8] = a00 * s + a20 * c;
+		d[9] = a01 * s + a21 * c;
+		d[10] = a02 * s + a22 * c;
+		d[11] = a03 * s + a23 * c;
+		return this;
+	};
+
+	Mat4.prototype.rotatez = function rotatez(angle) {
+
+		var d = this.data;
+		var rad = Math.PI * (angle / 180);
+		var s = Math.sin(rad);
+		var c = Math.cos(rad);
+		var a00 = d[0];
+		var a01 = d[1];
+		var a02 = d[2];
+		var a03 = d[3];
+		var a10 = d[4];
+		var a11 = d[5];
+		var a12 = d[6];
+		var a13 = d[7];
+		d[0] = a00 * c + a10 * s;
+		d[1] = a01 * c + a11 * s;
+		d[2] = a02 * c + a12 * s;
+		d[3] = a03 * c + a13 * s;
+		d[4] = a00 * -s + a10 * c;
+		d[5] = a01 * -s + a11 * c;
+		d[6] = a02 * -s + a12 * c;
+		d[7] = a03 * -s + a13 * c;
+		return this;
+	};
+
+	Mat4.prototype.scale = function scale(x, y, z) {
+
+		var d = this.data;
+		d[0] *= x;
+		d[1] *= x;
+		d[2] *= x;
+		d[3] *= x;
+		d[4] *= y;
+		d[5] *= y;
+		d[6] *= y;
+		d[7] *= y;
+		d[8] *= z;
+		d[9] *= z;
+		d[10] *= z;
+		d[11] *= z;
+		return this;
+	};
+
+	Mat4.prototype.toMat3Rot = function toMat3Rot(dest) {
+
+		var dst = dest.data;
+		var src = this.data;
+		var a00 = src[0];
+		var a01 = src[1];
+		var a02 = src[2];
+		var a10 = src[4];
+		var a11 = src[5];
+		var a12 = src[6];
+		var a20 = src[8];
+		var a21 = src[9];
+		var a22 = src[10];
+		var b01 = a22 * a11 - a12 * a21;
+		var b11 = -a22 * a10 + a12 * a20;
+		var b21 = a21 * a10 - a11 * a20;
+		var d = a00 * b01 + a01 * b11 + a02 * b21;
+		var id = 1 / d;
+		dst[0] = b01 * id;
+		dst[3] = (-a22 * a01 + a02 * a21) * id;
+		dst[6] = (a12 * a01 - a02 * a11) * id;
+		dst[1] = b11 * id;
+		dst[4] = (a22 * a00 - a02 * a20) * id;
+		dst[7] = (-a12 * a00 + a02 * a10) * id;
+		dst[2] = b21 * id;
+		dst[5] = (-a21 * a00 + a01 * a20) * id;
+		dst[8] = (a11 * a00 - a01 * a10) * id;
+		return dest;
+	};
+
+	return Mat4;
+}();
+
+;
+
+var canvas = new Canvas("canvas");
+var gl = new WebGL(canvas).depthTest();
+var pointer = new Pointer(canvas);
+
+gl.getExtension('OES_texture_half_float');
+gl.getExtension('OES_texture_half_float_linear');
+gl.getExtension('OES_standard_derivatives');
+
+canvas.enableFullscreen({
+	position: 'absolute',
+	right: '7px',
+	bottom: '7px',
+	cursor: 'pointer',
+	background: '#1e1e1e',
+	fontFamily: 'Lato, Lucida Grande, Lucida Sans Unicode, Tahoma, Sans-Serif',
+	fontSize: '0.8rem',
+	padding: '2px 7px',
+	borderRadius: '3px',
+	border: '3px solid transparent',
+	color: 'white',
+	whiteSpace: 'nowrap',
+	textAlign: 'center'
+});
+
+/**
+ * VSM Shader programs
+ */
+
+var displayShader = gl.shader({
+
+	vertex: "\n\t\tvarying vec3 vWorldNormal;\n\t\tvarying vec4 vWorldPosition;\n\t\tuniform mat4 camProj, camView;\n\t\tuniform mat4 model;\n\t\tattribute vec3 position, normal;\n\n\t\tvoid main(){\n\t\t\tvWorldNormal = normal;\n\t\t\tvWorldPosition = model * vec4(position, 1.0);\n\t\t\tgl_Position = camProj * camView * vWorldPosition;\n\t\t}\n\t",
+
+	fragment: "\n\t\tvarying vec3 vWorldNormal;\n\t\tvarying vec4 vWorldPosition;\n\t\tuniform vec3 globalColor, modelColor;\n\t\tuniform mat4 camView;\n\t\tuniform mat4 lightProj, lightView;\n\t\tuniform mat3 lightRot;\n\t\tuniform sampler2D sLightDepth;\n\n\t\tfloat linstep(float low, float high, float v){\n\t\t\treturn clamp((v-low)/(high-low), 0.0, 1.0);\n\t\t}\n\n\t\tfloat VSM(sampler2D depths, vec2 uv, float compare){\n\t\t\tvec2 moments = texture2D(depths, uv).xy;\n\t\t\tfloat p = smoothstep(compare-0.02, compare, moments.x);\n\t\t\tfloat variance = max(moments.y - moments.x*moments.x, -0.001);\n\t\t\tfloat d = compare - moments.x;\n\t\t\tfloat p_max = linstep(0.4, 1.0, variance / (variance + d*d));\n\t\t\treturn clamp(max(p, p_max), 0.0, 1.0);\n\t\t}\n\n\t\tfloat influence(vec3 normal, float coneAngle){\n\t\t\tfloat minConeAngle = ((360.0-coneAngle-1.0)/360.0)*PI;\n\t\t\tfloat maxConeAngle = ((360.0-coneAngle)/360.0)*PI;\n\t\t\treturn smoothstep(minConeAngle, maxConeAngle, acos(normal.z));\n\t\t}\n\n\t\tfloat lambert(vec3 surfaceNormal, vec3 lightDirNormal){\n\t\t\treturn max(0.0, dot(surfaceNormal, lightDirNormal));\n\t\t}\n\n\t\tvoid main(){\n\t\t\tvec3 worldNormal = normalize(vWorldNormal);\n\t\t\tvec3 camPos = (camView * vWorldPosition).xyz;\n\t\t\tvec3 lightPos = (lightView * vWorldPosition).xyz;\n\t\t\tvec3 lightPosNormal = normalize(lightPos);\n\t\t\tvec3 lightSurfaceNormal = lightRot * worldNormal;\n\t\t\tvec4 lightDevice = lightProj * vec4(lightPos, 1.0);\n\t\t\tvec2 lightDeviceNormal = lightDevice.xy/lightDevice.w;\n\t\t\tvec2 lightUV = lightDeviceNormal*0.5+0.5;\n\n\t\t\t// shadow calculation\n\t\t\tfloat lightDepth2 = clamp(length(lightPos)/40.0, 0.0, 1.0);\n\t\t\tfloat illuminated = VSM(sLightDepth, lightUV, lightDepth2);\n\n\t\t\tvec3 excident = (\n\t\t\t\tglobalColor * modelColor *\n\t\t\t\tlambert(lightSurfaceNormal, -lightPosNormal) *\n\t\t\t\tinfluence(lightPosNormal, 50.0) *\n\t\t\t\tilluminated\n\t\t\t);\n\n\t\t\tgl_FragColor = vec4(excident, 2.0);\n\t\t}\n"
+});
+
+var lightShader = gl.shader({
+
+	vertex: "\n\t\tvarying vec3 vWorldNormal;\n\t\tvarying vec4 vWorldPosition;\n\t\tuniform mat4 lightProj, lightView;\n\t\tuniform mat4 model;\n\t\tattribute vec3 position, normal;\n\n\t\tvoid main(){\n\t\t\tvWorldNormal = normal;\n\t\t\tvWorldPosition = model * vec4(position, 1.0);\n\t\t\tgl_Position = lightProj * lightView * vWorldPosition;\n\t\t}\n\t",
+
+	fragment: "\n\t\t#extension GL_OES_standard_derivatives : enable\n\t\tvarying vec3 vWorldNormal;\n\t\tvarying vec4 vWorldPosition;\n\t\tuniform mat4 lightView;\n\n\t\tvoid main(){\n\t\t\tvec3 worldNormal = normalize(vWorldNormal);\n\t\t\tvec3 lightPos = (lightView * vWorldPosition).xyz;\n\t\t\tfloat depth = clamp(length(lightPos)/40.0, 0.0, 1.0);\n\t\t\tfloat dx = dFdx(depth);\n\t\t\tfloat dy = dFdy(depth);\n\t\t\tgl_FragColor = vec4(depth, pow(depth, 2.0) + 0.25*(dx*dx + dy*dy), 0.0, 1.0);\n\t\t}\n\t"
+});
+
+var lightDepthTexture = gl.texture({
+	type: 0x8D61, // HALF_FLOAT_OES
+	channels: 'rgba'
+}).bind().setSize(2048, 2048).linear().clampToEdge();
+
+var lightFramebuffer = gl.framebuffer().bind().color(lightDepthTexture).depth().unbind();
+
+var boxFilter = gl.filter(1024);
+
+/**
+ * matrix setup
+ */
+var lightProj = gl.mat4().perspective({
+	fov: 60
+}, 1, {
+	near: 0.01,
+	far: 40
+});
+
+var camProj = gl.mat4();
+var camView = gl.mat4();
+var lightView = gl.mat4();
+var lightRot = gl.mat3();
+var model = gl.mat4();
+
+/**
+ * state variables
+ */
+var cx = 0;
+var cy = 0;
+var camDist = 15;
+var camRot = 140;
+var camPitch = 41;
+var lightRoty = camRot + 30;
+
+/**
+ * scene geometry
+ */
+var cubeGeom = gl.drawable(gl.cube());
+var planeGeom = gl.drawable(gl.plane(60));
+var sphereGeom = gl.drawable(gl.sphere(1, 36));
+var cylinderGeom = gl.drawable(gl.cylinder(1, 36));
+
+var scene = [
+
+// ground
+[planeGeom, gl.mat4().trans(0, 0, 0), 0.35, 0.25, 0.25],
+
+// wall & window
+[cubeGeom, gl.mat4().trans(0, 1, 5).scale(6, 1, 0.3), 1, 1, 1], [cubeGeom, gl.mat4().trans(0, 5, 5).scale(6, 1, 0.3), 1, 1, 1], [cubeGeom, gl.mat4().trans(4, 3, 5).scale(2, 1, 0.3), 1, 1, 1], [cubeGeom, gl.mat4().trans(-4, 3, 5).scale(2, 1, 0.3), 1, 1, 1], [cubeGeom, gl.mat4().trans(0, 3, 5).scale(0.06, 1, 0.06), 0.5, 0.5, 0.5], [cubeGeom, gl.mat4().trans(0, 3, 5).scale(2, 0.06, 0.06), 0.5, 0.5, 0.5],
+
+// table
+[cubeGeom, gl.mat4().trans(0, 2, 1.5).scale(3, 0.1, 2), 0.25, 0.25, 0.25], [cubeGeom, gl.mat4().trans(2.3, 1, 0).scale(0.15, 1, 0.15), 1, 1, 1], [cubeGeom, gl.mat4().trans(-2.3, 1, 0).scale(0.15, 1, 0.15), 1, 1, 1], [cubeGeom, gl.mat4().trans(2.3, 1, 2.9).scale(0.15, 1, 0.15), 1, 1, 1], [cubeGeom, gl.mat4().trans(-2.3, 1, 2.9).scale(0.15, 1, 0.15), 1, 1, 1],
+
+// bench
+[cubeGeom, gl.mat4().rotatey(-130).trans(0, 1, 3.5).scale(2.5, 0.12, 0.5), 1, 1, 1], [cubeGeom, gl.mat4().rotatey(-130).trans(-2.3, 0.5, 3.5).scale(0.1, 0.5, 0.1), 1, 1, 1], [cubeGeom, gl.mat4().rotatey(-130).trans(2.3, 0.5, 3.5).scale(0.1, 0.5, 0.1), 1, 1, 1],
+
+// chair
+[cubeGeom, gl.mat4().rotatey(-20).trans(-0, 1.25, -1.5).scale(0.6, 0.1, 0.6), 1, 0, 0], [cubeGeom, gl.mat4().rotatey(-20).trans(-0, 1.5, -2).scale(0.15, 0.5, 0.03), 1, 1, 1], [cubeGeom, gl.mat4().rotatey(-20).trans(-0, 2.5, -2).scale(0.5, 0.5, 0.08), 1, 0, 0], [cubeGeom, gl.mat4().rotatey(-20).trans(0.4, 0.625, -1.0).scale(0.06, 0.625, 0.06), 1, 1, 1], [cubeGeom, gl.mat4().rotatey(-20).trans(-0.4, 0.625, -1.0).scale(0.06, 0.625, 0.06), 1, 1, 1], [cubeGeom, gl.mat4().rotatey(-20).trans(0.4, 0.625, -2).scale(0.06, 0.625, 0.06), 1, 1, 1], [cubeGeom, gl.mat4().rotatey(-20).trans(-0.4, 0.625, -2).scale(0.06, 0.625, 0.06), 1, 1, 1],
+
+// structure
+[cylinderGeom, gl.mat4().trans(4, 3, -4).scale(0.25, 4, 0.25), 0.25, 0.25, 0.25], [cylinderGeom, gl.mat4().trans(-4, 3, -4).scale(0.25, 4, 0.25), 0.25, 0.25, 0.25], [cubeGeom, gl.mat4().trans(0, 5.5, -4).scale(5, 0.12, 0.06), 1, 1, 1], [sphereGeom, gl.mat4().trans(0, 6, 1).scale(0.25, 0.25, 0.25), 1, 1, 1]];
+
+// roof
+for (var i = -4; i <= 4; i += 0.5) {
+	scene.push([cylinderGeom, gl.mat4().trans(i, 5.5, 0.5).scale(0.025, 0.025, 4.5), 0.25, 0.25, 0.25]);
+}
+
+/**
+ * drawing functions
+ */
+var k = 0;
+
+function drawScene(shader) {
+
+	for (var _iterator = scene, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+		var _ref;
+
+		if (_isArray) {
+			if (_i >= _iterator.length) break;
+			_ref = _iterator[_i++];
+		} else {
+			_i = _iterator.next();
+			if (_i.done) break;
+			_ref = _i.value;
+		}
+
+		var m = _ref;
+
+		shader.vec3('modelColor', m[2], m[3], m[4]).mat4('model', m[1]).draw(m[0]);
+	}
+
+	/**
+  * fan
+  */
+	shader.vec3('modelColor', 1, 0, 0).mat4('model', gl.mat4().trans(0, 6, 1).rotatey(k + 90).scale(3, 0.1, 0.3)).draw(sphereGeom);
+
+	shader.vec3('modelColor', 1, 0, 0).mat4('model', gl.mat4().trans(0, 6, 1).rotatey(k++).scale(3, 0.1, 0.3)).draw(sphereGeom);
+
+	/**
+  * sphere
+  */
+	shader.vec3('modelColor', 1, 0, 0).mat4('model', gl.mat4().trans(0, 3.8 + 0.75 * Math.cos(k * 0.01), 1).scale(0.7, 0.66, 0.7)).draw(sphereGeom);
+}
+
+function drawLight() {
+
+	lightFramebuffer.bind();
+
+	gl.viewport(0, 0, lightDepthTexture.width, lightDepthTexture.height).clearColor(1, 1, 1, 1).clearDepth(1).cullFace();
+
+	lightShader.use().mat4('lightView', lightView).mat4('lightProj', lightProj).mat3('lightRot', lightRot);
+
+	drawScene(lightShader);
+
+	lightFramebuffer.unbind();
+
+	boxFilter.apply(lightDepthTexture);
+}
+
+function drawCamera() {
+
+	gl.adjustSize().viewport().cullFace().clearColor(0, 0, 0, 0).clearDepth(1);
+
+	camProj.perspective({
+		fov: 60,
+		aspect: gl.aspect,
+		near: 0.01,
+		far: 100
+	});
+
+	camView.ident().trans(0, -1, -camDist).rotatex(camPitch).rotatey(camRot);
+
+	displayShader.use().vec3('globalColor', 2.0, 1.9, 1.4).mat4('camProj', camProj).mat4('camView', camView).mat4('lightView', lightView).mat4('lightProj', lightProj).mat3('lightRot', lightRot).sampler('sLightDepth', boxFilter);
+
+	drawScene(displayShader);
+}
+
+/**
+ * mainloop
+ */
+
+function draw() {
+
+	requestAnimationFrame(draw);
+
+	if (pointer.isDown) {
+		cx += (pointer.x - pointer.xold) / 50;
+		cy += (pointer.y - pointer.yold) / 50;
+	}
+
+	camRot += cx * 1.5 + 0.02;
+	camPitch += cy * 1.25;
+	if (camPitch > 85) camPitch = 85;else if (camPitch < 1) camPitch = 1;
+
+	camDist += pointer.z * 0.1;
+	pointer.z *= 0.9;
+	if (camDist < 8) camDist = 8;else if (camDist > 50) camDist = 50;
+
+	cx *= 0.95;
+	cy *= 0.95;
+	pointer.xold = pointer.x;
+	pointer.yold = pointer.y;
+
+	lightRoty += (camRot - lightRoty) / 140;
+	lightView.ident().trans(0, 0, -15).rotatex(40).rotatey(180 - lightRoty + camRot);
+	lightRot.fromMat4Rot(lightView);
+
+	drawLight();
+	drawCamera();
+}
+
+draw();
+</script>
+</body></html>

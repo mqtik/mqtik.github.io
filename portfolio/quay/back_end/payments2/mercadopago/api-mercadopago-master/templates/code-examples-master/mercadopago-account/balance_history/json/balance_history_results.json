@@ -1,0 +1,82 @@
+{  
+   "paging":{  
+      "total":70,
+      "limit":10,
+      "offset":0
+   },
+   "results":[  
+      {  
+         "id":INCOME_ID,
+         "currency_id":"ARS",
+         "source":{  
+            "id":SOURCE_ID,
+            "type":"payment",
+            "description":"Test Test"
+         },
+         "external_reference":"1611110354700004614000329178926229568780",
+         "order":null,
+         "date_created":"2017-01-10T11:10:55.000-04:00",
+         "date_released":"2017-01-24T11:10:54.000-04:00",
+         "last_modified":"2017-01-24T11:10:54.000-04:00",
+         "available":true,
+         "amount":46.14,
+         "net":37.1,
+         "fee":-9.04,
+         "tax":0,
+         "total_balance":6946651,
+         "fee_details":[  
+            {  
+               "amount":-9.04,
+               "type":"mercadopago_fee"
+            }
+         ],
+         "tax_details":[  
+ 
+         ],
+         "label":[  
+            "total_balance_pending"
+         ],
+         "metadata":{  
+ 
+         }
+      },
+      {  
+         "id":INCOME_ID,
+         "currency_id":"ARS",
+         "source":{  
+            "id":SOURCE_ID,
+            "type":"payment",
+            "description":"Test Test"
+         },
+         "external_reference":"1611080907400000864000329110407927197654",
+         "order":null,
+         "date_created":"2017-01-10T11:10:50.000-04:00",
+         "date_released":"2017-01-24T11:10:49.000-04:00",
+         "last_modified":"2017-01-24T11:10:49.000-04:00",
+         "available":true,
+         "amount":8.64,
+         "net":6.95,
+         "fee":-1.69,
+         "tax":0,
+         "total_balance":6946606.5,
+         "fee_details":[  
+            {  
+               "amount":-1.69,
+               "type":"mercadopago_fee"
+            }
+         ],
+         "tax_details":[  
+ 
+         ],
+         "label":[  
+            "total_balance_pending"
+         ],
+         "metadata":{  
+ 
+         }
+      },
+      {  
+         . . .
+      }
+   ]
+}

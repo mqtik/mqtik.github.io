@@ -1,0 +1,191 @@
+
+<!DOCTYPE html><html class=''>
+<head>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
+<style class="cp-pen-styles">html, body {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  perspective: 50em;
+  background: #eddfcc;
+  color: white;
+  font: 1.25em century gothic, verdana, sans-serif;
+}
+
+.tiles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 0;
+  width: 0;
+  height: 0;
+  list-style: none;
+  transform-style: preserve-3d;
+  transform: rotateY(-126deg);
+}
+
+.tile {
+  position: absolute;
+  left: 50%;
+  margin: 0.45em -10em;
+  width: 20em;
+  height: 20em;
+  backface-visibility: hidden;
+  opacity: 1;
+  /* inradius of an icosagon */
+  cursor: pointer;
+  transition: 0.5s;
+}
+.tile:hover {
+  opacity: 1;
+}
+.tile:nth-child(odd) {
+  bottom: 100%;
+}
+.tile:nth-child(2), .tile:nth-child(1) {
+  transform: rotateY(0deg) translateZ(-66.29439em);
+}
+.tile:nth-child(4), .tile:nth-child(3) {
+  transform: rotateY(18deg) translateZ(-66.29439em);
+}
+.tile:nth-child(6), .tile:nth-child(5) {
+  transform: rotateY(36deg) translateZ(-66.29439em);
+}
+.tile:nth-child(8), .tile:nth-child(7) {
+  transform: rotateY(54deg) translateZ(-66.29439em);
+}
+.tile:nth-child(10), .tile:nth-child(9) {
+  transform: rotateY(72deg) translateZ(-66.29439em);
+}
+.tile:nth-child(12), .tile:nth-child(11) {
+  transform: rotateY(90deg) translateZ(-66.29439em);
+}
+.tile:nth-child(14), .tile:nth-child(13) {
+  transform: rotateY(108deg) translateZ(-66.29439em);
+}
+.tile:nth-child(16), .tile:nth-child(15) {
+  transform: rotateY(126deg) translateZ(-66.29439em);
+}
+.tile:nth-child(1) {
+  background: url(img/1.jpg);
+  background-size: cover;
+}
+.tile:nth-child(2) {
+  background: url(img/2.jpg);
+  background-size: cover;
+}
+.tile:nth-child(3) {
+  background: url(img/3.jpg);
+  background-size: cover;
+}
+.tile:nth-child(4) {
+  background: url(img/4.jpg);
+  background-size: cover;
+}
+.tile:nth-child(5) {
+  background: url(img/5.jpg);
+  background-size: cover;
+}
+.tile:nth-child(6) {
+  background: url(img/6.jpg);
+  background-size: cover;
+}
+.tile:nth-child(7) {
+  background: url(img/7.jpg);
+  background-size: cover;
+}
+.tile:nth-child(8) {
+  background: url(img/8.jpg);
+  background-size: cover;
+}
+.tile:nth-child(9) {
+  background: url(img/9.jpg);
+  background-size: cover;
+}
+.tile:nth-child(10) {
+  background: url(img/10.jpg);
+  background-size: cover;
+}
+.tile:nth-child(11) {
+  background: url(img/11.jpg);
+  background-size: cover;
+}
+.tile:nth-child(12) {
+  background: url(img/12.jpg);
+  background-size: cover;
+}
+.tile:nth-child(13) {
+  background: url(img/13.jpg);
+  background-size: cover;
+}
+.tile:nth-child(14) {
+  background: url(img/14.jpg);
+  background-size: cover;
+}
+.tile:nth-child(15) {
+  background: url(img/15.jpg);
+  background-size: cover;
+}
+.tile:nth-child(16) {
+  background: url(img/16.jpg);
+  background-size: cover;
+}
+
+.slider {
+  position: absolute;
+  bottom: 5%;
+  left: 10%;
+  height: 0.25em;
+  width: 80%;
+  opacity: 0.5;
+  background: grey linear-gradient(90deg, #dc143c 100%, rgba(0, 0, 0, 0) 100%) no-repeat;
+  background-size: 5% 100%;
+}
+</style></head><body>
+
+<ul class='tiles'>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+  <li class='tile'></li>
+</ul>
+<div class='slider'></div>
+<script>(function(){
+  var b = document.body;
+  
+  b.addEventListener('mousemove', function(e) {
+    var w = b.clientWidth, x = e.clientX, 
+        perc = x/w, 
+        full_angle = -126, 
+        to_angle = full_angle + (100 - perc)*full_angle, 
+        txt = 'rotateY(' + to_angle + 'deg)', 
+        prefixes = ['Webkit', 'Moz', /*'ms', 'O', */''], 
+        len = prefixes.length, 
+        property = 'Transform',
+        a = document.querySelector('.tiles'), 
+        s = document.querySelector('.slider');
+    for(var i = 0; i < len; i++) {
+      if(prefixes[i] == '')
+        property = property.toLowerCase();
+      a.style[prefixes[i] + property] = txt;
+    }
+
+    s.style.backgroundPosition = (perc*100 - .5) + '% 50%';
+  }, false);
+}());
+</script>
+</body></html>

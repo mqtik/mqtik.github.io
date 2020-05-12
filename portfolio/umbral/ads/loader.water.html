@@ -1,0 +1,218 @@
+
+<!DOCTYPE html><html class=''>
+<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/zNLjKG" />
+
+
+<style class="cp-pen-styles">body {
+  margin: 0;
+  background-color: #1f5673;
+}
+
+@keyframes anim {
+  50% {
+    filter: blur(6px);
+    transform: translateY(-30px);
+  }
+}
+@keyframes drop {
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: scaleX(0.4) translateY(20.83333vh);
+  }
+}
+.circle, .drop {
+  mix-blend-mode: overlay;
+}
+
+.circle {
+  height: 50vh;
+  width: 50vh;
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  margin: -25vh;
+  transform: rotateX(70deg) translateY(50vh);
+  overflow: visible;
+}
+.circle > circle {
+  fill: none;
+  stroke: #fff;
+  filter: blur(10px);
+  animation: anim 1.3s infinite;
+  opacity: 1;
+}
+
+.circle > circle:nth-child(1) {
+  animation-delay: 0.18571s;
+  opacity: 0.95;
+}
+
+.circle > circle:nth-child(2) {
+  animation-delay: 0.37143s;
+  opacity: 0.9;
+}
+
+.circle > circle:nth-child(3) {
+  animation-delay: 0.55714s;
+  opacity: 0.85;
+}
+
+.circle > circle:nth-child(4) {
+  animation-delay: 0.74286s;
+  opacity: 0.8;
+}
+
+.circle > circle:nth-child(5) {
+  animation-delay: 0.92857s;
+  opacity: 0.75;
+}
+
+.circle > circle:nth-child(6) {
+  animation-delay: 1.11429s;
+  opacity: 0.7;
+}
+
+.circle > circle:nth-child(7) {
+  animation-delay: 1.3s;
+  opacity: 0.65;
+}
+
+.circle > circle:nth-child(8) {
+  animation-delay: 1.48571s;
+  opacity: 0.6;
+}
+
+.circle > circle:nth-child(9) {
+  animation-delay: 1.67143s;
+  opacity: 0.55;
+}
+
+.circle > circle:nth-child(10) {
+  animation-delay: 1.85714s;
+  opacity: 0.5;
+}
+
+.circle > circle:nth-child(11) {
+  animation-delay: 2.04286s;
+  opacity: 0.45;
+}
+
+.circle > circle:nth-child(12) {
+  animation-delay: 2.22857s;
+  opacity: 0.4;
+}
+
+.circle > circle:nth-child(13) {
+  animation-delay: 2.41429s;
+  opacity: 0.35;
+}
+
+.circle > circle:nth-child(14) {
+  animation-delay: 2.6s;
+  opacity: 0.3;
+}
+
+.circle > circle:nth-child(15) {
+  animation-delay: 2.78571s;
+  opacity: 0.25;
+}
+
+.circle > circle:nth-child(16) {
+  animation-delay: 2.97143s;
+  opacity: 0.2;
+}
+
+.circle > circle:nth-child(17) {
+  animation-delay: 3.15714s;
+  opacity: 0.15;
+}
+
+.circle > circle:nth-child(18) {
+  animation-delay: 3.34286s;
+  opacity: 0.1;
+}
+
+.circle > circle:nth-child(19) {
+  animation-delay: 3.52857s;
+  opacity: 0.05;
+}
+
+.circle > circle:nth-child(20) {
+  animation-delay: 3.71429s;
+  opacity: 0;
+}
+
+.drop {
+  heigth: 6vh;
+  width: 6vh;
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  margin: -3vh;
+  opacity: 0;
+  transform: scaleX(0.2) translateY(-100vh);
+  animation: drop 1.3s infinite ease-in;
+  animation-delay: 1.08333s;
+}
+.drop > div {
+  height: 3vh;
+  width: 3vh;
+  margin: 0 auto;
+  transform: rotate(45deg);
+  opacity: 0.7;
+  border-radius: 0 100% 80% 100%;
+  background-color: #fff;
+  filter: blur(2px);
+}
+
+.light {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+}
+.light > div {
+  position: absolute;
+  height: 50vh;
+  width: 50vh;
+  border-radius: 50%;
+  filter: blur(250px);
+  mix-blend-mode: color-dodge;
+}
+.light > div:nth-child(1) {
+  background-color: #90c3c8;
+  right: 0;
+}
+.light > div:nth-child(2) {
+  background-color: #b9b8d3;
+  bottom: 0;
+}
+</style></head><body>
+<svg class='circle' viewBox='0 0 200 200'>
+  <circle cx='100' cy='100' r='6'></circle>
+  <circle cx='100' cy='100' r='12'></circle>
+  <circle cx='100' cy='100' r='18'></circle>
+  <circle cx='100' cy='100' r='24'></circle>
+  <circle cx='100' cy='100' r='30'></circle>
+  <circle cx='100' cy='100' r='36'></circle>
+  <circle cx='100' cy='100' r='42'></circle>
+  <circle cx='100' cy='100' r='48'></circle>
+  <circle cx='100' cy='100' r='54'></circle>
+  <circle cx='100' cy='100' r='60'></circle>
+  <circle cx='100' cy='100' r='66'></circle>
+  <circle cx='100' cy='100' r='72'></circle>
+  <circle cx='100' cy='100' r='78'></circle>
+  <circle cx='100' cy='100' r='84'></circle>
+  <circle cx='100' cy='100' r='90'></circle>
+  <circle cx='100' cy='100' r='96'></circle>
+  <circle cx='100' cy='100' r='102'></circle>
+  <circle cx='100' cy='100' r='108'></circle>
+  <circle cx='100' cy='100' r='114'></circle>
+  <circle cx='100' cy='100' r='120'></circle>
+</svg>
+<div class='drop'>
+  <div></div>
+</div>
+
+</body></html>

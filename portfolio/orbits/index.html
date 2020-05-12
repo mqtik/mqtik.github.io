@@ -1,0 +1,556 @@
+
+<!DOCTYPE html><html class=''>
+<head><meta charset='UTF-8'>
+
+<title>Following tales</title>
+<style>* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  overflow: hidden;
+}
+canvas {
+  position: absolute;
+}
+</style></head><body>
+<div id="canvas"></div>
+<script type="x-shader/x-vertex" id="vertex-shader">
+  attribute vec3 customColor;
+  attribute float vertexOpacity;
+  attribute float size;
+  
+  varying vec3 vColor;
+  varying float fOpacity;
+  
+  void main() {
+    vColor = customColor;
+    fOpacity = vertexOpacity;
+    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+    gl_PointSize = size * (300.0 / length(mvPosition.xyz));
+    gl_Position = projectionMatrix * mvPosition;
+  }
+</script>
+<script type="x-shader/x-fragment" id="fragment-shader">
+  uniform vec3 color;
+  uniform sampler2D texture;
+  
+  varying vec3 vColor;
+  varying float fOpacity;
+  
+  void main() {
+    gl_FragColor = vec4(color * vColor, fOpacity);
+    gl_FragColor = gl_FragColor * texture2D(texture, gl_PointCoord);
+  }
+</script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js'></script>
+<script>(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var exports = {
+  getRandomInt: function(min, max){
+    return Math.floor(Math.random() * (max - min)) + min;
+  },
+  getDegree: function(radian) {
+    return radian / Math.PI * 180;
+  },
+  getRadian: function(degrees) {
+    return degrees * Math.PI / 180;
+  },
+  getSpherical: function(rad1, rad2, r) {
+    var x = Math.cos(rad1) * Math.cos(rad2) * r;
+    var z = Math.cos(rad1) * Math.sin(rad2) * r;
+    var y = Math.sin(rad1) * r;
+    return new THREE.Vector3(x, y, z);
+  }
+};
+
+module.exports = exports;
+
+},{}],2:[function(require,module,exports){
+var Util = require('./util');
+
+var exports = function(){
+  var Camera = function() {
+    this.rad1_base = Util.getRadian(10);
+    this.rad1 = this.rad1_base;
+    this.rad2 = Util.getRadian(0);
+    this.range = 1000;
+    this.obj;
+  };
+  
+  Camera.prototype = {
+    init: function(width, height) {
+      this.obj = new THREE.PerspectiveCamera(35, width / height, 1, 10000);
+      this.obj.up.set(0, 1, 0);
+      this.setPosition();
+      this.lookAtCenter();
+    },
+    reset: function() {
+      this.setPosition();
+      this.lookAtCenter();
+    },
+    resize: function(width, height) {
+      this.obj.aspect = width / height;
+      this.obj.updateProjectionMatrix();
+    },
+    setPosition: function() {
+      var points = Util.getSpherical(this.rad1, this.rad2, this.range);
+      this.obj.position.copy(points);
+    },
+    rotate: function() {
+      this.rad1_base += Util.getRadian(0.25);
+      this.rad1 = Util.getRadian(Math.sin(this.rad1_base) * 80);
+      this.rad2 += Util.getRadian(0.5);
+      this.reset();
+    },
+    lookAtCenter: function() {
+      this.obj.lookAt({
+        x: 0,
+        y: 0,
+        z: 0
+      });
+    }
+  };
+
+  return Camera;
+};
+
+module.exports = exports();
+
+},{"./util":10}],3:[function(require,module,exports){
+module.exports = function(object, eventType, callback){
+  var timer;
+
+  object.addEventListener(eventType, function(event) {
+    clearTimeout(timer);
+    timer = setTimeout(function(){
+      callback(event);
+    }, 500);
+  }, false);
+};
+
+},{}],4:[function(require,module,exports){
+var exports = {
+  friction: function(acceleration, mu, normal, mass) {
+    var force = acceleration.clone();
+    if (!normal) normal = 1;
+    if (!mass) mass = 1;
+    force.multiplyScalar(-1);
+    force.normalize();
+    force.multiplyScalar(mu);
+    return force;
+  },
+  drag: function(acceleration, value) {
+    var force = acceleration.clone();
+    force.multiplyScalar(-1);
+    force.normalize();
+    force.multiplyScalar(acceleration.length() * value);
+    return force;
+  },
+  hook: function(velocity, anchor, rest_length, k) {
+    var force = velocity.clone().sub(anchor);
+    var distance = force.length() - rest_length;
+    force.normalize();
+    force.multiplyScalar(-1 * k * distance);
+    return force;
+  }
+};
+
+module.exports = exports;
+
+},{}],5:[function(require,module,exports){
+var Util = require('./util');
+
+var exports = function(){
+  var HemiLight = function() {
+    this.rad1 = Util.getRadian(60);
+    this.rad2 = Util.getRadian(30);
+    this.range = 1000;
+    this.hex1 = 0xffffff;
+    this.hex2 = 0x333333;
+    this.intensity = 1;
+    this.obj;
+  };
+  
+  HemiLight.prototype = {
+    init: function(hex1, hex2) {
+      if (hex1) this.hex1 = hex1;
+      if (hex2) this.hex2 = hex2;
+      this.obj = new THREE.HemisphereLight(this.hex1, this.hex2, this.intensity);
+      this.setPosition();
+    },
+    setPosition: function() {
+      var points = Util.getSpherical(this.rad1, this.rad2, this.range);
+      this.obj.position.copy(points);
+    }
+  };
+  
+  return HemiLight;
+};
+
+module.exports = exports();
+
+},{"./util":10}],6:[function(require,module,exports){
+var Util = require('./Util');
+var debounce = require('./debounce');
+var Camera = require('./camera');
+var HemiLight = require('./hemiLight');
+var Points = require('./points');
+
+var body_width = document.body.clientWidth;
+var body_height = document.body.clientHeight;
+var last_time_activate = Date.now();
+
+var canvas = null;
+var renderer = null;
+var scene = null;
+var camera = null;
+var light = null;
+var points = null;
+
+var initThree = function() {
+  canvas = document.getElementById('canvas');
+  renderer = new THREE.WebGLRenderer({
+    antialias: true
+  });
+  if (!renderer) {
+    alert('Three.jsの初期化に失敗しました。');
+  }
+  renderer.setSize(body_width, body_height);
+  canvas.appendChild(renderer.domElement);
+  renderer.setClearColor(0x111111, 1.0);
+  
+  scene = new THREE.Scene();
+  
+  camera = new Camera();
+  camera.init(body_width, body_height);
+  
+  // light = new HemiLight();
+  // light.init();
+  // scene.add(light.obj);
+  
+  points = new Points();
+  points.init(scene);
+  scene.add(points.obj);
+  
+  var dummy_geometry = new THREE.OctahedronGeometry(80, 2);
+  var dummy_material = new THREE.MeshPhongMaterial({
+    color: 0xffffff,
+    shading: THREE.FlatShading
+  });
+  var dummy_obj = new THREE.Mesh(dummy_geometry, dummy_material);
+  scene.add(dummy_obj);
+  var debris_geometry = new THREE.OctahedronGeometry(10, 1);
+  var debris_material = new THREE.MeshPhongMaterial({
+    color: 0xffffff,
+    shading: THREE.FlatShading
+  });
+  for (var i = 0; i < 200; i++) {
+    var debris = new THREE.Mesh(debris_geometry, debris_material);
+    var rad1 = Util.getRadian(Util.getRandomInt(0, 360));
+    var rad2 = Util.getRadian(Util.getRandomInt(0, 360));
+    var range = Util.getRandomInt(250, 1000);
+    var scale = Util.getRandomInt(0.8, 2);
+    debris.position.copy(Util.getSpherical(rad1, rad2, range));
+    debris.scale.set(scale, scale, scale);
+    scene.add(debris);
+  }
+};
+
+var init = function() {
+  initThree();
+  renderloop();
+  debounce(window, 'resize', function(event){
+    resizeRenderer();
+  });
+};
+
+var render = function() {
+  renderer.clear();
+  points.update();
+  camera.rotate();
+  renderer.render(scene, camera.obj);
+};
+
+var renderloop = function() {
+  var now = Date.now();
+  requestAnimationFrame(renderloop);
+  render();
+  if (now - last_time_activate > 1) {
+    points.activateMover();
+    last_time_activate = Date.now();
+  }
+};
+
+var resizeRenderer = function() {
+  body_width  = document.body.clientWidth;
+  body_height = document.body.clientHeight;
+  renderer.setSize(body_width, body_height);
+  camera.resize(body_width, body_height);
+};
+
+init();
+
+},{"./Util":1,"./camera":2,"./debounce":3,"./hemiLight":5,"./points":9}],7:[function(require,module,exports){
+var Util = require('./util');
+var Force = require('./force');
+
+var exports = function(){
+  var Mover = function() {
+    this.position = new THREE.Vector3();
+    this.velocity = new THREE.Vector3();
+    this.acceleration = new THREE.Vector3();
+    this.anchor = new THREE.Vector3();
+    this.mass = 1;
+    this.r = 0;
+    this.g = 0;
+    this.b = 0;
+    this.a = 0;
+    this.size = 0;
+    this.time = 0;
+    this.is_active = false;
+  };
+  
+  Mover.prototype = {
+    init: function(vector) {
+      this.position = vector.clone();
+      this.velocity = vector.clone();
+      this.anchor = vector.clone();
+      this.acceleration.set(0, 0, 0);
+      this.a = 1;
+      this.time = 0;
+    },
+    updatePosition: function() {
+      this.position.copy(this.velocity);
+    },
+    updateVelocity: function() {
+      this.acceleration.divideScalar(this.mass);
+      this.velocity.add(this.acceleration);
+      // if (this.velocity.distanceTo(this.position) >= 1) {
+      //   this.direct(this.velocity);
+      // }
+    },
+    applyForce: function(vector) {
+      this.acceleration.add(vector);
+    },
+    applyFriction: function() {
+      var friction = Force.friction(this.acceleration, 0.1);
+      this.applyForce(friction);
+    },
+    applyDragForce: function(value) {
+      var drag = Force.drag(this.acceleration, value);
+      this.applyForce(drag);
+    },
+    hook: function(rest_length, k) {
+      var force = Force.hook(this.velocity, this.anchor, rest_length, k);
+      this.applyForce(force);
+    },
+    activate: function () {
+      this.is_active = true;
+    },
+    inactivate: function () {
+      this.is_active = false;
+    }
+  };
+
+  return Mover;
+};
+
+module.exports = exports();
+
+},{"./force":4,"./util":10}],8:[function(require,module,exports){
+var Util = require('./util');
+
+var exports = function(){
+  var PointLight = function() {
+    this.rad1 = Util.getRadian(0);
+    this.rad2 = Util.getRadian(0);
+    this.range = 200;
+    this.hex = 0x99eeee;
+    this.intensity = 1;
+    this.distance = 0;
+    this.decay = 1;
+    this.obj;
+  };
+  
+  PointLight.prototype = {
+    init: function(hex) {
+      this.obj = new THREE.PointLight(this.hex, this.intensity, this.distance, this.decay);
+      this.setPosition();
+    },
+    setPosition: function() {
+      var points = Util.getSpherical(this.rad1, this.rad2, this.range);
+      this.obj.position.copy(points);
+    }
+  };
+  
+  return PointLight;
+};
+
+module.exports = exports();
+
+},{"./util":10}],9:[function(require,module,exports){
+var Util = require('./util');
+var Mover = require('./mover');
+var Light = require('./pointLight');
+
+var exports = function(){
+  var Points = function() {
+    this.scene = null;
+    this.movers_num = 30000;
+    this.movers = [];
+    this.geometry = null;
+    this.material = null;
+    this.obj = null;
+    this.texture = null;
+    this.positions = new Float32Array(this.movers_num * 3);
+    this.colors = new Float32Array(this.movers_num * 3);
+    this.opacities = new Float32Array(this.movers_num);
+    this.sizes = new Float32Array(this.movers_num);
+    this.rad1 = 0;
+    this.rad1_base = 0;
+    this.rad2 = 0;
+    this.anchor = new THREE.Vector3();
+    this.gravity = new THREE.Vector3(0, -0.05, 0);
+    this.light = new Light();
+  };
+  
+  Points.prototype = {
+    init: function(scene) {
+      this.scene = scene;
+      this.createTexture();
+      this.geometry = new THREE.BufferGeometry();
+      this.material = new THREE.ShaderMaterial({
+        uniforms: {
+          color: { type: 'c', value: new THREE.Color(0xffffff) },
+          texture: { type: 't', value: this.texture }
+        },
+        vertexShader: document.getElementById('vertex-shader').textContent,
+        fragmentShader: document.getElementById('fragment-shader').textContent,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+      });
+      for (var i = 0; i < this.movers_num; i++) {
+        var mover = new Mover();
+        var h = Util.getRandomInt(90, 240);
+        var s = Util.getRandomInt(60, 90);
+        var color = new THREE.Color('hsl(' + h + ', ' + s + '%, 50%)');
+
+        mover.init(new THREE.Vector3(0, 0, 0));
+        this.movers.push(mover);
+        this.positions[i * 3 + 0] = mover.position.x;
+        this.positions[i * 3 + 1] = mover.position.y;
+        this.positions[i * 3 + 2] = mover.position.z;
+        color.toArray(this.colors, i * 3);
+        this.opacities[i] = mover.a;
+        this.sizes[i] = mover.size;
+      }
+      this.geometry.addAttribute('position', new THREE.BufferAttribute(this.positions, 3));
+      this.geometry.addAttribute('customColor', new THREE.BufferAttribute(this.colors, 3));
+      this.geometry.addAttribute('vertexOpacity', new THREE.BufferAttribute(this.opacities, 1));
+      this.geometry.addAttribute('size', new THREE.BufferAttribute(this.sizes, 1));
+      this.obj = new THREE.Points(this.geometry, this.material);
+      this.light.init();
+      this.scene.add(this.light.obj);
+    },
+    move: function() {
+      this.rad1_base += Util.getRadian(1);
+      this.rad2 += Util.getRadian(3);
+    },
+    update: function() {
+      this.rad1 = Util.getRadian(Math.sin(this.rad1_base) * 30);
+      this.anchor.copy(Util.getSpherical(this.rad1, this.rad2, 250));
+      this.updateMover();
+      this.obj.geometry.position = this.positions;
+      this.obj.geometry.vertexOpacity = this.opacities;
+      this.obj.geometry.size = this.sizes;
+      this.obj.geometry.attributes.position.needsUpdate = true;
+      this.obj.geometry.attributes.vertexOpacity.needsUpdate = true;
+      this.obj.geometry.attributes.size.needsUpdate = true;
+      this.move();
+      this.light.obj.position.copy(Util.getSpherical(this.rad1, this.rad2, 250));
+    },
+    updateMover: function() {
+      for (var i = 0; i < this.movers.length; i++) {
+        var mover = this.movers[i];
+        if (mover.is_active) {
+          mover.time++;
+          mover.applyForce(this.gravity);
+          mover.applyDragForce(0.1);
+          mover.updateVelocity();
+          mover.updatePosition();
+          if (mover.time > 10) {
+            mover.size -= 2;
+            mover.a -= 0.02;
+          }
+          if (mover.a <= 0) {
+            mover.init(new THREE.Vector3(0, 0, 0));
+            mover.time = 0;
+            mover.a = 0.0;
+            mover.inactivate();
+          }
+        }
+        this.positions[i * 3 + 0] = mover.position.x;
+        this.positions[i * 3 + 1] = mover.position.y;
+        this.positions[i * 3 + 2] = mover.position.z;
+        this.opacities[i] = mover.a;
+        this.sizes[i] = mover.size;
+      }
+    },
+    activateMover: function() {
+      var count = 0;
+
+      for (var i = 0; i < this.movers.length; i++) {
+        var mover = this.movers[i];
+        if (mover.is_active) continue;
+        var rad1 = Util.getRadian(Util.getRandomInt(0, 360));
+        var rad2 = Util.getRadian(Util.getRandomInt(0, 360));
+        var range = (1 - Math.log(Util.getRandomInt(2, 64)) / Math.log(64)) * 80;
+        var vector = Util.getSpherical(rad1, rad2, range);
+        var force = Util.getSpherical(rad1, rad2, range / 8);
+        vector.add(this.anchor);
+        mover.activate();
+        mover.init(vector);
+        mover.applyForce(force);
+        mover.a = 0.6;
+        mover.size = Util.getRandomInt(20, 80);
+        count++;
+        if (count >= 120) break;
+      }
+    },
+    createTexture: function() {
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      var grad = null;
+
+      canvas.width = 200;
+      canvas.height = 200;
+      grad = ctx.createRadialGradient(100, 100, 20, 100, 100, 100);
+      grad.addColorStop(0.2, 'rgba(255, 255, 255, 1)');
+      grad.addColorStop(0.5, 'rgba(255, 255, 255, 0.3)');
+      grad.addColorStop(1.0, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = grad;
+      ctx.arc(100, 100, 100, 0, Math.PI / 180, true);
+      ctx.fill();
+      this.texture = new THREE.Texture(canvas);
+      this.texture.minFilter = THREE.NearestFilter;
+      this.texture.needsUpdate = true;
+    }
+  };
+
+  return Points;
+};
+
+module.exports = exports();
+
+},{"./mover":7,"./pointLight":8,"./util":10}],10:[function(require,module,exports){
+arguments[4][1][0].apply(exports,arguments)
+},{"dup":1}]},{},[6])
+
+
+</script>
+</body></html>

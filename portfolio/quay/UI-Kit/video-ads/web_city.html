@@ -1,0 +1,119 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/jagarikin/pen/GowQba" />
+
+
+<style class="cp-pen-styles">* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+canvas {
+  width: 100%;
+    height: 100%;
+}</style></head><body>
+<canvas></canvas>
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script >var canvas,ctx,ct,kaz,max,bai;
+
+window.onload=function(){
+    var a,b;
+    canvas = document.getElementsByTagName('canvas')[0];
+    ctx = canvas.getContext('2d');
+    canvas.width=canvas.height=400;
+    ctx.fillRect(0,0,400,400);
+    kaz=100;
+    max=30;
+    ct=[];
+    for(a=0;a<kaz;a++){
+        ct[a]=[];
+        for(b=0;b<max;b++){
+            ct[a][b]=(((a+b)%2==1) && Math.random()<0.6);
+        }
+    }
+    wct();
+};
+
+function wct(){
+    var a,b,c,d,e,f,r,x,y,tx,ty,pt,tim,han,yp,yp2,z,hei;
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle="rgb(0,0,0)";
+    ctx.fillRect(0,0,400,400);
+    ctx.globalCompositeOperation = "lighter";
+    ctx.strokeStyle="hsla(244,60%,60%,0.8)";
+    ctx.lineWidth=2;
+    tim=new Date().getTime()/30;
+    bai=8+Math.sin(tim/37)*7;
+    ty=110+Math.sin(tim/43)*20*bai;
+    tx=200+Math.sin(tim/53)*50*bai;
+    
+    a=0.9+Math.sin(tim/83)*0.5;
+    yp=Math.sin(a);
+    yp2=Math.cos(a);
+    hei=5*yp2*bai;
+    han=180/max;
+    
+    pt=[];
+    for(a=0;a<kaz;a++){
+        r=tim/40+a/kaz*Math.PI*2;
+        px=Math.cos(r);
+        py=Math.sin(r);
+        
+        pt[a]=[];
+        
+        for(b=0;b<max;b++){
+            d=0;
+            if(ct[a][b] || ct[(a-1+kaz)%kaz][b])d=hei;
+            e=b/max;
+            f=1-e;
+            e*=e*han;
+            f*=f*140*yp2;
+            
+            c=b*2;
+            x=px*c*e;
+            y=py*c*e;
+            z=y*yp2;
+            z=Math.pow(1.2,z/80)*bai;
+            y+=f;
+            x*=z;y*=z;
+            y*=yp;
+            pt[a].push([tx+x,ty+y]);
+            pt[a].push([tx+x,ty+y-d]);
+            
+            c=b*2+1;
+            x=px*c*e;
+            y=py*c*e;
+            z=y*yp2;
+            z=Math.pow(1.2,z/80)*bai;
+            y+=f;
+            x*=z;y*=z;
+            y*=yp;
+            pt[a].push([tx+x,ty+y-d]);
+            pt[a].push([tx+x,ty+y]);
+        }
+    }
+    
+    for(a=0;a<kaz;a++){
+        ctx.beginPath();
+        for(b=0;b<pt[a].length;b++){
+            if(b){
+                ctx.lineTo(pt[a][b][0],pt[a][b][1]);
+            }else{
+                ctx.moveTo(pt[a][b][0],pt[a][b][1]);
+            }
+        }
+
+        for(b=0;b<pt[a].length;b++){
+            if(ct[a][(b/4)|0]){
+                ctx.moveTo(pt[a][b][0],pt[a][b][1]);
+                ctx.lineTo(pt[(a+1)%kaz][b][0],pt[(a+1)%kaz][b][1]);
+            }
+        }
+        ctx.stroke();
+    }
+    requestAnimationFrame(wct);
+}
+//# sourceURL=pen.js
+</script>
+</body></html>

@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Solar System (WebGL)</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/three.min.js"></script>
+    <script src="js/TrackballControls.js"></script>
+    <script src="js/dat.gui.min.js"></script>
+    <script src="js/planet.js"></script>
+    <style type="text/css">
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: Verdana;
+            font-size: 13px;
+            overflow: hidden;
+        }
+        #info{
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 400px;
+            border-top: solid 2px #aaa;
+            border-bottom: solid 2px #555;
+            border-left: solid 2px #aaa;
+            border-right: solid 2px #555;
+            background-color: #808080;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+        #menu{
+            list-style-type: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            border-top: none;
+            background-color: #000;
+            width: 130px;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+        
+        #menu li{
+            background-color:#808080;
+            line-height: 20px;
+        }
+        #menu #language{
+            text-align: center;
+        }
+        #menu #language img{
+            cursor: pointer;
+            opacity: 0.3;
+        }
+        #menu #language img.highlight,#menu #language img:hover{
+            opacity: 1;
+        }
+        #menu li:first-child{
+            margin: 0;
+        }
+        #menu li:last-child{
+            margin: 0;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+        #menu li a{
+            text-decoration: none;
+            color: #eee;
+            display: block;
+            padding: 3px 10px;
+            cursor: pointer;
+            border-top: solid 2px #999;
+            border-bottom: solid 2px #666;
+        }
+        #menu li:last-child a{
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+            font-size: 12px;
+            line-height: 12px;
+            text-align: center;
+            height: 12px;
+        }
+        #menu li a:hover,#menu li a.highlight{
+            color: #ff6a00;
+            background-color: #fffdd8;
+            border-top: solid 2px #fff;
+            border-bottom: solid 2px #ff6a00;
+        }
+        #menu li.item{
+            display: none;
+        }
+    </style>
+    <script id="fragmentShader" type="x-shader/x-fragment">
+
+			uniform float time;
+			varying vec3 vTexCoord3D;
+			varying vec3 vNormal;
+			varying vec3 vViewPosition;
+			vec4 permute(vec4 x){
+				return mod(((x*34.0)+1.0)*x,289.0);
+			}
+
+			vec4 taylorInvSqrt(vec4 r){
+				return 1.79284291400159 - 0.85373472095314 * r;
+			}
+
+			float snoise(vec3 v) {
+				const vec2 C = vec2( 1.0 / 6.0, 1.0 / 3.0 );
+				const vec4 D = vec4( 0.0, 0.5, 1.0, 2.0 );
+				// First corner
+				vec3 i  = floor( v + dot( v, C.yyy ) );
+				vec3 x0 = v - i + dot( i, C.xxx );
+				// Other corners
+				vec3 g = step( x0.yzx, x0.xyz );
+				vec3 l = 1.0 - g;
+				vec3 i1 = min( g.xyz, l.zxy );
+				vec3 i2 = max( g.xyz, l.zxy );
+				//  x0 = x0 - 0. + 0.0 * C
+				vec3 x1 = x0 - i1 + 1.0 * C.xxx;
+				vec3 x2 = x0 - i2 + 2.0 * C.xxx;
+				vec3 x3 = x0 - 1. + 3.0 * C.xxx;
+				// Permutations
+				i = mod( i, 289.0 );
+				vec4 p = permute( permute( permute(
+						 i.z + vec4( 0.0, i1.z, i2.z, 1.0 ) )
+					   + i.y + vec4( 0.0, i1.y, i2.y, 1.0 ) )
+					   + i.x + vec4( 0.0, i1.x, i2.x, 1.0 ) );
+
+				// Gradients
+				// ( N*N points uniformly over a square, mapped onto an octahedron.)
+
+				float n_ = 1.0 / 7.0; // N=7
+				vec3 ns = n_ * D.wyz - D.xzx;
+				vec4 j = p - 49.0 * floor( p * ns.z *ns.z );  //  mod(p,N*N)
+				vec4 x_ = floor( j * ns.z );
+				vec4 y_ = floor( j - 7.0 * x_ );    // mod(j,N)
+				vec4 x = x_ *ns.x + ns.yyyy;
+				vec4 y = y_ *ns.x + ns.yyyy;
+				vec4 h = 2.0 - abs( x ) - abs( y );
+				vec4 b0 = vec4( x.xy, y.xy );
+				vec4 b1 = vec4( x.zw, y.zw );
+				vec4 s0 = floor( b0 ) * 2.0 + 1.0;
+				vec4 s1 = floor( b1 ) * 2.0 + 1.0;
+				vec4 sh = -step( h, vec4( 0.0 ) );
+				vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;
+				vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;
+				vec3 p0 = vec3( a0.xy, h.x );
+				vec3 p1 = vec3( a0.zw, h.y );
+				vec3 p2 = vec3( a1.xy, h.z );
+				vec3 p3 = vec3( a1.zw, h.w );
+
+				// Normalise gradients
+				vec4 norm = taylorInvSqrt( vec4( dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3) ) );
+				p0 *= norm.x;
+				p1 *= norm.y;
+				p2 *= norm.z;
+				p3 *= norm.w;
+
+				// Mix final noise value
+				vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3) ), 0.0 );
+				m = m * m;
+				return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1),dot(p2,x2), dot(p3,x3) ) );
+			}
+
+			float heightMap(vec3 coord){
+				float n = abs(snoise(coord));
+				n += 0.25   * abs(snoise(coord * 2.0));
+				n += 0.25   * abs(snoise(coord * 4.0));
+				n += 0.125  * abs(snoise(coord * 8.0));
+				n += 0.0625 * abs(snoise(coord * 16.0));
+				return n;
+			}
+
+			void main( void ) {
+                // height
+				float n = heightMap(vTexCoord3D);
+				// color
+				gl_FragColor = vec4(vec3( 1.5 - n, 1.0 - n, 0.5 - n ),1.0);
+				// normal
+				const float e = 1.001;
+				float nx = heightMap(vTexCoord3D + vec3( e, 0.0, 0.0 ));
+				float ny = heightMap(vTexCoord3D + vec3( 0.0, e, 0.0 ));
+				float nz = heightMap(vTexCoord3D + vec3( 0.0, 0.0, e ));
+				vec3 normal = normalize( vNormal + 0.15 * vec3( n - nx, n - ny, n - nz ) / e );
+				// diffuse light
+				vec3 vLightWeighting = vec3( 1.0 );
+				vec4 lDirection = viewMatrix * vec4( normalize( vec3( 2.0, 0.0, 0.5 ) ), 0.0 );
+				float directionalLightWeighting = dot( normal, normalize( lDirection.xyz ) ) * 0.25 + 0.75;
+				vLightWeighting += vec3(1.0 ) * directionalLightWeighting;
+				// specular light
+				vec3 dirHalfVector = normalize( lDirection.xyz + normalize( vViewPosition ) );
+				float dirDotNormalHalf = dot( normal, dirHalfVector );
+				float dirSpecularWeight = 0.0;
+				if ( dirDotNormalHalf >= 0.0 )
+					dirSpecularWeight = ( 2.0 - n ) * pow( dirDotNormalHalf, 7.0 );
+
+				vLightWeighting += vec3( 2.0, 0.5, 0.0 ) * dirSpecularWeight * n *2.0;
+				gl_FragColor *= vec4( vLightWeighting, 2.0 );
+			}
+
+    </script>
+
+    <script id="vertexShader" type="x-shader/x-vertex">
+      uniform float time;
+      uniform float scale;
+      uniform mat4 objectMatrix;
+      varying vec3 vTexCoord3D;
+      varying vec3 vNormal;
+      varying vec3 vViewPosition;
+
+      void main(void )
+      {
+
+          vec4 mPosition = objectMatrix * vec4(position, 1.0);
+          vNormal = normalize(normalMatrix * normal);
+          vViewPosition = cameraPosition - mPosition.xyz;
+
+          vTexCoord3D = scale * (position.xyz + vec3(0.0, 0.0, -time));
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+
+      }
+
+    </script>
+
+    <script>
+        var language="es";
+        var container, stats;
+        var camera, scene, renderer;
+        var group;
+        var ctlPanel;
+        var oldTime = new Date().getTime();
+        var windowHalfX = window.innerWidth / 2;
+        var windowHalfY = window.innerHeight / 2;
+        var oldTime = new Date().getTime(); var sununiforms;
+        var radius = 1;
+        var distence = 400;
+        var sun_radius = 109 * radius;
+        var mercury_radius = 0.382 * radius, meshMercury, mercuryPivot, meshMercury_camera;
+        var venus_radius = 0.94 * radius, meshVenus, venusPivot, meshVenus_camera;
+        var meshPlanet, meshClouds, meshMoon, meshPlanet_camera;
+        var mars_radius = 0.6 * radius, meshMars, marsPivot, meshMars_camera;
+        var jupiter_radius = 11 * radius, meshJupiter, meshJupiter_camera;
+        var saturm_radius = 9.4 * radius, meshSaturm, meshSaturm_camera;
+        var uranus_radius = 3.98 * radius, meshUranus, meshUranus_camera;
+        var neptune_radius = 3.85 * radius, meshNeptune, meshNeptune_camera;
+
+        var tilt = 0.41;
+        var rotationSpeed = 0.02;
+
+        var cloudsScale = 1.005;
+        var moonScale = 0.13;
+        var sunScale = 2;
+        var MARGIN = 0;
+        var SCREEN_HEIGHT = window.innerHeight - MARGIN * 2;
+        var SCREEN_WIDTH = window.innerWidth;
+
+        var controls, sceneCube;
+        var geometry, meshSun;
+        var dirLight, pointLight, ambientLight;
+
+        var d, dPlanet, dMoon, dMoonVec = new THREE.Vector3();
+        var clock = new THREE.Clock();
+        var camGroup;
+        var projector;
+        var objects = [];
+        var earthPivot, moonPivot;
+        var gui, trackline = {
+            ShowTrackLine: true
+        };
+        var earth_trackline, uranusTrackLine, mercuryTrackLine, venusTrackLine, marsTrackLine, jupiterTrackLine, saturmTrackLine, neptuneTrackLine;
+        function init() {
+
+            //control panle
+
+            scene = new THREE.Scene();
+            container = document.getElementById("box");
+            camera = new THREE.PerspectiveCamera(radius * 80, SCREEN_WIDTH / SCREEN_HEIGHT, 0.5, 1e10);
+            camera.position.z = distence * 4;
+            camera.position.x = distence / 2;
+            camera.position.y = distence;
+
+            controls = new THREE.TrackballControls(camera);
+            controls.addEventListener('change', render);
+
+
+            pointLight = new THREE.PointLight(0xffffff);
+            pointLight.position.set(0, 0, 0);
+            scene.add(pointLight);
+
+
+            //sun
+            CreatePlanetSystem("sun");
+
+            //Earth
+            CreatePlanetSystem("earth");
+
+            //Mercury
+            CreatePlanetSystem("mercury");
+
+            //Venus
+            CreatePlanetSystem("venus");
+
+            //Mars
+            CreatePlanetSystem("mars");
+
+            //Jupiter
+            CreatePlanetSystem("jupiter");
+
+            //saturm
+            CreatePlanetSystem("saturm");
+
+            //Uranus
+            CreatePlanetSystem("uranus");
+
+            //neptune
+            CreatePlanetSystem("neptune");
+
+            // stars
+            CreateStarts();
+
+            renderer = new THREE.WebGLRenderer({ clearColor: 0x000000, clearAlpha: 1 });
+            renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+            renderer.sortObjects = false;
+            renderer.autoClear = false;
+            container.appendChild(renderer.domElement);
+            projector = new THREE.Projector();
+            window.addEventListener('resize', onWindowResize, false);
+            window.addEventListener('dblclick', onDbClick, false);
+
+        }
+
+        function onWindowResize() {
+            windowHalfX = window.innerWidth / 2;
+            windowHalfY = window.innerHeight / 2;
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            render();
+        }
+
+        function render() {
+            var time = new Date().getTime();
+            delta = new Date().getTime();
+
+            // rotate the planet and clouds
+            var delta = clock.getDelta();
+            meshMercury.rotation.y += 58 * rotationSpeed * delta;
+            meshVenus.rotation.y -= 243 * rotationSpeed * delta;
+
+            meshPlanet.rotation.y += rotationSpeed * delta;
+            meshClouds.rotation.y += 1.25 * rotationSpeed * delta;
+            moonPivot.rotation.y += 1.5 * rotationSpeed * delta;
+            earthPivot.rotation.y += rotationSpeed * delta;
+            meshMars.rotation.y += 1.02 * rotationSpeed * delta;
+            meshJupiter.rotation.y += 0.41 * rotationSpeed * delta;
+            meshSaturm.rotation.y += 0.42 * rotationSpeed * delta;
+            meshUranus.rotation.y += 0.646 * rotationSpeed * delta;
+            meshNeptune.rotation.y += 0.658 * rotationSpeed * delta;
+            mercuryPivot.rotation.y += 5 * rotationSpeed * delta;
+            venusPivot.rotation.y += 4 * rotationSpeed * delta;
+            // slow down as we approach the surface
+            dPlanet = camera.position.length();
+            dMoonVec.sub(camera.position, meshMoon.position);
+            dMoon = dMoonVec.length();
+
+            if (dMoon < dPlanet) {
+                d = (dMoon - radius * moonScale * 1.01);
+            } else {
+                d = (dPlanet - radius * 1.01);
+            }
+
+            sununiforms.time.value += 109.875 * 0.001 * (time - oldTime) / 100;
+            oldTime = time;
+
+            renderer.clear();
+            renderer.render(scene, camera)
+        };
+
+        function play() {
+            init();
+            animate();
+        }
+
+        function onDbClick(event) {
+            event.preventDefault();
+
+            var vector = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1, 0.5);
+            projector.unprojectVector(vector, camera);
+
+            var ray = new THREE.Ray(camera.position, vector.subSelf(camera.position).normalize());
+
+            var intersects = ray.intersectObjects(objects);
+
+            if (intersects.length > 0) {
+
+                var cammerZ = (intersects[0].object.position.z);
+                camera.position.set(0, 0, cammerZ);
+                camera.lookAt(meshMoon.position);
+                console.log(meshMoon.position);
+                render();
+
+            }
+        }
+
+        function ViewFrom(obj, menu) {
+            obj.add(camera);
+            camera.position.set(0, 0, obj.boundRadius + obj.boundRadius * 2);
+            $("#menu li a").removeClass("highlight");
+            $(menu).addClass("highlight");
+            console.log($(menu));
+        }
+
+        function ToggleTrackLine(val) {
+            earth_trackline.visible = uranusTrackLine.visible = mercuryTrackLine.visible = venusTrackLine.visible = marsTrackLine.visible = jupiterTrackLine.visible = saturmTrackLine.visible = neptuneTrackLine.visible = ($(val).attr("checked") == "checked");
+        }
+
+        function SelectLanguage(l,flag){
+            language=l;
+            $("#menu #language img").removeClass("highlight");
+            $(flag).addClass('highlight');
+            var t;
+            switch (language) {
+                case "en":
+                    t = ["Sun", "Mercury", "Venus", "Earth", "Moon", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune","Show orbits"];
+                    break;
+                case "es":
+                    t = ["Sol", "Mercurio", "Venus", "Tierra", "Luna", "Marte", "Jupiter", "Saturno", "Urano", "Neptuno", "Mostrar órbitas"];
+                    break;
+            }
+            $.each($("#menu li.item a"), function (i, n) {
+                $(n).text(t[i]);
+            });
+            $("#menu li.item label").text(t[10]);
+        }
+
+    </script>
+</head>
+
+<body onload="play()">
+    <ul id="menu">
+        <li id="language"><span onclick="SelectLanguage('es',this)"/>ES</span> | <span onclick="SelectLanguage('en',this)"/>EN</span></li>
+        <li class="item"><a onclick="ViewFrom(meshSun,this);">Sol</a></li>
+        <li class="item"><a onclick="ViewFrom(meshMercury_camera,this);">Mercurio</a></li>
+        <li class="item"><a onclick="ViewFrom(meshVenus_camera,this);">Venus</a></li>
+        <li class="item"><a onclick="ViewFrom(meshPlanet_camera,this);">Tierra</a></li>
+        <li class="item"><a onclick="ViewFrom(meshMoon,this);">Luna</a></li>
+        <li class="item"><a onclick="ViewFrom(meshMars_camera,this);">Marte</a></li>
+        <li class="item"><a onclick="ViewFrom(meshJupiter_camera,this);">Jupiter</a></li>
+        <li class="item"><a onclick="ViewFrom(meshSaturm_camera,this);">Saturno</a></li>
+        <li class="item"><a onclick="ViewFrom(meshUranus_camera,this)">Urano</a></li>
+        <li class="item"><a onclick="ViewFrom(meshNeptune_camera,this)">Neptuno</a></li>
+        <li class="item"><input id="tracklinecontrol" type="checkbox" checked="checked" onclick="ToggleTrackLine(this)"/><label for="tracklinecontrol">Show orbits</lable></li>
+        <li><a class="closed" onclick="$('#menu li.item').slideToggle('slow');$('.showtext').toggle();$('.closetext').toggle();"><span class="showtext">▼</span><span class="closetext" style="display: none">▲</span></a></li>
+    </ul>
+    <div id="box"></div>
+    <div id="info" style="display:none">
+        <div id="titlebar">
+            <div id="title">
+            </div>
+            <div id="titleclose">X</div>
+        </div>
+        <div id="infobody">
+            
+        </div>
+    </div>
+</body>
+</html>

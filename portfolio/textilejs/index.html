@@ -1,0 +1,136 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head><script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/matikbird/pen/VmgQxO" />
+
+
+<style class="cp-pen-styles">@import url(https://fonts.googleapis.com/css?family=Wire+One|Life+Savers|Flamenco|Bigelow+Rules|Underdog|Goudy+Bookletter+1911|Nixie+One|Tangerine|Poiret+One|Allura);
+body {
+    color: #aaaaaa;
+    font-family: 'Goudy Bookletter 1911', serif;
+    background-color: #222;
+}
+
+div {
+    text-align: center;
+    margin: 0px;
+}
+
+h1 {
+    font-size: 64px;
+    text-align: center;
+    font-weight: 300;
+    padding: .5em;
+    margin: 0;
+}
+
+h2 {
+    font-size: 24px;
+    text-align: center;
+    font-weight: 300;
+    margin: 0;
+}
+
+a {
+	color: #aaaaaa;
+	text-decoration: none;
+}
+
+a:hover {
+	color: white;
+}
+</style></head><body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Textile.js | A more easy way to process text within HTML5</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <br><br><br><br><br>
+    <h1>Textile<small style="color:#545454">.<sub>js</sub></small></h1>
+    <h2>"A more easy way to process text within HTML5."</h2>
+    <br><br><br>
+    
+    <script src="https://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.15.0/TweenMax.min.js'></script>
+</body>
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+<script>/*!
+ * Textile.js JavaScript Library v0.0.1
+ * https://textile.github.io
+ *
+ * Copyright 2016-2017 進擊的燊
+ * Released under the MIT license
+ *
+ * Date: 2016-04-03
+ */
+
+(function(window, undefined) {
+    var
+        doc = window.document,
+        defualtStyle = "display:inline-block;",
+        Textile = function(n) {
+            var
+                wordDiv,
+                charDiv;
+            this.words = [];
+            this.chars = [];
+            this.contentClone = n.innerHTML;
+            this.n = n;
+            n.innerHTML = '';
+            var wordsArr = this.contentClone.split(' ');
+            for (var i = 0, wordslen = wordsArr.length; i < wordslen;) {
+                wordDiv = doc.createElement('div');
+                wordDiv.style.cssText += defualtStyle;
+                var word = wordsArr[i++],
+                    charsArr = word.split('');
+                for (var j = 0, charslen = charsArr.length; j < charslen;) {
+                    charDiv = doc.createElement('div');
+                    charDiv.style.cssText += defualtStyle;
+                    charDiv.textContent = charsArr[j++];
+                    wordDiv.appendChild(charDiv);
+                    this.chars.push(charDiv);
+                }
+                n.appendChild(wordDiv);
+                this.words.push(wordDiv);
+                if (i !== wordslen) {
+                    wordDiv.insertAdjacentHTML('afterEnd', ' ');
+                }
+            }
+        }
+    Textile.prototype.revert = function() {
+        this.n.innerHTML = this.contentClone;
+    }
+    if (typeof window === "object" && typeof window.document === "object") {
+        window.Textile = window.T = Textile;
+    }
+})(window);</script><script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js'></script>
+<script >var node = document.querySelector('h2');
+var text = new T(node);
+
+function random(min, max) {
+    return (Math.random() * (max - min)) + min;
+}
+
+text.chars.map(function(v, i){
+    TweenMax.from(v, 2.5, {
+        opacity: 0,
+        x: random(-500, 500),
+        y: random(-500, 500),
+        z: random(-500, 500),
+        scale: .1,
+        delay: i * .02,
+        yoyo: true,
+        repeat: -1,
+        repeatDelay: 10
+    });
+});
+
+//# sourceURL=pen.js
+</script>
+</body></html>

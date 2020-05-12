@@ -1,0 +1,574 @@
+
+<!DOCTYPE html><html class=''>
+<title>Matikbird - Trees, snow, woords and fire V2</title>
+<head><meta charset='UTF-8'>
+<style>
+body {
+margin:0;
+padding:0;
+overflow:hidden;
+} canvas {
+  display: block;
+}
+</style></head><body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js'></script><script src='https://threejs.org/examples/js/controls/OrbitControls.js'></script>
+<script>;(function(){
+  
+  // bracket [≠] square [⠝] 
+  var svgIcon = '<svg class="shaw__icon" width="222" height="284" viewBox="0 0 2223 2846"><path fill="#f4d198" d="M1040 436c46-.8 71.4 17.4 103 31l82 35 441 189c-3 6.2-3.7 9-2 16 28.7 21.2 64 26.6 102 41 32 12.2 62.6 27.5 89 46 70 49.6 122 125.5 156 211 16.7 42.4 23 95.4 40 136 21.3 52.2 85.3 136.6 72 214-9 50.5-31.4 75-57 107-19 23.4-52 45.2-43 95 14.7 82.3 57.8 139 89 205 10.8 23.4 22 46.7 32.8 70l10 32c17.8 28 85.5 81.5 64 130-15 34.3-48.4 58.2-84 72-17 4.4-34 8.8-51 13 5 15.5 9 29.5 16 42-5.6 6.8-11.3 13.4-17 20 1.4 58 36.5 119.5 4 164-14 19.4-35 26.6-54 41 9.7 12.6 21.5 23.3 28 39 30 72.4-52.2 154.4-82 196-17.7 25-36.7 64.3-64 79-52.3-6.2-104.6-12.6-157-19-130.8-26-259.5-41.8-381-76-82.6-23-166-43.7-243-74l-143-59c-.2-50-.5-100-1-150h-1c-23.5 1.4-47.2 2.8-71 4l-15 15c-13.7 10.2-32 17.4-52 21-90.8 17.2-202.2-74.8-249.8-112l-42-38c-11.4-1.6-22.7-3.2-34-5-33.6-7.2-99.3-17.8-115-41l-67-167-142-339 166-20c1.4-27.2 26.6-95.5 51-97l181 49 2-1c-.7-51.7 2-106.3 10-154 8.6-51.6 8-103.5 17-152l18-124c29.5-135.3 55.3-266.4 104-381 41.2-97.2 85.7-194 164-254 22.4-17.2 48.8-32.8 79-42l47-8z"/><path fill="#bf3d27" d="M1008 59v-8c14.8 4.4 23.6 20.4 35 29l65 43c8.4 6.3 26.4 24.8 40 21 9.7-5 8.2-22.2 8-34 15 7.2 32.2 21.3 49 24v-5c-4.4-15.4-4.7-33-7-51h6c88.8 27.2 209.3 5.2 297 22l52-2c32.2 7.3 66.3 35.3 97 47l52 17c3.5 5.7 7.2 11.3 11 17 8.2 6.3 16.5 12.7 25 19 58.6 30.8 113.8 60 168 93l24 10c10.6 7.4 11 22.2 20 31 13.2 9.3 26.5 18.7 40 28 31.5 25.4 72.8 84 89 124 14 35.8 12.7 100 3 139-23.3 92-85 195.2-150 244-3.5-3.3-6.8-6.6-10-10l-51-46-213 57-196 85c-41.2 18-84.3 36-122 58-26 15-49.5 34-83 41-54 11.2-111-6.6-161-7 8.6 61.2 25 132 52 179 8 14.2 41.8 81.8 39 101-12.7 85.2-70.4 125.8-122 172l7 137 7 101c12.5 77.8 10 156.3 24 229 9 48 13 94 25 137l8 34c8.6 16 90.4 62.3 111 75 79.6 49.7 164.7 96.8 254 136 38.3 17 84 48.6 126 58 18.4-23 38-43 54-70 6.2-14.6 12.5-29.2 19-44 6.3-10.5 67.2-41 82-50 61.3-37.3 124.7-70.7 196-99 34.2-13.5 75.3-29.6 121-23 4.5 10.4 9.2 20.8 14 31 10.6 34.2.8 70.2-12 94-31.2 1-63 14.8-89 23-82.7 26.3-167.3 58-214 120-23.7 31.4-44 88.3-13 128 18.2 23.8 53.3 24 83 11 21.6-9.4 40-30.8 59-39 18.4-7.8 80.2-5.5 99 0-2.6 28.8-3.4 61.8-3 94v47c-14 83.2-40 137-95 177-94.4 68.6-214.8 41.3-315 2-60.8-21.5-121.4-43.2-182-65-120.6-58-243.3-122.3-355-190-72.2-43.5-139.8-77-182-150-17.7-30.3-20-87-12-132l28-184 6-76c5.3-33.3 2.7-117-9-139l-62-67c-57-57-198.2-164.5-324-138-42.3 9-87.2 26.4-109 56-32 43.3-40.3 141.8-16 201 27.5 67.4 69.7 136 112 191l80 84 4 40c11.4 71.7-24.4 176.2-59 205-10.4-11.6-20.7-23.2-31-35-22.4-28-47.7-53.4-70-82-60.6-77-115.6-155-167-243-18-31-29.4-66-44-100l-83-196C88.7 1670 27.3 1539.8 0 1406v-138c0-155.8 32.6-292.3 91-391 16.3-27.6 37-57 62-76l29-17 52-44 22-17 62-96 14-46 35-86c29.3-66.6 70.2-123.8 113-177 23.6-29.4 57-46.7 87-70C627.8 201 717.3 93.4 730 0h4c30 13 74.3 15.3 109 21h27c19.6 5.2 33.4 22.5 56 28l1-13h8l-1-8 26 11 3-4c10.6 9.8 27 22.4 45 24zm917 68h2-2zm2 1h2-2zm58 47c1.5 1.7 3.2 3.3 5 5l-3-2c-3.2-2-1.2-.3-2-3z"/></svg>';
+  
+  document.head.insertAdjacentHTML('beforeend','<style>.shaw { display: block; position: absolute; position: fixed; z-index: 9999; bottom: 5px; right: 5px; font-size: 10px; color: #c03b27; text-decoration: none; padding: 10px; border-radius: 50%; opacity: 0.4; transform-origin: 100% 100%; transition: all 300ms ease-in-out; } .shaw > * { transition: inherit; } .shaw:hover { opacity: 1; background: rgba(255,255,255,0.9); } .shaw__icon, .shaw__title { display: inline-block; vertical-align: middle; } .shaw__icon { width: 24px; height: 24px; position: relative; z-index: 1; } .shaw__title {  white-space: nowrap; opacity: 0; padding-right: 10px; transform: translateX(100%); } .shaw:hover .shaw__title { transform: scale(1); opacity: 1; } .shaw:hover .shaw__icon { transform: scale(1.4); } </style>'); // .shaw__title { position: absolute; right: 100%; top: 50%; margin-top: -0.5em;width: fit-content; position: absolute; right: 100%; margin-right: 10px; }
+  
+  
+})();
+
+</script><script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js'></script>
+<script>console.clear();
+
+var scene, camera, renderer, orbit, light;
+
+scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0x242426, 20, 400);
+
+camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 10, 400 );
+camera.position.z = 100;
+camera.position.y = 50;
+camera.position.x = 30;
+camera.updateProjectionMatrix();
+
+renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setPixelRatio( window.devicePixelRatio );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor( 0x242426 );
+renderer.toneMapping = THREE.LinearToneMapping;
+
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+window.addEventListener( 'resize', function () {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+}, false );
+
+document.body.appendChild( renderer.domElement );
+
+/*////////////////////////////////////////*/
+
+orbit = new THREE.OrbitControls( camera, renderer.domElement );
+orbit.enableZoom = true;
+orbit.enablePan = false;
+
+orbit.rotateSpeed = 0.3;
+orbit.zoomSpeed = 0.3;
+
+orbit.autoRotate = true;
+orbit.autoRotateSpeed = 0.6;
+
+//orbit.minPolarAngle = Math.PI * 0.3;
+orbit.maxPolarAngle = Math.PI * 0.45;
+
+//orbit.minAzimuthAngle = -Math.PI * 0.2; // radians
+//orbit.maxAzimuthAngle = Math.PI * 0.2; // radians
+
+orbit.minDistance = 40;
+orbit.maxDistance = 300;
+
+orbit.target.set(0,5,0);
+orbit.update();
+
+
+function makeSprite(){
+
+  let canvas = document.createElement('canvas'),
+      ctx = canvas.getContext('2d');
+
+  let spriteSize = 4;
+  canvas.width = canvas.height = spriteSize * 2;
+  ctx.fillStyle = '#FFF';
+  ctx.beginPath();
+  ctx.arc( spriteSize, spriteSize, spriteSize, 0, TWOPI, true );
+  ctx.fill();
+
+  let sprite = new THREE.Texture(canvas);
+  sprite.needsUpdate = true;
+
+  return sprite;
+}
+
+
+/*////////////////////////////////////////*/
+
+
+var ambientLight = new THREE.AmbientLight(0x222222);
+scene.add(ambientLight);
+
+
+let hemiLight = new THREE.HemisphereLight( 0xEBF7FD, 0xEBF7FD, 0.2 );
+//hemiLight.color.setRGB(0.75,0.8,0.95);
+hemiLight.position.set( 0, 100, 0 );
+scene.add( hemiLight );
+
+/*////////////////////////////////////////*/
+
+function noiseMap(size,intensity){
+  var canvas = document.createElement('canvas'),
+      ctx = canvas.getContext('2d'),
+      width = canvas.width = size || 512,
+      height = canvas.height = size || 512;
+
+  intensity = intensity || 120;
+
+  var imageData = ctx.getImageData(0, 0, width, height),
+      pixels = imageData.data,
+      n = pixels.length,
+      i = 0;
+
+  while (i < n) {
+    pixels[i++] = pixels[i++] = pixels[i++] = Math.sin( i * i * i + (i/n) * Math.PI) * intensity; 
+    pixels[i++] = 255;
+  }
+  ctx.putImageData(imageData, 0, 0);
+
+  let sprite = new THREE.Texture(canvas);
+  sprite.needsUpdate = true;
+
+  return sprite;
+}
+
+let noise = noiseMap(512,60);
+
+
+/*////////////////////////////////////////*/
+
+
+
+//var gui = new dat.GUI();
+//let l = 0;
+function makeLight(color){
+  var light = new THREE.PointLight( color || 0xFFFFFF , 1, 0 );
+
+  light.castShadow = true;
+  light.shadow.mapSize.width = 512;
+  light.shadow.mapSize.height = 512;
+  light.shadow.camera.near = 0.1;
+  light.shadow.camera.far = 120;
+  light.shadow.bias = 0.9;
+  light.shadow.radius = 5;
+
+  light.power = 9;
+
+  // var sphereSize = 20;
+  // var pointLightHelper = new THREE.PointLightHelper( light, sphereSize );
+  // light.add( pointLightHelper );
+
+  return light;
+}
+
+function Flame(color){
+
+  THREE.Group.apply(this,arguments);
+
+  this.light = makeLight(color);
+  
+  this.light.position.y += 7;
+  this.add( this.light );
+
+  let geometry = new THREE.CylinderGeometry( 0, 8, 8, 3 ); //new THREE.BoxGeometry(10,10,10);
+  let material = new THREE.MeshPhongMaterial({ 
+    color: color, 
+    //specular: 0x009900,
+    shininess: 550, 
+    emissive: color,
+    transparent: true,
+    opacity: 0.4,
+    shading: THREE.FlatShading
+  });
+
+  let flame = new THREE.Mesh( geometry, material );
+  
+  this.flame = flame;
+
+  this.add( flame );
+  
+  this.scale.y = 2;
+  
+  this.flicker(this.flicker);
+
+}
+
+Flame.prototype = Object.assign(THREE.Group.prototype, {
+  constructor: Flame,
+
+  flicker(onComplete){
+    
+    let speed = 0.1 + Math.random() * 0.1;
+    let ease = RoughEase.ease.config({ 
+      template:  Power2.easeInOut, 
+      strength: 0.3, 
+      points: 10, 
+      taper: "none", 
+      randomize: true, 
+      clamp: true
+    });
+
+    var tl = new TimelineMax({
+      onComplete: function(){ this.reverse() },
+      onReverseComplete: onComplete,
+      onReverseCompleteScope: this,
+      onReverseCompleteParams: [onComplete]
+    });
+
+
+    let scale =  2 + Math.random() * 2
+    tl.to(this.scale, speed, {
+      y: scale,
+      ease: ease,
+    });
+    tl.to(this.position, speed, {
+      y: '+='+(scale * 1.5),
+      ease: ease,
+    });
+
+    // tl.to(this.rotation, speed, {
+    //   x: (Math.PI / 4) * (Math.random() - 0.5),
+    //   //y: (Math.PI / 6) * (Math.random() - 0.5),
+    //   //z: (Math.PI / 5) * (Math.random() - 0.5),
+    //   ease: ease,
+    // });
+
+    tl.to(this.light, speed, {
+      power: 8 + 9 * Math.random(),
+      ease: ease,
+    });
+  }
+});
+
+// fire = new Fire();
+// fire.position.y = 10;
+
+let colors = [ 0xdb2902, 0xfb4402 ];
+const TWOPI = Math.PI * 2;
+const HALFPI = Math.PI / 2;
+let flames = Array(5).fill(null);
+flames.forEach((flame,i)=>{ 
+
+  flame = new Flame(colors[ Math.floor(colors.length * Math.random()) ]);
+  
+  flame.position.z = 9 * Math.cos((i / flames.length) * TWOPI) + Math.sin(Math.random());
+  flame.position.x = 9 * Math.sin((i / flames.length) * TWOPI) + Math.sin(Math.random());
+  flame.position.y = 14;
+  scene.add(flame);
+
+});
+
+let fire;
+
+
+/*////////////////////////////////////////*/
+
+let fireParticles;
+
+function makeFireParticles(){
+
+  let pointGeometry = new THREE.Geometry();
+
+  for ( i = 0; i < 20; i ++ ) {
+    var vertex = new THREE.Vector3();
+    vertex.x = Math.random() * 16 - 8;
+    vertex.y = Math.random() * 60;
+    vertex.z = Math.random() * 16 - 8;
+    vertex._maxHeight = 50 + Math.random() * 10;
+    vertex._speed = 0.1 + Math.random() * 0.1;
+    pointGeometry.vertices.push( vertex );
+  }
+
+  pointGeometry.verticesNeedUpdate = true;
+  pointGeometry.normalsNeedUpdate = true;
+  pointGeometry.computeFaceNormals(); 
+
+  let pointMaterial = new THREE.PointsMaterial( { 
+    //size: 16, 
+    color: 0xFF0000,
+    map: makeSprite(), 
+    blending: THREE.AdditiveBlending, 
+    depthTest: true, 
+    transparent : true,
+    opacity: 0.4,
+  });
+
+  let particles = new THREE.Points( pointGeometry, pointMaterial );
+  scene.add(particles);
+
+  let count = 0;
+  return function(){
+    count += 0.01;
+    particles.geometry.vertices.forEach( (vertex, i) => {
+      vertex.x += Math.sin(count * 1.5 + i) * 0.1;
+      vertex.z += Math.cos(count * 1.5 + i) * 0.1;
+      vertex.y += vertex._speed;
+      if ( vertex.y > vertex._maxHeight ) { vertex.y = 0; }
+    });
+    particles.geometry.verticesNeedUpdate = true; 
+  }
+}
+fireParticles = makeFireParticles();
+
+
+/*////////////////////////////////////////*/
+// LOG
+
+let logMaterial = new THREE.MeshPhongMaterial({ 
+  color: 0x5C2626, 
+  shininess: 10, 
+  shading: THREE.FlatShading
+});
+
+let logEndMaterial = new THREE.MeshPhongMaterial({ 
+  color: 0xF9F5CE, 
+  shininess: 10, 
+  shading: THREE.FlatShading
+});
+
+function Log(){
+
+  let geometry = new THREE.BoxGeometry(10,10,40);
+
+  THREE.Mesh.call(this,geometry, logMaterial);
+  
+  
+  let endGeometry = new THREE.BoxGeometry(7,7,0.5);
+  let end = new THREE.Mesh(endGeometry, logEndMaterial);
+  end.position.z = 20;
+  this.add(end);
+  
+  let otherEnd = new THREE.Mesh(endGeometry, logEndMaterial);
+  otherEnd.position.z = -20;
+  this.add(otherEnd);
+  //let otherEnd = end.clone();
+  
+//   otherEnd.position.z = -20;
+  
+//   this.add(end, otherEnd);
+  
+  this.castShadow = true;
+  this.receiveShadow = true;
+}
+
+Log.prototype = Object.assign(THREE.Mesh.prototype, {
+  constructor: Log
+});
+
+let logs = Array(3).fill(null);
+logs.forEach((log,i)=>{ 
+  log = new Log();
+  //log.position.z = 15 * Math.cos((i / logs.length) * TWOPI);
+  log.position.x = 15 * Math.sin((i / logs.length) * TWOPI) + Math.sin(Math.random());
+  log.position.y = 5;
+  log.position.z = 1;
+  
+  log.rotation.z = HALFPI / 2;// * Math.sin(i+1);
+  //log.rotation.y = HALFPI / 2 * Math.cos((i / logs.length) * TWOPI);
+  scene.add(log);
+});
+
+/*////////////////////////////////////////*/
+// OUTSIDE GROUND
+
+
+
+
+
+function snowyGround(){
+
+  let geometry = new THREE.PlaneGeometry( 500, 500, 22, 12 );
+  for (let i = 0; i < geometry.vertices.length; i++) {
+    //geometry.vertices[i].x += (Math.cos( i * i )+1/2); 
+    //geometry.vertices[i].y += (Math.cos(i )+1/2); 
+    geometry.vertices[i].z = (Math.sin(i * i * i)+1/2) * 3;
+  }
+  geometry.verticesNeedUpdate = true;
+  geometry.normalsNeedUpdate = true;
+  geometry.computeFaceNormals(); 
+
+  let material = new THREE.MeshPhongMaterial({ 
+    color: 0xFFFFFF, 
+    shininess: 60,
+    //metalness: 1,
+    //specularMap: noiseMap(512,255),
+    bumpMap: noise,
+    bumpScale: 0.025,
+    //emissive: 0xEBF7FD,
+    //emissiveIntensity: 0.05,
+    shading: THREE.SmoothShading
+  }); 
+
+  let plane = new THREE.Mesh( geometry, material );
+  plane.rotation.x = Math.PI / -2;
+  plane.receiveShadow = true;
+  plane.position.y = -5;
+
+  return plane;
+
+}
+scene.add( snowyGround() );
+
+
+
+/*////////////////////////////////////////*/
+
+
+let treeMaterial = new THREE.MeshPhongMaterial( {
+  color: 0x2C9E4B,
+  shininess: 20,
+  //bumpMap: noiseMap(256, 5),
+  //bumpScale: 0.5,
+  side: THREE.FrontSide,
+  shading: THREE.SmoothShading
+});
+
+function Cone(size, translate){
+  size = size || 10;
+  this.geometry = new THREE.CylinderGeometry( size / 2, size, size, 6 );
+  if ( translate ) {
+    this.geometry.applyMatrix( new THREE.Matrix4().makeTranslation(0, size, 0) );
+  }
+  THREE.Mesh.call(this, this.geometry, treeMaterial);
+}
+
+Cone.prototype = Object.assign(THREE.Mesh.prototype,{ 
+  constructor: Cone,
+});
+
+function Tree(size) {
+
+  size = size || 6 + Math.random();
+
+  THREE.Object3D.call(this);
+
+  let lastCone;
+  let cone;
+
+  for (let i = 0; i < size; i++) { 
+    cone = new Cone( (size - i) + 1, i);
+    cone.position.y = 0;
+    if ( lastCone ) { 
+      let box = new THREE.Box3().setFromObject( lastCone );
+      cone.position.y = (box.max.y + box.min.y) / 2;
+    } else {
+      cone.position.y += 2;
+    }
+    lastCone = cone;
+    cone.castShadow = true;
+    cone.receiveShadow = true;
+    this.add( cone );
+  }
+
+};
+
+Tree.prototype = Object.assign(THREE.Object3D.prototype,{ 
+  constructor: Tree,
+});
+
+/*////////////////////////////////////////*/
+
+let trees = [];
+
+for (let i = 0; i < 24; ) {
+
+  let tree = new Tree;
+  tree.scale.set(3.25,3.25,3.25);
+
+  tree.position.x = Math.sin(i + Math.random() * 0.2) * 200;//(treeCount/2 - i) * 30;
+  tree.position.z = Math.cos(i + Math.random() * 0.1) * 260;
+  trees.push(tree);
+  scene.add(tree);
+  
+  i ++; //= Math.random() * 1.2;
+}
+
+
+
+/*////////////////////////////////////////*/
+// FALLING SNOW
+
+
+
+function pointsParticles(){
+
+  let pointGeometry = new THREE.Geometry();
+
+  for ( i = 0; i < 120; i ++ ) {
+    var vertex = new THREE.Vector3();
+    vertex.x = Math.random() * 200 - 100;
+    vertex.y = Math.random() * 100;
+    vertex.z = Math.random() * 200 - 100;
+    pointGeometry.vertices.push( vertex );
+  }
+
+  pointGeometry.verticesNeedUpdate = true;
+  pointGeometry.normalsNeedUpdate = true;
+  pointGeometry.computeFaceNormals(); 
+
+  let pointMaterial = new THREE.PointsMaterial( { 
+    //size: 16, 
+    map: makeSprite(), 
+    blending: THREE.AdditiveBlending, 
+    depthTest: true, 
+    transparent : true,
+    opacity: 0.2,
+  });
+
+  let particles = new THREE.Points( pointGeometry, pointMaterial );
+  scene.add(particles);
+  console.log( particles.geometry );
+
+  let count = 0;
+  return function(){
+    count += 0.01;
+    particles.geometry.vertices.forEach( (vertex, i) => {
+      vertex.x += Math.sin(count + i) * 0.05;
+      vertex.z += Math.cos(count + i) * 0.05;
+      vertex.y -= 0.2;
+      if ( vertex.y < 0 ) { vertex.y = 100; }
+    });
+    particles.geometry.verticesNeedUpdate = true; 
+  }
+}
+let updateParticles;
+updateParticles = pointsParticles();
+
+
+
+renderer.gammaInput = true;
+renderer.gammaOutput = true;
+
+/*////////////////////////////////////////*/
+
+let count = 3;
+function render () {
+
+  requestAnimationFrame( render );
+  count += 0.03;
+
+  orbit.update();
+
+  if ( updateParticles ) { updateParticles(count); }
+  if ( fireParticles ) { fireParticles(count); }
+  if ( fire && fire.flicker ) { fire.flicker(count); }
+
+  // scene.traverse( (child) => {
+  //   if ( child.material ) { child.material.needsUpdate = true; }
+  // });
+
+
+  renderer.toneMappingExposure = Math.pow( 0.91, 5.0 );
+
+  renderer.render( scene, camera );
+
+
+};
+
+render();
+</script>
+</body></html>
