@@ -2,612 +2,679 @@
 <html class=''>
 
 <head>
-    <meta charset='UTF-8'>
-    <meta name=”viewport” content=”width=device-width, initial-scale=1, maximum-scale=1”>
-    <link rel="canonical" href="https://mqtik.github.io" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="designer" content="Matías">
-    <meta name="programer" content="Matías">
-    <meta name="author" content="Matías">
-    <meta name="email" content="m@tias.xyz">
-    <meta name="theme-color" content="#000000">
-    <meta name="msapplication-navbutton-color" content="#000000">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#000000">
-    <meta name="description" content="Developer, designer, entrepenur. Let's work → m@tias.xyz">
-    <title>Matías - Full Stack Developer</title>
-    <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website" />
-    <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://mqtik.github.io" />
-    <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Matías - Full Stack Dev" />
-    <meta prefix="og: http://ogp.me/ns#" property="og:description" content="Developer, designer, entrepenur. Let's work → m@tias.xyz" />
-    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="http://mqtik.github.io/matikbird.png" />
-    <meta prefix="og: http://ogp.me/ns#" property="og:image:width" content="504" />
-    <meta prefix="og: http://ogp.me/ns#" property="og:image:height" content="283" />
-    <link rel="apple-touch-icon" sizes="57x57" href="logo/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="logo/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="logo/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="logo/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="logo/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="logo/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="logo/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="logo/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="logo/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"  href="logo/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="logo/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="logo/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="logo/favicon-16x16.png">
-<link rel="manifest" href="logo/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="logo/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
+   <meta charset='UTF-8'>
+   <meta name=”viewport” content=”width=device-width, initial-scale=1, maximum-scale=1”>
+   <link rel="canonical" href="https://mqtik.github.io" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="designer" content="Matías">
+   <meta name="programer" content="Matías">
+   <meta name="author" content="Matías">
+   <meta name="email" content="m@tias.xyz">
+   <meta name="theme-color" content="#000000">
+   <meta name="msapplication-navbutton-color" content="#000000">
+   <meta name="apple-mobile-web-app-status-bar-style" content="#000000">
+   <meta name="description" content="Developer, designer, entrepenur. Let's work → m@tias.xyz">
+   <title>Matías - Full Stack Developer</title>
+   <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website" />
+   <meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://mqtik.github.io" />
+   <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Matías - Full Stack Dev" />
+   <meta prefix="og: http://ogp.me/ns#" property="og:description"
+      content="Developer, designer, entrepenur. Let's work → m@tias.xyz" />
+   <meta prefix="og: http://ogp.me/ns#" property="og:image" content="http://mqtik.github.io/matikbird.png" />
+   <meta prefix="og: http://ogp.me/ns#" property="og:image:width" content="504" />
+   <meta prefix="og: http://ogp.me/ns#" property="og:image:height" content="283" />
+   <link rel="apple-touch-icon" sizes="57x57" href="logo/apple-icon-57x57.png">
+   <link rel="apple-touch-icon" sizes="60x60" href="logo/apple-icon-60x60.png">
+   <link rel="apple-touch-icon" sizes="72x72" href="logo/apple-icon-72x72.png">
+   <link rel="apple-touch-icon" sizes="76x76" href="logo/apple-icon-76x76.png">
+   <link rel="apple-touch-icon" sizes="114x114" href="logo/apple-icon-114x114.png">
+   <link rel="apple-touch-icon" sizes="120x120" href="logo/apple-icon-120x120.png">
+   <link rel="apple-touch-icon" sizes="144x144" href="logo/apple-icon-144x144.png">
+   <link rel="apple-touch-icon" sizes="152x152" href="logo/apple-icon-152x152.png">
+   <link rel="apple-touch-icon" sizes="180x180" href="logo/apple-icon-180x180.png">
+   <link rel="icon" type="image/png" sizes="192x192" href="logo/android-icon-192x192.png">
+   <link rel="icon" type="image/png" sizes="32x32" href="logo/favicon-32x32.png">
+   <link rel="icon" type="image/png" sizes="96x96" href="logo/favicon-96x96.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="logo/favicon-16x16.png">
+   <link href="https://fonts.googleapis.com/css?family=Raleway:900" rel="stylesheet">
+   <link rel="manifest" href="logo/manifest.json">
+   <meta name="msapplication-TileColor" content="#ffffff">
+   <meta name="msapplication-TileImage" content="logo/ms-icon-144x144.png">
+   <meta name="theme-color" content="#ffffff">
 
-    <link rel="shortcut icon" href="https://mqtik.github.io/matikbird.ico">
-    <link rel="image_src" href="https://mqtik.github.io/matikbird.ico" />
-    <link rel='stylesheet prefetch' href='css/mtkbrd.css'>
+   <link rel="shortcut icon" href="https://mqtik.github.io/matikbird.ico">
+   <link rel="image_src" href="https://mqtik.github.io/matikbird.ico" />
+   <link rel='stylesheet prefetch' href='css/mtkbrd.css'>
 </head>
 
 <body class="matikb">
 
-    <main-cargando id="loading">
-       <div class="vertical-centered-box">
-  <div class="content">
-    <div class="loader-circle"></div>
-    <div class="loader-line-mask one">
-      <div class="loader-line"></div>
-    </div>
-    <div class="loader-line-mask two">
-      <div class="loader-line"></div>
-    </div>
-    <div class="loader-line-mask three">
-      <div class="loader-line"></div>
-    </div>
-    <div class="loader-line-mask four">
-      <div class="loader-line"></div>
-    </div>
-  </div>
-</div>
-    </main-cargando>
-
-    <div class="ct" id="matikbird">
-	    	
-        <div class="ct" id="blog">
-            <div class="ct" id="portfolio">
-                <div class="ct" id="contacto">
-                    <div class="ct" id="t5">
-                        <ul id="menu">
-                            <a href="#matikbird">
-                                <li class="icon fa fa-location-arrow" id="uno" style="padding-top: 15px;"></li>
-                            </a>
-                            <a href="#blog" id="blog">
-                                <li class="icon fa fa-align-left" id="dos"></li>
-                            </a>
-                            <a href="#portfolio">
-                                <li class="icon fa fa-heart-o" id="tres"></li>
-                            </a>
-                            <a href="#contacto">
-                                <li class="icon fa fa-at" id="cuatro"></li>
-                            </a>
-                        </ul>
-                        <div class="page" id="p1">
-                            <section id="mainmati">
-                            
-                                <div id="WhoAmI" style="color: rgba(255,255,255,.7); overflow:hidden;">
-
-                                  <span style="font-size:13px;">hello, i'm</span>
-                                	<div class="effect-text-container">
-
-				<h1>
-
-          Matías
-        </h1>
-
-			</div>
-  <div class="respon" style="margin-left:20% !important;opacity:0.05 !important;">
-
-    <ul id="techList">
-
-      <li class="html5">html</li>
-      <li class="mysql">C<span style="text-transform: none;">ouch</span>Db</li>
-      <li class="css3">css3</li>
-      <li class="javascript">javascript</li>
-      <li class="jquery">Swift</li>
-      <li class="wordpress">Java</li>
-      <li class="webstandards">web standards</li>
-      <li class="accessibility">accessibility</li>
-      <li class="usability">usability</li>
-      <li class="seo">react</li>
-      <li class="responsive">responsive layout</li>
-      <li class="ajax">ajax</li>
-      <li class="designsense">design sense</li>
-      <li class="crossbrowser">cross browser</li>
-      <li class="our">C++</li>
-      <li class="skills">skills</li>
-      <li class="php">Electron</li>
-      <li class="cms">cms</li>
-      <li class="server">web server administration</li>
-      <li class="project">project managment</li>
-      <li class="joomla">seo</li>
-      <li class="retina">retina</li>
-      <li class="animation">animation</li>
-      <li class="pixelperfect">pixel perfect design</li>
-      <li class="ecommerce">e-commerce</li>
-      <li class="java">java</li>
-    </ul>
-    <div id="left"></div>
-    <div id="right"></div>
-    <div id="top"></div>
-    <div id="bottom"></div>
-  </div>
-                <p style="font-family: Open Sans;font-size:21px;margin-top:50px;">
-                  I make binaries turn frowns upside down.
-                    <br />
-                    I code, design, animate<br />and always working on new things.
-
-                                  </p>
-
-
-                                    <br><a href="#blog" class="portfolio">blog</a>
-            <a href="#portfolio" class="portfolio">portfolio</a>
-            <a href="#contacto" class="portfolio">contact</a></div> <button href="#contacto" matik-text="Available for freelance work" onclick="gohash('contacto')" class="buttonAvaible"></button>
-                                     </section>
-                        </div>
-                        <div class="page" id="p2">
-                            
-                              <aside class="pullquote" data-feature-quote="Words">	
-										<p>Words</p>
-									</aside>
-									<p id="subtitle" style="margin-bottom:15px;">Just relax, <br>nothing is under control.</p>
-
-									<div id="matikblog"></div>
-                             
-                        </div>
-
-
-
-
-
-
-
-                        <div class="page" id="p3">
-                            <section id="portfolimatikbird">
-                                <aside class="pullquote" data-feature-quote="Works">	
-										<p>Works</p>
-
-									</aside>
-									
-<p id="subtitle">Software and other <br>dark arts.</p>
-
-
-<section id="content">
-	<article class="article" style="background-image: url(https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/f5/18/f7/f518f764-1f05-0b14-e712-d1df8f261b96/pr_source.png/460x0w.png)">
-      <header class="article-title">
-         <h2>Newt Mobile</h2>
-      </header>
-
-      <p class="article-description" style="width: 80% !important;">
-		Your brain is better at remember concepts, and you can always use visual cues to trigger them. It’s easier to captivate an audience with a story because we’re all very familiar with that format.
-	      
-		</p>
-
-      <footer class="article-footer">
-       
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">books</a></li>
-            <li><a href="#" class="portfolio">stories</a></li>
-            <li><a href="#" class="portfolio">multiplatform</a></li>
-         </ul>
-           <a href="https://newt.to" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-
-   </article>
-	
-		<article class="article" style="background-image: url(https://is3-ssl.mzstatic.com/image/thumb/Purple123/v4/99/da/ef/99daefd0-b500-1ea0-22c7-08030e1f2ee4/pr_source.png/626x0w.png)">
-      <header class="article-title">
-         <h2>Newt Desktop</h2>
-      </header>
-
-      <p class="article-description" style="width: 80% !important;">
-	Newt works on Windows, macOS & Linux</p>
-
-      <footer class="article-footer">
-       
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">books</a></li>
-            <li><a href="#" class="portfolio">stories</a></li>
-            <li><a href="#" class="portfolio">offline</a></li>
-         </ul>
-           <a href="https://newt.to" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>GO</span></a>
-      </footer>
-
-   </article>
-	
-	
-   <article class="article" style="background-image: url(assets/textile_app.png)">
-      <header class="article-title">
-         <h2>Textile</h2>
-      </header>
-
-      <p class="article-description" style="width: 80% !important;">This is one of my pet projects. A platform where you can sync all your content between all your devices and the cloud. This software will make you aware that words are everywhere; even in the deepest silence. They're all floating through the air. Textile will catch them and make those words avaible for your eyes, and fingertips.
-      </p>
-
-      <footer class="article-footer">
-       
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">books</a></li>
-            <li><a href="#" class="portfolio">stories</a></li>
-            <li><a href="#" class="portfolio">math</a></li>
-            <li><a href="#" class="portfolio">physics</a></li>
-            <li><a href="#" class="portfolio">open source</a></li>
-            <li><a href="#" class="portfolio">multiplatform app</a></li>
-         </ul>
-           <a href="http://mqtik.github.io/textile" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-
-   </article>
-   <article class="article" style="background-image: url(assets/skylog_web.png)">
-      <header class="article-title">
-         <h2>Skylog</h2>
-      </header>
-      <p class="article-description" style="width: 80% !important;">Skylog is a 3D robot, which's always listening every public conversation. With artificial intelligence, it stores the best quotes sayed by living people in a transitory chat. Each world, a little log. Each time, a different sky.
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">3D</a></li>
-            <li><a href="#" class="portfolio">OpenAI</a></li>
-            <li><a href="#" class="portfolio">Bot</a></li>
-            <li><a href="#" class="portfolio">Universe</a></li>
-            <li><a href="#" class="portfolio">Sun</a></li>
-            <li><a href="#" class="portfolio">Stars</a></li>
-            <li><a href="#" class="portfolio">Sky</a></li>
-         </ul>
-         <a href="http://skylog.space" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-   <article class="article" style="background-image: url(assets/textile_web.png)">
-      <header class="article-title">
-         <h2>Textile Web</h2>
-      </header>
-      <p class="article-description">Landing page for people to get to know the native software. Motion-technologies were used in this work. In my perception, I really liked the result. 2D & 3D.
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">web</a></li>
-            <li><a href="#" class="portfolio">2D</a></li>
-            <li><a href="#" class="portfolio">3D</a></li>
-            <li><a href="#" class="portfolio">Stars</a></li>
-            <li><a href="#" class="portfolio">Bird</a></li>
-            <li><a href="#" class="portfolio">Mockup</a></li>
-            <li><a href="#" class="portfolio">HTML</a></li>
-            <li><a href="#" class="portfolio">CSS</a></li>
-            <li><a href="#" class="portfolio">JavaScript</a></li>
-         </ul>
-         <a href="http://mqtik.github.io/textile/+" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-   <article class="article" style="background-image: url(assets/timelapse_water.png)">
-      <header class="article-title">
-         <h2>In a strange world</h2>
-      </header>
-      <p class="article-description">«Time is relative. It can stretch and it can squeeze, but... it can't run backwards. Just can't. The only thing that can move across dimensions, like time, is gravity»
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">3D</a></li>
-            <li><a href="#" class="portfolio">Interstellar</a></li>
-            <li><a href="#" class="portfolio">OceanWorld</a></li>
-            <li><a href="#" class="portfolio">Time Disfase</a></li>
-         </ul>
-         <a href="http://mqtik.github.io/portfolio/timelapsestellar" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-   <article class="article" style="background-image: url(assets/textile_logo_3d.png)">
-      <header class="article-title">
-         <h2>Textile Logo 3D</h2>
-      </header>
-      <p class="article-description">Playing around with Blender and Javascript to recreate exactly the Textile Logo in 3D. More updates on this soon.
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">Textile</a></li>
-            <li><a href="#" class="portfolio">3D</a></li>
-            <li><a href="#" class="portfolio">Logo</a></li>
-         </ul>
-         <a href="http://mqtik.github.io/portfolio/textile_logo_3d" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-   <article class="article" style="background-image: url(assets/cep_web.png)">
-      <header class="article-title">
-         <h2>Centro de Educación Personalizada</h2>
-      </header>
-      <p class="article-description">¿Hay o no un creador? ¿Dónde va la luz cuando se apaga? Cualquier afirmación o negación cuando se trata del universo, es interesante. CEP es un lugar donde profesores y alumnos se reunen a aprender matemáticas, química, física, y muchas asignaturas más. Es una esencial ayuda para el universitario e ingresante.
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">universidad</a></li>
-            <li><a href="#" class="portfolio">ingenieria</a></li>
-            <li><a href="#" class="portfolio">cultura</a></li>
-            <li><a href="#" class="portfolio">enseñanza</a></li>
-            <li><a href="#" class="portfolio">alumnos</a></li>
-            <li><a href="#" class="portfolio">profesores</a></li>
-         </ul>
-         <a href="http://mqtik.github.io/portfolio/CEP" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-   <article class="article" style="background-image: url(assets/heart.png)">
-      <header class="article-title">
-         <h2>A heart for mom</h2>
-      </header>
-      <p class="article-description">One day, not long from now, it was the mother's day. I didn't have any money to give her a present. Inert and crying in the dark, I decided to write a heart for her; which's always beating. I love you mom.
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">mothers</a></li>
-            <li><a href="#" class="portfolio">love</a></li>
-            <li><a href="#" class="portfolio">heart</a></li>
-            <li><a href="#" class="portfolio">present</a></li>
-         </ul>
-         <a href="http://mqtik.github.io/portfolio/heart" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-   <article class="article" style="background-image: url(assets/piano_mattina.png)">
-      <header class="article-title">
-         <h2>3D Piano ─ Una Mattina</h2>
-      </header>
-      <p class="article-description">I won't spoil it for you. This Ludovico Einaudi's score touched my soul so many times; even more when I play it myself. This time, I wanted to make the computer «feel it» the same way. Una Mattina, in an autumn day. There are no leaves falling, the music stopped the wind.
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">3D</a></li>
-            <li><a href="#" class="portfolio">piano</a></li>
-            <li><a href="#" class="portfolio">una mattina</a></li>
-            <li><a href="#" class="portfolio">ludovico einaudi</a></li>
-            <li><a href="#" class="portfolio">autumn</a></li>
-         </ul>
-         <a href="http://mqtik.github.io/portfolio/autumn" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-   <article class="article" style="background-image: url(assets/storm.png)">
-      <header class="article-title">
-         <h2>Storm</h2>
-      </header>
-      <p class="article-description">Nature startles me. Storms might freak out a lot of people─even me. But I found them interesting. Watching plasmatic ray transforming their way to earth. The background lights for a moment, and in a fraction of that moment, thousands of celsius degrees blows into something comparable to a nuclear explosion.
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">storm</a></li>
-            <li><a href="#" class="portfolio">ray</a></li>
-            <li><a href="#" class="portfolio">plasma</a></li>
-         </ul>
-         <a href="http://mqtik.github.io/portfolio/storm" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-   <article class="article" style="background-image: url(assets/hellrain.png)">
-      <header class="article-title">
-         <h2>Set fire to the sky</h2>
-      </header>
-      <p class="article-description">What's falling if the sky is set on fire?
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-         	<li><a href="#" class="portfolio">3D</a></li>
-            <li><a href="#" class="portfolio">rain</a></li>
-            <li><a href="#" class="portfolio">red</a></li>
-            <li><a href="#" class="portfolio">sky</a></li>
-         </ul>
-         <a href="http://mqtik.github.io/portfolio/hellrain" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-   <article class="article" style="background-image: url(assets/saturno.png)">
-      <header class="article-title">
-         <h2>Saturn</h2>
-      </header>
-      <p class="article-description">Earth is my favorite planet; but there's something about Saturn that keeps me tuned. It's spinning so fast you won't ever tell where's a crater. In all my ignorance, I wanted to recreate it using 3D Technologies.
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">saturn</a></li>
-            <li><a href="#" class="portfolio">the2d</a></li>
-            <li><a href="#" class="portfolio">rings</a></li>
-         </ul>
-         <a href="http://mqtik.github.io/portfolio/saturno" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-   <article class="article" style="background-image: url(assets/heliumattom.png)">
-      <header class="article-title">
-         <h2>A helium atom</h2>
-      </header>
-      <p class="article-description">A work in progress. Thanks Dalton, Thomsom, Rutherford, Bohr, Dirac, ..., for this. They finally found the hair in the egg so precisely that changed the world. And others amazing human beings who are continuing studying from the biggest thing, to the smallest; which is this: the Atom. And it's neutrons+protons, with electrons orbiting around.
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">atom</a></li>
-            <li><a href="#" class="portfolio">protons</a></li>
-            <li><a href="#" class="portfolio">neutrons</a></li>
-            <li><a href="#" class="portfolio">electrons</a></li>
-         </ul>
-         <a href="http://mqtik.github.io/portfolio/atomh" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-   <article class="article" style="background-image: url(assets/puente_colgante.png)">
-      <header class="article-title">
-         <h2>Puente Colgante Santa Fe</h2>
-      </header>
-      <p class="article-description">Before graduating from highschool, I saw this bridge every single day. A small blink at 6am. A strong glance around 2pm. And a «I see you tomorrow» at 7/8/9 pm. For years. Lots of friends, stories and thoughts crossed my mind in & around there.
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">argentina</a></li>
-            <li><a href="#" class="portfolio">santa fe</a></li>
-            <li><a href="#" class="portfolio">puente colgante</a></li>
-         </ul>
-         <a href="http://mqtik.github.io/portfolio/puente_colgante" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-   <article class="article" style="background-image: url(assets/quotes.png)">
-      <header class="article-title">
-         <h2>Quotes</h2>
-      </header>
-      <p class="article-description">Sometimes I feel like I can't do something. Like I'm not good enough. And that's why I like words, quotes, dialogs, communication: because it keeps changing my mind. Over the years, my mind changed so much that I don't think I have a personality at all. People can inspire me in so many ways that I know I can be better everyday. So I can do it. This project is finished; based in what is now Skylog.
-      </p>
-      <footer class="article-footer">
-         <ul class="article-footer-categories">
-            <li><a href="#" class="portfolio">quotes</a></li>
-            <li><a href="#" class="portfolio">feel-good</a></li>
-            <li><a href="#" class="portfolio">words</a></li>
-         </ul>
-         <a href="http://mqtik.github.io/portfolio/quotes" target="_blank" class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
-      </footer>
-   </article>
-  
-</section>
-
-
-
-
-
-
-
-
-
-
-
-                                </section>
-                        </div>
-
-
-
-
-
-
-
-
-
-
-                        <div class="page" id="p4">
-
-                      
-<div id="WhoAmI" style="background-color: rgba(255, 255, 255, 0.01); width:100%;box-shadow: 0 2px 5px rgba(0,0,0,0.075);-webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.075);-moz-box-shadow: 0 2px 5px rgba(0,0,0,0.075);">
-                                   <div class="matiassssss">
-  <div class="avatar-flip">
-   <img src="assets/mati-image2.jpg" height="150" width="150">
-    <img src="assets/mati-image.jpg" height="150" width="150">
-   
-  </div>
-  <h2 style="margin-top: 20px;">My name is Matias...  </h2>
-
-  <p>I began learning to code at 10, <br />since then I've built hundred of projects.<br /><br />
-      Currently I work at <a href="https://nationalhomerentals.com">National Home Rentals</a>,<br /> and work on other projects in my spare-time,<br /> some of them are available on Stores and on the web.
-</p>
-
-  <hr class="accessory"></hr>
-<a class="socialcontact" href="mailto:m@tias.xyz"><i class="fa fa-at" style="color: #8f4ad4;
-    margin-right: 13px; vertical-align: bottom;"></i>m@tias.xyz</a>
-<span class="socialcontact"><i class="fa fa-whatsapp" style="color: #5fad2e;margin-right: 13px;vertical-align: bottom;"></i>+54 9 342 5 055 347</span>
-  <hr class="accessory"></hr>
-    <h2>Utils</h2>
-
-<ul class="tags" style="width:60%; margin: 0 auto;"><li class="tag" style="text-transform:none;">JavaScript</li><li class="tag" style="text-transform:none;">HTML</li><li class="tag" style="text-transform:none;">CSS</li><li class="tag" style="text-transform:none;">Node</li><li class="tag" style="text-transform:none;">CouchDB</li>
-<li class="tag" style="text-transform:none;">Swift</li>
-<li class="tag" style="text-transform:none;">Java</li>
-<li class="tag" style="text-transform:none;">React</li>
-<li class="tag" style="text-transform:none;">React Native</li>
-<li class="tag" style="text-transform:none;">Angular</li>
-<li class="tag" style="text-transform:none;">NativeScript</li>
-<li class="tag" style="text-transform:none;">C++</li>
-<li class="tag" style="text-transform:none;">Three.JS</li>
-<li class="tag" style="text-transform:none;">Motion</li>
-<li class="tag" style="text-transform:none;">Animations</li>
-<li class="tag" style="text-transform:none;">Erlang</li><li class="tag" style="text-transform:none;">C</li><li class="tag" style="text-transform:none;">DevOps</li>
-<li class="tag" style="text-transform:none;">UI/UX</li>
-<li class="tag" style="text-transform:none;">.NET</li>
-<li class="tag" style="text-transform:none;">Front-End</li>
-<li class="tag" style="text-transform:none;">Back-End</li>
-<li class="tag" style="text-transform:none;">OS</li>
-<li class="tag" style="text-transform:none;">Photoshop</li>
-<li class="tag" style="text-transform:none;">Inkscape</li>
-<li class="tag" style="text-transform:none;">SQL</li>
-<li class="tag" style="text-transform:none;">Blender</li>
-<li class="tag" style="text-transform:none;">Music</li>
-<li class="tag" style="text-transform:none;">Math</li>
-<li class="tag" style="text-transform:none;">Physics</li>
-<li class="tag" style="text-transform:none;">Chemistry</li>
-<li class="tag" style="text-transform:none;">Others</li>
-</ul>
-
- 
-  <hr class="accessory"></hr>
-    <p>
-
-    </p>
-</div></div>
-                                   
-                                <div class="social-buttons"><a href="https://facebook.com/mqtiaz" class="social-button facebook" target="_blank"><i class="fa fa-facebook-square"></i></a><a href="https://github.com/mqtik" class="social-button github" target="_blank"><i class="fa fa-github-square"></i></a><a href="mailto:
-					m@tias.xyz" class="social-button contact" target="_blank"><i class="fa fa-at"></i></a><a href="https://www.linkedin.com/in/matikbird" class="social-button linkedin" target="_blank"><i class="fa fa-linkedin-square"></i></a></div>
-<p class="benjamin">«Either write something worth reading,<br>or do something worth writing»</p>
-<p class="copyright">Copyright &copy; mQ</p>
-                        </div>
-                    </div>
-                </div>
+   <main-cargando id="loading">
+      <div class="vertical-centered-box">
+         <div class="content">
+            <div class="loader-circle"></div>
+            <div class="loader-line-mask one">
+               <div class="loader-line"></div>
             </div>
-        </div>
-    </div>
+            <div class="loader-line-mask two">
+               <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-mask three">
+               <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-mask four">
+               <div class="loader-line"></div>
+            </div>
+         </div>
+      </div>
+   </main-cargando>
+
+   <div class="ct" id="matikbird">
+
+      <div class="ct" id="blog">
+         <div class="ct" id="portfolio">
+            <div class="ct" id="contacto">
+               <div class="ct" id="t5">
+                  <ul id="menu">
+                     <a href="#matikbird">
+                        <li class="icon fa fa-location-arrow" id="uno" style="padding-top: 15px;"></li>
+                     </a>
+                     <a href="#blog" id="blog">
+                        <li class="icon fa fa-align-left" id="dos"></li>
+                     </a>
+                     <a href="#portfolio">
+                        <li class="icon fa fa-heart-o" id="tres"></li>
+                     </a>
+                     <a href="#contacto">
+                        <li class="icon fa fa-at" id="cuatro"></li>
+                     </a>
+                  </ul>
+                  <div class="page" id="p1">
+                     <section id="mainmati">
+
+                        <div id="WhoAmI" style="color: rgba(255,255,255,.7); overflow:hidden;">
+
+                           <span style="font-size:13px;">hello, i'm</span>
+                           <div class="effect-text-container">
+
+                              <h1>
+                                 Matías
+                              </h1>
+
+                           </div>
+                           <div class="respon" style="margin-left:20% !important;opacity:0.05 !important;">
+
+                              <ul id="techList">
+
+                                 <li class="html5">html</li>
+                                 <li class="mysql">C<span style="text-transform: none;">ouch</span>Db</li>
+                                 <li class="css3">css3</li>
+                                 <li class="javascript">javascript</li>
+                                 <li class="jquery">Swift</li>
+                                 <li class="wordpress">Java</li>
+                                 <li class="webstandards">web standards</li>
+                                 <li class="accessibility">accessibility</li>
+                                 <li class="usability">usability</li>
+                                 <li class="seo">react</li>
+                                 <li class="responsive">responsive layout</li>
+                                 <li class="ajax">ajax</li>
+                                 <li class="designsense">design sense</li>
+                                 <li class="crossbrowser">cross browser</li>
+                                 <li class="our">C++</li>
+                                 <li class="skills">skills</li>
+                                 <li class="php">Electron</li>
+                                 <li class="cms">cms</li>
+                                 <li class="server">web server administration</li>
+                                 <li class="project">project managment</li>
+                                 <li class="joomla">seo</li>
+                                 <li class="retina">retina</li>
+                                 <li class="animation">animation</li>
+                                 <li class="pixelperfect">pixel perfect design</li>
+                                 <li class="ecommerce">e-commerce</li>
+                                 <li class="java">java</li>
+                              </ul>
+                              <div id="left"></div>
+                              <div id="right"></div>
+                              <div id="top"></div>
+                              <div id="bottom"></div>
+                           </div>
+                           <p style="font-family: Open Sans;font-size:21px;margin-top:50px;">
+                              I make binaries turn frowns upside down.
+                              <br />
+                              I code, design, animate<br />and always working on new things.
+
+                           </p>
+
+
+                           <br><a href="#blog" class="portfolio">blog</a>
+                           <a href="#portfolio" class="portfolio">portfolio</a>
+                           <a href="#contacto" class="portfolio">contact</a>
+                        </div>
+                        <!--button href="#contacto" matik-text="Available for freelance work"
+                           onclick="gohash('contacto')" class="buttonAvaible"></button-->
+                     </section>
+                  </div>
+                  <div class="page" id="p2">
+                     <div class="text-container">
+                        <div class="line">blog</div>
+                        <div class="move">blog</div>
+                     </div>
+                     <p id="subtitle" style="margin-bottom:15px;">Just relax, <br>nothing is under control.</p>
+
+                     <div id="matikblog"></div>
+
+                  </div>
+
+
+
+
+                  <div class="page" id="p3">
+                     <section id="portfolimatikbird">
+                        <div class="text-container">
+                           <div class="line">portfolio</div>
+                           <div class="move">portfolio</div>
+                        </div>
+
+                        <p id="subtitle">Software and other <br>dark arts.</p>
+
+
+                        <section id="content">
+                           <article class="article"
+                              style="background-image: url(https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/f5/18/f7/f518f764-1f05-0b14-e712-d1df8f261b96/pr_source.png/460x0w.png)">
+                              <header class="article-title">
+                                 <h2>Newt Mobile</h2>
+                              </header>
+
+                              <p class="article-description" style="width: 80% !important;">
+                                 Your brain is better at remember concepts, and you can always use visual cues to
+                                 trigger them. It’s easier to captivate an audience with a story because we’re all very
+                                 familiar with that format.
+
+                              </p>
+
+                              <footer class="article-footer">
+
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">books</a></li>
+                                    <li><a href="#" class="portfolio">stories</a></li>
+                                    <li><a href="#" class="portfolio">multiplatform</a></li>
+                                 </ul>
+                                 <a href="https://newt.to" target="_blank" class="gradientlink"
+                                    style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+
+                           </article>
+
+                           <article class="article"
+                              style="background-image: url(https://is3-ssl.mzstatic.com/image/thumb/Purple123/v4/99/da/ef/99daefd0-b500-1ea0-22c7-08030e1f2ee4/pr_source.png/626x0w.png)">
+                              <header class="article-title">
+                                 <h2>Newt Desktop</h2>
+                              </header>
+
+                              <p class="article-description" style="width: 80% !important;">
+                                 Newt works on Windows, macOS & Linux</p>
+
+                              <footer class="article-footer">
+
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">books</a></li>
+                                    <li><a href="#" class="portfolio">stories</a></li>
+                                    <li><a href="#" class="portfolio">offline</a></li>
+                                 </ul>
+                                 <a href="https://newt.to" target="_blank" class="gradientlink"
+                                    style="margin-top: 20%;"><span>GO</span></a>
+                              </footer>
+
+                           </article>
+
+
+                           <article class="article" style="background-image: url(assets/textile_app.png)">
+                              <header class="article-title">
+                                 <h2>Textile</h2>
+                              </header>
+
+                              <p class="article-description" style="width: 80% !important;">This is one of my pet
+                                 projects. A platform where you can sync all your content between all your devices and
+                                 the cloud. This software will make you aware that words are everywhere; even in the
+                                 deepest silence. They're all floating through the air. Textile will catch them and make
+                                 those words avaible for your eyes, and fingertips.
+                              </p>
+
+                              <footer class="article-footer">
+
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">books</a></li>
+                                    <li><a href="#" class="portfolio">stories</a></li>
+                                    <li><a href="#" class="portfolio">math</a></li>
+                                    <li><a href="#" class="portfolio">physics</a></li>
+                                    <li><a href="#" class="portfolio">open source</a></li>
+                                    <li><a href="#" class="portfolio">multiplatform app</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/textile" target="_blank" class="gradientlink"
+                                    style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+
+                           </article>
+                           <article class="article" style="background-image: url(assets/skylog_web.png)">
+                              <header class="article-title">
+                                 <h2>Skylog</h2>
+                              </header>
+                              <p class="article-description" style="width: 80% !important;">Skylog is a 3D robot,
+                                 which's always listening every public conversation. With artificial intelligence, it
+                                 stores the best quotes sayed by living people in a transitory chat. Each world, a
+                                 little log. Each time, a different sky.
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">3D</a></li>
+                                    <li><a href="#" class="portfolio">OpenAI</a></li>
+                                    <li><a href="#" class="portfolio">Bot</a></li>
+                                    <li><a href="#" class="portfolio">Universe</a></li>
+                                    <li><a href="#" class="portfolio">Sun</a></li>
+                                    <li><a href="#" class="portfolio">Stars</a></li>
+                                    <li><a href="#" class="portfolio">Sky</a></li>
+                                 </ul>
+                                 <a href="http://skylog.space" target="_blank" class="gradientlink"
+                                    style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+                           <article class="article" style="background-image: url(assets/textile_web.png)">
+                              <header class="article-title">
+                                 <h2>Textile Web</h2>
+                              </header>
+                              <p class="article-description">Landing page for people to get to know the native software.
+                                 Motion-technologies were used in this work. In my perception, I really liked the
+                                 result. 2D & 3D.
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">web</a></li>
+                                    <li><a href="#" class="portfolio">2D</a></li>
+                                    <li><a href="#" class="portfolio">3D</a></li>
+                                    <li><a href="#" class="portfolio">Stars</a></li>
+                                    <li><a href="#" class="portfolio">Bird</a></li>
+                                    <li><a href="#" class="portfolio">Mockup</a></li>
+                                    <li><a href="#" class="portfolio">HTML</a></li>
+                                    <li><a href="#" class="portfolio">CSS</a></li>
+                                    <li><a href="#" class="portfolio">JavaScript</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/textile/+" target="_blank" class="gradientlink"
+                                    style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+                           <article class="article" style="background-image: url(assets/timelapse_water.png)">
+                              <header class="article-title">
+                                 <h2>In a strange world</h2>
+                              </header>
+                              <p class="article-description">«Time is relative. It can stretch and it can squeeze,
+                                 but... it can't run backwards. Just can't. The only thing that can move across
+                                 dimensions, like time, is gravity»
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">3D</a></li>
+                                    <li><a href="#" class="portfolio">Interstellar</a></li>
+                                    <li><a href="#" class="portfolio">OceanWorld</a></li>
+                                    <li><a href="#" class="portfolio">Time Disfase</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/portfolio/timelapsestellar" target="_blank"
+                                    class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+                           <article class="article" style="background-image: url(assets/textile_logo_3d.png)">
+                              <header class="article-title">
+                                 <h2>Textile Logo 3D</h2>
+                              </header>
+                              <p class="article-description">Playing around with Blender and Javascript to recreate
+                                 exactly the Textile Logo in 3D. More updates on this soon.
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">Textile</a></li>
+                                    <li><a href="#" class="portfolio">3D</a></li>
+                                    <li><a href="#" class="portfolio">Logo</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/portfolio/textile_logo_3d" target="_blank"
+                                    class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+                           <article class="article" style="background-image: url(assets/cep_web.png)">
+                              <header class="article-title">
+                                 <h2>Centro de Educación Personalizada</h2>
+                              </header>
+                              <p class="article-description">¿Hay o no un creador? ¿Dónde va la luz cuando se apaga?
+                                 Cualquier afirmación o negación cuando se trata del universo, es interesante. CEP es un
+                                 lugar donde profesores y alumnos se reunen a aprender matemáticas, química, física, y
+                                 muchas asignaturas más. Es una esencial ayuda para el universitario e ingresante.
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">universidad</a></li>
+                                    <li><a href="#" class="portfolio">ingenieria</a></li>
+                                    <li><a href="#" class="portfolio">cultura</a></li>
+                                    <li><a href="#" class="portfolio">enseñanza</a></li>
+                                    <li><a href="#" class="portfolio">alumnos</a></li>
+                                    <li><a href="#" class="portfolio">profesores</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/portfolio/CEP" target="_blank" class="gradientlink"
+                                    style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+                           <article class="article" style="background-image: url(assets/heart.png)">
+                              <header class="article-title">
+                                 <h2>A heart for mom</h2>
+                              </header>
+                              <p class="article-description">One day, not long from now, it was the mother's day. I
+                                 didn't have any money to give her a present. Inert and crying in the dark, I decided to
+                                 write a heart for her; which's always beating. I love you mom.
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">mothers</a></li>
+                                    <li><a href="#" class="portfolio">love</a></li>
+                                    <li><a href="#" class="portfolio">heart</a></li>
+                                    <li><a href="#" class="portfolio">present</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/portfolio/heart" target="_blank" class="gradientlink"
+                                    style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+                           <article class="article" style="background-image: url(assets/piano_mattina.png)">
+                              <header class="article-title">
+                                 <h2>3D Piano ─ Una Mattina</h2>
+                              </header>
+                              <p class="article-description">I won't spoil it for you. This Ludovico Einaudi's score
+                                 touched my soul so many times; even more when I play it myself. This time, I wanted to
+                                 make the computer «feel it» the same way. Una Mattina, in an autumn day. There are no
+                                 leaves falling, the music stopped the wind.
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">3D</a></li>
+                                    <li><a href="#" class="portfolio">piano</a></li>
+                                    <li><a href="#" class="portfolio">una mattina</a></li>
+                                    <li><a href="#" class="portfolio">ludovico einaudi</a></li>
+                                    <li><a href="#" class="portfolio">autumn</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/portfolio/autumn" target="_blank" class="gradientlink"
+                                    style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+                           <article class="article" style="background-image: url(assets/storm.png)">
+                              <header class="article-title">
+                                 <h2>Storm</h2>
+                              </header>
+                              <p class="article-description">Nature startles me. Storms might freak out a lot of
+                                 people─even me. But I found them interesting. Watching plasmatic ray transforming their
+                                 way to earth. The background lights for a moment, and in a fraction of that moment,
+                                 thousands of celsius degrees blows into something comparable to a nuclear explosion.
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">storm</a></li>
+                                    <li><a href="#" class="portfolio">ray</a></li>
+                                    <li><a href="#" class="portfolio">plasma</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/portfolio/storm" target="_blank" class="gradientlink"
+                                    style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+                           <article class="article" style="background-image: url(assets/hellrain.png)">
+                              <header class="article-title">
+                                 <h2>Set fire to the sky</h2>
+                              </header>
+                              <p class="article-description">What's falling if the sky is set on fire?
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">3D</a></li>
+                                    <li><a href="#" class="portfolio">rain</a></li>
+                                    <li><a href="#" class="portfolio">red</a></li>
+                                    <li><a href="#" class="portfolio">sky</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/portfolio/hellrain" target="_blank"
+                                    class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+                           <article class="article" style="background-image: url(assets/saturno.png)">
+                              <header class="article-title">
+                                 <h2>Saturn</h2>
+                              </header>
+                              <p class="article-description">Earth is my favorite planet; but there's something about
+                                 Saturn that keeps me tuned. It's spinning so fast you won't ever tell where's a crater.
+                                 In all my ignorance, I wanted to recreate it using 3D Technologies.
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">saturn</a></li>
+                                    <li><a href="#" class="portfolio">the2d</a></li>
+                                    <li><a href="#" class="portfolio">rings</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/portfolio/saturno" target="_blank" class="gradientlink"
+                                    style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+                           <article class="article" style="background-image: url(assets/heliumattom.png)">
+                              <header class="article-title">
+                                 <h2>A helium atom</h2>
+                              </header>
+                              <p class="article-description">A work in progress. Thanks Dalton, Thomsom, Rutherford,
+                                 Bohr, Dirac, ..., for this. They finally found the hair in the egg so precisely that
+                                 changed the world. And others amazing human beings who are continuing studying from the
+                                 biggest thing, to the smallest; which is this: the Atom. And it's neutrons+protons,
+                                 with electrons orbiting around.
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">atom</a></li>
+                                    <li><a href="#" class="portfolio">protons</a></li>
+                                    <li><a href="#" class="portfolio">neutrons</a></li>
+                                    <li><a href="#" class="portfolio">electrons</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/portfolio/atomh" target="_blank" class="gradientlink"
+                                    style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+                           <article class="article" style="background-image: url(assets/puente_colgante.png)">
+                              <header class="article-title">
+                                 <h2>Puente Colgante Santa Fe</h2>
+                              </header>
+                              <p class="article-description">Before graduating from highschool, I saw this bridge every
+                                 single day. A small blink at 6am. A strong glance around 2pm. And a «I see you
+                                 tomorrow» at 7/8/9 pm. For years. Lots of friends, stories and thoughts crossed my mind
+                                 in & around there.
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">argentina</a></li>
+                                    <li><a href="#" class="portfolio">santa fe</a></li>
+                                    <li><a href="#" class="portfolio">puente colgante</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/portfolio/puente_colgante" target="_blank"
+                                    class="gradientlink" style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+                           <article class="article" style="background-image: url(assets/quotes.png)">
+                              <header class="article-title">
+                                 <h2>Quotes</h2>
+                              </header>
+                              <p class="article-description">Sometimes I feel like I can't do something. Like I'm not
+                                 good enough. And that's why I like words, quotes, dialogs, communication: because it
+                                 keeps changing my mind. Over the years, my mind changed so much that I don't think I
+                                 have a personality at all. People can inspire me in so many ways that I know I can be
+                                 better everyday. So I can do it. This project is finished; based in what is now Skylog.
+                              </p>
+                              <footer class="article-footer">
+                                 <ul class="article-footer-categories">
+                                    <li><a href="#" class="portfolio">quotes</a></li>
+                                    <li><a href="#" class="portfolio">feel-good</a></li>
+                                    <li><a href="#" class="portfolio">words</a></li>
+                                 </ul>
+                                 <a href="http://mqtik.github.io/portfolio/quotes" target="_blank" class="gradientlink"
+                                    style="margin-top: 20%;"><span>VISITE</span></a>
+                              </footer>
+                           </article>
+
+                        </section>
+
+
+
+
+
+
+
+
+
+
+
+                     </section>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+                  <div class="page" id="p4">
+
+
+                     <div id="WhoAmI"
+                        style="background-color: rgba(255, 255, 255, 0.01); width:100%;box-shadow: 0 2px 5px rgba(0,0,0,0.075);-webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.075);-moz-box-shadow: 0 2px 5px rgba(0,0,0,0.075);">
+                        <div class="matiassssss">
+                           <div class="avatar-flip">
+                              <img src="assets/mati-image2.jpg" height="150" width="150">
+                              <img src="assets/mati-image.jpg" height="150" width="150">
+
+                           </div>
+                           <h2 style="margin-top: 20px;">My name is Iván Matias... </h2>
+
+                           <p>I began learning to code at 11, <br />since then I've built lots of
+                              projects.<br /><br />
+                              Currently I work at <a href="https://propify.com">Propify</a>,<br /> as well as other projects in my spare-time,<br /> some of them are
+                              available on Stores and on the web.
+                           </p>
+
+                           <hr class="accessory">
+                           </hr>
+                           <a class="socialcontact" href="mailto:m@tias.xyz"><i class="fa fa-at" style="color: #8f4ad4;
+    margin-right: 13px; vertical-align: bottom;"></i>m@tias.xyz</a>
+                           <span class="socialcontact"><i class="fa fa-whatsapp"
+                                 style="color: #5fad2e;margin-right: 13px;vertical-align: bottom;"></i>+54 9 342 5 084
+                              402</span>
+                           <hr class="accessory">
+                           </hr>
+                           <h2>Stack</h2>
+
+                           <ul class="tags" style="width:60%; margin: 0 auto;">
+                              <li class="tag" style="text-transform:none;">JavaScript</li>
+                              <li class="tag" style="text-transform:none;">Node</li>
+                              <li class="tag" style="text-transform:none;">CouchDB</li>
+                              <li class="tag" style="text-transform:none;">Swift</li>
+                              <li class="tag" style="text-transform:none;">Kotlin</li>
+                              <li class="tag" style="text-transform:none;">Java</li>
+                              <li class="tag" style="text-transform:none;">React</li>
+                              <li class="tag" style="text-transform:none;">React Native</li>
+                              <li class="tag" style="text-transform:none;">Angular</li>
+                              <li class="tag" style="text-transform:none;">NativeScript</li>
+                              <li class="tag" style="text-transform:none;">C++</li>
+                              <li class="tag" style="text-transform:none;">Erlang</li>
+                              <li class="tag" style="text-transform:none;">Three.JS</li>
+                              <li class="tag" style="text-transform:none;">Motion</li>
+                              <li class="tag" style="text-transform:none;">Animations</li>
+                              <li class="tag" style="text-transform:none;">DevOps</li>
+                              <li class="tag" style="text-transform:none;">UI/UX</li>
+                              <li class="tag" style="text-transform:none;">HTML</li>
+                              <li class="tag" style="text-transform:none;">CSS</li>
+                              <li class="tag" style="text-transform:none;">Front-End</li>
+                              <li class="tag" style="text-transform:none;">Back-End</li>
+                              <li class="tag" style="text-transform:none;">OS</li>
+                              <li class="tag" style="text-transform:none;">Photoshop</li>
+                              <li class="tag" style="text-transform:none;">Inkscape</li>
+                              <li class="tag" style="text-transform:none;">SQL</li>
+                              <li class="tag" style="text-transform:none;">Blender</li>
+                              <li class="tag" style="text-transform:none;">Others</li>
+                           </ul>
+
+
+                           <hr class="accessory">
+                           </hr>
+                           <p>
+
+                           </p>
+                        </div>
+                     </div>
+
+                     <div class="social-buttons">=<a href="https://github.com/mqtik"
+                           class="social-button github" target="_blank"><i class="fa fa-github-square"></i></a><a href="mailto:
+					m@tias.xyz" class="social-button contact" target="_blank"><i class="fa fa-at"></i></a><a
+                           href="https://www.linkedin.com/in/matikbird" class="social-button linkedin"
+                           target="_blank"><i class="fa fa-linkedin-square"></i></a></div>
+                     <p class="copyright">Copyright &copy; Iván Matías Fort</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </body>
 <div class=container></div>
 <script src='mtkbrd.min.js'></script>
 <script type="text/javascript">
-(function() {
-  'use strict';
-  var randum = function(max) {
-    return Math.round(Math.random() * max);
-  }
-  var hexify = function(x) {
-    return ('0' + parseInt(x).toString(16)).slice(-2);
-  }
-  var randex = function() {
-    return '#' + hexify(randum(255)) + hexify(randum(255)) + hexify(randum(255));
-  };
-  var blender = function(c1, c2) {
-    var p1 = randum(100),
-      p2 = randum(100),
-      deg = randum(360),
-      mode = Math.round(Math.random());
-    c1 = c1 || randex();
-    c2 = c2 || randex();
-    return {
-      blend: (mode > 0 ? 'radial-gradient(circle at ' + p1 + '% ' + p2 + '%, ' + c1 + ', ' + c2 + ')' : 'linear-gradient(' + deg + 'deg, ' + c1 + ', ' + c2 + ')'),
-      c1: c1,
-      c2: c2
-    };
-  };
+   (function () {
+      'use strict';
+      var randum = function (max) {
+         return Math.round(Math.random() * max);
+      }
+      var hexify = function (x) {
+         return ('0' + parseInt(x).toString(16)).slice(-2);
+      }
+      var randex = function () {
+         return '#' + hexify(randum(255)) + hexify(randum(255)) + hexify(randum(255));
+      };
+      var blender = function (c1, c2) {
+         var p1 = randum(100),
+            p2 = randum(100),
+            deg = randum(360),
+            mode = Math.round(Math.random());
+         c1 = c1 || randex();
+         c2 = c2 || randex();
+         return {
+            blend: (mode > 0 ? 'radial-gradient(circle at ' + p1 + '% ' + p2 + '%, ' + c1 + ', ' + c2 + ')' : 'linear-gradient(' + deg + 'deg, ' + c1 + ', ' + c2 + ')'),
+            c1: c1,
+            c2: c2
+         };
+      };
 
-  var a = blender();
-  var b = blender(a.c1);
-  var style = document.createElement('style');
-  var body = document.querySelector('body');
-  var createStyles = function(style, a, b){
-    style.innerHTML = ''
-    style.innerHTML += '.matikb {background: '+a.blend+'}';
-    style.innerHTML += '.matikb::after {background: '+b.blend+'}';
-  };
-  
-  body.appendChild(style);
+      var a = blender();
+      var b = blender(a.c1);
+      var style = document.createElement('style');
+      var body = document.querySelector('body');
+      var createStyles = function (style, a, b) {
+         style.innerHTML = ''
+         style.innerHTML += '.matikb {background: ' + a.blend + '}';
+         style.innerHTML += '.matikb::after {background: ' + b.blend + '}';
+      };
 
-  createStyles(style, a, b);
+      body.appendChild(style);
 
-  var bgTime = setInterval(function() {
-    // a = blender();
-    b = blender();
-    createStyles(style, a, b);
-  }, 6000);
+      createStyles(style, a, b);
+   })();
 
-})();
+   (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+         (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date(); a = s.createElement(o),
+         m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+   })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-87293300-1', 'auto');
-  ga('send', 'pageview');
+   ga('create', 'UA-87293300-1', 'auto');
+   ga('send', 'pageview');
 
 
-</script> </html>
+</script>
+
+</html>
