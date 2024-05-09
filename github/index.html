@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="Iván Matías Fort — GitHub"
+    />
+    <title>Iván Matías Fort — GitHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#212121" />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Inter:300");
+      .web-wrapper {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        color: white;
+        text-align: center;
+        font-family: "Inter", Helvetica, Arial, sans-serif;
+        color: black;
+        cursor: wait;
+      }
+      .web-wrapper .web-title {
+        position: fixed;
+        top: 25%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 2.5em;
+        width: calc(100% - 1rem);
+        z-index: 2;
+        font-size: 2.5rem;
+      }
+      .web-wrapper .web-info {
+        position: fixed;
+        top: 75%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: calc(100% - 1rem);
+      }
+      .web-wrapper a {
+        color: #2575ed;
+        text-decoration: none;
+      }
+
+      .xtnd-center,
+      .web-wrapper .web-loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+
+  <body translate="no">
+    <main class="web-wrapper">
+      <h1 class="web-title">Redirecting&hellip;</h1>
+      <p class="web-info">
+        You’re being redirected to
+        <a href="https://github.com/mqtik"
+          >github.com/mqtik</a
+        >
+      </p>
+    </main>
+
+    <script type="text/javascript">
+      window.location.href = 'https://github.com/mqtik';
+    </script>
+  </body>
+</html>
